@@ -1,7 +1,9 @@
+import UserLayout from "@/layouts/user-layout";
+
 export default function home() {
     return (
-        <div>
-            
-        </div>
+        <UserLayout>
+            <div>home</div>
+        </UserLayout>
     )
 }

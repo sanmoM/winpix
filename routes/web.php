@@ -9,6 +9,10 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
+Route::get('/home', function () {
+    return Inertia::render('home');
+})->name('root');
+
 Route::get('auth-error', function () {
     return view('error');
 })->name('auth.error');

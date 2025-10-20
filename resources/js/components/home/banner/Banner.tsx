@@ -33,16 +33,16 @@ const slides = [
 export default function
   () {
   return (
-    <CustomSlider mobileView={1} desktopView={1}>
+    <CustomSlider mobileView={1} tabletView={1} desktopView={1}>
       {
         slides.map((slide, index) => (
-          <div key={index} className="w-full flex-shrink-0 relative h-screen">
+          <div key={index} className="w-full flex-shrink-0 relative h-[50vh] lg:h-screen">
             <img src={slide.imageUrl} alt={`Banner ${index + 1}`} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-blue-950/50 flex items-center justify-center text-white text-center p-8">
               <div className={``}>
-                <h2 className="title text-6xl font-bold">{slide.title}</h2>
-                <p className="subtitle text-xl mt-4 mb-6 text-gray-200">{slide.subtitle}</p>
-                <a href="#" className={`btn block w-fit mx-auto py-2 px-8 rounded-full ${slide.buttonClass}`}>Join Now</a>
+                <h2 className="title text-3xl md:text-5xl lg:text-6xl font-bold">{slide.title}</h2>
+                <p className="subtitle md:text-lg lg:text-xl mt-2 mb-3 lg:mt-4 md:mt-3 md:mb-4 lg:mb-6 text-gray-200">{slide.subtitle}</p>
+                <a href="#" className={`btn block w-fit mx-auto py-1.5 lg:py-2 px-8 rounded-full ${slide.buttonClass}`}>Join Now</a>
               </div>
             </div>
             {/* <div className='h-screen bg-red-500'></div> */}

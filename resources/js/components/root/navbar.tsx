@@ -9,13 +9,13 @@ export default function Navbar() {
 
 
 
-    const toggleDropdown = (name) => {
+    const toggleDropdown = (name: string) => {
         if (name === 'Discover') {
             setIsDiscoverDropdownOpen(prev => !prev);
         }
     };
 
-    const NavItem = ({ name, href, isDropdown }) => {
+    const NavItem = ({ name, href, isDropdown }: { name: string, href: string, isDropdown: boolean }) => {
         // Shared styling for nav links
         const linkClasses = "text-sm font-medium transition duration-150 ease-in-out hover:text-indigo-400";
 
@@ -47,17 +47,17 @@ export default function Navbar() {
             </a>
         );
     };
-    const navLinks = [
+    const navLinks: { name: string, href?: string, isDropdown?: boolean }[] = [
         { name: 'Discover', isDropdown: true },
         { name: 'Quests', href: '#' },
         { name: 'Store', href: '#' },
         { name: 'Redeem', href: '#' },
     ];
     return (
-        <div className='bg-gray-900/70'>
+        <div className='bg-transparent  left-0 fixed top-0 z-[20] w-full'>
             <Container>
-                <nav className="w-full backdrop-blur-lg  text-gray-200 z-50 shadow-lg">
-                    <div className="mx-auto px-4 sm:px-6 lg:px-8">
+                <nav className="w-full  text-gray-200 z-50">
+                    <div className="mx-auto px-5 md:px-6 lg:px-0 ">
                         <div className="flex items-center justify-between h-16">
 
                             {/* Left Section: Logo and Desktop Links */}
@@ -75,8 +75,8 @@ export default function Navbar() {
                                             <NavItem
                                                 key={link.name}
                                                 name={link.name}
-                                                href={link.href}
-                                                isDropdown={link.isDropdown}
+                                                href={link.href || '#'}
+                                                isDropdown={link.isDropdown || false}
                                             />
                                         ))}
                                     </div>

@@ -9,8 +9,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "./custom-slider.css";
 
-import { cn } from "@/lib/utils";
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 export default function CustomSlider({
     children = [],

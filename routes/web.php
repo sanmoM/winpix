@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AboutController;
 use App\Http\Middleware\RoleMiddleware;
 
 // Route::get('/', function () {
@@ -25,9 +26,10 @@ Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'verified', 'role:admin' ])->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin' ])->prefix('admin')->group(function () {
 
-   Route::get('admin/dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');
+   Route::get('dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');
+   Route::resource('about', AboutController::class)->names('admin.about');
 
 });
 

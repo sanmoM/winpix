@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\HelpController;
 use App\Http\Middleware\RoleMiddleware;
 
 Route::get('/', function () {
@@ -29,6 +30,7 @@ Route::middleware(['auth', 'verified', 'role:admin' ])->prefix('admin')->group(f
 
    Route::get('dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');
    Route::resource('about', AboutController::class)->names('admin.about');
+   Route::resource('help', HelpController::class)->names('admin.help');
 
 });
 

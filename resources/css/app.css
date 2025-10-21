@@ -59,10 +59,14 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+    
+    /* custom color */
+    --color-primary-color: #3069FF;
+    --color-secondary-color: #E23882;
 }
 
 :root {
-    --background: oklch(1 0 0);
+    --background: oklch(97.614% 0.00011 271.152);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
@@ -98,7 +102,7 @@
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
+    --background: oklch(11.915% 0.04928 293.8);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.145 0 0);
     --card-foreground: oklch(0.985 0 0);

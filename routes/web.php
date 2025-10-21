@@ -5,13 +5,13 @@ use Inertia\Inertia;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Middleware\RoleMiddleware;
 
-Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return Inertia::render('welcome');
+// })->name('home');
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return Inertia::render('home');
-})->name('root');
+})->name('home');
 
 Route::get('auth-error', function () {
     return view('error');

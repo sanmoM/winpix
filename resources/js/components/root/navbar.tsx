@@ -1,14 +1,18 @@
 
+import { cn } from '@/lib/utils';
+import { dashboard, login, register } from '@/routes';
+import { type SharedData } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { FiMenu } from "react-icons/fi";
 import { IoIosArrowDown, IoMdClose } from "react-icons/io";
 import Container from "../shared/container";
-import { cn } from '@/lib/utils';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDiscoverDropdownOpen, setIsDiscoverDropdownOpen] = useState(false);
   const [top, setTop] = useState(0);
+  const { auth } = usePage<SharedData>().props;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,8 +94,8 @@ export default function Navbar() {
 
               {/* Right Section: Auth Buttons (Desktop) */}
               <div className="hidden md:flex items-center space-x-4">
-                <a href="#" className="text-sm font-medium hover:text-indigo-400 transition duration-150 ease-in-out">Login</a>
-                <button className={cn("px-4 py-2 text-sm font-semibold bg-white text-gray-900 rounded-full hover:bg-gray-100 transition duration-150 ease-in-out border-2 border-white", top <= 0 ? 'text-black bg-white' : 'text-white bg-blue-500')}>Sign up</button>
+                <Link href={login()} className="text-sm font-medium hover:text-indigo-400 transition duration-150 ease-in-out">Login</Link>
+                <Link href={register()} className={cn("px-4 py-2 text-sm font-semibold bg-white text-gray-900 rounded-full hover:bg-gray-100 transition duration-150 ease-in-out border-2 border-white", top <= 0 ? 'text-black bg-white' : 'text-white bg-blue-500')}>Sign up</Link>
               </div>
 
               {/* Mobile Menu Button */}

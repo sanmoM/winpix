@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { LayoutGrid, UserPlus } from 'lucide-react';
+import { LayoutGrid, ServerIcon, UserPlus } from 'lucide-react';
 import { route } from 'ziggy-js';
 import AppLogo from './app-logo';
 
@@ -37,6 +37,11 @@ export function AppSidebar() {
             title: 'About',
             href: route('admin.about.index'),
             icon: UserPlus,
+        },
+        {
+            title: 'Help',
+            href: route('admin.help.index'),
+            icon: ServerIcon,
         },
     ];
 

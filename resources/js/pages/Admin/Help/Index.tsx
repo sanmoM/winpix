@@ -8,15 +8,16 @@ import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'About',
-        href: 'admin/about',
+        title: 'Help',
+        href: 'admin/help',
     },
 ];
 
-interface AboutItem {
+interface HelpItem {
     id: number;
-    title: string;
-    picture: string | null;
+    section: string;
+    question: string;
+    answer: string;
     status: string;
 }
 
@@ -29,7 +30,7 @@ export default function Index({
     items,
     flash,
 }: {
-    items: AboutItem[];
+    items: HelpItem[];
     flash: FlashProps;
 }) {
     useEffect(() => {
@@ -45,7 +46,7 @@ export default function Index({
     const handleDelete = (id: number) => {
         if (!confirm('Are you sure you want to delete this item?')) return;
 
-        router.delete(route('admin.about.destroy', id));
+        router.delete(route('admin.help.destroy', id));
     };
 
     return (
@@ -54,9 +55,9 @@ export default function Index({
             <Head title="About" />
 
             <div className="mb-4 flex items-center justify-between">
-                <h1 className="text-lg font-semibold">About Items</h1>
+                <h1 className="text-lg font-semibold">Question Items</h1>
                 <Link
-                    href={route('admin.about.create')}
+                    href={route('admin.help.create')}
                     className="rounded bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
                 >
                     Create
@@ -67,8 +68,9 @@ export default function Index({
                     <thead className="bg-amber-600 text-white">
                         <tr>
                             <th className="px-4 py-3">#</th>
-                            <th className="px-4 py-3">Image</th>
-                            <th className="px-4 py-3">Title</th>
+                            <th className="px-4 py-3">Section</th>
+                            <th className="px-4 py-3">Question</th>
+                            <th className="px-4 py-3">Answer</th>
                             <th className="px-4 py-3">Status</th>
                             <th className="px-4 py-3 text-right">Actions</th>
                         </tr>
@@ -84,19 +86,14 @@ export default function Index({
                                         {index + 1}
                                     </td>
                                     <td className="px-4 py-3">
-                                        {item.picture ? (
-                                            <img
-                                                src={`localhost:8000/storage/uploads/about/${item.picture}`}
-                                                alt={item.title}
-                                                className="h-10 w-10 rounded object-cover"
-                                            />
-                                        ) : (
-                                            <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
-                                                —
-                                            </div>
-                                        )}
+                                        {item?.section}
                                     </td>
-                                    <td className="px-4 py-3">{item?.title}</td>
+                                    <td className="px-4 py-3">
+                                        {item?.question}
+                                    </td>
+                                    <td className="px-4 py-3">
+                                        {item?.answer}
+                                    </td>
                                     <td className="px-4 py-3">
                                         <Badge
                                             className={
@@ -111,8 +108,8 @@ export default function Index({
                                     <td className="space-x-3 px-4 py-3 text-right">
                                         <Link
                                             href={route(
-                                                'admin.about.edit',
-                                                item?.id,
+                                                'admin.help.edit',
+                                                item.id,
                                             )}
                                             className="bg-dark cursor-pointer rounded-md bg-slate-800 px-3 py-2 font-medium text-white"
                                         >

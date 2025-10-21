@@ -40,7 +40,7 @@ export default function Navbar() {
   ];
 
   const NavItem = ({ name, href, isDropdown }: { name: string, href?: string, isDropdown?: boolean }) => {
-    const linkClasses = "text-sm font-medium transition duration-150 ease-in-out hover:text-gray-300";
+    const linkClasses = "font-medium transition duration-150 ease-in-out hover:text-gray-300";
 
     if (isDropdown) {
       return (
@@ -53,9 +53,9 @@ export default function Navbar() {
 
           {/* Desktop Dropdown */}
           <div className="absolute left-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-xl overflow-hidden md:min-w-[150px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-            <a href="#" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Browse Games</a>
-            <a href="#" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Partners</a>
-            <a href="#" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Community Hub</a>
+            <a href="#" className="block px-4 py-2 text-gray-300 hover:bg-gray-700">Browse Games</a>
+            <a href="#" className="block px-4 py-2 text-gray-300 hover:bg-gray-700">Partners</a>
+            <a href="#" className="block px-4 py-2 text-gray-300 hover:bg-gray-700">Community Hub</a>
           </div>
         </div>
       );
@@ -65,7 +65,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className={cn(' left-0 fixed top-0 z-[20] w-full', top <= 0 ? 'bg-transparent text-white' : ' bg-white dark:bg-black')}>
+    <div className={cn(' left-0 fixed top-0 z-[20] w-full py-3', top <= 0 ? 'bg-transparent text-white' : ' bg-white dark:bg-black')}>
       <Container>
         <nav className="w-full z-50">
           <div className="">
@@ -91,9 +91,8 @@ export default function Navbar() {
 
               {/* Right Section: Auth Buttons (Desktop) */}
               <div className="hidden md:flex items-center space-x-4">
-                <Link href={login()} className="text-sm font-medium hover:text-indigo-400 transition duration-150 ease-in-out">Login</Link>
-                {/* <Link href={register()} className={cn("px-4 py-2 text-sm font-semibold text-white rounded-full transition duration-150 ease-in-out bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))]")}>Sign up</Link> */}
-                <Link href={register()}><Button text="Sign up" /></Link>
+                <Link href={login()} className=" font-medium hover:text-indigo-400 transition duration-150 ease-in-out">Login</Link>
+                <Link href={register()}><Button text="Sign up" className='px-8' /></Link>
               </div>
 
               {/* Mobile Menu Button */}
@@ -131,9 +130,9 @@ export default function Navbar() {
                     {/* Mobile Dropdown */}
                     {link.isDropdown && isDiscoverDropdownOpen && (
                       <div className="lg:pl-6 pt-1 pb-1 space-y-1 bg-gray-900/90 rounded-md">
-                        <a href="#" className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 rounded-md">Browse Games</a>
-                        <a href="#" className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 rounded-md">Partners</a>
-                        <a href="#" className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 rounded-md">Community Hub</a>
+                        <a href="#" className="block px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-md">Browse Games</a>
+                        <a href="#" className="block px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-md">Partners</a>
+                        <a href="#" className="block px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-md">Community Hub</a>
                       </div>
                     )}
                   </div>

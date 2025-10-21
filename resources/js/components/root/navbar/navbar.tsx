@@ -9,11 +9,14 @@ import Button from "../../shared/button";
 import Container from "../../shared/container";
 import Logo from "../../shared/logo";
 import NavItem from "./components/nav-item";
+import Modal from "@/components/shared/modal";
+import StoreModalContents from "@/components/root/store-modal-contents";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [top, setTop] = useState(0);
   const { auth } = usePage<SharedData>().props;
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -24,9 +27,8 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 🧠 Close mobile menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: Event) => {
       if (
         isMenuOpen &&
         menuRef.current &&
@@ -39,6 +41,7 @@ export default function Navbar() {
 
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("touchstart", handleClickOutside);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
@@ -57,7 +60,7 @@ export default function Navbar() {
       ],
     },
     { name: "Quests", href: "#" },
-    { name: "Store", href: "#" },
+    { name: "Store", type: "button", onClick: () => setModalIsOpen(true) },
     { name: "Redeem", href: "#" },
   ];
 
@@ -87,6 +90,8 @@ export default function Navbar() {
                       isDropdown={link.isDropdown}
                       dropdownItems={link.dropdownItems}
                       variant="desktop"
+                      type={link.type as "button" | "link"}
+                      onClick={link.onClick}
                     />
                   ))}
                 </div>
@@ -179,6 +184,12 @@ export default function Navbar() {
           )}
         </nav>
       </Container>
+
+
+      {/* modals */}
+      <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} title="Store">
+        <StoreModalContents />
+      </Modal>
     </div>
   );
 }

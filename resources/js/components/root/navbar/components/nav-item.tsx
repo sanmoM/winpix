@@ -13,6 +13,8 @@ interface NavItemProps {
     isDropdown?: boolean;
     dropdownItems?: DropdownItem[];
     variant?: "desktop" | "mobile";
+    type?: "button" | "link";
+    onClick?: () => void;
 }
 
 export default function NavItem({
@@ -21,6 +23,8 @@ export default function NavItem({
     isDropdown = false,
     dropdownItems = [],
     variant = "desktop",
+    type = "link",
+    onClick,
 }: NavItemProps) {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -47,8 +51,8 @@ export default function NavItem({
                         {/* Dropdown */}
                         <div
                             className={`absolute left-0 mt-2 w-48 bg-white dark:bg-black rounded-lg shadow-xl overflow-hidden transition-all duration-200 ease-in-out ${isOpen
-                                    ? "opacity-100 translate-y-0 visible"
-                                    : "opacity-0 -translate-y-2 invisible"
+                                ? "opacity-100 translate-y-0 visible"
+                                : "opacity-0 -translate-y-2 invisible"
                                 }`}
                         >
                             {dropdownItems.map((item) => (
@@ -63,9 +67,18 @@ export default function NavItem({
                         </div>
                     </>
                 ) : (
-                    <Link href={href} className="font-medium hover:opacity-80">
-                        {name}
-                    </Link>
+                    <>
+                        {
+                            type === "button" ?
+                                <button onClick={onClick} className="font-medium hover:opacity-80 cursor-pointer">
+                                    {name}
+                                </button>
+                                :
+                                <Link href={href} className="font-medium hover:opacity-80">
+                                    {name}
+                                </Link>
+                        }
+                    </>
                 )}
             </div>
         );

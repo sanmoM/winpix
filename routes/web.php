@@ -9,6 +9,9 @@ use App\Http\Middleware\RoleMiddleware;
 Route::get('/', function () {
     return Inertia::render('home');
 })->name('home');
+Route::get('/store', function () {
+    return Inertia::render('store');
+})->name('store');
 
 Route::get('auth-error', function () {
     return view('error');

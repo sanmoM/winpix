@@ -7,12 +7,8 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Middleware\RoleMiddleware;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('home');
-
-Route::get('/home', function () {
     return Inertia::render('home');
-})->name('root');
+})->name('home');
 
 Route::get('auth-error', function () {
     return view('error');

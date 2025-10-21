@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { FiMenu } from "react-icons/fi";
 import { IoIosArrowDown, IoMdClose } from "react-icons/io";
 import Container from "../shared/container";
+import Logo from "../shared/logo";
+import Button from "../shared/button";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -63,7 +65,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className={cn(' left-0 fixed top-0 z-[20] w-full', top <= 0 ? 'bg-transparent text-white' : 'bg-white text-black')}>
+    <div className={cn(' left-0 fixed top-0 z-[20] w-full', top <= 0 ? 'bg-transparent text-white' : ' bg-white dark:bg-black')}>
       <Container>
         <nav className="w-full z-50">
           <div className="">
@@ -71,12 +73,7 @@ export default function Navbar() {
 
               {/* Left Section: Logo and Desktop Links */}
               <div className="flex items-center">
-                <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center p-1">
-                    <span className=" font-black text-xl leading-none text-white" style={{ fontFamily: 'Inter, sans-serif' }}>W</span>
-                  </div>
-                  <span className="text-xl font-bold tracking-wider  hidden sm:block">WULF.gg</span>
-                </div>
+                <Logo />
 
                 <div className="hidden md:block ml-10">
                   <div className="flex items-baseline space-x-6">
@@ -95,7 +92,8 @@ export default function Navbar() {
               {/* Right Section: Auth Buttons (Desktop) */}
               <div className="hidden md:flex items-center space-x-4">
                 <Link href={login()} className="text-sm font-medium hover:text-indigo-400 transition duration-150 ease-in-out">Login</Link>
-                <Link href={register()} className={cn("px-4 py-2 text-sm font-semibold bg-white text-gray-900 rounded-full hover:bg-gray-100 transition duration-150 ease-in-out border-2 border-white", top <= 0 ? 'text-black bg-white' : 'text-white bg-blue-500')}>Sign up</Link>
+                {/* <Link href={register()} className={cn("px-4 py-2 text-sm font-semibold text-white rounded-full transition duration-150 ease-in-out bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))]")}>Sign up</Link> */}
+                <Link href={register()}><Button text="Sign up" /></Link>
               </div>
 
               {/* Mobile Menu Button */}

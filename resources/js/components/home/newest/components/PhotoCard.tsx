@@ -1,19 +1,26 @@
 import { TbTrophyFilled } from "react-icons/tb";
 
+type PhotoCardItem = {
+    imageUrl: string,
+    title: string,
+    subtitle: string,
+    buttonText: string,
+    buttonClass: string
+}
 
-export default function PhotoCard() {
+export default function PhotoCard({ item }: { item: PhotoCardItem }) {
     return (
         <div className="relative w-full rounded-2xl overflow-hidden group cursor-pointer">
 
             {/* Background Image */}
             <img
-                src="/images/banner-1.jpg"
+                src={item.imageUrl}
                 alt="Dochula Pass in Bhutan with a dog"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
             <div className="absolute bg-black/30 inset-0 w-full h-cull"></div>
             {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-blue-950/40" />
 
             {/* Top Content */}
             <div className="absolute top-0 right-0 p-4">

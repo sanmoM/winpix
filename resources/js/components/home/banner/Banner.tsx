@@ -1,3 +1,4 @@
+import Button from '@/components/shared/button';
 import CustomSlider from '../../shared/custom-slider/CustomSlider'
 import "./banner.css"
 
@@ -42,10 +43,9 @@ export default function
               <div className={``}>
                 <h2 className="title text-3xl md:text-5xl lg:text-6xl font-bold">{slide.title}</h2>
                 <p className="subtitle md:text-lg lg:text-xl mt-2 mb-3 lg:mt-4 md:mt-3 md:mb-4 lg:mb-6 text-gray-200">{slide.subtitle}</p>
-                <a href="#" className={`btn block w-fit mx-auto py-1.5 lg:py-2 px-8 rounded-full ${slide.buttonClass}`}>Join Now</a>
+                <Button text="Join Now" className='px-10 py-3' />
               </div>
             </div>
-            {/* <div className='h-screen bg-red-500'></div> */}
           </div>
         ))
       }

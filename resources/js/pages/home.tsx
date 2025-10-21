@@ -3,6 +3,7 @@ import UserLayout from "@/layouts/user-layout";
 import Banner from "../components/home/banner/Banner";
 import Newest from "../components/home/newest/Newest";
 import Gallery from "../components/home/Gallery";
+import GetApp from "../components/home/get-app";
 
 export default function home() {
     return (
@@ -12,6 +13,7 @@ export default function home() {
                 <Newest />
                 <Gallery />
             </Container>
+            <GetApp />
 
         </UserLayout>
     )

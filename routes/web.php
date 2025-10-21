@@ -6,10 +6,6 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Middleware\RoleMiddleware;
 
-// Route::get('/', function () {
-//     return Inertia::render('welcome');
-// })->name('home');
-
 Route::get('/', function () {
     return Inertia::render('home');
 })->name('home');

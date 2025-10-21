@@ -28,9 +28,9 @@ export default function PhotoCard() {
                 <div className="flex justify-between items-end">
                     <div>
                         <h2 className="text-2xl font-bold mb-2">Posing Dogs</h2>
-                        <div className="items-center border rounded-full flex justify-center gap-2 w-fit px-4 py-1">
+                        <div className="items-center border border-white rounded-full flex justify-center gap-2 w-fit px-4 py-1">
                             <TbTrophyFilled />
-                            <span className="text-sm font-medium">50 USD</span>
+                            <span className="text-sm font-medium ">50 USD</span>
                         </div>
                     </div>
                     <span className="text-white bg-white/10 px-4 py-1 rounded-full backdrop-blur-[3px] text-sm font-semibold tracking-wider">@polatina</span>

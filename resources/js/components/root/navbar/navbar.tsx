@@ -17,6 +17,7 @@ export default function Navbar() {
   const [top, setTop] = useState(0);
   const { auth } = usePage<SharedData>().props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { url } = usePage(); 
 
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -60,7 +61,7 @@ export default function Navbar() {
       ],
     },
     { name: "Quests", href: "#" },
-    { name: "Store", type: "button", onClick: () => setModalIsOpen(true) },
+    { name: "Store", href: "/store" },
     { name: "Redeem", href: "#" },
   ];
 
@@ -68,7 +69,7 @@ export default function Navbar() {
     <div
       className={cn(
         "fixed left-0 top-0 z-[20] w-full py-1.5 md:py-3",
-        top <= 0 ? "bg-transparent text-white" : "bg-white dark:bg-black"
+        top <= 0 ? "bg-transparent text-white" : "bg-white dark:bg-black", url !== "/" && "sticky top-0 bg-white dark:bg-black text-black dark:text-white"
       )}
     >
       <Container>
@@ -90,8 +91,6 @@ export default function Navbar() {
                       isDropdown={link.isDropdown}
                       dropdownItems={link.dropdownItems}
                       variant="desktop"
-                      type={link.type as "button" | "link"}
-                      onClick={link.onClick}
                     />
                   ))}
                 </div>

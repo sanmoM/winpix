@@ -14,7 +14,10 @@ class AboutController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/About/Index');
+        $items = About::all();
+        return Inertia::render('Admin/About/Index',[
+            'items' => $items
+        ]);
     }
 
     /**
@@ -40,8 +43,8 @@ class AboutController extends Controller
         if ($request->hasFile('picture')) {
 
             $file = $request->file('picture');
-            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('about_images', $filename);
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('uploads/about', $filename, 'public');
             $validated['picture'] = $filename;
 
         }
@@ -67,7 +70,10 @@ class AboutController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $item = About::findOrFail($id);
+        return Inertia::render('Admin/About/Edit', [
+            'item' => $item,
+        ]);
     }
 
     /**
@@ -75,14 +81,54 @@ class AboutController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $item = About::findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'picture' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('picture')) {
+
+            $file = $request->file('picture');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('uploads/about', $filename, 'public');
+            $validated['picture'] = $filename;
+
+            if ($item->picture && file_exists(storage_path('uploads/about/' . $item->picture))) {
+                unlink(storage_path('uploads/about/' . $item->picture));
+            }
+        }
+       else
+       {
+        $validated['picture'] = $item->picture;
+       }
+
+        $item->update($validated);
+
+        return redirect()
+            ->route('admin.about.index')
+            ->with('success', 'About data updated successfully 🎉');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $about = About::findOrFail($id);
+
+        // Delete image if exists
+        if ($about->picture && file_exists(storage_path('app/public/uploads/about/' . $about->picture))) {
+            unlink(storage_path('app/public/uploads/about/' . $about->picture));
+        }
+
+        $about->delete();
+
+        return redirect()
+            ->back()
+            ->with('success', 'About item deleted successfully 🎉');
     }
 }

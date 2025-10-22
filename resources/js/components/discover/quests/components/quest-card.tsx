@@ -31,7 +31,7 @@ function QuestCard({ quest }: QuestCardProps) {
                 {/* Time Left Badge */}
                 <div className="absolute top-3 left-3 flex items-center gap-2 bg-white/50 dark:bg-black/50 backdrop-blur-[2px] px-3 py-1.5 rounded-full">
                     <Clock className="w-4 h-4 text-black dark:text-white" />
-                    <span className="text-xs font-semibold text-white">{quest.timeLeft}</span>
+                    <span className="text-xs font-semibold">{quest.timeLeft}</span>
                 </div>
 
                 {/* Category Badge */}

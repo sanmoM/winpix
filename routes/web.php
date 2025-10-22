@@ -20,6 +20,10 @@ Route::get('/redeem', function () {
     return Inertia::render('redeem');
 })->name('redeem');
 
+Route::get('/quests/active', function () {
+    return Inertia::render('quests/active');
+})->name('active-quests');
+
 Route::get('/discover', [DiscoverController::class, 'discover'])->name('discover');
 
 Route::get('auth-error', function () {

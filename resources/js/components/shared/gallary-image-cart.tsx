@@ -30,7 +30,7 @@ export default function GalleryImageCart({ src, aspect, className }: any) {
             {/* User info */}
             <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 duration-300">
                 <img
-                    className="h-12 w-12 rounded-full object-cover"
+                    className="h-10 w-10 rounded-full object-cover"
                     src={src}
                     alt={`User avatar`}
                 />

@@ -61,7 +61,7 @@ const podiumData = [
         avatar: 'https://placehold.co/100x100/E0E0E0/707070?text=Rank+2',
         order: 'order-2 md:order-1',
         shadow: 'shadow-[0_0_20px_0_rgba(192,192,192,0.4)]', // silver shadow
-        borderColor: `!border-primary-color/50`,
+        borderColor: `!border-secondary-color/50`,
         medalBg: `bg-primary-color`,
         medalColor: `text-black dark:text-white`,
         medalBorder: `border-black dark:border-white`,

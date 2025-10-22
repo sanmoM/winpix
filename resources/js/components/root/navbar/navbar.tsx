@@ -1,16 +1,16 @@
+import StoreModalContents from "@/components/root/store-modal-contents";
+import Modal from "@/components/shared/modal";
 import { cn } from "@/lib/utils";
 import { dashboard, login, register } from "@/routes";
 import { type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 import { FiMenu } from "react-icons/fi";
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose, IoMdNotificationsOutline } from "react-icons/io";
 import Button from "../../shared/button";
 import Container from "../../shared/container";
 import Logo from "../../shared/logo";
 import NavItem from "./components/nav-item";
-import Modal from "@/components/shared/modal";
-import StoreModalContents from "@/components/root/store-modal-contents";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,9 +58,10 @@ export default function Navbar() {
     {
       name: "Quests", isDropdown: true,
       dropdownItems: [
-        { name: "Browse Games", href: "#" },
-        { name: "Partners", href: "#" },
-        { name: "Community Hub", href: "#" },
+        { name: "Active", href: "/quests/active" },
+        { name: "Quest Series", href: "#" },
+        { name: "Entered", href: "#" },
+        { name: "Ended", href: "#" },
       ],
     },
     { name: "Store", href: "/store" },
@@ -111,6 +112,7 @@ export default function Navbar() {
                     <img src="/images/coin.png" alt="" className="w-4 h-4" />
                     <p>0</p>
                   </div>
+                  <IoMdNotificationsOutline className="w-6 h-6 text-black dark:text-white cursor-pointer hover:text-primary-color" />
                   <Link href={dashboard()} className="font-medium hover:text-primary-color">
                     Dashboard
                   </Link>

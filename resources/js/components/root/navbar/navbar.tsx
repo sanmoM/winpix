@@ -72,7 +72,7 @@ export default function Navbar() {
     <div
       className={cn(
         "fixed left-0 top-0 z-[20] w-full py-1.5 md:py-3",
-        top <= 0 ? "bg-transparent text-white" : "bg-bg-primary dark:bg-bg-primary", url !== "/" && "sticky top-0 bg-bg-primary dark:bg-bg-primary text-black dark:text-white"
+        top <= 0 ? "bg-transparent text-white" : "bg-bg-primary dark:bg-bg-primary", (url !== "/" && url !== "/quests/active") && "sticky top-0 bg-bg-primary dark:bg-bg-primary text-black dark:text-white"
       )}
     >
       <Container>
@@ -106,13 +106,13 @@ export default function Navbar() {
                 <>
                   <div className="flex items-center gap-2">
                     <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
-                    <p>0</p>
+                    <p>10</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <img src="/images/coin.png" alt="" className="w-4 h-4" />
-                    <p>0</p>
+                    <p>200</p>
                   </div>
-                  <IoMdNotificationsOutline className="w-6 h-6 text-black dark:text-white cursor-pointer hover:text-primary-color" />
+                  <IoMdNotificationsOutline className="w-6 h-6 cursor-pointer hover:text-primary-color" />
                   <Link href={dashboard()} className="font-medium hover:text-primary-color">
                     Dashboard
                   </Link>

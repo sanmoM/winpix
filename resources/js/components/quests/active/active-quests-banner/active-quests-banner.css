@@ -1,0 +1,48 @@
+/* Default hidden state */
+.swiper-slide .title,
+.swiper-slide .info,
+.swiper-slide .description,
+.swiper-slide .prize-pool,
+.swiper-slide .buttons{
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+/* Active slide animation */
+.swiper-slide-active .title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.7s;
+    /* match your previous Tailwind delays */
+}
+
+.swiper-slide-active .info {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 1s;
+}
+
+.swiper-slide-active .description {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 1.3s;
+}
+
+.swiper-slide-active .prize-pool {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 1.6s;
+}
+
+.swiper-slide-active .buttons {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 2s;
+}
+
+/* Optional hover effect for button */
+.swiper-slide-active .btn:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}

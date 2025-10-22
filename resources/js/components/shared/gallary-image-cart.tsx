@@ -16,13 +16,13 @@ export default function GalleryImageCart({ src, aspect, className }: any) {
 
             {/* Overlay buttons */}
             <div className="absolute inset-0 bg-blue-950/50 flex items-center justify-center transition-all rounded-lg gap-2 opacity-0 group-hover:opacity-100 duration-300">
-                <div className="bg-[var(--color-primary-color)] p-3 rounded-full">
+                <div className="bg-secondary-color p-3 rounded-full">
                     <FaRegHeart className="text-xl text-white" />
                 </div>
-                <div className="bg-[var(--color-primary-color)] p-3 rounded-full">
+                <div className="bg-secondary-color p-3 rounded-full">
                     <LuShare2 className="text-xl text-white" />
                 </div>
-                <div className="bg-[var(--color-primary-color)] p-3 rounded-full">
+                <div className="bg-secondary-color p-3 rounded-full">
                     <GrFlag className="text-xl text-white" />
                 </div>
             </div>

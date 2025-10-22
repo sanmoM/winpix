@@ -1,7 +1,3 @@
-import React from "react";
-import Button from "../shared/button";
-import SectionHeading from "../shared/SectionHeading";
-
 interface User {
     rank: number;
     name: string;
@@ -11,19 +7,7 @@ interface User {
     status: "new" | "up" | "down" | "stable";
 }
 
-const mockData: User[] = [
-    { rank: 1, name: "Aurora Nova", score: 5890, followers: 125000, profile: "https://placehold.co/40x40/FFD700/000?text=AN", status: "new" },
-    { rank: 2, name: "Kaito Genji", score: 5321, followers: 98000, profile: "https://placehold.co/40x40/C0C0C0/000?text=KG", status: "up" },
-    { rank: 3, name: "Seraphina Sky", score: 4987, followers: 75000, profile: "https://placehold.co/40x40/CD7F32/000?text=SS", status: "down" },
-    { rank: 4, name: "Marcus Tech", score: 4210, followers: 52000, profile: "https://placehold.co/40x40/6B7280/FFF?text=MT", status: "stable" },
-    { rank: 5, name: "Elara Code", score: 3950, followers: 45000, profile: "https://placehold.co/40x40/6B7280/FFF?text=EC", status: "up" },
-    { rank: 6, name: "Jordan Smith", score: 3105, followers: 32000, profile: "https://placehold.co/40x40/6B7280/FFF?text=JS", status: "stable" },
-    { rank: 7, name: "Zoe Designs", score: 2888, followers: 28000, profile: "https://placehold.co/40x40/6B7280/FFF?text=ZD", status: "down" },
-    { rank: 8, name: "Finn Pixel", score: 2501, followers: 19000, profile: "https://placehold.co/40x40/6B7280/FFF?text=FP", status: "stable" },
-    { rank: 9, name: "Lina Art", score: 2120, followers: 15000, profile: "https://placehold.co/40x40/6B7280/FFF?text=LA", status: "up" },
-];
-
-// Utility functions with theme awareness
+// // Utility functions with theme awareness
 const getRankStyle = (rank: number): string => {
     if (rank === 1) return "bg-yellow-100 dark:bg-yellow-900/50 border-l-4 border-yellow-500";
     if (rank === 2) return "bg-gray-200 dark:bg-gray-700/50 border-l-4 border-gray-400";
@@ -44,6 +28,107 @@ interface StatusBadge {
     color: string;
 }
 
+
+import SectionHeading from '../shared/SectionHeading';
+
+// --- Icon Components ---
+// We define these as separate components to keep the main JSX clean.
+
+const ScoreIcon = () => (
+    <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+    </svg>
+);
+
+const GoldStarIcon = () => (
+    <svg className="w-8 h-8 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+    </svg>
+);
+
+const BronzeShieldIcon = () => (
+    <svg className="w-6 h-6 text-yellow-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+    </svg>
+);
+
+const podiumData = [
+    {
+        rank: 2,
+        name: 'MariaK',
+        followers: '820 Followers',
+        score: '8750',
+        avatar: 'https://placehold.co/100x100/E0E0E0/707070?text=Rank+2',
+        order: 'order-2 md:order-1',
+        shadow: 'shadow-[0_0_20px_0_rgba(192,192,192,0.4)]', // silver shadow
+        borderColor: `border-primary-color`,
+        medalBg: `bg-primary-color`,
+        medalColor: `text-black dark:text-white`,
+        medalBorder: `border-black dark:border-white`,
+        medalPos: '-top-5 -left-5',
+        avatarSize: 'w-24 h-24',
+        medalSize: 'w-14 h-14',
+        medalText: 'text-2xl',
+        cardPadding: 'p-6',
+        avatarMargin: '-mt-12',
+        scoreIcon: <ScoreIcon />,
+        scoreSize: 'text-3xl'
+    },
+    {
+        rank: 1,
+        name: 'AlexTheGreat',
+        followers: '1.2k Followers',
+        score: '9210',
+        avatar: 'https://placehold.co/120x120/404040/FFFFFF?text=Rank+1',
+        order: 'order-1 md:order-2',
+        shadow: 'shadow-[0_0_25px_0_rgba(255,215,0,0.4)]', // gold shadow
+        borderColor: `border-secondary-color`,
+        medalBg: `bg-secondary-color`,
+        medalColor: `text-black dark:text-white`,
+        medalBorder: 'border-black dark:border-white',
+        medalPos: '-top-7 -left-7',
+        avatarSize: 'w-32 h-32',
+        medalSize: 'w-16 h-16',
+        medalText: 'text-3xl',
+        cardPadding: 'p-8',
+        avatarMargin: '-mt-16',
+        scoreIcon: <GoldStarIcon />,
+        scoreSize: 'text-4xl'
+    },
+    {
+        rank: 3,
+        name: 'CodeNinja',
+        followers: '451 Followers',
+        score: '8100',
+        avatar: 'https://placehold.co/100x100/F0D9B5/8D6E63?text=Rank+3',
+        order: 'order-3 md:order-3',
+        shadow: 'shadow-[0_0_15px_0_rgba(205,127,50,0.4)]', // bronze shadow
+        borderColor: 'border-black dark:border-white',
+        medalBg: 'bg-black dark:bg-white',
+        medalColor: 'text-white dark:text-black',
+        medalBorder: 'border-black dark:border-white',
+        medalPos: '-top-5 -right-5',
+        avatarSize: 'w-24 h-24',
+        medalSize: 'w-14 h-14',
+        medalText: 'text-2xl',
+        cardPadding: 'p-6',
+        avatarMargin: '-mt-12',
+        scoreIcon: <BronzeShieldIcon />,
+        scoreSize: 'text-3xl'
+    }
+];
+
+
+const mockData: User[] = [
+    { rank: 4, name: "Marcus Tech", score: 4210, followers: 52000, profile: "https://placehold.co/40x40/6B7280/FFF?text=MT", status: "stable" },
+    { rank: 5, name: "Elara Code", score: 3950, followers: 45000, profile: "https://placehold.co/40x40/6B7280/FFF?text=EC", status: "up" },
+    { rank: 6, name: "Jordan Smith", score: 3105, followers: 32000, profile: "https://placehold.co/40x40/6B7280/FFF?text=JS", status: "stable" },
+    { rank: 7, name: "Zoe Designs", score: 2888, followers: 28000, profile: "https://placehold.co/40x40/6B7280/FFF?text=ZD", status: "down" },
+    { rank: 8, name: "Finn Pixel", score: 2501, followers: 19000, profile: "https://placehold.co/40x40/6B7280/FFF?text=FP", status: "stable" },
+    { rank: 9, name: "Lina Art", score: 2120, followers: 15000, profile: "https://placehold.co/40x40/6B7280/FFF?text=LA", status: "up" },
+];
+// --- Helper Component for Trend ---
+
 const getStatusBadge = (status: User["status"]): StatusBadge => {
     switch (status) {
         case "new":
@@ -57,16 +142,56 @@ const getStatusBadge = (status: User["status"]): StatusBadge => {
     }
 };
 
-const Leaderboard: React.FC = () => {
-    return (
-        <div className="w-full  bg-white dark:bg-black rounded-xl shadow-2xl p-6 md:p-8 transition-colors duration-500">
-            <SectionHeading title="Global Creators Ranking" />
-            <p className="text-gray-600 dark:text-gray-400 text-center mb-8">
-                Top performers based on design score and community engagement.
-            </p>
+// --- Main App Component ---
 
-            {/* Leaderboard List */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">
+export default function App() {
+    return (
+        <div className="">
+
+            <SectionHeading title='Weekly Champions' className='lg:mb-20' />
+
+            {/* --- Podium Section (Top 3) --- */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-end mb-16 max-w-4xl mx-auto">
+                {podiumData.map((user) => (
+                    <div key={user.rank} className={`relative transition-all duration-300 ease-in-out transform hover:scale-105 ${user.order}`}>
+                        <div className={`bg-white dark:bg-black rounded-xl ${user.cardPadding} ${user.shadow} border-2 ${user.borderColor} text-center`}>
+
+                            {/* Avatar */}
+                            <img
+                                src={user.avatar}
+                                alt={`Rank ${user.rank} User`}
+                                className={`${user.avatarSize} rounded-full mx-auto ${user.avatarMargin} border-4 border-white shadow-lg`}
+                            />
+
+                            {/* Medal */}
+                            <div className={`absolute ${user.medalPos} ${user.medalSize} ${user.medalBg} rounded-full flex items-center justify-center ${user.medalText} font-bold ${user.medalColor} shadow-inner border-2 ${user.medalBorder}`}>
+                                {user.rank}
+                            </div>
+
+                            {/* User Info */}
+                            <h3 className={`text-xl font-semibold mt-4 ${user.rank === 1 ? 'text-2xl text-yellow-600' : ''}`}>
+                                {user.name}
+                            </h3>
+                            <p className={`text-sm ${user.rank === 1 ? 'text-md' : ''} text-gray-400`}>
+                                {user.followers}
+                            </p>
+
+                            {/* Score */}
+                            <div className={`mt-4 ${user.rank === 1 ? 'mt-5' : ''} flex items-center justify-center space-x-2`}>
+                                {user.scoreIcon}
+
+                                <span className={`${user.scoreSize} font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-color to-secondary-color`}>
+                                    {user.score}
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* --- Leaderboard List (Ranks 4+) --- */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
                 {mockData.map((user) => {
                     const badge = getStatusBadge(user.status);
 
@@ -78,7 +203,7 @@ const Leaderboard: React.FC = () => {
                             )} flex items-center justify-between p-4 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 transition-all duration-300 hover:scale-[1.01] hover:shadow-xl`}
                         >
                             {/* Rank & User Info */}
-                            <div className="grid grid-cols-[auto_auto_1fr] gap-4 min-w-0">
+                            <div className="grid grid-cols-[auto_auto_1fr] items-center gap-4 min-w-0">
                                 {/* Rank Number */}
                                 <div
                                     className={`w-10 text-center text-lg md:text-xl font-extrabold ${getRankTextColor(
@@ -126,9 +251,8 @@ const Leaderboard: React.FC = () => {
                         </div>
                     );
                 })}
-            </div>
-        </div>
-    );
-};
+            </div >
 
-export default Leaderboard;
+        </div >
+    );
+}

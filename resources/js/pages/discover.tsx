@@ -1,5 +1,7 @@
 import InfiniteGallery from '@/components/discover/infinite-gallery'
 import Leaderboard from '@/components/discover/leader-board'
+import QuestCard from '@/components/discover/quests/components/quest-card'
+import Quests from '@/components/discover/quests/quests'
 import Container from '@/components/shared/container'
 import UserLayout from '@/layouts/user-layout'
 
@@ -25,11 +27,13 @@ const images = [
     "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7",
 ]
 
+
 export default function discover() {
     return (
         <UserLayout>
             <Container className="space-y-4 md:space-y-10 lg:space-y-20 my-4 md:my-10 lg:my-20">
                 <Leaderboard />
+                <Quests />
                 <InfiniteGallery images={images} />
             </Container>
         </UserLayout>

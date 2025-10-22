@@ -19,7 +19,7 @@ interface QuestCardProps {
 function QuestCard({ quest }: QuestCardProps) {
     return (
         <div
-            className="group cursor-pointer relative overflow-hidden rounded-2xl bg-white dark:bg-black border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-accent"
+            className="group cursor-pointer relative overflow-hidden rounded-2xl bg-bg-primary dark:bg-bg-primary border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-accent"
         >
             <div className="relative h-56 w-full overflow-hidden bg-gray-100 dark:bg-gray-700">
                 <img

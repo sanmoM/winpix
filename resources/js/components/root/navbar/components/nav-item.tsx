@@ -50,7 +50,7 @@ export default function NavItem({
 
                         {/* Dropdown */}
                         <div
-                            className={`absolute left-0 mt-2 w-48 bg-white dark:bg-black rounded-lg shadow-xl overflow-hidden transition-all duration-200 ease-in-out ${isOpen
+                            className={`absolute left-0 mt-2 w-48 bg-bg-primary dark:bg-bg-primary rounded-lg shadow-xl overflow-hidden transition-all duration-200 ease-in-out ${isOpen
                                 ? "opacity-100 translate-y-0 visible"
                                 : "opacity-0 -translate-y-2 invisible"
                                 }`}

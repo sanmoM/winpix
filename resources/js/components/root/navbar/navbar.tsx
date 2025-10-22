@@ -64,14 +64,14 @@ export default function Navbar() {
       ],
     },
     { name: "Store", href: "/store" },
-    { name: "Redeem", href: "#" },
+    { name: "Redeem", href: "/redeem" },
   ];
 
   return (
     <div
       className={cn(
         "fixed left-0 top-0 z-[20] w-full py-1.5 md:py-3",
-        top <= 0 ? "bg-transparent text-white" : "bg-white dark:bg-black", url !== "/" && "sticky top-0 bg-white dark:bg-black text-black dark:text-white"
+        top <= 0 ? "bg-transparent text-white" : "bg-bg-primary dark:bg-bg-primary", url !== "/" && "sticky top-0 bg-bg-primary dark:bg-bg-primary text-black dark:text-white"
       )}
     >
       <Container>
@@ -141,7 +141,7 @@ export default function Navbar() {
           {isMenuOpen && (
             <div
               ref={menuRef}
-              className="md:hidden mt-2 !bg-white dark:!bg-black !text-black dark:!text-white rounded-lg"
+              className="md:hidden mt-2 !bg-bg-primary dark:!bg-bg-primary !text-black dark:!text-white rounded-lg"
               id="mobile-menu"
             >
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">

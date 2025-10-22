@@ -18,7 +18,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white dark:bg-black font-sans mt-16 p-8 sm:p-12 md:p-16">
+    <footer className="bg-bg-primary dark:bg-bg-primary font-sans mt-16 p-8 sm:p-12 md:p-16">
       <Container className="flex flex-col items-center justify-center text-center">
 
         {/* Logo/Title */}

@@ -1,8 +1,5 @@
-"use client"
-
-import { useState } from "react"
-import { Clock, Users, Zap } from "lucide-react"
 import Button from '@/components/shared/button'
+import { Clock } from "lucide-react"
 
 interface Quest {
     id: number
@@ -20,19 +17,9 @@ interface QuestCardProps {
 }
 
 function QuestCard({ quest }: QuestCardProps) {
-    const [isHovered, setIsHovered] = useState(false);
-
-    const difficultyColors = {
-        Easy: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300",
-        Medium: "bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300",
-        Hard: "bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-300",
-    };
-
     return (
         <div
             className="group cursor-pointer relative overflow-hidden rounded-2xl bg-white dark:bg-black border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-accent"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
         >
             <div className="relative h-56 w-full overflow-hidden bg-gray-100 dark:bg-gray-700">
                 <img

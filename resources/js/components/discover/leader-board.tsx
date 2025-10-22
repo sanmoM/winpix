@@ -66,14 +66,14 @@ const Leaderboard: React.FC = () => {
             </p>
 
             {/* Leaderboard List */}
-            <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">
                 {mockData.map((user) => {
                     const badge = getStatusBadge(user.status);
 
                     return (
                         <div
                             key={user.rank}
-                            className={`rank-item grid grid-cols-[50%_40%] justify-between ${getRankStyle(
+                            className={`rank-item grid grid-cols-[70%_28%] justify-between ${getRankStyle(
                                 user.rank
                             )} flex items-center justify-between p-4 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 transition-all duration-300 hover:scale-[1.01] hover:shadow-xl`}
                         >

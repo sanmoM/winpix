@@ -18,7 +18,7 @@ export default function RichTextEditor({ modelValue = '', onChange }: Props) {
     };
 
     return (
-        <div className="w-full rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+        <div className="w-full rounded-2xl border border-gray-200 bg-bg-primary p-4 shadow-sm">
             <FroalaEditor
                 tag="textarea"
                 model={content}

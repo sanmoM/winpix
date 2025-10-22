@@ -39,7 +39,7 @@ export default function
         slides.map((slide, index) => (
           <div key={index} className="w-full flex-shrink-0 relative h-[70vh] lg:h-screen">
             <img src={slide.imageUrl} alt={`Banner ${index + 1}`} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-blue-950/50 flex items-center justify-center text-white text-center p-8">
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white text-center p-8">
               <div className={``}>
                 <h2 className="title text-2xl md:text-5xl lg:text-6xl font-bold">{slide.title}</h2>
                 <p className="subtitle text-sm md:text-lg lg:text-xl mt-2 mb-3 lg:mt-4 md:mt-3 md:mb-4 lg:mb-6 text-gray-200">{slide.subtitle}</p>

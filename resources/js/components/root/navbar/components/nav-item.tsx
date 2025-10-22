@@ -39,7 +39,7 @@ export default function NavItem({
                 {isDropdown ? (
                     <>
                         <button
-                            className="hidden md:flex items-center cursor-pointer font-medium hover:opacity-80"
+                            className="hidden md:flex items-center cursor-pointer font-medium hover:text-primary-color"
                         >
                             {name}
                             <IoIosArrowDown
@@ -50,7 +50,7 @@ export default function NavItem({
 
                         {/* Dropdown */}
                         <div
-                            className={`absolute left-0 mt-2 w-48 bg-white dark:bg-black rounded-lg shadow-xl overflow-hidden transition-all duration-200 ease-in-out ${isOpen
+                            className={`absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-bg-primary dark:bg-bg-primary rounded-lg shadow-xl overflow-hidden transition-all duration-200 ease-in-out ${isOpen
                                 ? "opacity-100 translate-y-0 visible"
                                 : "opacity-0 -translate-y-2 invisible"
                                 }`}
@@ -59,7 +59,7 @@ export default function NavItem({
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className="block px-4 py-2 text-black dark:text-white hover:opacity-60"
+                                    className="block px-4 py-2 text-black dark:text-white hover:text-primary-color"
                                 >
                                     {item.name}
                                 </Link>
@@ -70,11 +70,11 @@ export default function NavItem({
                     <>
                         {
                             type === "button" ?
-                                <button onClick={onClick} className="font-medium hover:opacity-80 cursor-pointer">
+                                <button onClick={onClick} className="font-medium hover:text-primary-color cursor-pointer">
                                     {name}
                                 </button>
                                 :
-                                <Link href={href} className="font-medium hover:opacity-80">
+                                <Link href={href} className="font-medium hover:text-primary-color">
                                     {name}
                                 </Link>
                         }

@@ -20,7 +20,7 @@ const StoreItem: React.FC<StoreItemProps> = ({
     return (
         <div
             className={`relative flex flex-col items-center justify-center p-4 sm:p-6 rounded-lg shadow-lg border-2 transition-all duration-200 cursor-pointer
-        hover:shadow-xl bg-white dark:bg-black`}
+        hover:shadow-xl bg-bg-primary dark:bg-bg-primary`}
         >
             {isBestValue && (
                 <span className="absolute -top-3 right-3 bg-primary-color text-white text-xs sm:text-sm font-bold px-2 sm:px-3 py-1 rounded-full shadow-md">

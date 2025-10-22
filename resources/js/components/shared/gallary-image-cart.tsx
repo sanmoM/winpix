@@ -15,14 +15,14 @@ export default function GalleryImageCart({ src, aspect, className }: any) {
             />
 
             {/* Overlay buttons */}
-            <div className="absolute inset-0 bg-blue-950/50 flex items-center justify-center transition-all rounded-lg gap-2 opacity-0 group-hover:opacity-100 duration-300">
-                <div className="bg-secondary-color p-3 rounded-full">
+            <div className="absolute inset-0 bg-black/30 flex items-center justify-center transition-all rounded-lg gap-2 opacity-0 group-hover:opacity-100 duration-300">
+                <div className="bg-primary-color p-3 rounded-full">
                     <FaRegHeart className="text-xl text-white" />
                 </div>
-                <div className="bg-secondary-color p-3 rounded-full">
+                <div className="bg-primary-color p-3 rounded-full">
                     <LuShare2 className="text-xl text-white" />
                 </div>
-                <div className="bg-secondary-color p-3 rounded-full">
+                <div className="bg-primary-color p-3 rounded-full">
                     <GrFlag className="text-xl text-white" />
                 </div>
             </div>
@@ -30,7 +30,7 @@ export default function GalleryImageCart({ src, aspect, className }: any) {
             {/* User info */}
             <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 duration-300">
                 <img
-                    className="h-12 w-12 rounded-full object-cover"
+                    className="h-10 w-10 rounded-full object-cover"
                     src={src}
                     alt={`User avatar`}
                 />

@@ -1,16 +1,16 @@
+import StoreModalContents from "@/components/root/store-modal-contents";
+import Modal from "@/components/shared/modal";
 import { cn } from "@/lib/utils";
 import { dashboard, login, register } from "@/routes";
 import { type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 import { FiMenu } from "react-icons/fi";
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose, IoMdNotificationsOutline } from "react-icons/io";
 import Button from "../../shared/button";
 import Container from "../../shared/container";
 import Logo from "../../shared/logo";
 import NavItem from "./components/nav-item";
-import Modal from "@/components/shared/modal";
-import StoreModalContents from "@/components/root/store-modal-contents";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,20 +58,21 @@ export default function Navbar() {
     {
       name: "Quests", isDropdown: true,
       dropdownItems: [
-        { name: "Browse Games", href: "#" },
-        { name: "Partners", href: "#" },
-        { name: "Community Hub", href: "#" },
+        { name: "Active", href: "/quests/active" },
+        { name: "Quest Series", href: "#" },
+        { name: "Entered", href: "#" },
+        { name: "Ended", href: "#" },
       ],
     },
     { name: "Store", href: "/store" },
-    { name: "Redeem", href: "#" },
+    { name: "Redeem", href: "/redeem" },
   ];
 
   return (
     <div
       className={cn(
         "fixed left-0 top-0 z-[20] w-full py-1.5 md:py-3",
-        top <= 0 ? "bg-transparent text-white" : "bg-white dark:bg-black", url !== "/" && "sticky top-0 bg-white dark:bg-black text-black dark:text-white"
+        top <= 0 ? "bg-transparent text-white" : "bg-bg-primary dark:bg-bg-primary", (url !== "/" && url !== "/quests/active") && "sticky top-0 bg-bg-primary dark:bg-bg-primary text-black dark:text-white"
       )}
     >
       <Container>
@@ -102,9 +103,20 @@ export default function Navbar() {
             {/* === Right Section (Desktop Auth) === */}
             <div className="hidden md:flex items-center space-x-4">
               {auth?.user ? (
-                <Link href={dashboard()} className="font-medium hover:text-primary-color">
-                  Dashboard
-                </Link>
+                <>
+                  <div className="flex items-center gap-2">
+                    <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
+                    <p>10</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <img src="/images/coin.png" alt="" className="w-4 h-4" />
+                    <p>200</p>
+                  </div>
+                  <IoMdNotificationsOutline className="w-6 h-6 cursor-pointer hover:text-primary-color" />
+                  <Link href={dashboard()} className="font-medium hover:text-primary-color">
+                    Dashboard
+                  </Link>
+                </>
               ) : (
                 <>
                   <Link
@@ -141,7 +153,7 @@ export default function Navbar() {
           {isMenuOpen && (
             <div
               ref={menuRef}
-              className="md:hidden mt-2 !bg-white dark:!bg-black !text-black dark:!text-white rounded-lg"
+              className="md:hidden mt-2 !bg-bg-primary dark:!bg-bg-primary !text-black dark:!text-white rounded-lg"
               id="mobile-menu"
             >
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -159,12 +171,17 @@ export default function Navbar() {
                 {/* Mobile Auth Buttons */}
                 <div className="pt-4 border-t border-gray-700 text-black dark:text-white grid grid-cols-2 justify-center items-center gap-4">
                   {auth?.user ? (
-                    <Link
-                      href={dashboard()}
-                      className="text-center block px-3 py-2 rounded-md text-base font-medium"
-                    >
-                      Dashboard
-                    </Link>
+                    <>
+                      <div>
+                        <img src="/images/golden-coin.png" alt="" />
+                      </div>
+                      <Link
+                        href={dashboard()}
+                        className="text-center block px-3 py-2 rounded-md text-base font-medium"
+                      >
+                        Dashboard
+                      </Link>
+                    </>
                   ) : (
                     <>
                       <Link

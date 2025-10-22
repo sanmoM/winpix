@@ -1,0 +1,20 @@
+import SectionHeading from '../shared/SectionHeading'
+import RedeemCard from './components/redeem-card'
+
+export default function GrandPrice() {
+    return (
+        <div>
+            <SectionHeading title="Grand Prices" />
+            <div className="grid grid-cols-8 gap-6">
+                <RedeemCard src="https://cdn.pulsepx.com/redemption-assets/1000012/icon?v=6" />
+                <RedeemCard src="https://cdn.pulsepx.com/redemption-assets/1000012/icon?v=6" />
+                <RedeemCard src="https://cdn.pulsepx.com/redemption-assets/1000012/icon?v=6" />
+                <RedeemCard src="https://cdn.pulsepx.com/redemption-assets/1000012/icon?v=6" />
+                <RedeemCard src="https://cdn.pulsepx.com/redemption-assets/1000012/icon?v=6" />
+                <RedeemCard src="https://cdn.pulsepx.com/redemption-assets/1000012/icon?v=6" />
+                <RedeemCard src="https://cdn.pulsepx.com/redemption-assets/1000012/icon?v=6" />
+                <RedeemCard src="https://cdn.pulsepx.com/redemption-assets/1000012/icon?v=6" />
+            </div>
+        </div>
+    )
+}

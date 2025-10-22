@@ -61,7 +61,7 @@ const podiumData = [
         avatar: 'https://placehold.co/100x100/E0E0E0/707070?text=Rank+2',
         order: 'order-2 md:order-1',
         shadow: 'shadow-[0_0_20px_0_rgba(192,192,192,0.4)]', // silver shadow
-        borderColor: `border-primary-color`,
+        borderColor: `!border-secondary-color/50`,
         medalBg: `bg-primary-color`,
         medalColor: `text-black dark:text-white`,
         medalBorder: `border-black dark:border-white`,
@@ -103,10 +103,10 @@ const podiumData = [
         avatar: 'https://placehold.co/100x100/F0D9B5/8D6E63?text=Rank+3',
         order: 'order-3 md:order-3',
         shadow: 'shadow-[0_0_15px_0_rgba(205,127,50,0.4)]', // bronze shadow
-        borderColor: 'border-black dark:border-white',
-        medalBg: 'bg-black dark:bg-white',
-        medalColor: 'text-white dark:text-black',
-        medalBorder: 'border-black dark:border-white',
+        borderColor: '!border-black/50 dark:!border-white/50',
+        medalBg: 'bg-bg-primary dark:bg-bg-secondary',
+        medalColor: 'dark:text-white text-black',
+        medalBorder: '!border-black/50 dark:!border-white/50',
         medalPos: '-top-5 -right-5',
         avatarSize: 'w-24 h-24',
         medalSize: 'w-14 h-14',
@@ -154,7 +154,7 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-end mb-16 max-w-4xl mx-auto">
                 {podiumData.map((user) => (
                     <div key={user.rank} className={`relative transition-all duration-300 ease-in-out transform hover:scale-105 ${user.order}`}>
-                        <div className={`bg-white dark:bg-black rounded-xl ${user.cardPadding} ${user.shadow} border-2 ${user.borderColor} text-center`}>
+                        <div className={`bg-bg-primary dark:bg-bg-primary rounded-xl ${user.cardPadding}  border-2 ${user.borderColor} text-center`}>
 
                             {/* Avatar */}
                             <img

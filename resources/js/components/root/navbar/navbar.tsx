@@ -102,9 +102,19 @@ export default function Navbar() {
             {/* === Right Section (Desktop Auth) === */}
             <div className="hidden md:flex items-center space-x-4">
               {auth?.user ? (
-                <Link href={dashboard()} className="font-medium hover:text-primary-color">
-                  Dashboard
-                </Link>
+                <>
+                  <div className="flex items-center gap-2">
+                    <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
+                    <p>0</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <img src="/images/coin.png" alt="" className="w-4 h-4" />
+                    <p>0</p>
+                  </div>
+                  <Link href={dashboard()} className="font-medium hover:text-primary-color">
+                    Dashboard
+                  </Link>
+                </>
               ) : (
                 <>
                   <Link
@@ -159,12 +169,17 @@ export default function Navbar() {
                 {/* Mobile Auth Buttons */}
                 <div className="pt-4 border-t border-gray-700 text-black dark:text-white grid grid-cols-2 justify-center items-center gap-4">
                   {auth?.user ? (
-                    <Link
-                      href={dashboard()}
-                      className="text-center block px-3 py-2 rounded-md text-base font-medium"
-                    >
-                      Dashboard
-                    </Link>
+                    <>
+                      <div>
+                        <img src="/images/golden-coin.png" alt="" />
+                      </div>
+                      <Link
+                        href={dashboard()}
+                        className="text-center block px-3 py-2 rounded-md text-base font-medium"
+                      >
+                        Dashboard
+                      </Link>
+                    </>
                   ) : (
                     <>
                       <Link

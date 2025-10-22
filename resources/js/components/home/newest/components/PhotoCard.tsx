@@ -20,7 +20,7 @@ export default function PhotoCard({ item }: { item: PhotoCardItem }) {
             />
             <div className="absolute bg-black/30 inset-0 w-full h-cull"></div>
             {/* Overlay */}
-            <div className="absolute inset-0 bg-blue-950/40" />
+            <div className="absolute inset-0 bg-black/30" />
 
             {/* Top Content */}
             <div className="absolute top-0 right-0 p-4">

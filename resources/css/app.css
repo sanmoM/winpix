@@ -100,6 +100,7 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.87 0 0);
+    --border-color: #306bff86;
 
 }
 
@@ -137,6 +138,9 @@
     --sidebar-border: oklch(0.269 0 0);
     --sidebar-ring: oklch(0.439 0 0);
     --color-bg-primary: #0B1120;
+    --border-color: #e2388285;
+    --color-primary-color: #E23882;
+    --color-secondary-color: #3069FF;
 }
 
 @layer base {
@@ -149,6 +153,6 @@
     }
 }
 
-*{
-    border-color: #e2388265 ;
+* {
+    border-color: var(--border-color);
 }

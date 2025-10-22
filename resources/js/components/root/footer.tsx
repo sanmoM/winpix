@@ -54,7 +54,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               aria-label={ariaLabel}
               className="w-12 h-12 flex items-center justify-center rounded-full 
-                                           text-secondary-color border border-secondary-color hover:bg-secondary-color hover:text-white
+                                           text-primary-color border border-primary-color hover:bg-primary-color hover:text-white
                                            transition-colors duration-300"
             >
               <Icon />
@@ -64,7 +64,7 @@ const Footer = () => {
 
         {/* Copyright and Credits */}
         <div className="text-sm text-gray-400 pt-6 border-t border-gray-700 w-full flex items-center justify-center">
-          Copyright &copy;{new Date().getFullYear()} All rights reserved | This template is made with <FaHeart className="mx-1 text-secondary-color" /> by <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">Winpix.com</a>
+          Copyright &copy;{new Date().getFullYear()} All rights reserved | This template is made with <FaHeart className="mx-1 text-primary-color" /> by <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">Winpix.com</a>
         </div>
       </Container>
     </footer>

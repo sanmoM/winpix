@@ -17,7 +17,7 @@ export default function Navbar() {
   const [top, setTop] = useState(0);
   const { auth } = usePage<SharedData>().props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const { url } = usePage(); 
+  const { url } = usePage();
 
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -53,14 +53,16 @@ export default function Navbar() {
   const navLinks = [
     {
       name: "Discover",
-      isDropdown: true,
+      href: "/discover",
+    },
+    {
+      name: "Quests", isDropdown: true,
       dropdownItems: [
         { name: "Browse Games", href: "#" },
         { name: "Partners", href: "#" },
         { name: "Community Hub", href: "#" },
       ],
     },
-    { name: "Quests", href: "#" },
     { name: "Store", href: "/store" },
     { name: "Redeem", href: "#" },
   ];

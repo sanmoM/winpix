@@ -148,12 +148,12 @@ export default function App() {
     return (
         <div className="">
 
-            <SectionHeading title='Weekly Champions' className='lg:mb-20' />
+            <SectionHeading title='Weekly Champions' className='mb-16 lg:mb-20' />
 
             {/* --- Podium Section (Top 3) --- */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-end mb-16 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-end mb-8 md:mb-16 max-w-4xl mx-auto px-8">
                 {podiumData.map((user) => (
-                    <div key={user.rank} className={`relative transition-all duration-300 ease-in-out transform hover:scale-105 ${user.order}`}>
+                    <div key={user.rank} className={`relative  ${user.order}`}>
                         <div className={`bg-bg-primary dark:bg-bg-primary rounded-xl ${user.cardPadding}  border-2 ${user.borderColor} text-center`}>
 
                             {/* Avatar */}
@@ -191,7 +191,7 @@ export default function App() {
             </div>
 
             {/* --- Leaderboard List (Ranks 4+) --- */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
                 {mockData.map((user) => {
                     const badge = getStatusBadge(user.status);
 

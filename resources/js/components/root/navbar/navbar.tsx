@@ -68,7 +68,7 @@ export default function Navbar() {
     { name: "Redeem", href: "/redeem" },
   ];
 
-  const hasBackground = top > 0;
+  const hasBackground = top > 0 || (url !== "/" && url !== "/quests/active");
   return (
     <div
       className={cn(

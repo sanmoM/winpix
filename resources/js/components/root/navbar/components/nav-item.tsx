@@ -62,7 +62,7 @@ export default function NavItem({
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className={cn("block px-4 py-2 text-black font-medium dark:text-white", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}
+                                    className={cn("block px-4 py-2 text-black font-medium dark:text-white", hasBackground ? "hover:!text-primary-color" : "hover:opacity-70")}
                                 >
                                     {item.name}
                                 </Link>

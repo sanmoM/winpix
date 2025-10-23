@@ -1,6 +1,5 @@
-import React from 'react'
-import QuestCard from './components/quest-card'
 import SectionHeading from '@/components/shared/SectionHeading'
+import QuestCard from '../shared/quest-card'
 
 const questsData = [
     {

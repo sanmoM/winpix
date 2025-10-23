@@ -35,7 +35,7 @@ export default function PhotoCard({ item }: { item: PhotoCardItem }) {
                 <div className="flex justify-between items-end">
                     <div>
                         <h2 className="text-2xl font-bold mb-2">Posing Dogs</h2>
-                        <div className="items-center border border-white rounded-full flex justify-center gap-2 w-fit px-4 py-1">
+                        <div className="items-center border !border-white rounded-full flex justify-center gap-2 w-fit px-4 py-1">
                             <TbTrophyFilled />
                             <span className="text-sm font-medium ">50 USD</span>
                         </div>

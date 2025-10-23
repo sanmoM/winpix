@@ -25,7 +25,7 @@ function QuestCard({ quest }: QuestCardProps) {
                 <img
                     src={quest.image || "/placeholder.svg"}
                     alt={quest.title}
-                    className="object-cover transition-transform duration-300 group-hover:scale-110 h-full"
+                    className="object-cover transition-transform duration-300 w-full group-hover:scale-110 h-full"
                 />
 
                 {/* Time Left Badge */}
@@ -42,7 +42,7 @@ function QuestCard({ quest }: QuestCardProps) {
 
             <div className="relative p-4 flex flex-col h-full">
                 {/* Title */}
-                <div className='flex justify-between items-center mb-4'>
+                <div className='flex justify-between items-start mb-4'>
                     <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-2 group-hover:text-accent transition-colors">
                         {quest.title}
                     </h3>

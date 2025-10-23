@@ -30,7 +30,7 @@ const images = [
 export default function discover() {
     return (
         <UserLayout>
-            <Container className="space-y-4 md:space-y-10 lg:space-y-38 my-4 md:my-10 lg:my-28">
+            <Container className="space-y-14 md:space-y-20 lg:space-y-38 my-10 md:my-16 lg:my-28">
                 <Leaderboard />
                 <Quests />
                 <InfiniteGallery images={images} />

@@ -71,7 +71,7 @@ export default function ActiveQuestsBanner() {
 
                                 {/* Action Buttons */}
                                 <div className="flex flex-col sm:flex-row items-center justify-end gap-4 pt-4 buttons">
-                                    <button className="bg-white text-black text-sm font-semibold rounded-full transition cursor-pointer w-32 py-2 md:py-3 btn">
+                                    <button className="bg-white text-black text-sm font-semibold rounded-full transition cursor-pointer w-32 py-2 md:py-3 btn duration-300 hover:scale-105 ease-in-out">
                                         Vote
                                     </button>
                                     <Button text="Join Now" className='w-32 py-2 md:py-3 btn' />

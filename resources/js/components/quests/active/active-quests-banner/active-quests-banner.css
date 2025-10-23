@@ -13,36 +13,34 @@
 .swiper-slide-active .title {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.7s;
-    /* match your previous Tailwind delays */
 }
 
 .swiper-slide-active .info {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 1s;
+    transition-delay: 0.5s;
 }
 
 .swiper-slide-active .description {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 1.3s;
+    transition-delay: 0.8s;
 }
 
 .swiper-slide-active .prize-pool {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 1.6s;
+    transition-delay: 1.2s;
 }
 
 .swiper-slide-active .buttons {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 2s;
+    transition-delay: 1.6s;
 }
 
 /* Optional hover effect for button */
-.swiper-slide-active .btn:hover {
+/* .swiper-slide-active .btn:hover {
     transform: scale(1.05);
     transition: transform 0.3s ease-in-out;
-}
+} */

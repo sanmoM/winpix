@@ -68,11 +68,12 @@ export default function Navbar() {
     { name: "Redeem", href: "/redeem" },
   ];
 
+  const hasBackground = top > 0 || (url !== "/" && url !== "/quests/active");
   return (
     <div
       className={cn(
         "fixed left-0 top-0 z-[20] w-full py-1.5 md:py-3",
-        top <= 0 ? "bg-transparent text-white" : "bg-bg-primary dark:bg-bg-primary", (url !== "/" && url !== "/quests/active") && "sticky top-0 bg-bg-primary dark:bg-bg-primary text-black dark:text-white"
+        !hasBackground ? "bg-transparent text-white" : "bg-bg-primary dark:bg-bg-primary", (url !== "/" && url !== "/quests/active") && "sticky top-0 bg-bg-primary dark:bg-bg-primary text-black dark:text-white"
       )}
     >
       <Container>
@@ -81,13 +82,16 @@ export default function Navbar() {
 
             {/* === Left Section === */}
             <div className="flex items-center">
-              <Logo />
+              <Logo
+                hasBackground={hasBackground}
+              />
 
               {/* Desktop Navigation */}
               <div className="hidden md:block ml-10">
                 <div className="flex items-baseline space-x-6">
                   {navLinks.map((link) => (
                     <NavItem
+                      hasBackground={hasBackground}
                       key={link.name}
                       name={link.name}
                       href={link.href}
@@ -112,8 +116,8 @@ export default function Navbar() {
                     <img src="/images/coin.png" alt="" className="w-4 h-4" />
                     <p>200</p>
                   </div>
-                  <IoMdNotificationsOutline className="w-6 h-6 cursor-pointer hover:text-primary-color" />
-                  <Link href={dashboard()} className="font-medium hover:text-primary-color">
+                  <IoMdNotificationsOutline className={cn("w-6 h-6 cursor-pointer", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")} />
+                  <Link href={dashboard()} className={cn("font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
                     Dashboard
                   </Link>
                 </>
@@ -124,7 +128,7 @@ export default function Navbar() {
                     className="text-center block rounded-md text-base font-medium "
                   >
                     {/* <Button text="Login" className="w-full" /> */}
-                    <button className={cn("border border-white w-full rounded-full py-1 px-8 cursor-pointer", top > 0 && "border-black")}>Login</button>
+                    <button className={cn("border !border-white w-full rounded-full py-1 px-8 cursor-pointer", hasBackground && "!border-primary-color")}>Login</button>
                   </Link>
                   <Link href={register()}>
                     <Button text="Sign up" className="px-8" />

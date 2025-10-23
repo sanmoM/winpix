@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "@inertiajs/react";
 import { IoIosArrowDown } from "react-icons/io";
+import { cn } from "@/lib/utils";
 
 interface DropdownItem {
     name: string;
@@ -15,6 +16,7 @@ interface NavItemProps {
     variant?: "desktop" | "mobile";
     type?: "button" | "link";
     onClick?: () => void;
+    hasBackground?: boolean;
 }
 
 export default function NavItem({
@@ -25,6 +27,7 @@ export default function NavItem({
     variant = "desktop",
     type = "link",
     onClick,
+    hasBackground,
 }: NavItemProps) {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -39,7 +42,7 @@ export default function NavItem({
                 {isDropdown ? (
                     <>
                         <button
-                            className="hidden md:flex items-center cursor-pointer font-medium hover:text-primary-color"
+                            className={cn("hidden md:flex items-center cursor-pointer font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}
                         >
                             {name}
                             <IoIosArrowDown
@@ -59,7 +62,7 @@ export default function NavItem({
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className="block px-4 py-2 text-black dark:text-white hover:text-primary-color"
+                                    className={cn("block px-4 py-2 text-black font-medium dark:text-white", hasBackground ? "hover:!text-primary-color" : "hover:opacity-70")}
                                 >
                                     {item.name}
                                 </Link>
@@ -70,11 +73,11 @@ export default function NavItem({
                     <>
                         {
                             type === "button" ?
-                                <button onClick={onClick} className="font-medium hover:text-primary-color cursor-pointer">
+                                <button onClick={onClick} className={cn("font-medium cursor-pointer", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
                                     {name}
                                 </button>
                                 :
-                                <Link href={href} className="font-medium hover:text-primary-color">
+                                <Link href={href} className={cn("font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
                                     {name}
                                 </Link>
                         }
@@ -89,7 +92,7 @@ export default function NavItem({
         <div className="relative">
             <button
                 onClick={() => (isDropdown ? setIsOpen(!isOpen) : null)}
-                className={`w-full text-left block px-3 py-2 rounded-md text-base font-medium hover:opacity-90 transition ${isDropdown ? "flex justify-between items-center" : ""
+                className={`w-full text-left block px-3 py-2 rounded-md text-base font-medium hover:opacity-70 transition ${isDropdown ? "flex justify-between items-center" : ""
                     }`}
             >
                 {name}

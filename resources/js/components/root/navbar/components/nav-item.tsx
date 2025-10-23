@@ -90,22 +90,42 @@ export default function NavItem({
     // === MOBILE VERSION === (click to open)
     return (
         <div className="relative">
-            <button
-                onClick={() => (isDropdown ? setIsOpen(!isOpen) : null)}
-                className={`w-full text-left block px-3 py-2 rounded-md text-base font-medium hover:opacity-70 transition ${isDropdown ? "flex justify-between items-center" : ""
-                    }`}
-            >
-                {name}
-                {isDropdown && (
-                    <IoIosArrowDown
-                        className={`ml-1 w-4 h-4 transition-transform ${isOpen ? "rotate-180" : "rotate-0"
-                            }`}
-                    />
-                )}
-            </button>
+            {
+                isDropdown ? (<button
+                    onClick={() => (isDropdown ? setIsOpen(!isOpen) : null)}
+                    className={`w-full text-left block px-3 py-2 rounded-md text-base font-medium hover:text-primary-color transition !scale-100 ${isDropdown ? "flex justify-between items-center" : ""
+                        }`}
+                    style={{
+                        scale: "1 !important"
+                    }}
+                >
+                    {name}
+                    {isDropdown && (
+                        <IoIosArrowDown
+                            className={`ml-1 w-4 h-4 transition-transform ${isOpen ? "rotate-180" : "rotate-0"
+                                }`}
+                        />
+                    )}
+                </button>
+                ) : (<Link
+                    href={href} // pass your target URL here
+                    onClick={() => (isDropdown ? setIsOpen(!isOpen) : null)}
+                    className={`w-full text-left block px-3 py-2 rounded-md text-base font-medium hover:text-primary-color transition  ${isDropdown ? "flex justify-between items-center" : ""
+                        }`}
+                >
+                    {name}
+                    {isDropdown && (
+                        <IoIosArrowDown
+                            className={`ml-1 w-4 h-4 transition-transform ${isOpen ? "rotate-180" : "rotate-0"
+                                }`}
+                        />
+                    )}
+                </Link>
+                )
+            }
 
             {isDropdown && isOpen && (
-                <div className="lg:pl-6 pt-1 pb-1 space-y-1 rounded-md">
+                <div className="pl-6 pt-1 pb-1 space-y-1 rounded-md">
                     {dropdownItems.map((item) => (
                         <Link
                             key={item.name}

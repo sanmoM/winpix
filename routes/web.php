@@ -26,6 +26,12 @@ Route::get('/quests/active', function () {
 
 Route::get('/discover', [DiscoverController::class, 'discover'])->name('discover');
 
+Route::get('/profile/{id}', function ($id) {
+    return Inertia::render('Profile', [
+        'id' => $id
+    ]);
+})->name('profile');
+
 Route::get('auth-error', function () {
     return view('error');
 })->name('auth.error');

@@ -61,7 +61,7 @@ export default function Quests() {
                 <SectionHeading title="Active Quests" />
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 {questsData.map((quest) => (
                     <QuestCard key={quest.id} quest={quest} />
                 ))}

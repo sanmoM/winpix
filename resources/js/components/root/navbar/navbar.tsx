@@ -82,8 +82,8 @@ export default function Navbar() {
 
             {/* === Left Section === */}
             <div className="flex items-center">
-              <Logo 
-              hasBackground={hasBackground}
+              <Logo
+                hasBackground={hasBackground}
               />
 
               {/* Desktop Navigation */}
@@ -91,6 +91,7 @@ export default function Navbar() {
                 <div className="flex items-baseline space-x-6">
                   {navLinks.map((link) => (
                     <NavItem
+                      hasBackground={hasBackground}
                       key={link.name}
                       name={link.name}
                       href={link.href}
@@ -115,8 +116,8 @@ export default function Navbar() {
                     <img src="/images/coin.png" alt="" className="w-4 h-4" />
                     <p>200</p>
                   </div>
-                  <IoMdNotificationsOutline className="w-6 h-6 cursor-pointer hover:text-primary-color" />
-                  <Link href={dashboard()} className="font-medium hover:text-primary-color">
+                  <IoMdNotificationsOutline className={cn("w-6 h-6 cursor-pointer", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")} />
+                  <Link href={dashboard()} className={cn("font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
                     Dashboard
                   </Link>
                 </>

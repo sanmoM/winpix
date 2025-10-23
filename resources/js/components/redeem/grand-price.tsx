@@ -5,7 +5,7 @@ export default function GrandPrice() {
     return (
         <div>
             <SectionHeading title="Grand Prices" />
-            <div className="grid grid-cols-8 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
                 <RedeemCard src="https://cdn.pulsepx.com/redemption-assets/1000012/icon?v=6" />
                 <RedeemCard src="https://cdn.pulsepx.com/redemption-assets/1000012/icon?v=6" />
                 <RedeemCard src="https://cdn.pulsepx.com/redemption-assets/1000012/icon?v=6" />

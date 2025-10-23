@@ -27,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
       {/* Modal Dialog Box */}
       <div
         onClick={handleModalClick} // prevent closing when clicking inside modal
-        className="bg-white dark:bg-black rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all duration-300 sm:my-8 sm:align-middle"
+        className="bg-bg-primary dark:bg-bg-primary rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all duration-300 sm:my-8 sm:align-middle"
       >
         {/* Modal Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">

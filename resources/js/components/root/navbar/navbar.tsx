@@ -1,16 +1,16 @@
+import StoreModalContents from "@/components/root/store-modal-contents";
+import Modal from "@/components/shared/modal";
 import { cn } from "@/lib/utils";
 import { dashboard, login, register } from "@/routes";
 import { type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 import { FiMenu } from "react-icons/fi";
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose, IoMdNotificationsOutline } from "react-icons/io";
 import Button from "../../shared/button";
 import Container from "../../shared/container";
 import Logo from "../../shared/logo";
 import NavItem from "./components/nav-item";
-import Modal from "@/components/shared/modal";
-import StoreModalContents from "@/components/root/store-modal-contents";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,35 +58,40 @@ export default function Navbar() {
     {
       name: "Quests", isDropdown: true,
       dropdownItems: [
-        { name: "Browse Games", href: "#" },
-        { name: "Partners", href: "#" },
-        { name: "Community Hub", href: "#" },
+        { name: "Active", href: "/quests/active" },
+        { name: "Quest Series", href: "#" },
+        { name: "Entered", href: "#" },
+        { name: "Ended", href: "#" },
       ],
     },
     { name: "Store", href: "/store" },
-    { name: "Redeem", href: "#" },
+    { name: "Redeem", href: "/redeem" },
   ];
 
+  const hasBackground = top > 0 || (url !== "/" && url !== "/quests/active");
   return (
     <div
       className={cn(
         "fixed left-0 top-0 z-[20] w-full py-1.5 md:py-3",
-        top <= 0 ? "bg-transparent text-white" : "bg-white dark:bg-black", url !== "/" && "sticky top-0 bg-white dark:bg-black text-black dark:text-white"
+        !hasBackground ? "bg-transparent text-white" : "bg-bg-primary dark:bg-bg-primary", (url !== "/" && url !== "/quests/active") && "sticky top-0 bg-bg-primary dark:bg-bg-primary text-black dark:text-white"
       )}
     >
       <Container>
-        <nav className="w-full z-50">
+        <nav className="w-full z-50 relative">
           <div className="flex items-center justify-between h-16">
 
             {/* === Left Section === */}
             <div className="flex items-center">
-              <Logo />
+              <Logo
+                hasBackground={hasBackground}
+              />
 
               {/* Desktop Navigation */}
-              <div className="hidden md:block ml-10">
+              <div className="hidden lg:block ml-10">
                 <div className="flex items-baseline space-x-6">
                   {navLinks.map((link) => (
                     <NavItem
+                      hasBackground={hasBackground}
                       key={link.name}
                       name={link.name}
                       href={link.href}
@@ -100,11 +105,22 @@ export default function Navbar() {
             </div>
 
             {/* === Right Section (Desktop Auth) === */}
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-4">
               {auth?.user ? (
-                <Link href={dashboard()} className="font-medium hover:text-primary-color">
-                  Dashboard
-                </Link>
+                <>
+                  <div className="flex items-center gap-2">
+                    <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
+                    <p>10</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <img src="/images/coin.png" alt="" className="w-4 h-4" />
+                    <p>200</p>
+                  </div>
+                  <IoMdNotificationsOutline className={cn("w-6 h-6 cursor-pointer", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")} />
+                  <Link href={dashboard()} className={cn("font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
+                    Dashboard
+                  </Link>
+                </>
               ) : (
                 <>
                   <Link
@@ -112,7 +128,7 @@ export default function Navbar() {
                     className="text-center block rounded-md text-base font-medium "
                   >
                     {/* <Button text="Login" className="w-full" /> */}
-                    <button className={cn("border border-white w-full rounded-full py-1 px-8 cursor-pointer", top > 0 && "border-black")}>Login</button>
+                    <button className={cn("border !border-white w-full rounded-full py-1 px-8 cursor-pointer", hasBackground && "!border-primary-color")}>Login</button>
                   </Link>
                   <Link href={register()}>
                     <Button text="Sign up" className="px-8" />
@@ -121,68 +137,83 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* === Mobile Menu Button === */}
-            <div className="-mr-2 flex md:hidden">
-              <button
-                ref={buttonRef}
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-700 focus:outline-none transition"
-              >
-                {isMenuOpen ? (
-                  <IoMdClose className="block h-6 w-6" />
-                ) : (
-                  <FiMenu className="block h-6 w-6" />
-                )}
-              </button>
+            {/* mobile menu */}
+            <div className="flex gap-4 lg:hidden mr-2">
+              <div className="flex gap-4">
+                <div className="flex items-center gap-2">
+                  <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
+                  <span>10</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <img src="/images/coin.png" alt="" className="w-4 h-4" />
+                  <span>200</span>
+                </div>
+              </div>
+
+              {/* === Mobile Menu Button === */}
+              <div className="-mr-2 flex">
+                <button
+                  ref={buttonRef}
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-700 focus:outline-none transition"
+                >
+                  {isMenuOpen ? (
+                    <IoMdClose className="block h-6 w-6" />
+                  ) : (
+                    <FiMenu className="block h-6 w-6" />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 
           {/* === Mobile Menu Content === */}
-          {isMenuOpen && (
-            <div
-              ref={menuRef}
-              className="md:hidden mt-2 !bg-white dark:!bg-black !text-black dark:!text-white rounded-lg"
-              id="mobile-menu"
-            >
-              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {navLinks.map((link) => (
-                  <NavItem
-                    key={link.name}
-                    name={link.name}
-                    href={link.href}
-                    isDropdown={link.isDropdown}
-                    dropdownItems={link.dropdownItems}
-                    variant="mobile"
-                  />
-                ))}
 
-                {/* Mobile Auth Buttons */}
-                <div className="pt-4 border-t border-gray-700 text-black dark:text-white grid grid-cols-2 justify-center items-center gap-4">
-                  {auth?.user ? (
+          <div
+            ref={menuRef}
+            className={cn("lg:hidden !bg-bg-primary dark:!bg-bg-primary !text-black dark:!text-white rounded-lg duration-300 transition ease-in-out absolute w-full md:w-1/2 right-0 top-[72px] md:top-[78px]", isMenuOpen ? "translate-x-0" : "translate-x-[120%]")}
+            id="mobile-menu"
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              {navLinks.map((link) => (
+                <NavItem
+                  key={link.name}
+                  name={link.name}
+                  href={link.href}
+                  isDropdown={link.isDropdown}
+                  dropdownItems={link.dropdownItems}
+                  variant="mobile"
+                />
+              ))}
+
+              {/* Mobile Auth Buttons */}
+              <div className=" border-gray-700 text-black dark:text-white grid grid-cols-2 justify-center items-center gap-4">
+                {auth?.user ? (
+                  <>
                     <Link
                       href={dashboard()}
-                      className="text-center block px-3 py-2 rounded-md text-base font-medium"
+                      className="px-3 block rounded-md text-base font-medium"
                     >
                       Dashboard
                     </Link>
-                  ) : (
-                    <>
-                      <Link
-                        href={login()}
-                        className="text-center block rounded-md text-base font-medium"
-                      >
-                        {/* <Button text="Login" className="w-full" /> */}
-                        <button className="border border-black dark:border-white w-full rounded-full py-1">Login</button>
-                      </Link>
-                      <Link href={register()}>
-                        <Button text="Sign up" className="w-full" />
-                      </Link>
-                    </>
-                  )}
-                </div>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href={login()}
+                      className="text-center block rounded-md text-base font-medium"
+                    >
+                      {/* <Button text="Login" className="w-full" /> */}
+                      <button className="border border-black dark:border-white w-full rounded-full py-1">Login</button>
+                    </Link>
+                    <Link href={register()}>
+                      <Button text="Sign up" className="w-full" />
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
-          )}
+          </div>
         </nav>
       </Container>
 

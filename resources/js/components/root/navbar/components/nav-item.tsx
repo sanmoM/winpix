@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "@inertiajs/react";
 import { IoIosArrowDown } from "react-icons/io";
+import { cn } from "@/lib/utils";
 
 interface DropdownItem {
     name: string;
@@ -15,6 +16,7 @@ interface NavItemProps {
     variant?: "desktop" | "mobile";
     type?: "button" | "link";
     onClick?: () => void;
+    hasBackground?: boolean;
 }
 
 export default function NavItem({
@@ -25,6 +27,7 @@ export default function NavItem({
     variant = "desktop",
     type = "link",
     onClick,
+    hasBackground,
 }: NavItemProps) {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -39,7 +42,7 @@ export default function NavItem({
                 {isDropdown ? (
                     <>
                         <button
-                            className="hidden md:flex items-center cursor-pointer font-medium hover:opacity-80"
+                            className={cn("hidden md:flex items-center cursor-pointer font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}
                         >
                             {name}
                             <IoIosArrowDown
@@ -50,7 +53,7 @@ export default function NavItem({
 
                         {/* Dropdown */}
                         <div
-                            className={`absolute left-0 mt-2 w-48 bg-white dark:bg-black rounded-lg shadow-xl overflow-hidden transition-all duration-200 ease-in-out ${isOpen
+                            className={`absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-bg-primary dark:bg-bg-primary rounded-lg shadow-xl overflow-hidden transition-all duration-200 ease-in-out ${isOpen
                                 ? "opacity-100 translate-y-0 visible"
                                 : "opacity-0 -translate-y-2 invisible"
                                 }`}
@@ -59,7 +62,7 @@ export default function NavItem({
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className="block px-4 py-2 text-black dark:text-white hover:opacity-60"
+                                    className={cn("block px-4 py-2 text-black font-medium dark:text-white", hasBackground ? "hover:!text-primary-color" : "hover:opacity-70")}
                                 >
                                     {item.name}
                                 </Link>
@@ -70,11 +73,11 @@ export default function NavItem({
                     <>
                         {
                             type === "button" ?
-                                <button onClick={onClick} className="font-medium hover:opacity-80 cursor-pointer">
+                                <button onClick={onClick} className={cn("font-medium cursor-pointer", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
                                     {name}
                                 </button>
                                 :
-                                <Link href={href} className="font-medium hover:opacity-80">
+                                <Link href={href} className={cn("font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
                                     {name}
                                 </Link>
                         }
@@ -87,22 +90,42 @@ export default function NavItem({
     // === MOBILE VERSION === (click to open)
     return (
         <div className="relative">
-            <button
-                onClick={() => (isDropdown ? setIsOpen(!isOpen) : null)}
-                className={`w-full text-left block px-3 py-2 rounded-md text-base font-medium hover:opacity-90 transition ${isDropdown ? "flex justify-between items-center" : ""
-                    }`}
-            >
-                {name}
-                {isDropdown && (
-                    <IoIosArrowDown
-                        className={`ml-1 w-4 h-4 transition-transform ${isOpen ? "rotate-180" : "rotate-0"
-                            }`}
-                    />
-                )}
-            </button>
+            {
+                isDropdown ? (<button
+                    onClick={() => (isDropdown ? setIsOpen(!isOpen) : null)}
+                    className={`w-full text-left block px-3 py-2 rounded-md text-base font-medium hover:text-primary-color transition !scale-100 ${isDropdown ? "flex justify-between items-center" : ""
+                        }`}
+                    style={{
+                        scale: "1 !important"
+                    }}
+                >
+                    {name}
+                    {isDropdown && (
+                        <IoIosArrowDown
+                            className={`ml-1 w-4 h-4 transition-transform ${isOpen ? "rotate-180" : "rotate-0"
+                                }`}
+                        />
+                    )}
+                </button>
+                ) : (<Link
+                    href={href} // pass your target URL here
+                    onClick={() => (isDropdown ? setIsOpen(!isOpen) : null)}
+                    className={`w-full text-left block px-3 py-2 rounded-md text-base font-medium hover:text-primary-color transition  ${isDropdown ? "flex justify-between items-center" : ""
+                        }`}
+                >
+                    {name}
+                    {isDropdown && (
+                        <IoIosArrowDown
+                            className={`ml-1 w-4 h-4 transition-transform ${isOpen ? "rotate-180" : "rotate-0"
+                                }`}
+                        />
+                    )}
+                </Link>
+                )
+            }
 
             {isDropdown && isOpen && (
-                <div className="lg:pl-6 pt-1 pb-1 space-y-1 rounded-md">
+                <div className="pl-6 pt-1 pb-1 space-y-1 rounded-md">
                     {dropdownItems.map((item) => (
                         <Link
                             key={item.name}

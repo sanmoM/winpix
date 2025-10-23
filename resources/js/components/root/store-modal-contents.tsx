@@ -86,7 +86,7 @@ const StoreItem = ({ quantity, price, isBestValue, iconColorClass = "text-indigo
       <button
         className={`mt-3 sm:mt-4 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-bold text-sm sm:text-base transition duration-200 shadow-md transform hover:scale-105
           ${isBestValue
-            ? 'bg-white text-indigo-800 dark:bg-gray-200 dark:text-indigo-900 hover:bg-gray-100 dark:hover:bg-gray-300'
+            ? 'bg-bg-primary text-indigo-800 dark:bg-gray-200 dark:text-indigo-900 hover:bg-gray-100 dark:hover:bg-gray-300'
             : 'bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600'}`}
       >
         Buy Now

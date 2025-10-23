@@ -11,23 +11,22 @@
 .swiper-slide-active .title {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.7s; /* match your previous Tailwind delays */
 }
 
 .swiper-slide-active .subtitle {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 1s;
+  transition-delay: 0.5s;
 }
 
 .swiper-slide-active .btn {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 1.4s;
+  transition-delay: 1s;
 }
 
 /* Optional hover effect for button */
-.swiper-slide-active .btn:hover {
+/* .swiper-slide-active .btn:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease-in-out;
-}
+} */

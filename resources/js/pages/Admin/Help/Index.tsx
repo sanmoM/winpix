@@ -63,7 +63,7 @@ export default function Index({
                     Create
                 </Link>
             </div>
-            <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
+            <div className="overflow-x-auto rounded-lg border border-gray-200 bg-bg-primary shadow-sm">
                 <table className="min-w-full border-collapse text-left text-sm text-gray-700">
                     <thead className="bg-amber-600 text-white">
                         <tr>

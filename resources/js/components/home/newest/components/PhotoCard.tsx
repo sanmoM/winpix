@@ -20,7 +20,7 @@ export default function PhotoCard({ item }: { item: PhotoCardItem }) {
             />
             <div className="absolute bg-black/30 inset-0 w-full h-cull"></div>
             {/* Overlay */}
-            <div className="absolute inset-0 bg-blue-950/40" />
+            <div className="absolute inset-0 bg-black/30" />
 
             {/* Top Content */}
             <div className="absolute top-0 right-0 p-4">
@@ -35,7 +35,7 @@ export default function PhotoCard({ item }: { item: PhotoCardItem }) {
                 <div className="flex justify-between items-end">
                     <div>
                         <h2 className="text-2xl font-bold mb-2">Posing Dogs</h2>
-                        <div className="items-center border border-white rounded-full flex justify-center gap-2 w-fit px-4 py-1">
+                        <div className="items-center border !border-white rounded-full flex justify-center gap-2 w-fit px-4 py-1">
                             <TbTrophyFilled />
                             <span className="text-sm font-medium ">50 USD</span>
                         </div>

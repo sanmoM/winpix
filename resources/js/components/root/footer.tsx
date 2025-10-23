@@ -18,19 +18,19 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white dark:bg-black font-sans mt-16 p-8 sm:p-12 md:p-16">
+    <footer className="bg-bg-primary dark:bg-bg-primary font-sans mt-16 p-8 sm:p-12 md:p-16">
       <Container className="flex flex-col items-center justify-center text-center">
 
         {/* Logo/Title */}
-        <div className="mb-8">
-          <span className="text-3xl font-extrabold tracking-wider">
+        <div className="mb-5 md:mb-8">
+          <span className="text-2xl md:text-5xl lg:text-3xl font-extrabold tracking-wider">
             Winpix.com
           </span>
         </div>
 
         {/* Navigation Links */}
-        <nav className="mb-10">
-          <ul className="flex flex-wrap justify-center space-x-4 sm:space-x-8 text-sm  font-semibold tracking-wide">
+        <nav className="mb-5 md:mb-10">
+          <ul className="flex flex-wrap justify-center space-x-4 sm:space-x-8 text-xs md:text-lg lg:text-sm  font-semibold tracking-wide">
             {navLinks.map((link) => (
               <li key={link.name} className="py-2">
                 <a
@@ -45,7 +45,7 @@ const Footer = () => {
         </nav>
 
         {/* Social Icons */}
-        <div className="flex space-x-4 mb-12">
+        <div className="flex space-x-4 mb-6 md:mb-12">
           {socialIcons.map(({ Icon, href, ariaLabel }) => (
             <a
               key={ariaLabel}
@@ -53,8 +53,8 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={ariaLabel}
-              className="w-12 h-12 flex items-center justify-center rounded-full 
-                                           text-secondary-color border border-secondary-color hover:bg-secondary-color hover:text-white
+              className="w-12 h-12  flex items-center justify-center rounded-full 
+                                           text-primary-color border border-primary-color hover:bg-primary-color hover:text-white
                                            transition-colors duration-300"
             >
               <Icon />
@@ -63,8 +63,8 @@ const Footer = () => {
         </div>
 
         {/* Copyright and Credits */}
-        <div className="text-sm text-gray-400 pt-6 border-t border-gray-700 w-full flex items-center justify-center">
-          Copyright &copy;{new Date().getFullYear()} All rights reserved | This template is made with <FaHeart className="mx-1 text-secondary-color" /> by <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">Winpix.com</a>
+        <div className="text-[6px] md:text-base lg:text-sm text-gray-400 pt-6 border-t border-gray-700 w-full flex items-center justify-center">
+          Copyright &copy;{new Date().getFullYear()} All rights reserved | This template is made with <FaHeart className="mx-1 text-primary-color" /> by <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">Winpix.com</a>
         </div>
       </Container>
     </footer>

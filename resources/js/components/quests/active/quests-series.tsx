@@ -1,0 +1,118 @@
+import QuestCard from '@/components/shared/quest-card'
+import SectionHeading from '@/components/shared/SectionHeading'
+const questsData = [
+    {
+        id: 1,
+        title: "Fine Art Tuesday",
+        category: "Fine Art",
+        timeLeft: "4 days",
+        reward: 120,
+        currency: "USD",
+        participants: 1247,
+        image: "/images/banner-1.jpg",
+    },
+    {
+        id: 2,
+        title: "Photography Challenge",
+        category: "Photography",
+        timeLeft: "2 days",
+        reward: 150,
+        currency: "USD",
+        participants: 892,
+        image: "/images/banner-2.jpg",
+    },
+    {
+        id: 3,
+        title: "Design Sprint",
+        category: "Design",
+        timeLeft: "6 days",
+        reward: 200,
+        currency: "USD",
+        participants: 2156,
+        image: "/images/banner-3.jpg",
+    },
+    {
+        id: 2,
+        title: "Photography Challenge",
+        category: "Photography",
+        timeLeft: "2 days",
+        reward: 150,
+        currency: "USD",
+        participants: 892,
+        image: "/images/banner-4.jpg",
+    },
+    {
+        id: 3,
+        title: "Design Sprint",
+        category: "Design",
+        timeLeft: "6 days",
+        reward: 200,
+        currency: "USD",
+        participants: 2156,
+        image: "/images/banner-1.jpg",
+    },
+    {
+        id: 1,
+        title: "Fine Art Tuesday",
+        category: "Fine Art",
+        timeLeft: "4 days",
+        reward: 120,
+        currency: "USD",
+        participants: 1247,
+        image: "/images/banner-1.jpg",
+    },
+    {
+        id: 2,
+        title: "Photography Challenge",
+        category: "Photography",
+        timeLeft: "2 days",
+        reward: 150,
+        currency: "USD",
+        participants: 892,
+        image: "/images/banner-2.jpg",
+    },
+    {
+        id: 3,
+        title: "Design Sprint",
+        category: "Design",
+        timeLeft: "6 days",
+        reward: 200,
+        currency: "USD",
+        participants: 2156,
+        image: "/images/banner-3.jpg",
+    },
+    {
+        id: 2,
+        title: "Photography Challenge",
+        category: "Photography",
+        timeLeft: "2 days",
+        reward: 150,
+        currency: "USD",
+        participants: 892,
+        image: "/images/banner-4.jpg",
+    },
+    {
+        id: 3,
+        title: "Design Sprint",
+        category: "Design",
+        timeLeft: "6 days",
+        reward: 200,
+        currency: "USD",
+        participants: 2156,
+        image: "/images/banner-1.jpg",
+    },
+]
+
+
+export default function QuestsSeries() {
+    return (
+        <div>
+            <SectionHeading title="Quests Series" />
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                {questsData.map((quest) => (
+                    <QuestCard key={quest.id} quest={quest} />
+                ))}
+            </div>
+        </div>
+    )
+}

@@ -68,27 +68,29 @@ export default function ActiveQuestsFilter() {
     const [activeFilter, setActiveFilter] = useState('discover');
 
     return (
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 md:gap-10">
 
             {/* Filter Tabs Group */}
-            <div className="grid grid-cols-5 items-center p-1 space-x-1 overflow-x-auto gap-4">
+            <div className='w-full overflow-x-auto'>
+                <div className="grid grid-cols-5 items-center p-1 space-x-1 w-max gap-4">
 
-                {/* We map over the filters array to create buttons */}
-                {filters.map((filter) => (
-                    <button
-                        key={filter.id}
-                        // We dynamically add the 'active' class
-                        className={`filter-btn flex-shrink-0 flex gap-2 items-center justify-center p-3 px-6 bg-bg-primary  rounded-full cursor-pointer hover:shadow-sm ${activeFilter === filter.id ? 'bg-primary-color text-white' : ''}`}
-                        onClick={() => {
-                            setActiveFilter(filter.id);
-                            console.log('Selected filter:', filter.id);
-                        }}
-                    >
-                        {filter.icon}
-                        <span>{filter.label}</span>
-                    </button>
-                ))}
+                    {/* We map over the filters array to create buttons */}
+                    {filters.map((filter) => (
+                        <button
+                            key={filter.id}
+                            // We dynamically add the 'active' class
+                            className={`filter-btn flex-shrink-0 flex gap-2 items-center justify-center p-3 px-6 bg-bg-primary  rounded-full cursor-pointer hover:shadow-sm ${activeFilter === filter.id ? 'bg-primary-color text-white' : ''}`}
+                            onClick={() => {
+                                setActiveFilter(filter.id);
+                                console.log('Selected filter:', filter.id);
+                            }}
+                        >
+                            {filter.icon}
+                            <span>{filter.label}</span>
+                        </button>
+                    ))}
 
+                </div>
             </div>
 
             {/* Sort and Filter Button */}

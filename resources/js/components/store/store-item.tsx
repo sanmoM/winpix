@@ -30,10 +30,10 @@ const StoreItem: React.FC<StoreItemProps> = ({
 
             <div className={`mb-3 sm:mb-4 ${iconColorClass}`}>
                 {/* <IoLayersSharp className="w-10 sm:w-12 h-10 sm:h-12" /> */}
-                <img src="https://cdn.pulsepx.com/product-assets/1000005/icon?v=3" alt="" className="w-40" />
+                <img src="https://cdn.pulsepx.com/product-assets/1000005/icon?v=3" alt="" className="w-28 md:w-40" />
             </div>
 
-            <p className="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white mb-1 sm:mb-2">
+            <p className="text-xl md:text-2xl font-extrabold text-gray-900 dark:text-white mb-1 sm:mb-2">
                 x{quantity}
             </p>
             <Button text={price} className="px-6 mt-2" />

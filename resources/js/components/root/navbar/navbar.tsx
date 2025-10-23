@@ -87,7 +87,7 @@ export default function Navbar() {
               />
 
               {/* Desktop Navigation */}
-              <div className="hidden md:block ml-10">
+              <div className="hidden lg:block ml-10">
                 <div className="flex items-baseline space-x-6">
                   {navLinks.map((link) => (
                     <NavItem
@@ -105,7 +105,7 @@ export default function Navbar() {
             </div>
 
             {/* === Right Section (Desktop Auth) === */}
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-4">
               {auth?.user ? (
                 <>
                   <div className="flex items-center gap-2">
@@ -138,7 +138,7 @@ export default function Navbar() {
             </div>
 
             {/* mobile menu */}
-            <div className="flex gap-4 md:hidden">
+            <div className="flex gap-4 lg:hidden mr-2">
               <div className="flex gap-4">
                 <div className="flex items-center gap-2">
                   <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
@@ -171,7 +171,7 @@ export default function Navbar() {
 
           <div
             ref={menuRef}
-            className={cn("md:hidden !bg-bg-primary dark:!bg-bg-primary !text-black dark:!text-white rounded-lg duration-300 transition ease-in-out absolute w-full left-0 top-[72px]", isMenuOpen ? "translate-x-0" : "translate-x-[120%]")}
+            className={cn("lg:hidden !bg-bg-primary dark:!bg-bg-primary !text-black dark:!text-white rounded-lg duration-300 transition ease-in-out absolute w-full md:w-1/2 right-0 top-[72px] md:top-[78px]", isMenuOpen ? "translate-x-0" : "translate-x-[120%]")}
             id="mobile-menu"
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">

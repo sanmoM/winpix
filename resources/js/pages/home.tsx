@@ -9,7 +9,7 @@ export default function home() {
     return (
         <UserLayout>
             <Banner />
-            <Container className="space-y-14 md:space-y-20 lg:space-y-38 my-10 md:my-24 lg:my-28">
+            <Container className="space-y-14 md:space-y-20 lg:space-y-38 my-10 md:my-16 lg:my-28">
                 <Newest />
                 <Gallery />
             </Container>

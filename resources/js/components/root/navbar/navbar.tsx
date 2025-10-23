@@ -68,11 +68,12 @@ export default function Navbar() {
     { name: "Redeem", href: "/redeem" },
   ];
 
+  const hasBackground = top > 0;
   return (
     <div
       className={cn(
         "fixed left-0 top-0 z-[20] w-full py-1.5 md:py-3",
-        top <= 0 ? "bg-transparent text-white" : "bg-bg-primary dark:bg-bg-primary", (url !== "/" && url !== "/quests/active") && "sticky top-0 bg-bg-primary dark:bg-bg-primary text-black dark:text-white"
+        !hasBackground ? "bg-transparent text-white" : "bg-bg-primary dark:bg-bg-primary", (url !== "/" && url !== "/quests/active") && "sticky top-0 bg-bg-primary dark:bg-bg-primary text-black dark:text-white"
       )}
     >
       <Container>
@@ -81,7 +82,9 @@ export default function Navbar() {
 
             {/* === Left Section === */}
             <div className="flex items-center">
-              <Logo />
+              <Logo 
+              hasBackground={hasBackground}
+              />
 
               {/* Desktop Navigation */}
               <div className="hidden md:block ml-10">
@@ -124,7 +127,7 @@ export default function Navbar() {
                     className="text-center block rounded-md text-base font-medium "
                   >
                     {/* <Button text="Login" className="w-full" /> */}
-                    <button className={cn("border border-white w-full rounded-full py-1 px-8 cursor-pointer", top > 0 && "border-black")}>Login</button>
+                    <button className={cn("border !border-white w-full rounded-full py-1 px-8 cursor-pointer", hasBackground && "!border-primary-color")}>Login</button>
                   </Link>
                   <Link href={register()}>
                     <Button text="Sign up" className="px-8" />

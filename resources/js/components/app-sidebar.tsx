@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { LayoutGrid, ServerIcon, UserPlus } from 'lucide-react';
+import { LayoutGrid, ServerIcon, UserPlus, WashingMachine } from 'lucide-react';
 import { route } from 'ziggy-js';
 import AppLogo from './app-logo';
 
@@ -30,18 +30,35 @@ export function AppSidebar() {
     const adminNavItems: NavItem[] = [
         {
             title: 'Dashboard',
-            href: route('admin.dashboard'),
             icon: LayoutGrid,
         },
         {
             title: 'About',
-            href: route('admin.about.index'),
             icon: UserPlus,
         },
         {
             title: 'Help',
-            href: route('admin.help.index'),
             icon: ServerIcon,
+        },
+        {
+            title: 'Help',
+            icon: WashingMachine,
+        },
+        {
+            title: 'Others',
+            icon: WashingMachine,
+            subItems: [
+                {
+                    title: 'Help Center',
+                    href: route('admin.help.index'),
+                    icon: ServerIcon,
+                },
+                {
+                    title: 'Support',
+                    href: route('admin.about.index'),
+                    icon: ServerIcon,
+                },
+            ],
         },
     ];
 

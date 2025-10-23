@@ -32,6 +32,12 @@ Route::get('/profile/{id}', function ($id) {
     ]);
 })->name('profile');
 
+Route::get('/single-quest/{id}', function ($id) {
+    return Inertia::render('quests/single-quest', [
+        'id' => $id
+    ]);
+})->name('single-quest');
+
 Route::get('auth-error', function () {
     return view('error');
 })->name('auth.error');

@@ -1,6 +1,7 @@
 import Button from '@/components/shared/button';
 import CustomSlider from '../../shared/custom-slider/CustomSlider'
 import "./banner.css"
+import Banner from '@/components/shared/banner';
 
 const slides = [
   {
@@ -37,8 +38,7 @@ export default function
     <CustomSlider mobileView={1} tabletView={1} desktopView={1}>
       {
         slides.map((slide, index) => (
-          <div key={index} className="w-full flex-shrink-0 relative h-[70vh] lg:h-screen">
-            <img src={slide.imageUrl} alt={`Banner ${index + 1}`} className="w-full h-full object-cover" />
+          <Banner src={slide.imageUrl} key={index}>
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white text-center p-8">
               <div className={``}>
                 <h2 className="title text-2xl md:text-5xl lg:text-6xl font-bold">{slide.title}</h2>
@@ -46,7 +46,7 @@ export default function
                 <Button text="Join Now" className='px-10 py-2 md:py-3 btn' />
               </div>
             </div>
-          </div>
+          </Banner>
         ))
       }
     </CustomSlider>

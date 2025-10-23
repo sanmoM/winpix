@@ -2,6 +2,7 @@ import Button from "@/components/shared/button";
 import CustomSlider from "@/components/shared/custom-slider/CustomSlider";
 import { IoTrophySharp } from "react-icons/io5";
 import "./active-quests-banner.css";
+import Banner from "@/components/shared/banner";
 
 const slides = [
     {
@@ -35,8 +36,7 @@ export default function ActiveQuestsBanner() {
         <CustomSlider mobileView={1} tabletView={1} desktopView={1}>
             {
                 slides.map((slide, index) => (
-                    <div key={index} className="w-full flex-shrink-0 relative h-[80vh] md:h-[60vh] lg:h-[80vh]">
-                        <img src={slide.imageUrl} alt={`Banner ${index + 1}`} className="w-full h-full object-cover" />
+                    <Banner src={slide.imageUrl} key={index} containerClass="h-[80vh] md:h-[60vh] lg:h-[80vh]">
                         <div className="absolute inset-0 bg-black/50 flex w-full h-full justify-center items-center md:items-end md:justify-end text-white text-center md:text-right md:p-8">
                             <div className="relative z-10 p-8 md:p-12 flex flex-col gap-3 md:gap-6 text-white">
 
@@ -79,7 +79,7 @@ export default function ActiveQuestsBanner() {
 
                             </div>
                         </div>
-                    </div>
+                    </Banner>
                 ))
             }
         </CustomSlider>

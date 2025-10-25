@@ -1,4 +1,5 @@
-import Button from '@/components/shared/button'
+import Button from '@/components/shared/buttons/button'
+import { Link } from '@inertiajs/react'
 import { Clock } from "lucide-react"
 
 interface Quest {
@@ -14,12 +15,14 @@ interface Quest {
 
 interface QuestCardProps {
     quest: Quest
+    href?: string
 }
 
-function QuestCard({ quest }: QuestCardProps) {
+function QuestCard({ quest, href }: QuestCardProps) {
     return (
-        <div
-            className="group cursor-pointer relative overflow-hidden rounded-2xl bg-bg-primary dark:bg-bg-primary border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-accent"
+        <Link
+            href={href || `/single-quest/1`}
+            className="group cursor-pointer relative overflow-hidden rounded-2xl bg-bg-primary dark:bg-bg-primary border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:border-accent"
         >
             <div className="relative h-56 w-full overflow-hidden bg-gray-100 dark:bg-gray-700">
                 <img
@@ -43,7 +46,7 @@ function QuestCard({ quest }: QuestCardProps) {
             <div className="relative p-4 flex flex-col h-full">
                 {/* Title */}
                 <div className='flex justify-between items-start mb-4'>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-2 group-hover:text-accent transition-colors">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-2  transition-colors">
                         {quest.title}
                     </h3>
                     <div className="flex gap-2 items-center">
@@ -53,7 +56,7 @@ function QuestCard({ quest }: QuestCardProps) {
                 </div>
                 <Button className="w-fit mx-auto px-8 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all duration-300 group-hover:shadow-lg" text='Submit Quest' />
             </div>
-        </div>
+        </Link>
     );
 }
 

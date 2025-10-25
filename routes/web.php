@@ -21,8 +21,8 @@ Route::get('/redeem', function () {
     return Inertia::render('redeem');
 })->name('redeem');
 
-Route::get('/quests/active', function () {
-    return Inertia::render('quests/active');
+Route::get('/quests/active-quests', function () {
+    return Inertia::render('quests/active-quests');
 })->name('active-quests');
 
 Route::get('/discover', [DiscoverController::class, 'discover'])->name('discover');
@@ -38,6 +38,14 @@ Route::get('/single-quest/{id}', function ($id) {
         'id' => $id
     ]);
 })->name('single-quest');
+
+Route::get('/quest-series', function () {
+    return Inertia::render('quests/quest-series');
+})->name('quest-series');
+
+Route::get('/single-quest-series', function () {
+    return Inertia::render('quests/single-quest-series');
+})->name('single-quest-series');
 
 Route::get('auth-error', function () {
     return view('error');

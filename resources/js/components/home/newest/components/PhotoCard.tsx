@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import { TbTrophyFilled } from "react-icons/tb";
 
 type PhotoCardItem = {
@@ -10,7 +11,7 @@ type PhotoCardItem = {
 
 export default function PhotoCard({ item }: { item: PhotoCardItem }) {
     return (
-        <div className="relative w-full rounded-2xl overflow-hidden group cursor-pointer">
+        <div className="relative block w-full rounded-2xl overflow-hidden group cursor-pointer">
 
             {/* Background Image */}
             <img

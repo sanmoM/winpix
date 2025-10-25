@@ -7,10 +7,11 @@ import { Link, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose, IoMdNotificationsOutline } from "react-icons/io";
-import Button from "../../shared/button";
+import Button from "../../shared/buttons/button";
 import Container from "../../shared/container";
 import Logo from "../../shared/logo";
 import NavItem from "./components/nav-item";
+import BorderButton from "@/components/shared/buttons/border-button";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,8 +59,8 @@ export default function Navbar() {
     {
       name: "Quests", isDropdown: true,
       dropdownItems: [
-        { name: "Active", href: "/quests/active" },
-        { name: "Quest Series", href: "#" },
+        { name: "Active", href: "/quests/active-quests" },
+        { name: "Quest Series", href: "/quest-series" },
         { name: "Entered", href: "#" },
         { name: "Ended", href: "#" },
       ],
@@ -128,7 +129,8 @@ export default function Navbar() {
                     className="text-center block rounded-md text-base font-medium "
                   >
                     {/* <Button text="Login" className="w-full" /> */}
-                    <button className={cn("border !border-white w-full rounded-full py-1 px-8 cursor-pointer", hasBackground && "!border-primary-color")}>Login</button>
+                    {/* <button className={cn("border !border-white w-full rounded-full py-1 px-8 cursor-pointer", hasBackground && "!border-primary-color")}>Login</button> */}
+                    <BorderButton className={hasBackground ? "!border-primary-color" : "!border-white"} text="Login" />
                   </Link>
                   <Link href={register()}>
                     <Button text="Sign up" className="px-8" />
@@ -203,7 +205,6 @@ export default function Navbar() {
                       href={login()}
                       className="text-center block rounded-md text-base font-medium"
                     >
-                      {/* <Button text="Login" className="w-full" /> */}
                       <button className="border border-black dark:border-white w-full rounded-full py-1">Login</button>
                     </Link>
                     <Link href={register()}>

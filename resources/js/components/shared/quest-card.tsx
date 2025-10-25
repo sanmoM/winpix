@@ -1,4 +1,5 @@
-import Button from '@/components/shared/button'
+import Button from '@/components/shared/buttons/button'
+import { Link } from '@inertiajs/react'
 import { Clock } from "lucide-react"
 
 interface Quest {
@@ -18,7 +19,8 @@ interface QuestCardProps {
 
 function QuestCard({ quest }: QuestCardProps) {
     return (
-        <div
+        <Link
+            href={`/single-quest/1`}
             className="group cursor-pointer relative overflow-hidden rounded-2xl bg-bg-primary dark:bg-bg-primary border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-accent"
         >
             <div className="relative h-56 w-full overflow-hidden bg-gray-100 dark:bg-gray-700">
@@ -53,7 +55,7 @@ function QuestCard({ quest }: QuestCardProps) {
                 </div>
                 <Button className="w-fit mx-auto px-8 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all duration-300 group-hover:shadow-lg" text='Submit Quest' />
             </div>
-        </div>
+        </Link>
     );
 }
 

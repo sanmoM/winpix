@@ -1,4 +1,4 @@
-import Button from '@/components/shared/button';
+import Button from '@/components/shared/buttons/button';
 import CustomSlider from '../../shared/custom-slider/CustomSlider'
 import "./banner.css"
 import Banner from '@/components/shared/banner';

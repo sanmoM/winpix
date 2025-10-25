@@ -1,5 +1,5 @@
 import { IoLayersSharp } from "react-icons/io5";
-import Button from "../shared/button";
+import Button from "../shared/buttons/button";
 
 <IoLayersSharp className="w-8 h-8 mt-0.5 sm:mt-0 mr-0 sm:mr-3 text-indigo-500 dark:text-indigo-300" />
 

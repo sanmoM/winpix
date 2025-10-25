@@ -1,4 +1,4 @@
-import Button from "@/components/shared/button";
+import Button from "@/components/shared/buttons/button";
 import CustomSlider from "@/components/shared/custom-slider/CustomSlider";
 import { IoTrophySharp } from "react-icons/io5";
 import "./active-quests-banner.css";

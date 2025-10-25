@@ -1,5 +1,6 @@
 import { FaHeart } from "react-icons/fa";
 import Container from "../shared/container";
+import SocialIcon from "../shared/social-icon";
 
 const Footer = () => {
   const navLinks = [
@@ -47,18 +48,7 @@ const Footer = () => {
         {/* Social Icons */}
         <div className="flex space-x-4 mb-6 md:mb-12">
           {socialIcons.map(({ Icon, href, ariaLabel }) => (
-            <a
-              key={ariaLabel}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={ariaLabel}
-              className="w-12 h-12  flex items-center justify-center rounded-full 
-                                           text-primary-color border border-primary-color hover:bg-primary-color hover:text-white
-                                           transition-colors duration-300"
-            >
-              <Icon />
-            </a>
+            <SocialIcon Icon={Icon} href={href} ariaLabel={ariaLabel} />
           ))}
         </div>
 

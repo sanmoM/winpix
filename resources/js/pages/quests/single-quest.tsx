@@ -1,12 +1,19 @@
+import Brief from '@/components/quests/single-quest/brief'
+import Creator from '@/components/quests/single-quest/createor'
+import Guidelines from '@/components/quests/single-quest/guidelines/guidelines'
+import Prizes from '@/components/quests/single-quest/prizes/prizes'
 import Banner from '@/components/shared/banner'
-import Button from '@/components/shared/button'
+import Button from '@/components/shared/buttons/button'
 import Container from '@/components/shared/container'
 import SecondarySectionHeading from '@/components/shared/secondary-section-heading'
 import Tab from '@/components/shared/tab'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
+import { useState } from 'react'
 
 export default function SingleQuest() {
+    const [activeTab, setActiveTab] = useState("brief");
+    console.log(activeTab);
     return (
         <UserLayout>
             <Banner src="https://cdn.pulsepx.com/photos/111974512/5652113db680a1dda4a6ea1dbd62f158405f9392ad52e5eca32d080d45d11bbe/2048.jpg" containerClass='lg:h-[70vh]' hasOverlay={false}>
@@ -27,11 +34,17 @@ export default function SingleQuest() {
                         { label: "Brief", value: "brief" },
                         { label: "Entries", value: "entries" },
                     ]}
-                />
+                    value={activeTab}
+                    onChange={(val) => setActiveTab(val)}
 
-                <div className='px-2'>
-                    <SecondarySectionHeading title="Brief" />
-                    <p className='text-gray-500'>Place your subject directly in the spotlight by challenging the rule of thirds. Frame your shot so the focus is perfectly centered, whether it's a lone figure on a path, a single object on a clean background, or a compelling symmetrical facade. Explore how negative space and bold symmetry can create a powerful, minimalist, and dramatic impact.</p>
+                />
+                <div className='px-2 space-y-14 md:space-y-20 lg:space-y-10'>
+                    <Brief />
+                    <Prizes />
+                    <div className='flex justify-between'>
+                        <Guidelines />
+                        <Creator />
+                    </div>
                 </div>
             </Container>
         </UserLayout>

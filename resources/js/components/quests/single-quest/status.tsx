@@ -5,7 +5,7 @@ import { GiVote } from "react-icons/gi";
 
 export default function Status() {
   return (
-    <div>
+    <div className='md:w-2/3'>
       <SecondarySectionHeading title="Quest Status" />
       <div className='w-2/3  mt-3'>
         <div className='flex gap-2 items-center mb-1 ml-2'>

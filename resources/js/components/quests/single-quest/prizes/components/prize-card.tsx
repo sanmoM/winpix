@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function PrizeCard({ number, title, amount, containerClassName, hasBadge = false }: { number: number, title: string, amount: number, containerClassName?: string, hasBadge?: boolean }) {
     return (
-        <div className={cn("w-full rounded-lg bg-bg-primary p-5 shadow-md", containerClassName)}>
+        <div className={cn("w-full rounded-lg bg-bg-primary py-5", containerClassName)}>
 
             {/* Top section: Icon + Title */}
             <div className="flex items-center justify-center gap-3">
@@ -15,7 +15,7 @@ export default function PrizeCard({ number, title, amount, containerClassName, h
             </div>
 
 
-            <BorderButton text={`${amount}`} className='w-fit mx-auto mt-4 py-2 px-10' hasIcon={true} />
+            <BorderButton text={`${amount}`} className='w-fit mx-auto mt-4 py-1.5 lg:py-2 px-6 lg:px-10 text-sm lg:text-base' hasIcon={true} />
         </div>
     )
 }

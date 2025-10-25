@@ -54,10 +54,10 @@ const questsData = [
 ]
 
 
-export default function QuestsSeries() {
+export default function ActiveQuests() {
     return (
         <div>
-            <SectionHeading title="Quests Series" />
+            <SectionHeading title="Active Quests" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 {questsData.map((quest) => (
                     <QuestCard key={quest.id} quest={quest} href='/single-quest-series' />

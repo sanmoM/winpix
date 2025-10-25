@@ -4,7 +4,7 @@ export default function Progressbar({ progress, milestones = [], containerClassN
     // Ensure progress is within 0-100
     const clampedProgress = Math.max(0, Math.min(100, progress));
     return (
-        <div className={cn("relative w-full h-2 bg-gray-200 rounded-full overflow-hidden min-w-xl", containerClassName)}>
+        <div className={cn("relative w-full h-2 bg-gray-200 rounded-full overflow-hidden", containerClassName)}>
             {/* Filled Progress */}
             <div
                 className="absolute top-0 left-0 h-full bg-primary-color rounded-full transition-all duration-500 ease-out"

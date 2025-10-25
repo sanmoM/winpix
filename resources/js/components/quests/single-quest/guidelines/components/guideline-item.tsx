@@ -24,8 +24,8 @@ const GuidelineItem: React.FC<GuidelineItemProps> = ({
 
         {/* Content */}
         <div>
-            <h2 className="text-xl font-semibold mb-1">{title}</h2>
-            <p className="text-base text-gray-500">{description}</p>
+            <h2 className="text-base md:text-xl font-semibold mb-1">{title}</h2>
+            <p className="text-sm md:text-base text-gray-500">{description}</p>
         </div>
     </div>
 );

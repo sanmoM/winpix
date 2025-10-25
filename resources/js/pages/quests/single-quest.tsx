@@ -34,7 +34,7 @@ export default function SingleQuest() {
         <UserLayout>
             <Banner src="https://cdn.pulsepx.com/photos/111974512/5652113db680a1dda4a6ea1dbd62f158405f9392ad52e5eca32d080d45d11bbe/2048.jpg" containerClass='lg:h-[70vh]' hasOverlay={false}>
                 <div className='w-full h-full flex flex-col justify-center items-center'>
-                    <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold'>Perfectly Centered</h1>
+                    <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold text-white'>Perfectly Centered</h1>
                     <p className='text-gray-400 mt-4 mb-6'>#Minimalism</p>
                     <div className='grid grid-cols-2 gap-4'>
                         <button className="bg-white text-black text-sm font-semibold rounded-full transition cursor-pointer w-32 py-2 md:py-3 btn duration-300 hover:scale-105 ease-in-out">
@@ -58,7 +58,7 @@ export default function SingleQuest() {
                     <Status />
                     <Brief />
                     <Prizes />
-                    <div className='flex justify-between'>
+                    <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
                         <Guidelines />
                         <Creator />
                     </div>

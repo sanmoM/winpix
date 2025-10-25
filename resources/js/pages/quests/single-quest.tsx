@@ -2,14 +2,15 @@ import Brief from '@/components/quests/single-quest/brief'
 import Creator from '@/components/quests/single-quest/createor'
 import Guidelines from '@/components/quests/single-quest/guidelines/guidelines'
 import Prizes from '@/components/quests/single-quest/prizes/prizes'
+import Status from '@/components/quests/single-quest/status'
 import Banner from '@/components/shared/banner'
 import Button from '@/components/shared/buttons/button'
 import Container from '@/components/shared/container'
 import GalleryImageCart from '@/components/shared/gallary-image-cart'
-import SectionHeading from '@/components/shared/SectionHeading'
 import Tab from '@/components/shared/tab'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
+import { Clock } from 'lucide-react'
 import { useState } from 'react'
 
 const images = [
@@ -54,6 +55,7 @@ export default function SingleQuest() {
 
                 />
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "brief" && "hidden")}>
+                    <Status />
                     <Brief />
                     <Prizes />
                     <div className='flex justify-between'>

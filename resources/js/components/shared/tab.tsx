@@ -61,7 +61,7 @@ export default function Tab({
                 >
                     <button
                         onClick={() => handleSelect(i, opt.value)}
-                        className={cn("w-full z-10 relative text-center py-2.5 font-medium lg:text-sm cursor-pointer hover:!scale-100 text-primary-color duration-300", selected === i && "text-white")}
+                        className={cn("w-full z-10 relative !text-center py-2.5 font-medium lg:text-sm cursor-pointer hover:!scale-100 text-primary-color duration-300", selected === i && "text-white")}
                     >
                         {opt.label}
                     </button>

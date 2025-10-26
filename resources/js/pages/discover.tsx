@@ -2,6 +2,7 @@ import InfiniteGallery from '@/components/discover/infinite-gallery'
 import Leaderboard from '@/components/discover/leader-board'
 import Quests from '@/components/discover/quests'
 import Container from '@/components/shared/container'
+import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 
 const images = [
@@ -28,12 +29,13 @@ const images = [
 
 
 export default function discover() {
+    const { t } = useLocales()
     return (
         <UserLayout>
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
-                <Leaderboard />
-                <Quests />
-                <InfiniteGallery images={images} />
+                <Leaderboard t={t} />
+                <Quests t={t} />
+                <InfiniteGallery images={images} t={t} />
             </Container>
         </UserLayout>
     )

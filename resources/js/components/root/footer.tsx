@@ -1,15 +1,17 @@
 import { FaHeart } from "react-icons/fa";
 import Container from "../shared/container";
 import SocialIcon from "../shared/social-icon";
+import useLocales from "@/hooks/useLocales";
 
 const Footer = () => {
+  const { t } = useLocales()
   const navLinks = [
-    { name: 'HOME', href: '#home' },
-    { name: 'AGENT', href: '#agent' },
-    { name: 'ABOUT', href: '#about' },
-    { name: 'LISTING', href: '#listing' },
-    { name: 'BLOG', href: '#blog' },
-    { name: 'CONTACT', href: '#contact' },
+    { name: t("footer.navLinks.home"), href: '/' },
+    { name: t("footer.navLinks.agent"), href: '/' },
+    { name: t("footer.navLinks.about"), href: '/' },
+    { name: t("footer.navLinks.listing"), href: '/' },
+    { name: t("footer.navLinks.blog"), href: '/' },
+    { name: t("footer.navLinks.contact"), href: '/' },
   ];
 
   const socialIcons = [
@@ -20,7 +22,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-bg-primary dark:bg-bg-primary font-sans mt-16 p-8 sm:p-12 md:p-16">
-      <Container className="flex flex-col items-center justify-center text-center">
+      <Container className="flex flex-col items-center justify-center !text-center">
 
         {/* Logo/Title */}
         <div className="mb-5 md:mb-8">
@@ -53,9 +55,14 @@ const Footer = () => {
         </div>
 
         {/* Copyright and Credits */}
-        <div className="text-[6px] md:text-base lg:text-sm text-gray-400 pt-6 border-t border-gray-700 w-full flex items-center justify-center">
-          Copyright &copy;{new Date().getFullYear()} All rights reserved | This template is made with <FaHeart className="mx-1 text-primary-color" /> by <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">Winpix.com</a>
-        </div>
+        <div className="text-[6px] md:text-base lg:text-sm text-gray-400 pt-6 border-t border-gray-700 w-full flex items-center justify-center"
+          dangerouslySetInnerHTML={{
+            __html: t('footer.copyright', {
+              year: new Date().getFullYear(),
+              heart: '<span class="mx-1 text-primary-color">❤️</span>'
+            })
+          }}
+        />
       </Container>
     </footer>
   );

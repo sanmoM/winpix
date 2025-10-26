@@ -25,7 +25,7 @@ export default function StoreModalContents() {
                     >
                         {/* <IoLayersSharp className="w-8 h-8 mt-0.5 sm:mt-0 mr-0 sm:mr-3 text-indigo-500 dark:text-indigo-300" /> */}
                         <img src="https://cdn.pulsepx.com/product-assets/1000002/icon?v=4" alt="" className="w-20 hidden md:block" />
-                        <div className="mt-2 sm:mt-0 text-center md:text-left">
+                        <div className="mt-2 sm:mt-0 !text-center md:text-left">
                             <h4 className="text-lg sm:text-xl font-bold mb-1 text-gray-900 dark:text-white">
                                 About Pixels
                             </h4>

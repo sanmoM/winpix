@@ -56,7 +56,7 @@ export default function CoinAndNotification({ hasBackground }: { hasBackground: 
                 </button>
                 <div className={cn("absolute rounded-lg border top-[110%] lg:top-[200%] right-0 bg-bg-primary h-[300px] w-[calc(100vw-32px)] md:w-[350px]", notifyOpen ? "block" : "hidden")} ref={menuRef}>
                     <div>
-                        <SecondarySectionHeading title="Notifications" className="border-b pb-4 text-center mt-4 mb-0 md:mb-0 lg:mb-0" />
+                        <SecondarySectionHeading title="Notifications" className="border-b pb-4 !text-center mt-4 mb-0 md:mb-0 lg:mb-0" />
                         <div className="w-full max-w-sm">
                             {/* Flex container for icon and text */}
                             <div className="flex items-center space-x-4 p-4 border-b last:border-0 cursor-pointer">

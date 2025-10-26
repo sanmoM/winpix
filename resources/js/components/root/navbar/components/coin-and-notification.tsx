@@ -54,7 +54,7 @@ export default function CoinAndNotification({ hasBackground }: { hasBackground: 
                 >
                     <IoMdNotificationsOutline className="w-6 h-6" />
                 </button>
-                <div className={cn("absolute rounded-lg border top-[110%] md:top-[200%] right-0 bg-bg-primary h-[300px] w-[calc(100vw-32px)] md:w-[350px]", notifyOpen ? "block" : "hidden")} ref={menuRef}>
+                <div className={cn("absolute rounded-lg border top-[110%] lg:top-[200%] right-0 bg-bg-primary h-[300px] w-[calc(100vw-32px)] md:w-[350px]", notifyOpen ? "block" : "hidden")} ref={menuRef}>
                     <div>
                         <SecondarySectionHeading title="Notifications" className="border-b pb-4 text-center mt-4 mb-0 md:mb-0 lg:mb-0" />
                         <div className="w-full max-w-sm">

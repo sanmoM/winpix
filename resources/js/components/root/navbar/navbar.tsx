@@ -110,7 +110,7 @@ export default function Navbar() {
             </div>
 
             {/* === Right Section (Desktop Auth) === */}
-            <div className="hidden lg:flex items-center space-x-4 relative">
+            <div className="hidden lg:flex items-center space-x-2 lg:space-x-4 relative">
               {auth?.user ? (
                 <>
                   <CoinAndNotification hasBackground={hasBackground} />
@@ -136,13 +136,13 @@ export default function Navbar() {
             </div>
 
             {/* mobile menu */}
-            <div className="flex gap-4 lg:hidden mr-2">
-              <div className="flex gap-4 items-center">
+            <div className="flex gap-2 lg:hidden">
+              <div className="flex gap-2 items-center">
                 <CoinAndNotification hasBackground={hasBackground} />
               </div>
 
               {/* === Mobile Menu Button === */}
-              <div className="-mr-2 flex">
+              <div className="mr-2 flex">
                 <button
                   ref={buttonRef}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}

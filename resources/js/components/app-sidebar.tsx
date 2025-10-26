@@ -29,20 +29,26 @@ export function AppSidebar() {
 
     const adminNavItems: NavItem[] = [
         {
-            title: 'Dashboard',
+            title: 'Home',
+            href: 'dashboard',
             icon: LayoutGrid,
-        },
-        {
-            title: 'About',
-            icon: UserPlus,
-        },
-        {
-            title: 'Help',
-            icon: ServerIcon,
-        },
-        {
-            title: 'Help',
-            icon: WashingMachine,
+            subItems: [
+                {
+                    title: 'Dashboard',
+                    href: route('admin.dashboard'),
+                    icon: LayoutGrid,
+                },
+                {
+                    title: 'About',
+                    href: route('admin.about.index'),
+                    icon: UserPlus,
+                },
+                {
+                    title: 'Slider',
+                    href: route('admin.slider.index'),
+                    icon: UserPlus,
+                },
+            ],
         },
         {
             title: 'Others',

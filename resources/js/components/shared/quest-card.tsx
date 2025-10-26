@@ -21,7 +21,7 @@ interface QuestCardProps {
 function QuestCard({ quest, href }: QuestCardProps) {
     return (
         <Link
-            href={href || `/single-quest/1`}
+            href={href || `/quests/single-quest/1`}
             className="group cursor-pointer relative overflow-hidden rounded-2xl bg-bg-primary dark:bg-bg-primary border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:border-accent"
         >
             <div className="relative h-56 w-full overflow-hidden bg-gray-100 dark:bg-gray-700">

@@ -1,5 +1,7 @@
+import Container from '@/components/shared/container'
 import QuestCard from '@/components/shared/quest-card'
 import SectionHeading from '@/components/shared/SectionHeading'
+import UserLayout from '@/layouts/user-layout'
 const questsData = [
     {
         id: 1,
@@ -54,15 +56,17 @@ const questsData = [
 ]
 
 
-export default function ActiveQuests() {
+export default function QuestsSeries() {
     return (
-        <div>
-            <SectionHeading title="Active Quests" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                {questsData.map((quest) => (
-                    <QuestCard key={quest.id} quest={quest} href='/quests/single-quest-series' />
-                ))}
-            </div>
-        </div>
+        <UserLayout>
+            <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
+                <SectionHeading title="Entered Quests" />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                    {questsData.map((quest) => (
+                        <QuestCard key={quest.id} quest={quest} href='/quests/single-quest-series' />
+                    ))}
+                </div>
+            </Container>
+        </UserLayout>
     )
 }

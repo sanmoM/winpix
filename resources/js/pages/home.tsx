@@ -1,9 +1,11 @@
 import Container from "@/components/shared/container";
 import UserLayout from "@/layouts/user-layout";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Banner from "../components/home/banner/home-banner";
-import Newest from "../components/home/newest/Newest";
 import Gallery from "../components/home/Gallery";
 import GetApp from "../components/home/get-app";
+import Newest from "../components/home/newest/Newest";
 
 export default function home() {
     return (

@@ -42,18 +42,18 @@ export default function NavItem({
                 {isDropdown ? (
                     <>
                         <button
-                            className={cn("hidden md:flex items-center cursor-pointer font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}
+                            className={cn("hidden space-x-2 md:flex items-center cursor-pointer font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}
                         >
-                            {name}
+                            <span>{name}</span>
                             <IoIosArrowDown
-                                className={`ml-1 w-3 h-3 transition-transform duration-200 ${isOpen ? "rotate-180" : "rotate-0"
+                                className={`w-3 h-3 transition-transform duration-200 ${isOpen ? "rotate-180" : "rotate-0"
                                     }`}
                             />
                         </button>
 
                         {/* Dropdown */}
                         <div
-                            className={`absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-bg-primary dark:bg-bg-primary rounded-lg shadow-xl overflow-hidden transition-all duration-200 ease-in-out ${isOpen
+                            className={`absolute left-1/2 p-4 -translate-x-1/2 mt-2 w-48 bg-bg-primary dark:bg-bg-primary rounded-lg shadow-xl overflow-hidden transition-all duration-200 ease-in-out ${isOpen
                                 ? "opacity-100 translate-y-0 visible"
                                 : "opacity-0 -translate-y-2 invisible"
                                 }`}
@@ -93,7 +93,7 @@ export default function NavItem({
             {
                 isDropdown ? (<button
                     onClick={() => (isDropdown ? setIsOpen(!isOpen) : null)}
-                    className={`w-full text-left block px-3 py-2 rounded-md text-base font-medium hover:text-primary-color transition !scale-100 ${isDropdown ? "flex justify-between items-center" : ""
+                    className={`w-full space-x-1 text-left block px-3 py-2 rounded-md text-base font-medium hover:text-primary-color transition !scale-100 ${isDropdown ? "flex justify-between items-center" : ""
                         }`}
                     style={{
                         scale: "1 !important"
@@ -102,7 +102,7 @@ export default function NavItem({
                     {name}
                     {isDropdown && (
                         <IoIosArrowDown
-                            className={`ml-1 w-4 h-4 transition-transform ${isOpen ? "rotate-180" : "rotate-0"
+                            className={` w-4 h-4 transition-transform ${isOpen ? "rotate-180" : "rotate-0"
                                 }`}
                         />
                     )}

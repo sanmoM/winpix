@@ -86,13 +86,13 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
 
             {/* === Left Section === */}
-            <div className="flex items-center">
+            <div className="flex items-center space-x-10">
               <Logo
                 hasBackground={hasBackground}
               />
 
               {/* Desktop Navigation */}
-              <div className="hidden lg:block ml-10">
+              <div className="hidden lg:block">
                 <div className="flex items-baseline space-x-6">
                   {navLinks.map((link) => (
                     <NavItem

@@ -56,7 +56,7 @@ const podiumData = [
     {
         rank: 2,
         name: 'MariaK',
-        followers: '820 Followers',
+        followers: `820`,
         score: '8750',
         avatar: 'https://placehold.co/100x100/E0E0E0/707070?text=Rank+2',
         order: 'order-2 md:order-1',
@@ -77,7 +77,7 @@ const podiumData = [
     {
         rank: 1,
         name: 'AlexTheGreat',
-        followers: '1.2k Followers',
+        followers: '1.2k',
         score: '9210',
         avatar: 'https://placehold.co/120x120/404040/FFFFFF?text=Rank+1',
         order: 'order-1 md:order-2',
@@ -98,7 +98,7 @@ const podiumData = [
     {
         rank: 3,
         name: 'CodeNinja',
-        followers: '451 Followers',
+        followers: '451',
         score: '8100',
         avatar: 'https://placehold.co/100x100/F0D9B5/8D6E63?text=Rank+3',
         order: 'order-3 md:order-3',
@@ -144,17 +144,17 @@ const getStatusBadge = (status: User["status"]): StatusBadge => {
 
 // --- Main App Component ---
 
-export default function App() {
+export default function App({ t }: any) {
     return (
         <div className="">
 
-            <SectionHeading title='Weekly Champions' className='mb-16 lg:mb-20' />
+            <SectionHeading title={t('discover.leaderboard.title')} className='mb-16 lg:mb-20' />
 
             {/* --- Podium Section (Top 3) --- */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-end mb-8 md:mb-16 max-w-4xl mx-auto px-8">
                 {podiumData.map((user) => (
                     <div key={user.rank} className={`relative  ${user.order}`}>
-                        <div className={`bg-bg-primary dark:bg-bg-primary rounded-xl ${user.cardPadding}  border-2 ${user.borderColor} text-center`}>
+                        <div className={`bg-bg-primary dark:bg-bg-primary rounded-xl ${user.cardPadding}  border-2 ${user.borderColor} !text-center`}>
 
                             {/* Avatar */}
                             <img
@@ -164,16 +164,16 @@ export default function App() {
                             />
 
                             {/* Medal */}
-                            <div className={`absolute ${user.medalPos} ${user.medalSize} ${user.medalBg} rounded-full flex items-center justify-center ${user.medalText} font-bold ${user.medalColor} shadow-inner border-2 ${user.medalBorder}`}>
+                            {/* <div className={`absolute ${user.medalPos} ${user.medalSize} ${user.medalBg} rounded-full flex items-center justify-center ${user.medalText} font-bold ${user.medalColor} shadow-inner border-2 ${user.medalBorder}`}>
                                 {user.rank}
-                            </div>
+                            </div> */}
 
                             {/* User Info */}
-                            <h3 className={`text-xl font-semibold mt-4 ${user.rank === 1 ? 'text-2xl text-yellow-600' : ''}`}>
+                            <h3 className={`text-xl !text-center font-semibold mt-4 ${user.rank === 1 ? 'text-2xl text-yellow-600' : ''}`}>
                                 {user.name}
                             </h3>
-                            <p className={`text-sm ${user.rank === 1 ? 'text-md' : ''} text-gray-400`}>
-                                {user.followers}
+                            <p className={`text-sm !text-center ${user.rank === 1 ? 'text-md' : ''} text-gray-400`}>
+                                {user.followers} {t('discover.leaderboard.followers')}
                             </p>
 
                             {/* Score */}
@@ -206,7 +206,7 @@ export default function App() {
                             <div className="grid grid-cols-[auto_auto_1fr] items-center gap-4 min-w-0">
                                 {/* Rank Number */}
                                 <div
-                                    className={`w-10 text-center text-lg md:text-xl font-extrabold ${getRankTextColor(
+                                    className={`w-10 !text-center text-lg md:text-xl font-extrabold ${getRankTextColor(
                                         user.rank
                                     )}`}
                                 >
@@ -227,7 +227,7 @@ export default function App() {
                                         {user.name}
                                     </span>
                                     <span className="text-gray-500 dark:text-gray-400 text-sm truncate">
-                                        {user.followers.toLocaleString()} Followers
+                                        {user.followers.toLocaleString()} {t('discover.leaderboard.followers')}
                                     </span>
                                 </div>
                             </div>
@@ -244,7 +244,7 @@ export default function App() {
                                         {user.score.toLocaleString() + " "}
                                     </span>
                                     <span className="text-xs text-gray-500 dark:text-gray-400 hidden md:inline">
-                                        PTS
+                                        {t('discover.leaderboard.points')}
                                     </span>
                                 </div>
                             </div>

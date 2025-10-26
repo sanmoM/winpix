@@ -127,7 +127,7 @@ export default function Create({ flash }: Props) {
 
                     <Link
                         href={route('admin.slider.index')}
-                        className="w-28 rounded-lg border border-gray-300 px-6 py-2 text-center font-semibold text-gray-700 hover:bg-gray-100"
+                        className="w-28 rounded-lg border border-gray-300 px-6 py-2 !text-center font-semibold text-gray-700 hover:bg-gray-100"
                     >
                         Back
                     </Link>

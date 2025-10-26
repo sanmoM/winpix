@@ -16,9 +16,10 @@ interface Quest {
 interface QuestCardProps {
     quest: Quest
     href?: string
+    t: (key: string) => string
 }
 
-function QuestCard({ quest, href }: QuestCardProps) {
+function QuestCard({ quest, href, t }: QuestCardProps) {
     return (
         <Link
             href={href || `/quests/single-quest/1`}
@@ -54,7 +55,7 @@ function QuestCard({ quest, href }: QuestCardProps) {
                         <span>200</span>
                     </div>
                 </div>
-                <Button className="w-fit mx-auto px-8 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all duration-300 group-hover:shadow-lg" text='Submit Quest' />
+                <Button className="w-fit mx-auto px-8 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all duration-300 group-hover:shadow-lg" text={t('discover.activeQuests.cardBtnText')} />
             </div>
         </Link>
     );

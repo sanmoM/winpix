@@ -1,8 +1,7 @@
 import useLocales from '@/hooks/useLocales';
-import AppLayout from '@/layouts/app-layout'
-import SettingsLayout from '@/layouts/settings/layout'
-import { Head } from '@inertiajs/react'
-import React from 'react'
+import AppLayout from '@/layouts/app-layout';
+import SettingsLayout from '@/layouts/settings/layout';
+import { Head } from '@inertiajs/react';
 
 export default function language() {
     const { currentLanguage, changeLanguage } = useLocales();

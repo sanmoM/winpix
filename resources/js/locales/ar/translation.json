@@ -1,21 +1,61 @@
 {
-    "root": {
-        "navbar": {
-            "navLinks": {
-                "discover": "اكتشف",
-                "quests": {
-                    "title": "المهام",
-                    "submenu": {
-                        "activeQuests": "المهام النشطة",
-                        "questSeries": "سلسلة المهام",
-                        "enteredQuests": "المهام المنضمة",
-                        "endedQuests": "المهام المنتهية"
-                    }
-                },
-                "store": "المتجر",
-                "redeem": "استبدال",
-                "dashboard": "لوحة التحكم"
-            }
-        }
+  "root": {
+    "navbar": {
+      "navLinks": {
+        "discover": "اكتشف",
+        "quests": {
+          "title": "المهام",
+          "submenu": {
+            "activeQuests": "المهام النشطة",
+            "questSeries": "سلسلة المهام",
+            "enteredQuests": "المهام المشاركة",
+            "endedQuests": "المهام المنتهية"
+          }
+        },
+        "store": "المتجر",
+        "redeem": "استرداد",
+        "dashboard": "لوحة التحكم"
+      }
     }
+  },
+  "footer": {
+    "navLinks": {
+      "home": "الرئيسية",
+      "agent": "الوكيل",
+      "about": "حول",
+      "listing": "القائمة",
+      "blog": "المدونة",
+      "contact": "اتصل بنا"
+    },
+    "copyright": "حقوق النشر &copy;{{year}} جميع الحقوق محفوظة | تم إنشاء هذا القالب بواسطة {{heart}}  بواسطة  <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
+  },
+  "home": {
+    "banner": {
+      "btnText": "انضم الآن"
+    },
+    "newest": {
+      "title": "الأحدث"
+    },
+    "gallery": {
+      "title": "المعرض"
+    },
+    "getApp": {
+      "title": "حمّل التطبيق مجانًا!",
+      "description": "اجعل تجربة التسوق عبر الإنترنت أسهل وأسرع. اضغط على الرابط للحصول على التطبيق الآن."
+    }
+  },
+  "discover": {
+    "leaderboard": {
+      "title": "أبطال الأسبوع",
+      "followers": "المتابعون",
+      "points": "نقاط"
+    },
+    "activeQuests": {
+      "title": "المهام النشطة",
+      "cardBtnText": "إرسال المهمة"
+    },
+    "topPhotos": {
+      "title": "أفضل الصور"
+    }
+  }
 }

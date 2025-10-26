@@ -79,7 +79,7 @@ import SectionHeading from "../shared/SectionHeading";
 
 //       {/* Loader */}
 //       {visibleImages.length < images.length && (
-//         <div ref={loader} className="py-10 text-center text-gray-500">
+//         <div ref={loader} className="py-10 !text-center text-gray-500">
 //           Loading more...
 //         </div>
 //       )}
@@ -89,10 +89,10 @@ import SectionHeading from "../shared/SectionHeading";
 
 
 
-export default function MasonryGallery({ images }: { images: string[] }) {
+export default function MasonryGallery({ images, t }: { images: string[], t: (key: string) => string }) {
   return (
     <div className="">
-      <SectionHeading title="Top Photos" className="mb-8" />
+      <SectionHeading title={t('discover.topPhotos.title')} className="mb-8" />
       <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
         {images.map((item, index) => (
           <div key={index} className="break-inside-avoid rounded overflow-hidden shadow-lg">

@@ -54,16 +54,16 @@ const questsData = [
     },
 ]
 
-export default function Quests() {
+export default function Quests({ t }: { t: (key: string) => string }) {
     return (
         <div>
             <div className="mb-12">
-                <SectionHeading title="Active Quests" />
+                <SectionHeading title={t('discover.activeQuests.title')} />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 {questsData.map((quest) => (
-                    <QuestCard key={quest.id} quest={quest} />
+                    <QuestCard key={quest.id} quest={quest} t={t} />
                 ))}
             </div>
         </div>

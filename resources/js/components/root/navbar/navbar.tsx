@@ -64,8 +64,8 @@ export default function Navbar() {
       name: "Quests", isDropdown: true,
       dropdownItems: [
         { name: "Active", href: "/quests/active-quests" },
-        { name: "Quest Series", href: "/quest-series" },
-        { name: "Entered", href: "#" },
+        { name: "Quest Series", href: "/quests/quest-series" },
+        { name: "Entered", href: "/quests/entered-quest" },
         { name: "Ended", href: "#" },
       ],
     },

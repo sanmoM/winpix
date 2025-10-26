@@ -65,7 +65,7 @@ export default function QuestsSeries() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                     {questsData.map((quest) => (
-                        <QuestCard key={quest.id} quest={quest} href='/single-quest-series'/>
+                        <QuestCard key={quest.id} quest={quest} href='/quests/single-quest-series'/>
                     ))}
                 </div>
             </Container>

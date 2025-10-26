@@ -56,6 +56,7 @@
 
 
 
+import useLocales from "@/hooks/useLocales";
 import SectionHeading from "../shared/SectionHeading";
 import GalleryImageCart from "../shared/gallary-image-cart";
 
@@ -73,10 +74,10 @@ const images = [
     "https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62",
     "https://images.unsplash.com/photo-1519710164239-da123dc03ef4"
 ]
-export default function Gallery() {
+export default function Gallery({ t }: any) {
     return (
         <div>
-            <SectionHeading title="Top Photos" className="mb-8" />
+            <SectionHeading title={t("home.gallery.title")} className="mb-8  !text-center" />
             <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
                 {images.map((item, index) => (
                     <div key={index} className="break-inside-avoid rounded overflow-hidden shadow-lg">

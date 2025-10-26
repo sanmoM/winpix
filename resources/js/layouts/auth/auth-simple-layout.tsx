@@ -29,7 +29,7 @@ export default function AuthSimpleLayout({
                             <span className="sr-only">{title}</span>
                         </Link>
 
-                        <div className="space-y-2 text-center">
+                        <div className="space-y-2 !text-center">
                             <h1 className="text-xl font-medium">{title}</h1>
                             <p className="text-center text-sm text-muted-foreground">
                                 {description}

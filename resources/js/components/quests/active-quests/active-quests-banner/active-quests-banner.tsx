@@ -37,7 +37,7 @@ export default function ActiveQuestsBanner() {
             {
                 slides.map((slide, index) => (
                     <Banner src={slide.imageUrl} key={index} containerClass="h-[80vh] md:h-[60vh] lg:h-[80vh]">
-                        <div className="absolute inset-0 bg-black/50 flex w-full h-full justify-center items-center md:items-end md:justify-end text-white text-center md:text-right md:p-8">
+                        <div className="absolute inset-0 bg-black/50 flex w-full h-full justify-center items-center md:items-end md:justify-end text-white !text-center md:text-right md:p-8" dir="ltr">
                             <div className="relative z-10 p-8 md:p-12 flex flex-col gap-3 md:gap-6 text-white">
 
                                 {/* Header Title */}
@@ -71,7 +71,7 @@ export default function ActiveQuestsBanner() {
 
                                 {/* Action Buttons */}
                                 <div className="flex flex-row items-center justify-center md:justify-end gap-4 pt-4 buttons">
-                                    <button className="bg-white text-black text-sm font-semibold rounded-full transition cursor-pointer w-32 py-2 md:py-3 btn duration-300 hover:scale-105 ease-in-out">
+                                    <button className="bg-white !text-center text-black text-sm font-semibold rounded-full transition cursor-pointer w-32 py-2 md:py-3 btn duration-300 hover:scale-105 ease-in-out">
                                         Vote
                                     </button>
                                     <Button text="Join Now" className='w-32 py-2 md:py-3 btn mx-0' />

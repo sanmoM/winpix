@@ -6,6 +6,7 @@ import GetApp from "../components/home/get-app";
 import Newest from "../components/home/newest/Newest";
 
 export default function home() {
+    console.log("first")
     return (
         <UserLayout>
             <Banner />

@@ -2,7 +2,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { localesSlice } from "./features/locales";
+import { localesSlice } from "./features/locales-slice";
 
 const localesPersistConfig = {
     key: "locales",

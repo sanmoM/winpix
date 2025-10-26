@@ -21,10 +21,11 @@ export function AppSidebar() {
 
     const mainNavItems: NavItem[] = [
         {
-            title: 'Dashboard',
-            href: 'dashboard',
+            title: 'Profile',
             icon: LayoutGrid,
-        },
+            href: route('profile.edit'),
+            
+        }
     ];
 
     const adminNavItems: NavItem[] = [

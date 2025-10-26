@@ -5,24 +5,23 @@ import { cn } from "@/lib/utils";
 import { dashboard, login, register } from "@/routes";
 import { type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
-import { useEffect, useRef, useState } from "react";
-import { FaRocket } from "react-icons/fa";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { FiMenu } from "react-icons/fi";
-import { IoMdClose, IoMdNotificationsOutline } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
 import Button from "../../shared/buttons/button";
 import Container from "../../shared/container";
 import Logo from "../../shared/logo";
-import NavItem from "./components/nav-item";
-import SecondarySectionHeading from "@/components/shared/secondary-section-heading";
 import CoinAndNotification from "./components/coin-and-notification";
+import NavItem from "./components/nav-item";
+import useLocales from "@/hooks/useLocales";
 
 export default function Navbar() {
-  const [notifyOpen, setNotifyOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [top, setTop] = useState(0);
   const { auth } = usePage<SharedData>().props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { url } = usePage();
+  const { t } = useLocales()
 
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -57,20 +56,21 @@ export default function Navbar() {
   // === Nav Links ===
   const navLinks = [
     {
-      name: "Discover",
+      name: t("root.navbar.navLinks.discover"),
       href: "/discover",
     },
     {
-      name: "Quests", isDropdown: true,
+      name: t("root.navbar.navLinks.quests.title"),
+      isDropdown: true,
       dropdownItems: [
-        { name: "Active", href: "/quests/active-quests" },
-        { name: "Quest Series", href: "/quests/quest-series" },
-        { name: "Entered", href: "/quests/entered-quests" },
-        { name: "Ended", href: "/quests/ended-quests" },
+        { name: t("root.navbar.navLinks.quests.submenu.activeQuests"), href: "/quests/active-quests" },
+        { name: t("root.navbar.navLinks.quests.submenu.questSeries"), href: "/quests/quest-series" },
+        { name: t("root.navbar.navLinks.quests.submenu.enteredQuests"), href: "/quests/entered-quests" },
+        { name: t("root.navbar.navLinks.quests.submenu.endedQuests"), href: "/quests/ended-quests" },
       ],
     },
-    { name: "Store", href: "/store" },
-    { name: "Redeem", href: "/redeem" },
+    { name: t("root.navbar.navLinks.store"), href: "/store" },
+    { name: t("root.navbar.navLinks.redeem"), href: "/redeem" },
   ];
 
   const hasBackground = top > 0 || (url !== "/" && url !== "/quests/active");
@@ -115,7 +115,7 @@ export default function Navbar() {
                 <>
                   <CoinAndNotification hasBackground={hasBackground} />
                   <Link href={dashboard()} className={cn("font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
-                    Dashboard
+                    {t("root.navbar.navLinks.dashboard")}
                   </Link>
                 </>
               ) : (
@@ -185,7 +185,7 @@ export default function Navbar() {
                       href={dashboard()}
                       className="px-3 block rounded-md text-base font-medium"
                     >
-                      Dashboard
+                      {t("root.navbar.navLinks.dashboard")}
                     </Link>
                   </>
                 ) : (

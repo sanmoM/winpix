@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const localesSlice = createSlice({
   name: "locales",
   initialState: {
-    locale: "ar",
+    locale: "en",
   },
   reducers: {
     setLocale: (state, action) => {
-        state.locale = action.payload;
+      state.locale = action.payload;
     }
   },
 });

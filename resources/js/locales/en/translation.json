@@ -1,3 +1,21 @@
 {
-    "home": "Home"
+    "root": {
+        "navbar": {
+            "navLinks": {
+                "discover": "Discover",
+                "quests": {
+                    "title": "Quests",
+                    "submenu": {
+                        "activeQuests": "Active Quests",
+                        "questSeries": "Quest Series",
+                        "enteredQuests": "Entered Quests",
+                        "endedQuests": "Ended Quests"
+                    }
+                },
+                "store": "Store",
+                "redeem": "Redeem",
+                "dashboard": "Dashboard"
+            }
+        }
+    }
 }

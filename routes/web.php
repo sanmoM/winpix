@@ -1,6 +1,4 @@
 <?php
-
-use App\Http\Controllers\DiscoverController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Admin\AdminController;
@@ -8,53 +6,6 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\HelpController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\OthersController;
-use App\Http\Middleware\RoleMiddleware;
-
-Route::get('/', function () {
-    return Inertia::render('home');
-})->name('home');
-
-Route::get('/store', function () {
-    return Inertia::render('store');
-})->name('store');
-
-Route::get('/redeem', function () {
-    return Inertia::render('redeem');
-})->name('redeem');
-
-Route::get('/quests/active-quests', function () {
-    return Inertia::render('quests/active-quests');
-})->name('active-quests');
-
-Route::get('/discover', [DiscoverController::class, 'discover'])->name('discover');
-
-Route::get('/profile/{id}', function ($id) {
-    return Inertia::render('Profile', [
-        'id' => $id
-    ]);
-})->name('profile');
-
-Route::get('/quests/single-quest/{id}', function ($id) {
-    return Inertia::render('quests/single-quest', [
-        'id' => $id
-    ]);
-})->name('single-quest');
-
-Route::get('/quests/quest-series', function () {
-    return Inertia::render('quests/quest-series');
-})->name('quest-series');
-
-Route::get('/quests/single-quest-series', function () {
-    return Inertia::render('quests/single-quest-series');
-})->name('single-quest-series');
-
-Route::get('/quests/entered-quests', function () {
-    return Inertia::render('quests/entered-quests');
-})->name('entered-quests');
-
-Route::get('/quests/ended-quests', function () {
-    return Inertia::render('quests/ended-quests');
-})->name('ended-quests');
 
 Route::get('auth-error', function () {
     return view('error');
@@ -64,7 +15,6 @@ Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
-
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
@@ -79,3 +29,4 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
+require __DIR__ . '/frontend.php';

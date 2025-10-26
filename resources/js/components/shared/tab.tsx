@@ -21,7 +21,6 @@ export default function Tab({
     ],
     value,
     onChange,
-    variant = "primary",
 }: TabProps) {
     const activeIndex = options.findIndex((opt) => opt.value === value);
     const [selected, setSelected] = useState(
@@ -49,8 +48,6 @@ export default function Tab({
         width: sliderWidth,
         left: `calc(${selected} * ${sliderWidth})`,
     };
-
-    console.log(selected, "active index")
 
     return (
         <div className={containerStyles}

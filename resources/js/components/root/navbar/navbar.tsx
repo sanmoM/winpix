@@ -1,18 +1,23 @@
 import StoreModalContents from "@/components/root/store-modal-contents";
+import BorderButton from "@/components/shared/buttons/border-button";
 import Modal from "@/components/shared/modal";
 import { cn } from "@/lib/utils";
 import { dashboard, login, register } from "@/routes";
 import { type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
+import { FaRocket } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose, IoMdNotificationsOutline } from "react-icons/io";
-import Button from "../../shared/button";
+import Button from "../../shared/buttons/button";
 import Container from "../../shared/container";
 import Logo from "../../shared/logo";
 import NavItem from "./components/nav-item";
+import SecondarySectionHeading from "@/components/shared/secondary-section-heading";
+import CoinAndNotification from "./components/coin-and-notification";
 
 export default function Navbar() {
+  const [notifyOpen, setNotifyOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [top, setTop] = useState(0);
   const { auth } = usePage<SharedData>().props;
@@ -58,10 +63,10 @@ export default function Navbar() {
     {
       name: "Quests", isDropdown: true,
       dropdownItems: [
-        { name: "Active", href: "/quests/active" },
-        { name: "Quest Series", href: "#" },
-        { name: "Entered", href: "#" },
-        { name: "Ended", href: "#" },
+        { name: "Active", href: "/quests/active-quests" },
+        { name: "Quest Series", href: "/quests/quest-series" },
+        { name: "Entered", href: "/quests/entered-quests" },
+        { name: "Ended", href: "/quests/ended-quests" },
       ],
     },
     { name: "Store", href: "/store" },
@@ -105,18 +110,10 @@ export default function Navbar() {
             </div>
 
             {/* === Right Section (Desktop Auth) === */}
-            <div className="hidden lg:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-2 lg:space-x-4 relative">
               {auth?.user ? (
                 <>
-                  <div className="flex items-center gap-2">
-                    <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
-                    <p>10</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <img src="/images/coin.png" alt="" className="w-4 h-4" />
-                    <p>200</p>
-                  </div>
-                  <IoMdNotificationsOutline className={cn("w-6 h-6 cursor-pointer", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")} />
+                  <CoinAndNotification hasBackground={hasBackground} />
                   <Link href={dashboard()} className={cn("font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
                     Dashboard
                   </Link>
@@ -128,7 +125,8 @@ export default function Navbar() {
                     className="text-center block rounded-md text-base font-medium "
                   >
                     {/* <Button text="Login" className="w-full" /> */}
-                    <button className={cn("border !border-white w-full rounded-full py-1 px-8 cursor-pointer", hasBackground && "!border-primary-color")}>Login</button>
+                    {/* <button className={cn("border !border-white w-full rounded-full py-1 px-8 cursor-pointer", hasBackground && "!border-primary-color")}>Login</button> */}
+                    <BorderButton className={hasBackground ? "!border-primary-color" : "!border-white"} text="Login" />
                   </Link>
                   <Link href={register()}>
                     <Button text="Sign up" className="px-8" />
@@ -138,20 +136,13 @@ export default function Navbar() {
             </div>
 
             {/* mobile menu */}
-            <div className="flex gap-4 lg:hidden mr-2">
-              <div className="flex gap-4">
-                <div className="flex items-center gap-2">
-                  <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
-                  <span>10</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <img src="/images/coin.png" alt="" className="w-4 h-4" />
-                  <span>200</span>
-                </div>
+            <div className="flex gap-2 lg:hidden">
+              <div className="flex gap-2 items-center">
+                <CoinAndNotification hasBackground={hasBackground} />
               </div>
 
               {/* === Mobile Menu Button === */}
-              <div className="-mr-2 flex">
+              <div className="mr-2 flex">
                 <button
                   ref={buttonRef}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -203,7 +194,6 @@ export default function Navbar() {
                       href={login()}
                       className="text-center block rounded-md text-base font-medium"
                     >
-                      {/* <Button text="Login" className="w-full" /> */}
                       <button className="border border-black dark:border-white w-full rounded-full py-1">Login</button>
                     </Link>
                     <Link href={register()}>

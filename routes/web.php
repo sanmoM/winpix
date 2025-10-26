@@ -47,9 +47,13 @@ Route::get('/quests/single-quest-series', function () {
     return Inertia::render('quests/single-quest-series');
 })->name('single-quest-series');
 
-Route::get('/quests/entered-quest', function () {
-    return Inertia::render('quests/entered-quest');
-})->name('entered-quest');
+Route::get('/quests/entered-quests', function () {
+    return Inertia::render('quests/entered-quests');
+})->name('entered-quests');
+
+Route::get('/quests/ended-quests', function () {
+    return Inertia::render('quests/ended-quests');
+})->name('ended-quests');
 
 Route::get('auth-error', function () {
     return view('error');

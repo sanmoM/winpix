@@ -1,7 +1,8 @@
-import Container from '@/components/shared/container'
-import QuestCard from '@/components/shared/quest-card'
-import SectionHeading from '@/components/shared/SectionHeading'
-import UserLayout from '@/layouts/user-layout'
+import Container from '@/components/shared/container';
+import QuestCard from '@/components/shared/quest-card';
+import Tab from '@/components/shared/tab';
+import UserLayout from '@/layouts/user-layout';
+import { useState } from 'react';
 const questsData = [
     {
         id: 1,
@@ -55,17 +56,25 @@ const questsData = [
     },
 ]
 
-export default function QuestsSeries() {
+
+export default function EndedQuests() {
+    const [activeTab, setActiveTab] = useState("brief");
     return (
         <UserLayout>
-            <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
-                <div className="mb-12">
-                    <SectionHeading title="Active Quests" />
-                </div>
+            <Container className="space-y-4 md:space-y-6 lg:space-y-10 my-10 md:my-16 lg:my-12">
+                <Tab
+                    options={[
+                        { label: "My Quests", value: "my-quests" },
+                        { label: "Ended", value: "ended" },
+                        { label: "Inactive", value: "inactive" },
+                    ]}
+                    value={activeTab}
+                    onChange={(val) => setActiveTab(val)}
 
+                />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                     {questsData.map((quest) => (
-                        <QuestCard key={quest.id} quest={quest} href='/quests/single-quest-series'/>
+                        <QuestCard key={quest.id} quest={quest} href='/quests/single-quest-series' />
                     ))}
                 </div>
             </Container>

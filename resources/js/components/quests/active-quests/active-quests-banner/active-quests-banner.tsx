@@ -74,7 +74,7 @@ export default function ActiveQuestsBanner() {
                                     <button className="bg-white text-black text-sm font-semibold rounded-full transition cursor-pointer w-32 py-2 md:py-3 btn duration-300 hover:scale-105 ease-in-out">
                                         Vote
                                     </button>
-                                    <Button text="Join Now" className='w-32 py-2 md:py-3 btn' />
+                                    <Button text="Join Now" className='w-32 py-2 md:py-3 btn mx-0' />
                                 </div>
 
                             </div>

@@ -59,7 +59,7 @@ const questsData = [
 export default function QuestsSeries() {
     return (
         <UserLayout>
-            <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-20">
+            <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
                 <SectionHeading title="Entered Quests" />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                     {questsData.map((quest) => (

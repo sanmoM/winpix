@@ -14,7 +14,6 @@ export default function home() {
                 <Gallery />
             </Container>
             <GetApp />
-
         </UserLayout>
     )
 }

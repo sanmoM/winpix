@@ -1,3 +1,21 @@
 {
-    "home": "بيت"
+    "root": {
+        "navbar": {
+            "navLinks": {
+                "discover": "اكتشف",
+                "quests": {
+                    "title": "المهام",
+                    "submenu": {
+                        "activeQuests": "المهام النشطة",
+                        "questSeries": "سلسلة المهام",
+                        "enteredQuests": "المهام المنضمة",
+                        "endedQuests": "المهام المنتهية"
+                    }
+                },
+                "store": "المتجر",
+                "redeem": "استبدال",
+                "dashboard": "لوحة التحكم"
+            }
+        }
+    }
 }

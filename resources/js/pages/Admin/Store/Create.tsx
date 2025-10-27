@@ -31,6 +31,7 @@ export default function Create({ flash }: Props) {
     const { data, setData, post, processing, reset, errors } = useForm({
         number_of_coin: '',
         price: '',
+        icon_image: null as File | null,
     });
     const fileInputRef = useRef<HTMLInputElement>(null);
     useEffect(() => {
@@ -60,6 +61,26 @@ export default function Create({ flash }: Props) {
                 className="flex flex-col space-y-4 p-6"
                 encType="multipart/form-data"
             >
+                {/* Image Upload */}
+                <div className="grid w-full items-center gap-3">
+                    <Label htmlFor="icon_image">
+                        Image <span className="text-red-600">*</span>
+                    </Label>
+                    <Input
+                        id="icon_image"
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) =>
+                            setData('icon_image', e.target.files?.[0] ?? null)
+                        }
+                    />
+                    {errors.icon_image && (
+                        <p className="text-sm text-red-600">
+                            {errors.icon_image}
+                        </p>
+                    )}
+                </div>
                 {/* Title */}
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="number_of_coin" className="font-semibold">

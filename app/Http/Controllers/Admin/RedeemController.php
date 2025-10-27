@@ -32,7 +32,7 @@ class RedeemController extends Controller
     /**
      * Redeem a newly created resource in storage.
      */
-    public function redeem(Request $request)
+    public function store(Request $request)
     {
         $validated = $request->validate([
 
@@ -49,10 +49,10 @@ class RedeemController extends Controller
        $redeem->prize_type = $request->prize_type;
 
 
-       if ($request->hasFile('bg_image')) {
+       if ($request->hasFile('icon_image')) {
 
-            $file = $request->file('bg_image')->store('uploads/redeem', 'public');
-            $redeem->bg_image = $file;
+            $file = $request->file('icon_image')->store('uploads/redeem', 'public');
+            $redeem->icon_image = $file;
         }
 
 
@@ -88,7 +88,7 @@ class RedeemController extends Controller
     {
         $validated = $request->validate([
 
-            'icon_image' => 'required|image|max:2048',
+            'icon_image' => 'nullable|image|max:2048',
             'number_of_coin' => 'required',
             'price' => 'required',
             'prize_type' => 'required',
@@ -100,15 +100,15 @@ class RedeemController extends Controller
        $redeem->prize_type = $request->prize_type;
        $redeem->status = $request->status;
 
-       if ($request->hasFile('bg_image')) {
+       if ($request->hasFile('icon_image')) {
             // Delete old image
-            if ($redeem->bg_image && Storage::disk('public')->exists($redeem->bg_image)) {
-                Storage::disk('public')->delete($redeem->bg_image);
+            if ($redeem->icon_image && Storage::disk('public')->exists($redeem->icon_image)) {
+                Storage::disk('public')->delete($redeem->icon_image);
             }
 
             // Store new image
-            $file = $request->file('bg_image')->store('uploads/redeem', 'public');
-            $redeem->bg_image = $file;
+            $file = $request->file('icon_image')->store('uploads/redeem', 'public');
+            $redeem->icon_image = $file;
         }
 
        $redeem->update();
@@ -122,6 +122,10 @@ class RedeemController extends Controller
     public function destroy(string $id)
     {
         $redeem = Redeem::find($id);
+        // Delete old image
+        if ($redeem->icon_image && Storage::disk('public')->exists($redeem->icon_image)) {
+            Storage::disk('public')->delete($redeem->icon_image);
+        }
         $redeem->delete();
 
         return redirect()

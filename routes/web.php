@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\HelpController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\StoreController;
+use App\Http\Controllers\Admin\RedeemController;
 use App\Http\Controllers\Admin\OthersController;
 
 Route::get('auth-error', function () {

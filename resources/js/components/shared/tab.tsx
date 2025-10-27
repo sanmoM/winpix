@@ -1,3 +1,4 @@
+import useLocales from "@/hooks/useLocales";
 import { cn } from "@/lib/utils";
 import { useState, CSSProperties } from "react";
 
@@ -22,6 +23,7 @@ export default function Tab({
     value,
     onChange,
 }: TabProps) {
+    const {direction} = useLocales()
     const activeIndex = options.findIndex((opt) => opt.value === value);
     const [selected, setSelected] = useState(
         activeIndex >= 0 ? activeIndex : 0
@@ -46,8 +48,13 @@ export default function Tab({
 
     const sliderStyle: CSSProperties = {
         width: sliderWidth,
-        left: `calc(${selected} * ${sliderWidth})`,
     };
+
+    if (direction === "left") {
+        sliderStyle.left = `calc(${selected} * ${sliderWidth})`;
+    } else {
+        sliderStyle.right = `calc(${selected} * ${sliderWidth})`;
+    }
 
     return (
         <div className={containerStyles}

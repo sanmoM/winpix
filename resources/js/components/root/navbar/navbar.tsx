@@ -21,7 +21,7 @@ export default function Navbar() {
   const { auth } = usePage<SharedData>().props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { url } = usePage();
-  const { t } = useLocales()
+  const { t, direction } = useLocales()
 
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -113,32 +113,30 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center space-x-2 lg:space-x-4 relative">
               {auth?.user ? (
                 <>
-                  <CoinAndNotification hasBackground={hasBackground} />
+                  <CoinAndNotification hasBackground={hasBackground} direction={direction} t={t} />
                   <Link href={dashboard()} className={cn("font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
                     {t("root.navbar.navLinks.dashboard")}
                   </Link>
                 </>
               ) : (
-                <>
+                <div className="grid grid-cols-2 gap-4">
                   <Link
                     href={login()}
-                    className="text-center block rounded-md text-base font-medium "
+                    className="text-center block rounded-md text-base font-medium w-full"
                   >
-                    {/* <Button text="Login" className="w-full" /> */}
-                    {/* <button className={cn("border !border-white w-full rounded-full py-1 px-8 cursor-pointer", hasBackground && "!border-primary-color")}>Login</button> */}
-                    <BorderButton className={hasBackground ? "!border-primary-color" : "!border-white"} text="Login" />
+                    <BorderButton className={cn(hasBackground ? "!border-primary-color" : "!border-white")} text={t("root.navbar.buttons.logIn")} />
                   </Link>
                   <Link href={register()}>
-                    <Button text="Sign up" className="px-8" />
+                    <Button className="px-8 w-full" text={t("root.navbar.buttons.signUp")} />
                   </Link>
-                </>
+                </div>
               )}
             </div>
 
             {/* mobile menu */}
             <div className="flex gap-2 lg:hidden">
               <div className="flex gap-2 items-center">
-                <CoinAndNotification hasBackground={hasBackground} />
+                <CoinAndNotification hasBackground={hasBackground} direction={direction} t={t} />
               </div>
 
               {/* === Mobile Menu Button === */}
@@ -194,10 +192,10 @@ export default function Navbar() {
                       href={login()}
                       className="text-center block rounded-md text-base font-medium"
                     >
-                      <button className="border border-black dark:border-white w-full rounded-full py-1">Login</button>
+                      <button className="border border-black dark:border-white w-full rounded-full py-1">{t("root.navbar.buttons.logIn")}</button>
                     </Link>
                     <Link href={register()}>
-                      <Button text="Sign up" className="w-full" />
+                      <Button text={t("root.navbar.buttons.signUp")} className="w-full" />
                     </Link>
                   </>
                 )}

@@ -6,7 +6,7 @@ const questsData = [
         id: 1,
         title: "Fine Art Tuesday",
         category: "Fine Art",
-        timeLeft: "4 days",
+        timeLeft: "4",
         reward: 120,
         currency: "USD",
         participants: 1247,
@@ -16,7 +16,7 @@ const questsData = [
         id: 2,
         title: "Photography Challenge",
         category: "Photography",
-        timeLeft: "2 days",
+        timeLeft: "2",
         reward: 150,
         currency: "USD",
         participants: 892,
@@ -26,7 +26,7 @@ const questsData = [
         id: 3,
         title: "Design Sprint",
         category: "Design",
-        timeLeft: "6 days",
+        timeLeft: "6",
         reward: 200,
         currency: "USD",
         participants: 2156,
@@ -36,7 +36,7 @@ const questsData = [
         id: 2,
         title: "Photography Challenge",
         category: "Photography",
-        timeLeft: "2 days",
+        timeLeft: "2",
         reward: 150,
         currency: "USD",
         participants: 892,
@@ -46,7 +46,7 @@ const questsData = [
         id: 3,
         title: "Design Sprint",
         category: "Design",
-        timeLeft: "6 days",
+        timeLeft: "6",
         reward: 200,
         currency: "USD",
         participants: 2156,
@@ -63,7 +63,7 @@ export default function Quests({ t }: { t: (key: string) => string }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 {questsData.map((quest) => (
-                    <QuestCard key={quest.id} quest={quest} t={t} />
+                    <QuestCard key={quest.id} quest={quest} />
                 ))}
             </div>
         </div>

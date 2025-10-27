@@ -1,4 +1,5 @@
 import Button from '@/components/shared/buttons/button'
+import useLocales from '@/hooks/useLocales'
 import { Link } from '@inertiajs/react'
 import { Clock } from "lucide-react"
 
@@ -16,10 +17,10 @@ interface Quest {
 interface QuestCardProps {
     quest: Quest
     href?: string
-    t: (key: string) => string
 }
 
-function QuestCard({ quest, href, t }: QuestCardProps) {
+function QuestCard({ quest, href }: QuestCardProps) {
+    const { t } = useLocales()
     return (
         <Link
             href={href || `/quests/single-quest/1`}
@@ -35,7 +36,7 @@ function QuestCard({ quest, href, t }: QuestCardProps) {
                 {/* Time Left Badge */}
                 <div className="absolute top-3 left-3 flex items-center gap-2 bg-white/50 dark:bg-black/50 backdrop-blur-[2px] px-3 py-1.5 rounded-full">
                     <Clock className="w-4 h-4 text-black dark:text-white" />
-                    <span className="text-xs font-semibold">{quest.timeLeft}</span>
+                    <span className="text-xs font-semibold">{quest.timeLeft} {t('shared.questCard.days')}</span>
                 </div>
 
                 {/* Category Badge */}
@@ -55,7 +56,7 @@ function QuestCard({ quest, href, t }: QuestCardProps) {
                         <span>200</span>
                     </div>
                 </div>
-                <Button className="w-fit mx-auto px-8 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all duration-300 group-hover:shadow-lg" text={t('discover.activeQuests.cardBtnText')} />
+                <Button className="w-fit mx-auto px-8 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all duration-300 group-hover:shadow-lg" text={t('shared.questCard.btnText')} />
             </div>
         </Link>
     );

@@ -44,7 +44,7 @@ export default function NavItem({
                         <button
                             className={cn("hidden space-x-2 md:flex items-center cursor-pointer font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}
                         >
-                            <span>{name}</span>
+                            <span className="text-nowrap">{name}</span>
                             <IoIosArrowDown
                                 className={`w-3 h-3 transition-transform duration-200 ${isOpen ? "rotate-180" : "rotate-0"
                                     }`}
@@ -62,7 +62,7 @@ export default function NavItem({
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className={cn("block px-4 py-2 text-black font-medium dark:text-white", hasBackground ? "hover:!text-primary-color" : "hover:opacity-70")}
+                                    className={cn("block text-nowrap px-4 py-2 text-black font-medium dark:text-white", hasBackground ? "hover:!text-primary-color" : "hover:opacity-70")}
                                 >
                                     {item.name}
                                 </Link>

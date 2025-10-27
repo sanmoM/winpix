@@ -1,4 +1,10 @@
 {
+    "shared": {
+        "questCard": {
+            "btnText": "Submit Quest",
+            "days": "days"
+        }
+    },
     "root": {
         "navbar": {
             "navLinks": {
@@ -15,6 +21,13 @@
                 "store": "Store",
                 "redeem": "Redeem",
                 "dashboard": "Dashboard"
+            },
+            "buttons": {
+                "signUp": "Sign up",
+                "logIn": "Log in"
+            },
+            "notifications": {
+                "title": "Notifications"
             }
         }
     },
@@ -51,11 +64,75 @@
             "points": "PTS"
         },
         "activeQuests": {
-            "title": "Active Quests",
-            "cardBtnText": "Submit Quest"
+            "title": "Active Quests"
         },
         "topPhotos": {
             "title": "Top Photos"
+        }
+    },
+    "activeQuests": {
+        "banner": {
+            "joinNowText": "Join Now",
+            "voteText": "Vote"
+        },
+        "questSeries": {
+            "title": "Active Quests"
+        }
+    },
+    "questSeries": {
+        "title": "Active Quests"
+    },
+    "endedQuests": {
+        "tab": {
+            "myQuests": "My Quests",
+            "ended": "Ended",
+            "inactive": "Inactive"
+        }
+    },
+    "enteredQuests": {
+        "title": "Entered Quests"
+    },
+    "store": {
+        "title": "About Pixels",
+        "description": "Pixels are your gateway to exclusive content! Use them to unlock unique items, participate in special events, and gain an edge in your quests. More pixels, more power!"
+    },
+    "redeem": {
+        "appPriceTitle": "App Prices",
+        "grandPriceTitle": "Grand Prices"
+    },
+    "singleQuest": {
+        "banner": {
+            "voteText": "Vote",
+            "joinNowText": "Join Now"
+        },
+        "tabs": {
+            "brief": "Brief",
+            "entries": "Entries"
+        },
+        "prizes": {
+            "viewAll": "View All",
+            "viewLess": "View Less",
+            "card": {
+                "no": "No.",
+                "first": "First Prize",
+                "second": "Second Prize",
+                "third": "Third Prize",
+                "fourth": "Fourth Prize",
+                "fifth": "Fifth Prize"
+            }
+        },
+        "guidelines": {
+            "title": "Guidelines",
+            "guideLines": [
+                {
+                    "title": "Skill Rank",
+                    "description": "Users of all Skill Ranks are welcome to submit to this Quest!"
+                },
+                {
+                    "title": "Copyright",
+                    "description": "Submissions must be your own, submissions must not be AI generated."
+                }
+            ]
         }
     }
 }

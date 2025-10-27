@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaRocket } from "react-icons/fa";
 import { IoMdNotificationsOutline } from "react-icons/io";
 
-export default function CoinAndNotification({ hasBackground }: { hasBackground: boolean }) {
+export default function CoinAndNotification({ hasBackground, direction, t }: { hasBackground: boolean, direction: string, t: (key: string) => string }) {
     const [notifyOpen, setNotifyOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -54,9 +54,9 @@ export default function CoinAndNotification({ hasBackground }: { hasBackground: 
                 >
                     <IoMdNotificationsOutline className="w-6 h-6" />
                 </button>
-                <div className={cn("absolute rounded-lg border top-[110%] lg:top-[200%] right-0 bg-bg-primary h-[300px] w-[calc(100vw-32px)] md:w-[350px]", notifyOpen ? "block" : "hidden")} ref={menuRef}>
+                <div className={cn("absolute rounded-lg border top-[110%] lg:top-[200%] bg-bg-primary h-[300px] w-[calc(100vw-32px)] md:w-[350px]", notifyOpen ? "block" : "hidden", direction === "right" ? "left-0" : "right-0")} ref={menuRef}>
                     <div>
-                        <SecondarySectionHeading title="Notifications" className="border-b pb-4 !text-center mt-4 mb-0 md:mb-0 lg:mb-0" />
+                        <SecondarySectionHeading className="border-b pb-4 !text-center mt-4 mb-0 md:mb-0 lg:mb-0" title={t('root.navbar.notifications.title')} />
                         <div className="w-full max-w-sm">
                             {/* Flex container for icon and text */}
                             <div className="flex items-center space-x-4 p-4 border-b last:border-0 cursor-pointer">

@@ -25,6 +25,9 @@
             "buttons": {
                 "signUp": "Sign up",
                 "logIn": "Log in"
+            },
+            "notifications": {
+                "title": "Notifications"
             }
         }
     },

@@ -25,6 +25,9 @@
       "buttons": {
         "signUp": "إنشاء حساب",
         "logIn": "تسجيل الدخول"
+      },
+      "notifications": {
+        "title": "الإشعارات"
       }
     }
   },

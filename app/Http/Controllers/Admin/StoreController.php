@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Store;
+use Illuminate\Support\Facades\Storage;
 
 class StoreController extends Controller
 {
@@ -34,14 +35,22 @@ class StoreController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-
             'number_of_coin' => 'required',
             'price' => 'required',
+            'icon_image' => 'required | image| max:2048'
         ]);
 
        $store =new Store();
        $store->number_of_coin = $request->number_of_coin;
        $store->price = $request->price;
+
+       if ($request->hasFile('icon_image')) {
+
+            $file = $request->file('icon_image')->store('uploads/store', 'public');
+            $store->icon_image = $file;
+       }
+
+
        $store->save();
 
        return redirect()->back()->with('success', 'Store package saved successfully 🎉');
@@ -58,6 +67,7 @@ class StoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+
     public function edit(string $id)
     {
        $store = Store::find($id);
@@ -76,12 +86,25 @@ class StoreController extends Controller
 
             'number_of_coin' => 'required',
             'price' => 'required',
+            'icon_image' => 'nullable | image | max:2048'
         ]);
 
        $store = Store::find($id);
        $store->number_of_coin = $request->number_of_coin;
        $store->price = $request->price;
        $store->status = $request->status;
+
+       if ($request->hasFile('icon_image')) {
+            // Delete old image
+            if ($store->icon_image && Storage::disk('public')->exists($store->icon_image)) {
+                Storage::disk('public')->delete($store->icon_image);
+            }
+
+            // Store new image
+            $file = $request->file('icon_image')->store('uploads/store', 'public');
+            $store->icon_image = $file;
+       }
+
        $store->update();
 
        return redirect()->route('admin.store.index')->with('success', 'Store package updated successfully 🎉');
@@ -93,6 +116,10 @@ class StoreController extends Controller
     public function destroy(string $id)
     {
         $store = Store::find($id);
+        // Delete old image
+        if ($store->icon_image && Storage::disk('public')->exists($store->icon_image)) {
+            Storage::disk('public')->delete($store->icon_image);
+        }
         $store->delete();
 
         return redirect()

@@ -4,6 +4,7 @@ import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { useRef } from 'react';
 import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -23,21 +24,31 @@ interface EditProps {
         number_of_coin: string;
         price: string;
         status: string;
+        icon_image: string;
     };
 }
 
 export default function Edit({ store }: EditProps) {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         _method: 'PUT',
         number_of_coin: store.number_of_coin,
         price: store.price,
         status: store.status,
+        icon_image: null as File | null,
     });
+
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         post(route('admin.store.update', store.id), {
             forceFormData: true,
+            onSuccess: () => {
+                reset();
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+            },
         });
     };
 
@@ -50,6 +61,34 @@ export default function Edit({ store }: EditProps) {
                 className="flex flex-col space-y-6 p-6"
                 encType="multipart/form-data"
             >
+                {/* Current Image Preview */}
+                {store?.icon_image && (
+                    <div className="mb-2">
+                        <img
+                            src={`/storage/${store?.icon_image}`}
+                            alt="icon image"
+                            className="h-20 w-20 rounded object-cover"
+                        />
+                    </div>
+                )}
+                {/* Image Upload */}
+                <div className="grid w-full items-center gap-3">
+                    <Label htmlFor="icon_image">Change Image</Label>
+                    <Input
+                        id="icon_image"
+                        type="file"
+                        ref={fileInputRef}
+                        accept="image/*"
+                        onChange={(e) =>
+                            setData('icon_image', e.target.files?.[0] ?? null)
+                        }
+                    />
+                    {errors.icon_image && (
+                        <p className="text-sm text-red-600">
+                            {errors.icon_image}
+                        </p>
+                    )}
+                </div>
                 {/* Title */}
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="number_of_coin" className="font-semibold">

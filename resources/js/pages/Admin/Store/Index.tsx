@@ -15,6 +15,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface StoreItem {
     id: number;
+    icon_image: string | null;
     number_of_coin: string;
     price: string;
     status: string;
@@ -67,10 +68,11 @@ export default function Index({
                     <thead className="bg-amber-600 text-white">
                         <tr>
                             <th className="px-4 py-3">#</th>
+                            <th className="px-4 py-3">Icon</th>
                             <th className="px-4 py-3">Number Of Coin</th>
                             <th className="px-4 py-3">Price</th>
                             <th className="px-4 py-3">Status</th>
-                            <th className="px-4 py-3 text-right">Actions</th>
+                            <th className="px-4 py-3 !text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,6 +84,19 @@ export default function Index({
                                 >
                                     <td className="px-4 py-3 font-medium">
                                         {index + 1}
+                                    </td>
+                                    <td className="px-4 py-3">
+                                        {item.icon_image ? (
+                                            <img
+                                                src={`/storage/${item.icon_image}`}
+                                                alt="icon image"
+                                                className="h-10 w-10 rounded object-cover"
+                                            />
+                                        ) : (
+                                            <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
+                                                —
+                                            </div>
+                                        )}
                                     </td>
                                     <td className="px-4 py-3">
                                         {item?.number_of_coin}
@@ -98,7 +113,7 @@ export default function Index({
                                             {item?.status}
                                         </Badge>
                                     </td>
-                                    <td className="space-x-3 px-4 py-3 text-right">
+                                    <td className="space-x-3 px-4 py-3 !text-right">
                                         <Link
                                             href={route(
                                                 'admin.store.edit',

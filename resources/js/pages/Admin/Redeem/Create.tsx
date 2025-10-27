@@ -9,8 +9,8 @@ import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'All Store Package',
-        href: route('admin.store.index'),
+        title: 'All Redeem Package',
+        href: route('admin.redeem.index'),
     },
     {
         title: 'Create',
@@ -31,6 +31,8 @@ export default function Create({ flash }: Props) {
     const { data, setData, post, processing, reset, errors } = useForm({
         number_of_coin: '',
         price: '',
+        prize_type: 'app_prize',
+        icon_image: null as File | null,
     });
     const fileInputRef = useRef<HTMLInputElement>(null);
     useEffect(() => {
@@ -40,7 +42,7 @@ export default function Create({ flash }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('admin.store.store'), {
+        post(route('admin.redeem.store'), {
             onSuccess: () => {
                 reset();
                 if (fileInputRef.current) {
@@ -52,7 +54,7 @@ export default function Create({ flash }: Props) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Create Store Package" />
+            <Head title="Create Redeem Package" />
             <ToastContainer />
 
             <form
@@ -60,6 +62,26 @@ export default function Create({ flash }: Props) {
                 className="flex flex-col space-y-4 p-6"
                 encType="multipart/form-data"
             >
+                {/* Image Upload */}
+                <div className="grid w-full items-center gap-3">
+                    <Label htmlFor="icon_image">
+                        Icon Image <span className="text-red-600">*</span>
+                    </Label>
+                    <Input
+                        id="icon_image"
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) =>
+                            setData('icon_image', e.target.files?.[0] ?? null)
+                        }
+                    />
+                    {errors.icon_image && (
+                        <p className="text-sm text-red-600">
+                            {errors.icon_image}
+                        </p>
+                    )}
+                </div>
                 {/* Title */}
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="number_of_coin" className="font-semibold">
@@ -97,11 +119,32 @@ export default function Create({ flash }: Props) {
                         <p className="text-sm text-red-600">{errors.price}</p>
                     )}
                 </div>
+                {/* prize_type */}
+                <div className="grid w-full items-center gap-2">
+                    <Label htmlFor="prize_type" className="font-semibold">
+                        Prize Type <span className="text-red-600">*</span>
+                    </Label>
+                    <select
+                        id="prize_type"
+                        value={data.prize_type}
+                        onChange={(e) => setData('prize_type', e.target.value)}
+                        className="rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-amber-600 focus:outline-none"
+                    >
+                        <option value="app_prize">In-app Prize</option>
+                        <option value="great_prize">Great Prize</option>
+                        <option value="grand_prize">Grand Prize</option>
+                    </select>
+                    {errors.prize_type && (
+                        <p className="text-sm text-red-600">
+                            {errors.prize_type}
+                        </p>
+                    )}
+                </div>
 
                 {/* Action Buttons */}
                 <div className="flex items-center justify-end space-x-4 pt-4">
                     <Link
-                        href={route('admin.store.index')}
+                        href={route('admin.redeem.index')}
                         className="w-28 rounded-lg border border-gray-300 px-6 py-2 text-center font-semibold text-gray-700 hover:bg-gray-100"
                     >
                         Back

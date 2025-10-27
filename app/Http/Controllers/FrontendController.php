@@ -26,11 +26,6 @@ class FrontendController extends Controller
         return Inertia::render('quests/active-quests');
     }
 
-    public function profile($id)
-    {
-        return Inertia::render('Profile', ['id' => $id]);
-    }
-
     public function singleQuest($id)
     {
         return Inertia::render('quests/single-quest', ['id' => $id]);
@@ -54,5 +49,9 @@ class FrontendController extends Controller
     public function endedQuests()
     {
         return Inertia::render('quests/ended-quests');
+    }
+    public function profile()
+    {
+        return Inertia::render('profile');
     }
 }

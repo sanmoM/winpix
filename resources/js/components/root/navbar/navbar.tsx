@@ -21,7 +21,7 @@ export default function Navbar() {
   const { auth } = usePage<SharedData>().props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { url } = usePage();
-  const { t } = useLocales()
+  const { t, direction } = useLocales()
 
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -113,7 +113,7 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center space-x-2 lg:space-x-4 relative">
               {auth?.user ? (
                 <>
-                  <CoinAndNotification hasBackground={hasBackground} />
+                  <CoinAndNotification hasBackground={hasBackground} direction={direction} t={t} />
                   <Link href={dashboard()} className={cn("font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
                     {t("root.navbar.navLinks.dashboard")}
                   </Link>
@@ -136,7 +136,7 @@ export default function Navbar() {
             {/* mobile menu */}
             <div className="flex gap-2 lg:hidden">
               <div className="flex gap-2 items-center">
-                <CoinAndNotification hasBackground={hasBackground} />
+                <CoinAndNotification hasBackground={hasBackground} direction={direction} t={t} />
               </div>
 
               {/* === Mobile Menu Button === */}

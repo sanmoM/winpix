@@ -29,6 +29,7 @@ interface StatusBadge {
 }
 
 
+import { Link } from '@inertiajs/react';
 import SectionHeading from '../shared/SectionHeading';
 
 // --- Icon Components ---
@@ -153,7 +154,7 @@ export default function App({ t }: any) {
             {/* --- Podium Section (Top 3) --- */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-end mb-8 md:mb-16 max-w-4xl mx-auto px-8">
                 {podiumData.map((user) => (
-                    <div key={user.rank} className={`relative  ${user.order}`}>
+                    <Link href={"/profile/1"} key={user.rank} className={`relative block  ${user.order}`}>
                         <div className={`bg-bg-primary dark:bg-bg-primary rounded-xl ${user.cardPadding}  border-2 ${user.borderColor} !text-center`}>
 
                             {/* Avatar */}
@@ -186,7 +187,7 @@ export default function App({ t }: any) {
                             </div>
 
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
 
@@ -196,7 +197,8 @@ export default function App({ t }: any) {
                     const badge = getStatusBadge(user.status);
 
                     return (
-                        <div
+                        <Link
+                            href={"/profile/1"}
                             key={user.rank}
                             className={`rank-item grid grid-cols-[70%_28%] justify-between ${getRankStyle(
                                 user.rank
@@ -248,7 +250,7 @@ export default function App({ t }: any) {
                                     </span>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     );
                 })}
             </div >

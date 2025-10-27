@@ -1,4 +1,10 @@
 {
+  "shared": {
+    "questCard": {
+      "btnText": "أرسل المهمة",
+      "days": "أيام"
+    }
+  },
   "root": {
     "navbar": {
       "navLinks": {
@@ -8,13 +14,17 @@
           "submenu": {
             "activeQuests": "المهام النشطة",
             "questSeries": "سلسلة المهام",
-            "enteredQuests": "المهام المشاركة",
+            "enteredQuests": "المهام التي تم دخولها",
             "endedQuests": "المهام المنتهية"
           }
         },
         "store": "المتجر",
-        "redeem": "استرداد",
+        "redeem": "استبدال",
         "dashboard": "لوحة التحكم"
+      },
+      "buttons": {
+        "signUp": "إنشاء حساب",
+        "logIn": "تسجيل الدخول"
       }
     }
   },
@@ -22,12 +32,12 @@
     "navLinks": {
       "home": "الرئيسية",
       "agent": "الوكيل",
-      "about": "حول",
+      "about": "من نحن",
       "listing": "القائمة",
       "blog": "المدونة",
       "contact": "اتصل بنا"
     },
-    "copyright": "حقوق النشر &copy;{{year}} جميع الحقوق محفوظة | تم إنشاء هذا القالب بواسطة {{heart}}  بواسطة  <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
+    "copyright": "حقوق النشر &copy;{{year}} جميع الحقوق محفوظة | تم إنشاء هذا القالب بكل {{heart}} بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
   },
   "home": {
     "banner": {
@@ -41,21 +51,85 @@
     },
     "getApp": {
       "title": "حمّل التطبيق مجانًا!",
-      "description": "اجعل تجربة التسوق عبر الإنترنت أسهل وأسرع. اضغط على الرابط للحصول على التطبيق الآن."
+      "description": "اجعل تجربة التسوق عبر الإنترنت أسهل وأسرع. اضغط على الرابط لتحميل التطبيق الآن."
     }
   },
   "discover": {
     "leaderboard": {
       "title": "أبطال الأسبوع",
       "followers": "المتابعون",
-      "points": "نقاط"
+      "points": "النقاط"
     },
     "activeQuests": {
-      "title": "المهام النشطة",
-      "cardBtnText": "إرسال المهمة"
+      "title": "المهام النشطة"
     },
     "topPhotos": {
       "title": "أفضل الصور"
+    }
+  },
+  "activeQuests": {
+    "banner": {
+      "joinNowText": "انضم الآن",
+      "voteText": "صوّت"
+    },
+    "questSeries": {
+      "title": "المهام النشطة"
+    }
+  },
+  "questSeries": {
+    "title": "المهام النشطة"
+  },
+  "endedQuests": {
+    "tab": {
+      "myQuests": "مهامي",
+      "ended": "منتهية",
+      "inactive": "غير نشطة"
+    }
+  },
+  "enteredQuests": {
+    "title": "المهام التي تم دخولها"
+  },
+  "store": {
+    "title": "حول البيكسلات",
+    "description": "البيكسلات هي بوابتك إلى محتوى حصري! استخدمها لفتح عناصر مميزة، والمشاركة في فعاليات خاصة، واكتساب ميزة في مهامك. المزيد من البيكسلات يعني المزيد من القوة!"
+  },
+  "redeem": {
+    "appPriceTitle": "أسعار التطبيق",
+    "grandPriceTitle": "الجوائز الكبرى"
+  },
+  "singleQuest": {
+    "banner": {
+      "voteText": "صوّت",
+      "joinNowText": "انضم الآن"
+    },
+    "tabs": {
+      "brief": "نظرة عامة",
+      "entries": "المشاركات"
+    },
+    "prizes": {
+      "viewAll": "عرض الكل",
+      "viewLess": "عرض أقل",
+      "card": {
+        "no": "رقم",
+        "first": "الجائزة الأولى",
+        "second": "الجائزة الثانية",
+        "third": "الجائزة الثالثة",
+        "fourth": "الجائزة الرابعة",
+        "fifth": "الجائزة الخامسة"
+      }
+    },
+    "guidelines": {
+      "title": "الإرشادات",
+      "guideLines": [
+        {
+          "title": "رتبة المهارة",
+          "description": "مرحب بجميع المستخدمين من مختلف رتب المهارة لتقديم مشاركاتهم في هذه المهمة!"
+        },
+        {
+          "title": "حقوق النشر",
+          "description": "يجب أن تكون المشاركات من إنشائك الشخصي، ولا يُسمح بالمشاركات المولّدة بواسطة الذكاء الاصطناعي."
+        }
+      ]
     }
   }
 }

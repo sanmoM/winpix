@@ -1,9 +1,10 @@
 import Container from "@/components/shared/container";
 import StoreItem from "@/components/store/store-item";
+import useLocales from "@/hooks/useLocales";
 import UserLayout from "@/layouts/user-layout";
-import { IoLayersSharp } from "react-icons/io5";
 
 export default function StoreModalContents() {
+    const { t } = useLocales()
     const storeItems = [
         { quantity: 30, price: "$2.99" },
         { quantity: 80, price: "$6.99" },
@@ -27,12 +28,10 @@ export default function StoreModalContents() {
                         <img src="https://cdn.pulsepx.com/product-assets/1000002/icon?v=4" alt="" className="w-20 hidden md:block" />
                         <div className="mt-2 sm:mt-0 !text-center md:text-left">
                             <h4 className="text-lg sm:text-xl font-bold mb-1 text-gray-900 dark:text-white">
-                                About Pixels
+                                {t('store.title')}
                             </h4>
                             <p className="text-sm sm:text-base text-gray-700 dark:text-indigo-100">
-                                Pixels are your gateway to exclusive content! Use them to unlock
-                                unique items, participate in special events, and gain an edge in
-                                your quests. More pixels, more power!
+                                {t('store.description')}
                             </p>
                         </div>
                     </div>

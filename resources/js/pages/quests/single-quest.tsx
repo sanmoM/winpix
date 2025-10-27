@@ -5,9 +5,11 @@ import Prizes from '@/components/quests/single-quest/prizes/prizes'
 import Status from '@/components/quests/single-quest/status'
 import Banner from '@/components/shared/banner'
 import Button from '@/components/shared/buttons/button'
+import SecondaryButton from '@/components/shared/buttons/secondary-button'
 import Container from '@/components/shared/container'
 import GalleryImageCart from '@/components/shared/gallary-image-cart'
 import Tab from '@/components/shared/tab'
+import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
 import { Clock } from 'lucide-react'
@@ -30,6 +32,7 @@ const images = [
 
 export default function SingleQuest() {
     const [activeTab, setActiveTab] = useState("brief");
+    const { t } = useLocales()
     return (
         <UserLayout>
             <Banner src="https://cdn.pulsepx.com/photos/111974512/5652113db680a1dda4a6ea1dbd62f158405f9392ad52e5eca32d080d45d11bbe/2048.jpg" containerClass='lg:h-[70vh]' hasOverlay={false}>
@@ -37,18 +40,16 @@ export default function SingleQuest() {
                     <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold text-white'>Perfectly Centered</h1>
                     <p className='text-gray-400 mt-4 mb-6'>#Minimalism</p>
                     <div className='grid grid-cols-2 gap-4'>
-                        <button className="bg-white text-black text-sm font-semibold rounded-full transition cursor-pointer w-32 py-2 md:py-3 btn duration-300 hover:scale-105 ease-in-out">
-                            Vote
-                        </button>
-                        <Button text='Join Now' className='px-8 py-2 lg:text-sm' />
+                        <SecondaryButton text={t('singleQuest.banner.voteText')} />
+                        <Button text={t('singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' />
                     </div>
                 </div>
             </Banner>
             <Container className="space-y-14 md:space-y-20 lg:space-y-10 my-10 md:my-16 lg:mb-28 lg:mt-8">
                 <Tab
                     options={[
-                        { label: "Brief", value: "brief" },
-                        { label: "Entries", value: "entries" },
+                        { label: t('singleQuest.tabs.brief'), value: "brief" },
+                        { label: t('singleQuest.tabs.entries'), value: "entries" },
                     ]}
                     value={activeTab}
                     onChange={(val) => setActiveTab(val)}
@@ -57,9 +58,9 @@ export default function SingleQuest() {
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "brief" && "hidden")}>
                     <Status />
                     <Brief />
-                    <Prizes />
+                    <Prizes t={t} />
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
-                        <Guidelines />
+                        <Guidelines t={t} />
                         <Creator />
                     </div>
                 </div>

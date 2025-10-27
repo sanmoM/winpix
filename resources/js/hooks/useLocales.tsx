@@ -10,7 +10,9 @@ export default function useLocales() {
     const locales = useSelector((state: RootState) => state.locales.locale);
     const dispatch = useDispatch();
 
+    
     const currentLanguage = i18n.language;
+    const direction = currentLanguage === 'ar' ? 'right' : 'left';
 
     const changeLanguage = (lang: string) => {
         i18n.changeLanguage(lang);
@@ -36,5 +38,5 @@ export default function useLocales() {
         }
     }, [locales, i18n]);
 
-    return { t, i18n, changeLanguage, loading, currentLanguage };
+    return { t, i18n, changeLanguage, loading, currentLanguage, direction };
 }

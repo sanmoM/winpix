@@ -19,6 +19,12 @@ Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
     })->name('dashboard');
 });
 
+Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {
+    Route::get('jury/dashboard', function () {
+        return Inertia::render('Jury/dashboard');
+    })->name('jury.dashboard');
+});
+
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
 
     Route::get('dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');

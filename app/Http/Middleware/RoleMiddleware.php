@@ -18,7 +18,10 @@ class RoleMiddleware
     {
         if(!Auth::check() || !in_array(Auth()->user()->role, $roles))
         {
-            return response()->view('error');
+            if ($request->inertia()) {
+                return redirect()->route('auth.error');
+            }
+            abort(403);
         }
 
         return $next($request);

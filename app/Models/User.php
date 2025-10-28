@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role',
         'password',
     ];
 
@@ -48,5 +49,20 @@ class User extends Authenticatable
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
         ];
+    }
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+
+    public function getDashboardRoute()
+    {
+        return match ($this->role) {
+            'admin' => route('admin.dashboard', absolute: false),
+            'jury' => route('jury.dashboard', absolute: false),
+            default => route('dashboard', absolute: false), // regular user
+        };
     }
 }

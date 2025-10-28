@@ -59,6 +59,23 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
+                                <Label htmlFor="role">Select Role</Label>
+                                <select
+                                    id="role"
+                                    name="role"
+                                    required
+                                    tabIndex={2}
+                                    className="rounded-md border border-gray-300 px-3 py-2 focus:border-primary focus:ring focus:ring-primary focus:outline-none"
+                                >
+                                    <option value="user" selected>
+                                        User
+                                    </option>
+                                    <option value="jury">Jury</option>
+                                </select>
+                                <InputError message={errors.role} />
+                            </div>
+
+                            <div className="grid gap-2">
                                 <Label htmlFor="password">Password</Label>
                                 <Input
                                     id="password"

@@ -32,12 +32,14 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'role' => 'required|string|in:user,jury',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => $request->role,
             'password' => $request->password,
         ]);
 
@@ -47,6 +49,9 @@ class RegisteredUserController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(Auth::user()->getDashboardRoute());
+        // return redirect()->intended(route('dashboard', absolute: false));
+
+
     }
 }

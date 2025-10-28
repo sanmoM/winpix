@@ -13,6 +13,7 @@ import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
     LayoutGrid,
+    Scale,
     ServerIcon,
     Store,
     UserPlus,
@@ -30,14 +31,13 @@ export function AppSidebar() {
             title: 'Profile',
             icon: LayoutGrid,
             href: route('profile.edit'),
-            
-        }
+        },
     ];
 
     const adminNavItems: NavItem[] = [
         {
             title: 'Home',
-            href: 'dashboard',
+            href: route('admin.dashboard'),
             icon: LayoutGrid,
             subItems: [
                 {
@@ -85,14 +85,35 @@ export function AppSidebar() {
         },
     ];
 
+    const juryNavItems: NavItem[] = [
+        {
+            title: 'Jury Panel',
+            href: 'jury/dashboard',
+            icon: Scale,
+            subItems: [
+                {
+                    title: 'Dashboard',
+                    href: route('jury.dashboard'),
+                    icon: LayoutGrid,
+                },
+            ],
+        },
+    ];
+
     let roleBaseNavItems = [...mainNavItems];
 
     if (userRole === 'admin') {
         roleBaseNavItems = [...adminNavItems];
+    } else if (userRole === 'jury') {
+        roleBaseNavItems = [...juryNavItems];
     }
 
     const dashboardHref =
-        userRole === 'admin' ? '/admin/dashboard' : '/dashboard';
+        userRole === 'admin'
+            ? 'admin/dashboard'
+            : userRole === 'jury'
+              ? 'jury/dashboard'
+              : '/dashboard';
 
     return (
         <Sidebar collapsible="icon" variant="inset">

@@ -63,4 +63,9 @@ class FrontendController extends Controller
     {
         return Inertia::render('quests/ended-single-quest', ['id' => $id]);
     }
+
+    public function allHelpCategories()
+    {
+        return Inertia::render('help/all-help-categories');
+    }
 }

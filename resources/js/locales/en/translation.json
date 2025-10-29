@@ -21,7 +21,8 @@
                 "store": "Store",
                 "redeem": "Redeem",
                 "dashboard": "Dashboard",
-                "aboutUs": "About Us"
+                "aboutUs": "About Us",
+                "help": "Help"
             },
             "buttons": {
                 "signUp": "Sign up",

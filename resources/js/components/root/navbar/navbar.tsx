@@ -15,6 +15,12 @@ import CoinAndNotification from "./components/coin-and-notification";
 import NavItem from "./components/nav-item";
 import useLocales from "@/hooks/useLocales";
 
+const differentNavUrls = [
+  "/",
+  "/quests/active-quests",
+  /^\/profile\/[^/]+$/
+];
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [top, setTop] = useState(0);
@@ -71,14 +77,23 @@ export default function Navbar() {
     },
     { name: t("root.navbar.navLinks.store"), href: "/store" },
     { name: t("root.navbar.navLinks.redeem"), href: "/redeem" },
+    {name: t("root.navbar.navLinks.aboutUs"), href: "/about-us"},
   ];
 
-  const hasBackground = top > 0 || (url !== "/" && url !== "/quests/active");
+  const isUrlIncluded = differentNavUrls.some(pattern => {
+    if (pattern instanceof RegExp) {
+      return pattern.test(url);
+    }
+    return pattern === url;
+  });
+
+  const hasBackground = top > 0 || !isUrlIncluded;
+
   return (
     <div
       className={cn(
-        "fixed left-0 top-0 z-[20] w-full py-1.5 md:py-3",
-        !hasBackground ? "bg-transparent text-white" : "bg-bg-primary dark:bg-bg-primary", (url !== "/" && url !== "/quests/active") && "sticky top-0 bg-bg-primary dark:bg-bg-primary text-black dark:text-white"
+        "sticky left-0 top-0 z-[20] w-full py-1.5 md:py-3", isUrlIncluded && "fixed",
+        hasBackground ? "bg-bg-primary dark:bg-bg-primary" : "bg-transparent text-white"
       )}
     >
       <Container>

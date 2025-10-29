@@ -54,4 +54,8 @@ class FrontendController extends Controller
     {
         return Inertia::render('profile');
     }
+    public function aboutUs()
+    {
+        return Inertia::render('about-us');
+    }
 }

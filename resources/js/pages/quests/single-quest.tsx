@@ -1,5 +1,4 @@
 import Brief from '@/components/quests/single-quest/brief'
-import Creator from '@/components/quests/single-quest/createor'
 import Guidelines from '@/components/quests/single-quest/guidelines/guidelines'
 import Prizes from '@/components/quests/single-quest/prizes/prizes'
 import Status from '@/components/quests/single-quest/status'
@@ -7,12 +6,12 @@ import Banner from '@/components/shared/banner'
 import Button from '@/components/shared/buttons/button'
 import SecondaryButton from '@/components/shared/buttons/secondary-button'
 import Container from '@/components/shared/container'
+import Creator from '@/components/shared/creator'
 import GalleryImageCart from '@/components/shared/gallary-image-cart'
 import Tab from '@/components/shared/tab'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
-import { Clock } from 'lucide-react'
 import { useState } from 'react'
 
 const images = [
@@ -61,7 +60,9 @@ export default function SingleQuest() {
                     <Prizes t={t} />
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
                         <Guidelines t={t} />
-                        <Creator />
+                        <div className='className="w-fit lg:w-full md:max-w-md mt-auto mx-auto lg:mx-0'>
+                            <Creator />
+                        </div>
                     </div>
                 </div>
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "entries" && "hidden")}>

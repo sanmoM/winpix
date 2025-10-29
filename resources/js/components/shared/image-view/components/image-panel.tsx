@@ -22,7 +22,7 @@ const images = [
 const ImagePanel = ({ setIsOpen }: any) => {
     return (
         <div className="relative h-full bg-[var(--background)]">
-            <CustomSlider mobileView={1} desktopView={1} tabletView={1}>
+            <CustomSlider mobileView={1} desktopView={1} tabletView={1} hasButton>
                 {
                     images.map((image, index) => (
                         <div className="flex justify-center items-center overflow-hidden h-[50vh] lg:h-screen">

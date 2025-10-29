@@ -1,14 +1,12 @@
-import Brief from '@/components/shared/brief'
-import Guidelines from '@/components/shared/guidelines/guidelines'
-import Prizes from '@/components/shared/prizes/prizes'
-import Status from '@/components/quests/single-quest/status'
 import Banner from '@/components/shared/banner'
-import Button from '@/components/shared/buttons/button'
-import SecondaryButton from '@/components/shared/buttons/secondary-button'
+import Brief from '@/components/shared/brief'
 import Container from '@/components/shared/container'
 import Creator from '@/components/shared/creator'
 import GalleryImageCart from '@/components/shared/gallary-image-cart'
+import Guidelines from '@/components/shared/guidelines/guidelines'
+import Prizes from '@/components/shared/prizes/prizes'
 import Tab from '@/components/shared/tab'
+import TopPositions from '@/components/shared/top-positions'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
@@ -29,33 +27,29 @@ const images = [
     "https://images.unsplash.com/photo-1519710164239-da123dc03ef4"
 ]
 
-export default function SingleQuest() {
+
+export default function EndedSingleQuest() {
     const [activeTab, setActiveTab] = useState("brief");
     const { t } = useLocales()
     return (
         <UserLayout>
-            <Banner src="https://cdn.pulsepx.com/photos/111974512/5652113db680a1dda4a6ea1dbd62f158405f9392ad52e5eca32d080d45d11bbe/2048.jpg" containerClass='lg:h-[70vh]' hasOverlay={false}>
-                <div className='w-full h-full flex flex-col justify-center items-center'>
-                    <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold text-white'>Perfectly Centered</h1>
-                    <p className='text-gray-400 mt-4 mb-6'>#Minimalism</p>
-                    <div className='grid grid-cols-2 gap-4'>
-                        <SecondaryButton text={t('singleQuest.banner.voteText')} />
-                        <Button text={t('singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' />
-                    </div>
+            <Banner src='https://cdn.pulsepx.com/photos/112044230/6d744332dae2e82b70e0d97a74b9343033479481bde91ff4c807642da8ec82c5/2048.jpg' containerClass='h-[40vh] lg:h-[70vh]'>
+                <div>
+
                 </div>
             </Banner>
             <Container className="space-y-14 md:space-y-20 lg:space-y-10 my-10 md:my-16 lg:mb-28 lg:mt-8">
+                <div className='mt-20'>
+                    <TopPositions />
+                </div>
                 <Tab
                     options={[
-                        { label: t('singleQuest.tabs.brief'), value: "brief" },
-                        { label: t('singleQuest.tabs.entries'), value: "entries" },
+                        { label: "Brief", value: "brief" },
+                        { label: "Entries", value: "entries" },
                     ]}
-                    value={activeTab}
                     onChange={(val) => setActiveTab(val)}
-
                 />
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "brief" && "hidden")}>
-                    <Status />
                     <Brief />
                     <Prizes t={t} />
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
@@ -65,6 +59,7 @@ export default function SingleQuest() {
                         </div>
                     </div>
                 </div>
+
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "entries" && "hidden")}>
                     <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
                         {images.map((item, index) => (

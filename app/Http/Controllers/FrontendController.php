@@ -58,4 +58,9 @@ class FrontendController extends Controller
     {
         return Inertia::render('about-us');
     }
+
+    public function endedSingleQuest($id)
+    {
+        return Inertia::render('quests/ended-single-quest', ['id' => $id]);
+    }
 }

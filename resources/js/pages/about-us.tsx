@@ -13,7 +13,7 @@ export default function AboutUs() {
                 containerClass="h-[30vh] lg:h-[45vh]"
             >
                 <div className="w-full h-full flex justify-center items-center">
-                    <SectionHeading title="About Us" className="text-4xl lg:text-6xl font-bold" />
+                    <SectionHeading title="About Us" className="text-4xl lg:text-6xl font-bold text-white" />
                 </div>
             </Banner>
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">

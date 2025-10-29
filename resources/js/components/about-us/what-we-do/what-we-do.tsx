@@ -11,19 +11,19 @@ const WhatWeDo = () => (
         <SectionHeading title="What We Do" />
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <ServiceCard
-                icon={<FaTrophy className="text-2xl" />}
+                icon={<FaTrophy className="text-2xl text-white" />}
                 title="Built to Reward Good Photography"
-                description="At PULSEpx, we believe every photo deserves a fair chance. We’re committed to creating an impartial environment where photos are judged solely on their merit—regardless of the photographer's popularity or number of followers. Our goal is to ensure that excellence in photography shines through based purely on talent and creative expression."
+                description="At winpix, we believe every photo deserves a fair chance. We’re committed to creating an impartial environment where photos are judged solely on their merit—regardless of the photographer's popularity or number of followers. Our goal is to ensure that excellence in photography shines through based purely on talent and creative expression."
             />
             <ServiceCard
-                icon={<IoMdCamera className="text-2xl" />}
+                icon={<IoMdCamera className="text-2xl text-white" />}
                 title="Built for Every Photographer"
-                description="Photography is for everyone, and so is PULSEpx. Whether you're just starting out or you're a seasoned professional, our platform is designed to foster healthy competition and community interaction. We're here to help you refine your skills, challenge your limits, and progress in your photographic journey alongside peers who share your passion."
+                description="Photography is for everyone, and so is winpix. Whether you're just starting out or you're a seasoned professional, our platform is designed to foster healthy competition and community interaction. We're here to help you refine your skills, challenge your limits, and progress in your photographic journey alongside peers who share your passion."
             />
             <ServiceCard
-                icon={<PiBalloonFill className="text-2xl" />}
+                icon={<PiBalloonFill className="text-2xl text-white" />}
                 title="Built to Be Fun"
-                description="We believe that photography should be exhilarating and rewarding. At PULSEpx, participating in contests, voting on entries, winning prizes, tracking your progress, and connecting with fellow photographers are all part of the fun. We aim to make your experience with PULSEpx enjoyable, inspiring you to pick up your camera and explore the world through your lens."
+                description="We believe that photography should be exhilarating and rewarding. At winpix, participating in contests, voting on entries, winning prizes, tracking your progress, and connecting with fellow photographers are all part of the fun. We aim to make your experience with winpix enjoyable, inspiring you to pick up your camera and explore the world through your lens."
             />
         </div>
     </div>

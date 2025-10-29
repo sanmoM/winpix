@@ -202,7 +202,7 @@ export default function App({ t }: any) {
                             key={user.rank}
                             className={`rank-item grid grid-cols-[70%_28%] justify-between ${getRankStyle(
                                 user.rank
-                            )} flex items-center justify-between p-4 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 transition-all duration-300 hover:scale-[1.01] hover:shadow-xl`}
+                            )} flex items-center justify-between p-4 rounded-lg border transition-all duration-300`}
                         >
                             {/* Rank & User Info */}
                             <div className="grid grid-cols-[auto_auto_1fr] items-center gap-4 min-w-0">

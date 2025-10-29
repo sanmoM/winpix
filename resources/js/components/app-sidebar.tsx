@@ -16,6 +16,7 @@ import {
     Scale,
     ServerIcon,
     Store,
+    Trophy,
     UserPlus,
     WashingMachine,
 } from 'lucide-react';
@@ -64,6 +65,27 @@ export function AppSidebar() {
                     title: 'Redeem',
                     href: route('admin.redeem.index'),
                     icon: Store,
+                },
+            ],
+        },
+        {
+            title: 'Quest',
+            icon: Trophy,
+            subItems: [
+                {
+                    title: 'Series',
+                    href: route('admin.series.index'),
+                    icon: ServerIcon,
+                },
+                {
+                    title: 'Quest Type',
+                    href: route('admin.questType.index'),
+                    icon: ServerIcon,
+                },
+                {
+                    title: 'Category',
+                    href: route('admin.questCategory.index'),
+                    icon: ServerIcon,
                 },
             ],
         },

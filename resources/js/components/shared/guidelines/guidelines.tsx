@@ -1,5 +1,4 @@
 import SecondarySectionHeading from "@/components/shared/secondary-section-heading";
-import React from "react";
 import { IoShieldOutline } from "react-icons/io5";
 import { PiCopyright } from "react-icons/pi";
 import GuidelineItem from "./components/guideline-item";

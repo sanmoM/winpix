@@ -13,4 +13,7 @@ Route::get('/quests/single-quest-series', [FrontendController::class, 'singleQue
 Route::get('/quests/entered-quests', [FrontendController::class, 'enteredQuests'])->name('entered-quests');
 Route::get('/quests/ended-quests', [FrontendController::class, 'endedQuests'])->name('ended-quests');
 Route::get('/profile/{id}', [FrontendController::class, 'profile'])->name('profile');
+Route::get('/all-help-categories', [FrontendController::class, 'allHelpCategories'])->name('all-help-categories');
+Route::get('/quests/ended-single-quest/{id}', [FrontendController::class, 'endedSingleQuest'])->name('ended-single-quest');
+Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('about-us');
 Route::get('/discover', [DiscoverController::class, 'discover'])->name('discover');

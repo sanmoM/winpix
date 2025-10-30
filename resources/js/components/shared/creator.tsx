@@ -1,45 +1,40 @@
 import SocialIcon from "@/components/shared/social-icon";
+import { cn } from "@/lib/utils";
 import React from "react";
 
-const Creator: React.FC = () => {
+const Creator = ({ containerClassName, infoContainerClassName, imageClassName, followBtnClassName, children, nameClassName, imageContainerClassName }: { containerClassName?: string, infoContainerClassName?: string, imageClassName?: string, followBtnClassName?: string, children?: React.ReactNode, nameClassName?: string, imageContainerClassName?: string }) => {
     const socialIcons = [
         { Icon: TwitterIcon, href: '#twitter', ariaLabel: 'Twitter' },
         { Icon: FacebookIcon, href: '#facebook', ariaLabel: 'Facebook' },
         { Icon: InstagramIcon, href: '#instagram', ariaLabel: 'Instagram' },
     ];
     return (
-        <div className="w-fit lg:w-full md:max-w-md mt-auto mx-auto lg:mx-0">
-            {/* Header */}
-            {/* <h1 className="text-4xl font-bold text-gray-900 mb-8">Creator</h1> */}
-            {/* <SecondarySectionHeading title="Creator" className="mb-8 text-right" /> */}
+        <div className={cn("flex flex-row-reverse lg:flex-row items-center justify-end gap-4", containerClassName)}>
 
-            {/* Creator Profile Card */}
-            <div className="flex flex-row-reverse lg:flex-row items-center justify-end gap-4">
-
-                {/* Creator Name and Social Links */}
-                <div className="flex flex-col lg:items-end  lg:justify-end">
-                    <span className="text-2xl font-semibold">
-                        hasmonaut
-                    </span>
-                    <div className="flex space-x-4 mt-2 md:mt-4">
-                        {socialIcons.map(({ Icon, href, ariaLabel }) => (
-                            <SocialIcon Icon={Icon} href={href} ariaLabel={ariaLabel} />
-                        ))}
-                    </div>
+            {/* Creator Name and Social Links */}
+            <div className={cn("flex flex-col lg:items-end  lg:justify-end", infoContainerClassName)}>
+                <span className={cn("text-2xl font-semibold", nameClassName)}>
+                    hasmonaut
+                </span>
+                <div className="flex space-x-4 mt-1 md:mt-2">
+                    {socialIcons.map(({ Icon, href, ariaLabel }) => (
+                        <SocialIcon Icon={Icon} href={href} ariaLabel={ariaLabel} containerClassName="w-8 h-8" />
+                    ))}
                 </div>
+                {children}
+            </div>
 
-                {/* Profile Picture */}
-                <div className="relative">
-                    <img
-                        src="https://cdn.pulsepx.com/user-resources/110001540/avatar?v=2"
-                        alt="hasmonaut's profile"
-                        className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-sm"
-                    />
-                    {/* Follow Button */}
-                    <button className="absolute text-white bottom-0 left-1/2 -translate-x-1/2 transform translate-y-1/4 px-4 py-0.5 ease-in-out bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] rounded-full text-[10px]">
-                        Follow
-                    </button>
-                </div>
+            {/* Profile Picture */}
+            <div className={cn("relative", imageContainerClassName)}>
+                <img
+                    src="https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.jpg?s=612x612&w=0&k=20&c=9zbG2-9fl741fbTWw5fNgcEEe4ll-JegrGlQQ6m54rg="
+                    alt="hasmonaut's profile"
+                    className={cn("w-20 h-20 rounded-full object-cover object-top border-2", imageClassName)}
+                />
+                {/* Follow Button */}
+                <button className={cn("absolute cursor-pointer text-white bottom-0 left-1/2 -translate-x-1/2 transform translate-y-1/4 px-4 py-0.5 ease-in-out bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] rounded-full text-[10px]", followBtnClassName)}>
+                    Follow
+                </button>
             </div>
         </div>
     );

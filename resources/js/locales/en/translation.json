@@ -20,7 +20,9 @@
                 },
                 "store": "Store",
                 "redeem": "Redeem",
-                "dashboard": "Dashboard"
+                "dashboard": "Dashboard",
+                "aboutUs": "About Us",
+                "help": "Help"
             },
             "buttons": {
                 "signUp": "Sign up",
@@ -133,6 +135,11 @@
                     "description": "Submissions must be your own, submissions must not be AI generated."
                 }
             ]
+        }
+    },
+    "profile": {
+        "gallery": {
+            "title": "Photo Library"
         }
     }
 }

@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\RedeemController;
 use App\Http\Controllers\Admin\OthersController;
+use App\Http\Controllers\Admin\SeriesController;
+use App\Http\Controllers\Admin\QuestTypeController;
+use App\Http\Controllers\Admin\QuestCategoryController;
 
 Route::get('auth-error', function () {
     return view('error');
@@ -33,6 +36,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::resource('store', StoreController::class)->names('admin.store');
     Route::resource('redeem', RedeemController::class)->names('admin.redeem');
     Route::resource('help', HelpController::class)->names('admin.help');
+    Route::resource('series', SeriesController::class)->names('admin.series');
+    Route::resource('quest-type', QuestTypeController::class)->names('admin.questType');
+    Route::resource('quest-category', QuestCategoryController::class)->names('admin.questCategory');
     Route::get('others', [OthersController::class, 'index'])->name('admin.others');
 
 });

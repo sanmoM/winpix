@@ -11,7 +11,7 @@ const SingleHelpCategoryNavigationItem: React.FC<SingleHelpCategoryProps> = ({ t
             className="w-full p-4 h-full
                  border rounded-sm 
                 font-medium
-                  hover:!scale-[1] cursor-pointer flex justify-center items-center bg-bg-primary block"
+                  hover:!scale-[1] cursor-pointer flex justify-center items-center bg-bg-primary"
         >
             {title}
         </Link>

@@ -68,4 +68,9 @@ class FrontendController extends Controller
     {
         return Inertia::render('help/all-help-categories');
     }
+
+    public function singleCategoryHelps()
+    {
+        return Inertia::render('help/single-category-helps');
+    }
 }

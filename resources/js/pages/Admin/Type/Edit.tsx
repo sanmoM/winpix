@@ -7,7 +7,7 @@ import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Type',
+        title: 'Quest Type Edit',
         href: 'admin/quest-type',
     },
     {
@@ -81,7 +81,7 @@ export default function Edit({ item }: EditProps) {
                 {/* Submit */}
                 <button
                     type="submit"
-                    className="w-28 rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700"
+                    className="w-28 cursor-pointer rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700"
                     disabled={processing}
                 >
                     {processing ? 'Updating...' : 'Update'}

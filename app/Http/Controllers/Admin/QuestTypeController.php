@@ -42,7 +42,7 @@ class QuestTypeController extends Controller
         QuestType::create($validated);
 
         return redirect()
-        ->route('admin.questType.index')
+        ->back()
         ->with('success', 'Quest Type saved successfully 🎉');
 
     }

@@ -3,28 +3,48 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Quest Type',
+        title: 'Quest Type Create',
         href: 'admin/questType',
     },
 ];
+interface FlashProps {
+    success?: string;
+    error?: string;
+}
 
-export default function Create() {
-    const { data, setData, post, errors, processing } = useForm({
+interface Props {
+    flash?: FlashProps;
+}
+
+export default function Create({ flash }: Props) {
+    const { data, setData, post, errors, reset, processing } = useForm({
         name: '',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('admin.questType.store'));
+        post(route('admin.questType.store'), {
+            onSuccess: () => {
+                reset();
+            },
+        });
     };
+
+    useEffect(() => {
+        if (flash?.success) toast.success(flash.success);
+        if (flash?.error) toast.error(flash.error);
+    }, [flash]);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Help" />
+            <ToastContainer />
             <form
                 onSubmit={handleSubmit}
                 className="flex flex-col space-y-4 p-6"
@@ -48,7 +68,7 @@ export default function Create() {
                 {/* Action Buttons */}
                 <div className="flex items-center justify-end space-x-4 pt-4">
                     <Link
-                        href={route('admin.questTyp.index')}
+                        href={route('admin.questType.index')}
                         className="w-28 rounded-lg border border-gray-300 px-6 py-2 text-center font-semibold text-gray-700 hover:bg-gray-100"
                     >
                         Back
@@ -56,7 +76,7 @@ export default function Create() {
 
                     <button
                         type="submit"
-                        className="w-28 rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700 disabled:opacity-70"
+                        className="w-28 cursor-pointer rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700 disabled:opacity-70"
                         disabled={processing}
                     >
                         {processing ? 'Saving...' : 'Save'}

@@ -98,11 +98,6 @@ export function AppSidebar() {
                     href: route('admin.help.index'),
                     icon: ServerIcon,
                 },
-                {
-                    title: 'Support',
-                    href: route('admin.about.index'),
-                    icon: ServerIcon,
-                },
             ],
         },
     ];

@@ -9,11 +9,11 @@ import { route } from 'ziggy-js';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Quest Type',
-        href: 'admin/questCategory',
+        href: 'admin/quest-type',
     },
 ];
 
-interface QuestCategoryItem {
+interface QuestTypeItem {
     id: number;
     name: string;
     status: string;
@@ -28,7 +28,7 @@ export default function Index({
     items,
     flash,
 }: {
-    items: QuestCategoryItem[];
+    items: QuestTypeItem[];
     flash: FlashProps;
 }) {
     useEffect(() => {
@@ -44,18 +44,18 @@ export default function Index({
     const handleDelete = (id: number) => {
         if (!confirm('Are you sure you want to delete this item?')) return;
 
-        router.delete(route('admin.questcategory.destroy', id));
+        router.delete(route('admin.questType.destroy', id));
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <ToastContainer />
-            <Head title="Quest category" />
+            <Head title="Quest Type" />
 
             <div className="mb-4 flex items-center justify-between">
-                <h1 className="text-lg font-semibold">Question category</h1>
+                <h1 className="text-lg font-semibold">Quest Type</h1>
                 <Link
-                    href={route('admin.questcategory.create')}
+                    href={route('admin.questType.create')}
                     className="rounded bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
                 >
                     Create
@@ -68,7 +68,7 @@ export default function Index({
                             <th className="px-4 py-3">#</th>
                             <th className="px-4 py-3">Name</th>
                             <th className="px-4 py-3">Status</th>
-                            <th className="px-4 py-3 text-right">Actions</th>
+                            <th className="px-4 py-3 !text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,10 +93,10 @@ export default function Index({
                                             {item?.status}
                                         </Badge>
                                     </td>
-                                    <td className="space-x-3 px-4 py-3 text-right">
+                                    <td className="space-x-3 px-4 py-3 !text-right">
                                         <Link
                                             href={route(
-                                                'admin.questcategory.edit',
+                                                'admin.questType.edit',
                                                 item.id,
                                             )}
                                             className="bg-dark cursor-pointer rounded-md bg-slate-800 px-3 py-2 font-medium text-white"

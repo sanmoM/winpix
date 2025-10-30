@@ -42,7 +42,7 @@ class QuestCategoryController extends Controller
         QuestCategory::create($validated);
 
         return redirect()
-        ->route('admin.questCategory.index')
+        ->back()
         ->with('success', 'Quest Category saved successfully 🎉');
 
     }

@@ -53,7 +53,7 @@ export default function Index({
             <Head title="Quest Category" />
 
             <div className="mb-4 flex items-center justify-between">
-                <h1 className="text-lg font-semibold">Question Category</h1>
+                <h1 className="text-lg font-semibold">Quest Category</h1>
                 <Link
                     href={route('admin.questCategory.create')}
                     className="rounded bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
@@ -68,7 +68,7 @@ export default function Index({
                             <th className="px-4 py-3">#</th>
                             <th className="px-4 py-3">Name</th>
                             <th className="px-4 py-3">Status</th>
-                            <th className="px-4 py-3 text-right">Actions</th>
+                            <th className="px-4 py-3 !text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,7 +93,7 @@ export default function Index({
                                             {item?.status}
                                         </Badge>
                                     </td>
-                                    <td className="space-x-3 px-4 py-3 text-right">
+                                    <td className="space-x-3 px-4 py-3 !text-right">
                                         <Link
                                             href={route(
                                                 'admin.questCategory.edit',

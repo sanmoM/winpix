@@ -79,13 +79,15 @@ export default function Edit({ item }: EditProps) {
                 </div>
 
                 {/* Submit */}
-                <button
-                    type="submit"
-                    className="w-28 rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700"
-                    disabled={processing}
-                >
-                    {processing ? 'Updating...' : 'Update'}
-                </button>
+                <div className="flex items-center justify-end space-x-4 pt-4">
+                    <button
+                        type="submit"
+                        className="w-28 cursor-pointer rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700"
+                        disabled={processing}
+                    >
+                        {processing ? 'Updating...' : 'Update'}
+                    </button>
+                </div>
             </form>
         </AppLayout>
     );

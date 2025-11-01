@@ -2,7 +2,7 @@ import SocialIcon from "@/components/shared/social-icon";
 import { cn } from "@/lib/utils";
 import React from "react";
 
-const Creator = ({ containerClassName, infoContainerClassName, imageClassName, followBtnClassName, children, nameClassName, imageContainerClassName }: { containerClassName?: string, infoContainerClassName?: string, imageClassName?: string, followBtnClassName?: string, children?: React.ReactNode, nameClassName?: string, imageContainerClassName?: string }) => {
+const Creator = ({ containerClassName, infoContainerClassName, imageClassName, followBtnClassName, children, nameClassName, imageContainerClassName, btnText, onClick }: { containerClassName?: string, infoContainerClassName?: string, imageClassName?: string, followBtnClassName?: string, children?: React.ReactNode, nameClassName?: string, imageContainerClassName?: string, btnText?: string, onClick?: () => void }) => {
     const socialIcons = [
         { Icon: TwitterIcon, href: '#twitter', ariaLabel: 'Twitter' },
         { Icon: FacebookIcon, href: '#facebook', ariaLabel: 'Facebook' },
@@ -32,8 +32,10 @@ const Creator = ({ containerClassName, infoContainerClassName, imageClassName, f
                     className={cn("w-20 h-20 rounded-full object-cover object-top border-2", imageClassName)}
                 />
                 {/* Follow Button */}
-                <button className={cn("absolute cursor-pointer text-white bottom-0 left-1/2 -translate-x-1/2 transform translate-y-1/4 px-4 py-0.5 ease-in-out bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] rounded-full text-[10px]", followBtnClassName)}>
-                    Follow
+                <button className={cn("absolute cursor-pointer text-white bottom-0 left-1/2 -translate-x-1/2 transform translate-y-1/4 px-4 py-0.5 ease-in-out bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] rounded-full text-[10px]", followBtnClassName)}
+                    onClick={onClick}
+                >
+                    {btnText}
                 </button>
             </div>
         </div>

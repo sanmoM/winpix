@@ -1,3 +1,5 @@
+import { router } from '@inertiajs/react';
+import { useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
 interface SearchIconProps {
@@ -6,9 +8,14 @@ interface SearchIconProps {
 
 
 const AllHelpCategoriesHeader = () => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        router.get('/searched-helps', { searchTerm });
+    };
     return (
         <header className="w-full ease-in-out bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] py-42 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-xl mx-auto">
+            <form className="max-w-xl mx-auto" onSubmit={handleSubmit}>
                 <div className="relative">
                     {/* Search Icon */}
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -20,6 +27,8 @@ const AllHelpCategoriesHeader = () => {
                         type="search"
                         name="search"
                         id="search"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                         placeholder="Search"
                         className="block w-full py-3 pl-12 pr-4 rounded-full border-0 shadow-sm
                        bg-white placeholder-gray-500 text-black
@@ -27,7 +36,7 @@ const AllHelpCategoriesHeader = () => {
                     />
                     <MdOutlineClose className='absolute top-1/2 right-4 -translate-y-1/2 text-gray-400 cursor-pointer' />
                 </div>
-            </div>
+            </form>
         </header>
     );
 };

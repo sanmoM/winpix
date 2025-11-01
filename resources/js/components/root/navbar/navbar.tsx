@@ -156,7 +156,7 @@ export default function Navbar() {
               </div>
 
               {/* === Mobile Menu Button === */}
-              <div className="mr-2 flex">
+              <div className="flex">
                 <button
                   ref={buttonRef}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}

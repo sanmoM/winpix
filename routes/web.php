@@ -16,7 +16,7 @@ Route::get('auth-error', function () {
     return view('error');
 })->name('auth.error');
 
-Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');

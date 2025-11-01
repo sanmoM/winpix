@@ -50,6 +50,9 @@ export default function Profile({
                     >
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
+                                <div>
+
+                                </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="name">Name</Label>
 
@@ -107,14 +110,15 @@ export default function Profile({
 
                                             {status ===
                                                 'verification-link-sent' && (
-                                                <div className="mt-2 text-sm font-medium text-green-600">
-                                                    A new verification link has
-                                                    been sent to your email
-                                                    address.
-                                                </div>
-                                            )}
+                                                    <div className="mt-2 text-sm font-medium text-green-600">
+                                                        A new verification link has
+                                                        been sent to your email
+                                                        address.
+                                                    </div>
+                                                )}
                                         </div>
-                                    )}
+                                    )
+                                }
 
                                 <div className="flex items-center gap-4">
                                     <Button
@@ -141,7 +145,7 @@ export default function Profile({
                     </Form>
                 </div>
 
-                <DeleteUser />
+                {/* <DeleteUser /> */}
             </SettingsLayout>
         </AppLayout>
     );

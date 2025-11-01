@@ -15,6 +15,7 @@ Route::get('/quests/ended-quests', [FrontendController::class, 'endedQuests'])->
 Route::get('/profile/{id}', [FrontendController::class, 'profile'])->name('profile');
 Route::get('/all-help-categories', [FrontendController::class, 'allHelpCategories'])->name('all-help-categories');
 Route::get('/single-category-helps', [FrontendController::class, 'singleCategoryHelps'])->name('single-category-helps');
+Route::get('/searched-helps', [FrontendController::class, 'searchedHelps'])->name('searched-helps');
 Route::get('/single-faq', [FrontendController::class, 'singleFaq'])->name('single-faq');
 Route::get('/quests/ended-single-quest/{id}', [FrontendController::class, 'endedSingleQuest'])->name('ended-single-quest');
 Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('about-us');

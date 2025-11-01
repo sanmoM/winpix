@@ -1,7 +1,12 @@
 import { Link } from "@inertiajs/react";
 
 interface PathProps {
-    paths: string[];
+    paths: PathItemProps[];
+}
+
+interface PathItemProps {
+    label: string;
+    href: string;
 }
 
 export default function Path({ paths }: PathProps) {
@@ -11,7 +16,7 @@ export default function Path({ paths }: PathProps) {
                 paths.map((path, index) => (
                     <>
 
-                        <Link href="#" className="text-primary-color">PULSEpx Support</Link>
+                        <Link href={path?.href} className="text-primary-color">{path.label}</Link>
                         {
                             paths.length - 1 !== index &&
                             <span className="mx-2">&gt;</span>

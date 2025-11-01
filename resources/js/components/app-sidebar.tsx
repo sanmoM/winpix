@@ -29,11 +29,34 @@ export function AppSidebar() {
 
     const mainNavItems: NavItem[] = [
         {
-            title: 'Profile',
+            title: 'Dashboard',
             icon: LayoutGrid,
-            href: route('profile.edit'),
+            // href: route('profile.edit'),
+            subItems: [
+                {
+                    title: 'My Profile',
+                    href: route('dashboard'),
+                    icon: LayoutGrid,
+                },
+                {
+                    title: 'Create Quest',
+                    href: "route('create')",
+                    icon: LayoutGrid,
+                },
+                {
+                    title: 'About Us',
+                    href: route('about-us'),
+                    icon: LayoutGrid,
+                },
+                {
+                    title: 'Help',
+                    href: route('all-help-categories'),
+                    icon: LayoutGrid,
+                },
+            ],
         },
     ];
+
 
     const adminNavItems: NavItem[] = [
         {
@@ -129,8 +152,8 @@ export function AppSidebar() {
         userRole === 'admin'
             ? 'admin/dashboard'
             : userRole === 'jury'
-              ? 'jury/dashboard'
-              : '/dashboard';
+                ? 'jury/dashboard'
+                : '/dashboard';
 
     return (
         <Sidebar collapsible="icon" variant="inset">

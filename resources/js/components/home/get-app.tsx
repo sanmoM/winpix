@@ -5,7 +5,7 @@ const GetApp = ({ t }: any) => {
 
 
     return (
-        <div className='flex flex-col lg:flex-row justify-center items-center gap-2 px-4 md:px-0'>
+        <div className='flex flex-col lg:flex-row justify-center items-center gap-2 px-4 md:px-0 bg-bg-primary'>
             <img src='/images/mobile.png' className="w-1/2 md:w-[40%] lg:w-1/4" />
             <div className="max-w-2xl w-full font-sans">
                 {/* Header Text */}

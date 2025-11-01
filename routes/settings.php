@@ -30,4 +30,17 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('settings/language');
     })
         ->name('language.show');
+    Route::get('settings/social-links', function () {
+        return Inertia::render('settings/social-links');
+    })
+        ->name('social-links.show');
+
+    Route::get('settings/link-social-account', function () {
+        return Inertia::render('settings/link-social-account');
+    })
+        ->name('link-social-account.show');
+    Route::get('settings/address', function () {
+        return Inertia::render('settings/address');
+    })
+        ->name('address.show');
 });

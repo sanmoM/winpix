@@ -25,27 +25,25 @@ export default function Dashboard() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className=''>
-                <Banner src='https://cdn.pulsepx.com/user-resources/110012355/profile-cover' containerClass='lg:h-[89vh]'>
-                    <div className='flex justify-center items-center h-full'>
-                        <Creator containerClassName='flex-col-reverse lg:flex-row lg:flex-row-reverse' infoContainerClassName='items-center lg:items-start' imageClassName='w-32 h-32 !border-primary-color lg:w-40 lg:h-40 border-6 p-0.5' followBtnClassName='text-sm px-6 py-1.5' nameClassName='text-3xl text-white'
-                            btnText='Edit'
-                            onClick={() => router.get("/settings/profile")}
+                <div className='flex justify-center items-center bg-bg-primary h-[70vh] lg:h-[40vh]'>
+                    <Creator containerClassName='flex-col-reverse lg:flex-row lg:flex-row-reverse' infoContainerClassName='items-center lg:items-start' imageClassName='w-32 h-32 !border-primary-color lg:w-40 lg:h-40 border-6 p-0.5' followBtnClassName='text-sm px-6 py-1.5' nameClassName='text-3xl text-white'
+                        btnText='Edit'
+                        onClick={() => router.get("/settings/profile")}
 
-                        >
-                            <div className='mt-4 flex gap-3 items-center'>
-                                <div>
-                                    <h6 className='text-sm text-gray-400'>Followers</h6>
-                                    <p className='font-semibold text-white'>12,345</p>
-                                </div>
-                                <div>
-                                    <h6 className='text-sm text-gray-400'>Following</h6>
-                                    <p className='font-semibold text-white'>12,345</p>
-                                </div>
+                    >
+                        <div className='mt-4 flex gap-3 items-center'>
+                            <div>
+                                <h6 className='text-sm text-gray-400'>Followers</h6>
+                                <p className='font-semibold text-white'>12,345</p>
                             </div>
-                        </Creator>
-                    </div>
-                </Banner>
-                <Container className="space-y-14 md:space-y-20 lg:space-y-16 my-10 md:my-16 lg:mt-12 lg:mb-32 mx-10">
+                            <div>
+                                <h6 className='text-sm text-gray-400'>Following</h6>
+                                <p className='font-semibold text-white'>12,345</p>
+                            </div>
+                        </div>
+                    </Creator>
+                </div>
+                <Container className="space-y-14 md:space-y-20 lg:space-y-16 my-10 md:my-16 lg:mt-12 lg:mb-32 lg:mx-10">
                     <div className='w-fit mx-auto'>
                         <Tab
                             options={[
@@ -57,7 +55,7 @@ export default function Dashboard() {
                         />
                     </div>
                     {
-                        activeTab === "my-stats" && <Stats containerClassName='translate-y-0' />
+                        activeTab === "my-stats" && <Stats containerClassName='translate-y-0 mb-0 md:mb-0 lg:mb-0' />
                     }
                     {
                         activeTab === "my-photos" && <Gallery />

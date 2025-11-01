@@ -78,4 +78,9 @@ class FrontendController extends Controller
     {
         return Inertia::render('help/single-faq');
     }
+
+    public function searchedHelps()
+    {
+        return Inertia::render('help/searched-helps');
+    }
 }

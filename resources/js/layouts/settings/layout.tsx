@@ -12,8 +12,23 @@ import { type PropsWithChildren } from 'react';
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: 'Profile',
+        title: 'Edit Profile',
         href: edit(),
+        icon: null,
+    },
+    {
+        title: 'Social Links',
+        href: "/settings/social-links",
+        icon: null,
+    },
+    {
+        title: 'Linked Accounts',
+        href: "/settings/link-social-account",
+        icon: null,
+    },
+    {
+        title: 'Shipping Address',
+        href: "/settings/address",
         icon: null,
     },
     {

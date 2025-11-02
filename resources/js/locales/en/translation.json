@@ -79,6 +79,9 @@
         },
         "questSeries": {
             "title": "Active Quests"
+        },
+        "filter": {
+            "sortAndFilter": "Sort & Filter"
         }
     },
     "questSeries": {

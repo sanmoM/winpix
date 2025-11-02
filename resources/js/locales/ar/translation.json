@@ -1,138 +1,148 @@
 {
-  "shared": {
-    "questCard": {
-      "btnText": "أرسل المهمة",
-      "days": "أيام"
-    }
-  },
-  "root": {
-    "navbar": {
-      "navLinks": {
-        "discover": "اكتشف",
-        "quests": {
-          "title": "المهام",
-          "submenu": {
-            "activeQuests": "المهام النشطة",
-            "questSeries": "سلسلة المهام",
-            "enteredQuests": "المهام التي تم دخولها",
-            "endedQuests": "المهام المنتهية"
-          }
+    "shared": {
+        "questCard": {
+            "btnText": "إرسال المهمة",
+            "days": "أيام"
+        }
+    },
+    "root": {
+        "navbar": {
+            "navLinks": {
+                "discover": "اكتشف",
+                "quests": {
+                    "title": "المهام",
+                    "submenu": {
+                        "activeQuests": "المهام النشطة",
+                        "questSeries": "سلسلة المهام",
+                        "enteredQuests": "المهام المشاركة",
+                        "endedQuests": "المهام المنتهية"
+                    }
+                },
+                "store": "المتجر",
+                "redeem": "استبدال",
+                "dashboard": "لوحة التحكم",
+                "aboutUs": "من نحن",
+                "help": "مساعدة"
+            },
+            "buttons": {
+                "signUp": "إنشاء حساب",
+                "logIn": "تسجيل الدخول"
+            },
+            "notifications": {
+                "title": "الإشعارات"
+            }
+        }
+    },
+    "footer": {
+        "navLinks": {
+            "home": "الرئيسية",
+            "agent": "الوكيل",
+            "about": "حول",
+            "listing": "القائمة",
+            "blog": "المدونة",
+            "contact": "اتصل بنا"
         },
-        "store": "المتجر",
-        "redeem": "استبدال",
-        "dashboard": "لوحة التحكم"
-      },
-      "buttons": {
-        "signUp": "إنشاء حساب",
-        "logIn": "تسجيل الدخول"
-      },
-      "notifications": {
-        "title": "الإشعارات"
-      }
-    }
-  },
-  "footer": {
-    "navLinks": {
-      "home": "الرئيسية",
-      "agent": "الوكيل",
-      "about": "من نحن",
-      "listing": "القائمة",
-      "blog": "المدونة",
-      "contact": "اتصل بنا"
+        "copyright": "حقوق النشر &copy;{{year}} جميع الحقوق محفوظة | تم إنشاء هذا القالب بحب {{heart}} بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
     },
-    "copyright": "حقوق النشر &copy;{{year}} جميع الحقوق محفوظة | تم إنشاء هذا القالب بكل {{heart}} بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
-  },
-  "home": {
-    "banner": {
-      "btnText": "انضم الآن"
+    "home": {
+        "banner": {
+            "btnText": "انضم الآن"
+        },
+        "newest": {
+            "title": "الأحدث"
+        },
+        "gallery": {
+            "title": "المعرض"
+        },
+        "getApp": {
+            "title": "حمّل التطبيق مجانًا!",
+            "description": "اجعل تجربة التسوق الإلكتروني أسهل وأسرع. اضغط على الرابط لتحميل التطبيق الآن."
+        }
     },
-    "newest": {
-      "title": "الأحدث"
-    },
-    "gallery": {
-      "title": "المعرض"
-    },
-    "getApp": {
-      "title": "حمّل التطبيق مجانًا!",
-      "description": "اجعل تجربة التسوق عبر الإنترنت أسهل وأسرع. اضغط على الرابط لتحميل التطبيق الآن."
-    }
-  },
-  "discover": {
-    "leaderboard": {
-      "title": "أبطال الأسبوع",
-      "followers": "المتابعون",
-      "points": "النقاط"
+    "discover": {
+        "leaderboard": {
+            "title": "أبطال الأسبوع",
+            "followers": "متابعون",
+            "points": "نقـاط"
+        },
+        "activeQuests": {
+            "title": "المهام النشطة"
+        },
+        "topPhotos": {
+            "title": "أفضل الصور"
+        }
     },
     "activeQuests": {
-      "title": "المهام النشطة"
-    },
-    "topPhotos": {
-      "title": "أفضل الصور"
-    }
-  },
-  "activeQuests": {
-    "banner": {
-      "joinNowText": "انضم الآن",
-      "voteText": "صوّت"
+        "banner": {
+            "joinNowText": "انضم الآن",
+            "voteText": "صوّت"
+        },
+        "questSeries": {
+            "title": "المهام النشطة"
+        },
+        "filter": {
+            "sortAndFilter": "الفرز والتصفية"
+        }
     },
     "questSeries": {
-      "title": "المهام النشطة"
-    }
-  },
-  "questSeries": {
-    "title": "المهام النشطة"
-  },
-  "endedQuests": {
-    "tab": {
-      "myQuests": "مهامي",
-      "ended": "منتهية",
-      "inactive": "غير نشطة"
-    }
-  },
-  "enteredQuests": {
-    "title": "المهام التي تم دخولها"
-  },
-  "store": {
-    "title": "حول البيكسلات",
-    "description": "البيكسلات هي بوابتك إلى محتوى حصري! استخدمها لفتح عناصر مميزة، والمشاركة في فعاليات خاصة، واكتساب ميزة في مهامك. المزيد من البيكسلات يعني المزيد من القوة!"
-  },
-  "redeem": {
-    "appPriceTitle": "أسعار التطبيق",
-    "grandPriceTitle": "الجوائز الكبرى"
-  },
-  "singleQuest": {
-    "banner": {
-      "voteText": "صوّت",
-      "joinNowText": "انضم الآن"
+        "title": "المهام النشطة"
     },
-    "tabs": {
-      "brief": "نظرة عامة",
-      "entries": "المشاركات"
-    },
-    "prizes": {
-      "viewAll": "عرض الكل",
-      "viewLess": "عرض أقل",
-      "card": {
-        "no": "رقم",
-        "first": "الجائزة الأولى",
-        "second": "الجائزة الثانية",
-        "third": "الجائزة الثالثة",
-        "fourth": "الجائزة الرابعة",
-        "fifth": "الجائزة الخامسة"
-      }
-    },
-    "guidelines": {
-      "title": "الإرشادات",
-      "guideLines": [
-        {
-          "title": "رتبة المهارة",
-          "description": "مرحب بجميع المستخدمين من مختلف رتب المهارة لتقديم مشاركاتهم في هذه المهمة!"
-        },
-        {
-          "title": "حقوق النشر",
-          "description": "يجب أن تكون المشاركات من إنشائك الشخصي، ولا يُسمح بالمشاركات المولّدة بواسطة الذكاء الاصطناعي."
+    "endedQuests": {
+        "tab": {
+            "myQuests": "مهامي",
+            "ended": "المنتهية",
+            "inactive": "غير النشطة"
         }
-      ]
+    },
+    "enteredQuests": {
+        "title": "المهام المشاركة"
+    },
+    "store": {
+        "title": "حول البِكسلات",
+        "description": "البِكسلات هي بوابتك إلى محتوى حصري! استخدمها لفتح عناصر مميزة، والمشاركة في فعاليات خاصة، والحصول على ميزة إضافية في مهامك. المزيد من البِكسلات يعني المزيد من القوة!"
+    },
+    "redeem": {
+        "appPriceTitle": "أسعار التطبيق",
+        "grandPriceTitle": "الجوائز الكبرى"
+    },
+    "singleQuest": {
+        "banner": {
+            "voteText": "صوّت",
+            "joinNowText": "انضم الآن"
+        },
+        "tabs": {
+            "brief": "الملخص",
+            "entries": "المشاركات"
+        },
+        "prizes": {
+            "viewAll": "عرض الكل",
+            "viewLess": "عرض أقل",
+            "card": {
+                "no": "رقم",
+                "first": "الجائزة الأولى",
+                "second": "الجائزة الثانية",
+                "third": "الجائزة الثالثة",
+                "fourth": "الجائزة الرابعة",
+                "fifth": "الجائزة الخامسة"
+            }
+        },
+        "guidelines": {
+            "title": "الإرشادات",
+            "guideLines": [
+                {
+                    "title": "رتبة المهارة",
+                    "description": "جميع المستخدمين من مختلف رتب المهارة مرحب بهم للمشاركة في هذه المهمة!"
+                },
+                {
+                    "title": "حقوق النشر",
+                    "description": "يجب أن تكون المشاركات من عملك الشخصي، ويُمنع استخدام الصور المُولّدة بالذكاء الاصطناعي."
+                }
+            ]
+        }
+    },
+    "profile": {
+        "gallery": {
+            "title": "مكتبة الصور"
+        }
     }
-  }
 }

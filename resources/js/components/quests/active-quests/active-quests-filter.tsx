@@ -66,7 +66,7 @@ const filters = [
 ];
 
 // --- Main App Component ---
-export default function ActiveQuestsFilter() {
+export default function ActiveQuestsFilter({ t }: any) {
     const [activeFilter, setActiveFilter] = useState('discover');
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
@@ -79,18 +79,6 @@ export default function ActiveQuestsFilter() {
 
                     {/* We map over the filters array to create buttons */}
                     {filters.map((filter) => (
-                        // <button
-                        //     key={filter.id}
-                        //     // We dynamically add the 'active' class
-                        //     className={`filter-btn flex-shrink-0 flex gap-2 items-center justify-center py-3 px-6 bg-bg-primary  rounded-full cursor-pointer hover:shadow-sm ${activeFilter === filter.id ? 'bg-primary-color text-white' : ''}`}
-                        //     onClick={() => {
-                        //         setActiveFilter(filter.id);
-                        //         console.log('Selected filter:', filter.id);
-                        //     }}
-                        // >
-                        //     {filter.icon}
-                        //     <span>{filter.label}</span>
-                        // </button>
                         <PillButton
                             key={filter.id}
                             label={filter.label}
@@ -107,13 +95,19 @@ export default function ActiveQuestsFilter() {
             </div>
 
             {/* Sort and Filter Button */}
-            <button
+            {/* <button
                 className="flex-shrink-0 flex items-center justify-center gap-2 px-8 py-3 bg-bg-primary cursor-pointer rounded-full hover:bg-primary-color hover:text-white transition-colors duration-200"
                 onClick={() => setIsFilterModalOpen(true)}
             >
                 <SlidersIcon />
                 <span className="font-medium">Sort & Filter</span>
-            </button>
+            </button> */}
+            <PillButton
+                label={t('activeQuests.filter.sortAndFilter')}
+                isActive={false}
+                onClick={() => setIsFilterModalOpen(true)}
+                icon={<SlidersIcon />}
+            />
 
             <Modal isOpen={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)} title="Filter">
                 <ActiveQuestFilterModalContents />

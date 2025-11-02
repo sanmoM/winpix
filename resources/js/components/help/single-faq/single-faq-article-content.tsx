@@ -1,4 +1,4 @@
-const SingleFaqArticleContent = () => {
+const SingleFaqArticleContent = ({ t }: { t: any }) => {
     return (
         <div className="flex-1 min-w-0">
             <h1 className="text-3xl font-bold mb-2">
@@ -20,7 +20,7 @@ const SingleFaqArticleContent = () => {
 
             <div className="mt-12 pt-6 border-t border-gray-200">
                 <p className="">
-                    Have more questions? <a href="#" className="text-primary-color font-medium">Submit a request</a>
+                    {t('help.singleFaq.haveMoreQuestionsLabel.text1')} <a href="#" className="text-primary-color font-medium">{t('help.singleFaq.haveMoreQuestionsLabel.text2')}</a>
                 </p>
             </div>
         </div>

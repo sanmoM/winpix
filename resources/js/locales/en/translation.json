@@ -216,6 +216,36 @@
             "Contact Support",
             "Content And Community Guidelines",
             "Troubleshooting"
-        ]
+        ],
+        "singleCategoryHelps": {
+            "paths": [
+                {
+                    "label": "all-help-categories",
+                    "href": "/all-help-categories"
+                },
+                {
+                    "label": "single-category-helps",
+                    "href": "/single-category-helps"
+                }
+            ]
+        },
+        "singleFaq": {
+            "paths": [
+                {
+                    "label": "All help categories",
+                    "href": "/all-help-categories"
+                },
+                {
+                    "label": "FAQ"
+                }
+            ],
+            "sidebarHeading": "Articles in this section",
+            "haveMoreQuestionsLabel": {
+                "text1": "Have more questions?",
+                "text2": "Read more"
+            },
+            "relatedArticlesTitle": "Related Articles",
+            "recentlyViewedArticleTitle": "Recently Viewed Articles"
+        }
     }
 }

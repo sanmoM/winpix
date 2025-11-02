@@ -7,18 +7,21 @@ interface PathProps {
 
 interface PathItemProps {
     label: string;
-    href: string;
+    href?: string;
 }
 
 export default function Path({ paths }: PathProps) {
     const { direction } = useLocales()
+    if(direction === 'right') {
+        paths.reverse();
+    }
     return (
         <nav className="text-sm font-medium">
             {
                 paths.map((path, index) => (
                     <>
 
-                        <Link href={path?.href} className="text-primary-color">{path.label}</Link>
+                        <Link href={path?.href || "#"} className="text-primary-color">{path.label}</Link>
                         {
                             paths.length - 1 !== index &&
 

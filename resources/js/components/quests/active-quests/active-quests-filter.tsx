@@ -78,10 +78,10 @@ export default function ActiveQuestsFilter({ t }: any) {
                 <div className="grid grid-cols-5 items-center p-1 space-x-1 w-max gap-4">
 
                     {/* We map over the filters array to create buttons */}
-                    {filters.map((filter) => (
+                    {filters.map((filter, index) => (
                         <PillButton
                             key={filter.id}
-                            label={filter.label}
+                            label={t(`activeQuests.filter.filterItems.${index}`)}
                             isActive={activeFilter === filter.id}
                             onClick={() => {
                                 setActiveFilter(filter.id);

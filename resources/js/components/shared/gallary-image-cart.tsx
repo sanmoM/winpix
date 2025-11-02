@@ -2,9 +2,11 @@ import { cn } from "@/lib/utils";
 import ImageView from "./image-view/image-view";
 import { JSX, useState } from "react";
 import ImageActionButtons from "./image-action-buttons";
+import useLocales from "@/hooks/useLocales";
 
 export default function GalleryImageCart({ src, aspect, className, actionButtons = (< ImageActionButtons />) }: { src: string, aspect?: string, className?: string, actionButtons?: JSX.Element }) {
     const [isOpen, setIsOpen] = useState(false);
+    const { direction } = useLocales()
     return (
         <div
             className={cn(`relative group cursor-pointer overflow-hidden rounded-lg `, className, aspect)}
@@ -24,7 +26,7 @@ export default function GalleryImageCart({ src, aspect, className, actionButtons
             </div>
 
             {/* User info */}
-            <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 duration-300">
+            <div className={cn("absolute bottom-4 left-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 duration-300", direction === "left" ? "left-4" : "right-4")}>
                 <img
                     className="h-10 w-10 rounded-full object-cover"
                     src={src}

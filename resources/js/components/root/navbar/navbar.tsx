@@ -223,9 +223,9 @@ export default function Navbar() {
 
 
       {/* modals */}
-      <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} title="Store">
+      {/* <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} title="Store">
         <StoreModalContents />
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

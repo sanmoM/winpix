@@ -1,4 +1,3 @@
-import PasswordController from '@/actions/App/Http/Controllers/Settings/PasswordController';
 import HeadingSmall from '@/components/heading-small';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -8,31 +7,43 @@ import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
-import { Form, Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
+import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Social Links',
-        href: "/settings/social-links",
+        href: '/settings/social-links',
     },
 ];
 
+interface UserItem {
+    id: number;
+    personal_website: string;
+    instagram: string;
+    facebook: string;
+    x: string;
+}
 
+interface SocialLinksProps {
+    user: UserItem;
+}
 
-const SocialLinks = () => {
-    // You would typically manage state for each input field here
-    // const [website, setWebsite] = useState('');
-    // const [instagram, setInstagram] = useState('');
-    // ...
+const SocialLinks = ({ user }: SocialLinksProps) => {
+    const { data, setData, put, processing, errors, recentlySuccessful } =
+        useForm({
+            personal_website: user?.personal_website || '',
+            instagram: user?.instagram || '',
+            facebook: user?.facebook || '',
+            x: user?.x || '',
+        });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log('Form submitted!');
+        put(route('address.profileUpdate'));
     };
 
     return (
-
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Profile settings" />
 
@@ -42,121 +53,79 @@ const SocialLinks = () => {
                     description="Add your social links to your profile"
                 />
 
-                <Form
-                    {...PasswordController.update.form()}
-                    options={{
-                        preserveScroll: true,
-                    }}
-                    resetOnError={[
-                        'password',
-                        'password_confirmation',
-                        'current_password',
-                    ]}
-                    resetOnSuccess
-                    onError={(errors) => {
-                        if (errors.password) {
-                            passwordInput.current?.focus();
-                        }
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid gap-2">
+                        <Label htmlFor="personal_website">
+                            Personal Website
+                        </Label>
+                        <Input
+                            id="personal_website"
+                            name="personal_website"
+                            value={data.personal_website}
+                            onChange={(e) =>
+                                setData('personal_website', e.target.value)
+                            }
+                            placeholder="Enter your personal website URL"
+                        />
+                        <InputError message={errors.personal_website} />
+                    </div>
 
-                        if (errors.current_password) {
-                            currentPasswordInput.current?.focus();
-                        }
-                    }}
-                    className="space-y-6"
-                >
-                    {({ errors, processing, recentlySuccessful }) => (
-                        <>
-                            <div className="grid gap-2">
-                                <Label htmlFor="current_password">
-                                    Personal Website
-                                </Label>
+                    <div className="grid gap-2">
+                        <Label htmlFor="facebook">Facebook Username</Label>
+                        <Input
+                            id="facebook"
+                            name="facebook"
+                            value={data.facebook}
+                            onChange={(e) =>
+                                setData('facebook', e.target.value)
+                            }
+                            placeholder="Enter your Facebook username"
+                        />
+                        <InputError message={errors.facebook} />
+                    </div>
 
-                                <Input
-                                    id="personal-website"
-                                    name="personal_website"
-                                    placeholder="Enter your personal website URL"
-                                    className="mt-1 block w-full"
-                                    autoComplete="personal-website"
-                                />
+                    <div className="grid gap-2">
+                        <Label htmlFor="instagram">Instagram Username</Label>
+                        <Input
+                            id="instagram"
+                            name="instagram"
+                            value={data.instagram}
+                            onChange={(e) =>
+                                setData('instagram', e.target.value)
+                            }
+                            placeholder="Enter your Instagram username"
+                        />
+                        <InputError message={errors.instagram} />
+                    </div>
 
-                                <InputError
-                                    message={errors.personal_website}
-                                />
-                            </div>
-                            <div className="grid gap-2">
-                                <Label htmlFor="current_password">
-                                    Facebook Username
-                                </Label>
+                    <div className="grid gap-2">
+                        <Label htmlFor="x">X Username</Label>
+                        <Input
+                            id="x"
+                            name="x"
+                            value={data.x}
+                            onChange={(e) => setData('x', e.target.value)}
+                            placeholder="Enter your X username"
+                        />
+                        <InputError message={errors.x} />
+                    </div>
 
-                                <Input
-                                    id="facebook"
-                                    name="facebook"
-                                    placeholder="Enter your Facebook username"
-                                    className="mt-1 block w-full"
-                                    autoComplete="current-password"
-                                />
+                    <div className="flex items-center gap-4">
+                        <Button type="submit" disabled={processing}>
+                            Save Links
+                        </Button>
 
-                                <InputError
-                                    message={errors.facebook}
-                                />
-                            </div>
-
-                            <div className="grid gap-2">
-                                <Label htmlFor="password">
-                                    Instagram Username
-                                </Label>
-
-                                <Input
-                                    id="instagram-username"
-                                    name="instagram_username"
-                                    className="mt-1 block w-full"
-                                    autoComplete="new-password"
-                                    placeholder="Enter your Instagram username"
-                                />
-
-                                <InputError message={errors.instagram_username} />
-                            </div>
-
-                            <div className="grid gap-2">
-                                <Label htmlFor="password_confirmation">
-                                    X Username
-                                </Label>
-
-                                <Input
-                                    id="x-username"
-                                    name="x_username"
-                                    className="mt-1 block w-full"
-                                    placeholder="Enter your X username"
-                                />
-
-                                <InputError
-                                    message={errors.x_username}
-                                />
-                            </div>
-
-                            <div className="flex items-center gap-4">
-                                <Button
-                                    disabled={processing}
-                                    data-test="update-password-button"
-                                >
-                                    Save Links
-                                </Button>
-
-                                <Transition
-                                    show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
-                                >
-                                    <p className="text-sm text-neutral-600">
-                                        Saved
-                                    </p>
-                                </Transition>
-                            </div>
-                        </>
-                    )}
-                </Form>
+                        <Transition
+                            show={recentlySuccessful}
+                            enter="transition ease-in-out"
+                            enterFrom="opacity-0"
+                            leave="transition ease-in-out"
+                            leaveTo="opacity-0"
+                        >
+                            <p className="text-sm text-green-600">Saved</p>
+                        </Transition>
+                    </div>
+                </form>
             </SettingsLayout>
         </AppLayout>
     );

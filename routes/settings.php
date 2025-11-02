@@ -3,6 +3,7 @@
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\TwoFactorAuthenticationController;
+use App\Http\Controllers\Settings\AddressController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -30,17 +31,13 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('settings/language');
     })
         ->name('language.show');
-    Route::get('settings/social-links', function () {
-        return Inertia::render('settings/social-links');
-    })
-        ->name('social-links.show');
 
     Route::get('settings/link-social-account', function () {
         return Inertia::render('settings/link-social-account');
-    })
-        ->name('link-social-account.show');
-    Route::get('settings/address', function () {
-        return Inertia::render('settings/address');
-    })
-        ->name('address.show');
+    })->name('link-social-account.show');
+
+    Route::get('settings/social-links', [AddressController::class, 'socialLinks'])->name('social-links.show');
+    Route::get('settings/address', [AddressController::class, 'address'])->name('address.show');
+    Route::put('settings/profile-update', [AddressController::class, 'profileUpdate'])->name('address.profileUpdate');
+
 });

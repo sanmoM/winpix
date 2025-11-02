@@ -22,8 +22,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {
-    Route::get('jury/dashboard', function () {
+Route::middleware(['auth', 'verified', 'role:jury'])->prefix('jury')->group(function () {
+    Route::get('dashboard', function () {
         return Inertia::render('Jury/dashboard');
     })->name('jury.dashboard');
 });

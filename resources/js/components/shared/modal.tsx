@@ -27,16 +27,16 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
       {/* Modal Dialog Box */}
       <div
         onClick={handleModalClick} // prevent closing when clicking inside modal
-        className="bg-bg-primary dark:bg-bg-primary rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all duration-300 sm:my-8 sm:align-middle"
+        className="bg-background rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all duration-300 sm:my-8 sm:align-middle"
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between px-8 py-6 border-b border-gray-200 dark:border-gray-700">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white" id="modal-title">
             {title}
           </h3>
           <button
             onClick={onClose}
-            className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-color"
+            className="p-1 rounded-full transition-colors hover:text-primary-color focus:outline-none focus:ring-0 cursor-pointer"
             aria-label="Close modal"
           >
             <CloseIcon className="w-6 h-6" />
@@ -44,7 +44,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 text-gray-700 dark:text-gray-300">{children}</div>
+        <div className="px-6 py-10 text-gray-700 dark:text-gray-300 max-h-[60vh] overflow-y-auto">{children}</div>
       </div>
     </div>
   );

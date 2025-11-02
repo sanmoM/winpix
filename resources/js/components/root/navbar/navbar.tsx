@@ -1,11 +1,10 @@
-import StoreModalContents from "@/components/root/store-modal-contents";
 import BorderButton from "@/components/shared/buttons/border-button";
-import Modal from "@/components/shared/modal";
+import useLocales from "@/hooks/useLocales";
 import { cn } from "@/lib/utils";
 import { dashboard, login, register } from "@/routes";
 import { type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import Button from "../../shared/buttons/button";
@@ -13,7 +12,6 @@ import Container from "../../shared/container";
 import Logo from "../../shared/logo";
 import CoinAndNotification from "./components/coin-and-notification";
 import NavItem from "./components/nav-item";
-import useLocales from "@/hooks/useLocales";
 
 const differentNavUrls = [
   "/",
@@ -25,7 +23,6 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [top, setTop] = useState(0);
   const { auth } = usePage<SharedData>().props;
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { url } = usePage();
   const { t, direction } = useLocales()
 
@@ -220,12 +217,6 @@ export default function Navbar() {
           </div>
         </nav>
       </Container>
-
-
-      {/* modals */}
-      {/* <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} title="Store">
-        <StoreModalContents />
-      </Modal> */}
     </div>
   );
 }

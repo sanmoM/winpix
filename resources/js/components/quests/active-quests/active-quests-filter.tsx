@@ -1,5 +1,7 @@
-import Container from '@/components/shared/container';
-import React, { useState } from 'react';
+import PillButton from '@/components/shared/buttons/pill-button';
+import Modal from '@/components/shared/modal';
+import { useState } from 'react';
+import ActiveQuestFilterModalContents from './active-quests-banner/active-quest-filter-modal-contents.tsx/active-quest-filter-modal-contents';
 
 // --- SVG Icons as React Components ---
 
@@ -66,6 +68,7 @@ const filters = [
 // --- Main App Component ---
 export default function ActiveQuestsFilter() {
     const [activeFilter, setActiveFilter] = useState('discover');
+    const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
     return (
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 md:gap-10">
@@ -76,29 +79,45 @@ export default function ActiveQuestsFilter() {
 
                     {/* We map over the filters array to create buttons */}
                     {filters.map((filter) => (
-                        <button
+                        // <button
+                        //     key={filter.id}
+                        //     // We dynamically add the 'active' class
+                        //     className={`filter-btn flex-shrink-0 flex gap-2 items-center justify-center py-3 px-6 bg-bg-primary  rounded-full cursor-pointer hover:shadow-sm ${activeFilter === filter.id ? 'bg-primary-color text-white' : ''}`}
+                        //     onClick={() => {
+                        //         setActiveFilter(filter.id);
+                        //         console.log('Selected filter:', filter.id);
+                        //     }}
+                        // >
+                        //     {filter.icon}
+                        //     <span>{filter.label}</span>
+                        // </button>
+                        <PillButton
                             key={filter.id}
-                            // We dynamically add the 'active' class
-                            className={`filter-btn flex-shrink-0 flex gap-2 items-center justify-center p-3 px-6 bg-bg-primary  rounded-full cursor-pointer hover:shadow-sm ${activeFilter === filter.id ? 'bg-primary-color text-white' : ''}`}
+                            label={filter.label}
+                            isActive={activeFilter === filter.id}
                             onClick={() => {
                                 setActiveFilter(filter.id);
                                 console.log('Selected filter:', filter.id);
                             }}
-                        >
-                            {filter.icon}
-                            <span>{filter.label}</span>
-                        </button>
+                            icon={filter.icon}
+                        />
                     ))}
 
                 </div>
             </div>
 
             {/* Sort and Filter Button */}
-            <button className="flex-shrink-0 flex items-center justify-center gap-2 px-8 py-3 bg-bg-primary cursor-pointer rounded-full hover:bg-primary-color hover:text-white transition-colors duration-200">
+            <button
+                className="flex-shrink-0 flex items-center justify-center gap-2 px-8 py-3 bg-bg-primary cursor-pointer rounded-full hover:bg-primary-color hover:text-white transition-colors duration-200"
+                onClick={() => setIsFilterModalOpen(true)}
+            >
                 <SlidersIcon />
                 <span className="font-medium">Sort & Filter</span>
             </button>
 
+            <Modal isOpen={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)} title="Filter">
+                <ActiveQuestFilterModalContents />
+            </Modal>
         </div>
     );
 }

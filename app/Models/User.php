@@ -75,4 +75,21 @@ class User extends Authenticatable
             default => route('dashboard', absolute: false), // regular user
         };
     }
+
+    // followers and following function
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'followed_id');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'followed_id', 'follower_id');
+    }
+
+    // helper method to check if the current user is following another user
+    public function isFollowing(User $user): bool
+    {
+        return $this->following()->where('followed_id', $user->id)->exists();
+    }
 }

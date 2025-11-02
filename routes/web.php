@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\OthersController;
 use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\Admin\QuestTypeController;
 use App\Http\Controllers\Admin\QuestCategoryController;
+use App\Http\Controllers\Admin\FollowController;
 
 Route::get('auth-error', function () {
     return view('error');
@@ -20,6 +21,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+    Route::post('/users/{user}/follow', [FollowController::class, 'follow'])->name('users.follow');
+    Route::delete('/users/{user}/unfollow', [FollowController::class, 'unfollow'])->name('users.unfollow');
 });
 
 Route::middleware(['auth', 'verified', 'role:jury'])->prefix('jury')->group(function () {

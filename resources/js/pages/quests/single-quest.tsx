@@ -31,7 +31,7 @@ const images = [
 
 export default function SingleQuest() {
     const [activeTab, setActiveTab] = useState("brief");
-    const { t } = useLocales()
+    const { t, direction } = useLocales()
     return (
         <UserLayout>
             <Banner src="https://cdn.pulsepx.com/photos/111974512/5652113db680a1dda4a6ea1dbd62f158405f9392ad52e5eca32d080d45d11bbe/2048.jpg" containerClass='lg:h-[70vh]' hasOverlay={false}>
@@ -55,8 +55,8 @@ export default function SingleQuest() {
 
                 />
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "brief" && "hidden")}>
-                    <Status />
-                    <Brief />
+                    <Status t={t} direction={direction} />
+                    <Brief title={t('singleQuestDetails.brief.title')} />
                     <Prizes t={t} />
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
                         <Guidelines t={t} />

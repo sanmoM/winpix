@@ -1,8 +1,21 @@
 {
     "shared": {
         "questCard": {
-            "btnText": "إرسال المهمة",
+            "btnText": "تقديم المهمة",
             "days": "أيام"
+        },
+        "prizes": {
+            "title": "الجوائز",
+            "viewAll": "عرض الكل",
+            "viewLess": "عرض أقل",
+            "card": {
+                "no": "رقم",
+                "first": "الجائزة الأولى",
+                "second": "الجائزة الثانية",
+                "third": "الجائزة الثالثة",
+                "fourth": "الجائزة الرابعة",
+                "fifth": "الجائزة الخامسة"
+            }
         }
     },
     "root": {
@@ -14,7 +27,7 @@
                     "submenu": {
                         "activeQuests": "المهام النشطة",
                         "questSeries": "سلسلة المهام",
-                        "enteredQuests": "المهام المشاركة",
+                        "enteredQuests": "المهام المدخلة",
                         "endedQuests": "المهام المنتهية"
                     }
                 },
@@ -25,7 +38,7 @@
                 "help": "مساعدة"
             },
             "buttons": {
-                "signUp": "إنشاء حساب",
+                "signUp": "تسجيل",
                 "logIn": "تسجيل الدخول"
             },
             "notifications": {
@@ -38,11 +51,11 @@
             "home": "الرئيسية",
             "agent": "الوكيل",
             "about": "حول",
-            "listing": "القائمة",
-            "blog": "المدونة",
+            "listing": "القوائم",
+            "blog": "مدونة",
             "contact": "اتصل بنا"
         },
-        "copyright": "حقوق النشر &copy;{{year}} جميع الحقوق محفوظة | تم إنشاء هذا القالب بحب {{heart}} بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
+        "copyright": "حقوق النشر &copy;{{year}} جميع الحقوق محفوظة | هذا القالب مصنوع بـ {{heart}} بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
     },
     "home": {
         "banner": {
@@ -55,15 +68,15 @@
             "title": "المعرض"
         },
         "getApp": {
-            "title": "حمّل التطبيق مجانًا!",
-            "description": "اجعل تجربة التسوق الإلكتروني أسهل وأسرع. اضغط على الرابط لتحميل التطبيق الآن."
+            "title": "حمّل التطبيق مجاناً!",
+            "description": "اجعل تجربة التسوق عبر الإنترنت أسهل وأسرع. اضغط على الرابط لتحميل التطبيق الآن."
         }
     },
     "discover": {
         "leaderboard": {
             "title": "أبطال الأسبوع",
-            "followers": "متابعون",
-            "points": "نقـاط"
+            "followers": "المتابعون",
+            "points": "النقاط"
         },
         "activeQuests": {
             "title": "المهام النشطة"
@@ -81,7 +94,14 @@
             "title": "المهام النشطة"
         },
         "filter": {
-            "sortAndFilter": "الفرز والتصفية"
+            "sortAndFilter": "الترتيب والتصفية",
+            "filterItems": [
+                "اكتشف",
+                "مصنفة",
+                "مجاني",
+                "متميز",
+                "المجتمع"
+            ]
         }
     },
     "questSeries": {
@@ -90,16 +110,16 @@
     "endedQuests": {
         "tab": {
             "myQuests": "مهامي",
-            "ended": "المنتهية",
-            "inactive": "غير النشطة"
+            "ended": "منتهية",
+            "inactive": "غير نشطة"
         }
     },
     "enteredQuests": {
-        "title": "المهام المشاركة"
+        "title": "المهام المدخلة"
     },
     "store": {
-        "title": "حول البِكسلات",
-        "description": "البِكسلات هي بوابتك إلى محتوى حصري! استخدمها لفتح عناصر مميزة، والمشاركة في فعاليات خاصة، والحصول على ميزة إضافية في مهامك. المزيد من البِكسلات يعني المزيد من القوة!"
+        "title": "حول البكسلات",
+        "description": "البكسلات هي بوابتك للوصول إلى المحتوى الحصري! استخدمها لفتح عناصر فريدة، والمشاركة في الأحداث الخاصة، والحصول على ميزة في مهامك. كلما زادت البكسلات، زادت القوة!"
     },
     "redeem": {
         "appPriceTitle": "أسعار التطبيق",
@@ -111,31 +131,19 @@
             "joinNowText": "انضم الآن"
         },
         "tabs": {
-            "brief": "الملخص",
+            "brief": "موجز",
             "entries": "المشاركات"
-        },
-        "prizes": {
-            "viewAll": "عرض الكل",
-            "viewLess": "عرض أقل",
-            "card": {
-                "no": "رقم",
-                "first": "الجائزة الأولى",
-                "second": "الجائزة الثانية",
-                "third": "الجائزة الثالثة",
-                "fourth": "الجائزة الرابعة",
-                "fifth": "الجائزة الخامسة"
-            }
         },
         "guidelines": {
             "title": "الإرشادات",
             "guideLines": [
                 {
-                    "title": "رتبة المهارة",
-                    "description": "جميع المستخدمين من مختلف رتب المهارة مرحب بهم للمشاركة في هذه المهمة!"
+                    "title": "مستوى المهارة",
+                    "description": "جميع المستخدمين من مختلف مستويات المهارة مرحب بهم لتقديم مشاركاتهم في هذه المهمة!"
                 },
                 {
                     "title": "حقوق النشر",
-                    "description": "يجب أن تكون المشاركات من عملك الشخصي، ويُمنع استخدام الصور المُولّدة بالذكاء الاصطناعي."
+                    "description": "يجب أن تكون المشاركات خاصة بك، ولا يجوز أن تكون مُولّدة بواسطة الذكاء الاصطناعي."
                 }
             ]
         }
@@ -143,6 +151,31 @@
     "profile": {
         "gallery": {
             "title": "مكتبة الصور"
+        }
+    },
+    "singleQuestSeries": {
+        "activeQuest": {
+            "title": "المهام النشطة"
+        },
+        "stats": {
+            "prizeLabel": "إجمالي جوائز المسابقة",
+            "entriesLabel": "المشاركات",
+            "questLabel": "المهمة"
+        }
+    },
+    "singleQuestDetails": {
+        "brief": {
+            "title": "موجز"
+        },
+        "status": {
+            "title": "الحالة",
+            "submit": {
+                "title": "تقديم",
+                "daysLeft": "أيام متبقية"
+            },
+            "vote": {
+                "title": "تصويت"
+            }
         }
     }
 }

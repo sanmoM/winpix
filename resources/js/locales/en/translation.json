@@ -3,6 +3,19 @@
         "questCard": {
             "btnText": "Submit Quest",
             "days": "days"
+        },
+        "prizes": {
+            "title": "Prizes",
+            "viewAll": "View All",
+            "viewLess": "View Less",
+            "card": {
+                "no": "No.",
+                "first": "First Prize",
+                "second": "Second Prize",
+                "third": "Third Prize",
+                "fourth": "Fourth Prize",
+                "fifth": "Fifth Prize"
+            }
         }
     },
     "root": {
@@ -81,7 +94,14 @@
             "title": "Active Quests"
         },
         "filter": {
-            "sortAndFilter": "Sort & Filter"
+            "sortAndFilter": "Sort & Filter",
+            "filterItems": [
+                "Discover",
+                "Ranked",
+                "Free",
+                "Premium",
+                "Community"
+            ]
         }
     },
     "questSeries": {
@@ -114,18 +134,6 @@
             "brief": "Brief",
             "entries": "Entries"
         },
-        "prizes": {
-            "viewAll": "View All",
-            "viewLess": "View Less",
-            "card": {
-                "no": "No.",
-                "first": "First Prize",
-                "second": "Second Prize",
-                "third": "Third Prize",
-                "fourth": "Fourth Prize",
-                "fifth": "Fifth Prize"
-            }
-        },
         "guidelines": {
             "title": "Guidelines",
             "guideLines": [
@@ -143,6 +151,31 @@
     "profile": {
         "gallery": {
             "title": "Photo Library"
+        }
+    },
+    "singleQuestSeries": {
+        "activeQuest": {
+            "title": "Active Quests"
+        },
+        "stats": {
+            "prizeLabel": "Total Prize Pool",
+            "entriesLabel": "Entries",
+            "questLabel": "Quest"
+        }
+    },
+    "singleQuestDetails": {
+        "brief": {
+            "title": "Brief"
+        },
+        "status": {
+            "title": "Status",
+            "submit": {
+                "title": "Submit",
+                "daysLeft": "days left"
+            },
+            "vote": {
+                "title": "Vote"
+            }
         }
     }
 }

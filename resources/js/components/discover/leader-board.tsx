@@ -111,7 +111,7 @@ export default function App({ t }: any) {
                                         {user.name}
                                     </span>
                                     <span className="text-gray-500 dark:text-gray-400 text-sm truncate">
-                                        {user.followers.toLocaleString()} {t('discover.leaderboard.followers')}
+                                        {user.followers.toLocaleString()} {t('shared.followers')}
                                     </span>
                                 </div>
                             </div>

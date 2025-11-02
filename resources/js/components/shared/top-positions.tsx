@@ -111,7 +111,7 @@ export default function TopPositions() {
                             {user.name}
                         </h3>
                         <p className={`text-sm !text-center ${user.rank === 1 ? 'text-md' : ''} text-gray-400`}>
-                            {user.followers} {t('discover.leaderboard.followers')}
+                            {user.followers} {t('shared.followers')}
                         </p>
 
                         {/* Score */}

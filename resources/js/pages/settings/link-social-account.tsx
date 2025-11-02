@@ -56,10 +56,9 @@ const SocialLinks = () => {
     // const [instagram, setInstagram] = useState('');
     // ...
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
         // Handle form submission logic here
-        console.log('Form submitted!');
     };
 
     return (

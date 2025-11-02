@@ -5,26 +5,26 @@ import Container from "../shared/container";
 import { cn } from "@/lib/utils";
 
 
-const statsData = [
-    {
-        Icon: <MdLeaderboard className="text-lg lg:text-4xl text-white" />,
-        value: "49",
-        title: "Level",
 
-    },
-    {
-        Icon: <FaTrophy className="text-lg lg:text-4xl text-white" />,
-        value: "349",
-        title: "Awards",
-    },
-    {
-        Icon: <RiFolderUploadFill className="text-lg lg:text-4xl text-white" />,
-        value: "627",
-        title: "Quests",
-    },
-]
+export default function Stats({ containerClassName, t }: { containerClassName?: string, t: any }) {
+    const statsData = [
+        {
+            Icon: <MdLeaderboard className="text-lg lg:text-4xl text-white" />,
+            value: "49",
+            title: t("stats.level"),
 
-export default function Stats({ containerClassName }: { containerClassName?: string }) {
+        },
+        {
+            Icon: <FaTrophy className="text-lg lg:text-4xl text-white" />,
+            value: "349",
+            title: t("stats.quests"),
+        },
+        {
+            Icon: <RiFolderUploadFill className="text-lg lg:text-4xl text-white" />,
+            value: "627",
+            title: t("stats.awards"),
+        },
+    ]
     return (
         <div className={cn("grid grid-cols-3 gap-2 lg:gap-4 -translate-y-1/2 z-[15] relative -mb-12 lg:-mb-10 lg:w-fit mx-auto", containerClassName)}>
             {

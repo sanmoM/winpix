@@ -1,3 +1,4 @@
+import useLocales from "@/hooks/useLocales";
 import { Link } from "@inertiajs/react";
 
 interface PathProps {
@@ -10,6 +11,7 @@ interface PathItemProps {
 }
 
 export default function Path({ paths }: PathProps) {
+    const { direction } = useLocales()
     return (
         <nav className="text-sm font-medium">
             {
@@ -19,7 +21,9 @@ export default function Path({ paths }: PathProps) {
                         <Link href={path?.href} className="text-primary-color">{path.label}</Link>
                         {
                             paths.length - 1 !== index &&
-                            <span className="mx-2">&gt;</span>
+
+                                direction === 'left' ? <span className="mx-2">/</span> : <span className="mx-2">\</span>
+
                         }
                     </>
                 ))

@@ -2,22 +2,17 @@ import AllHelpCategoriesHeader from '@/components/help/all-help-categories/all-h
 import SingleHelpCategoryNavigationItem from '@/components/help/all-help-categories/single-help-category-navigation-item';
 import Container from '@/components/shared/container';
 import UserLayout from '@/layouts/user-layout';
+import { useTranslation } from 'react-i18next';
 
 export default function AllHelpCategories() {
-    const topics: string[] = [
-        'Getting Started',
-        'Quests',
-        'In-App Economy',
-        'Skill Ranks',
-        'Account Management',
-        'Purchases',
-        'Troubleshooting',
-        'Content and Community Guidelines',
-        'Contact Support',
-    ];
+    const { t, direction } = useTranslation();
+
+    // Get categories array from translation JSON
+    const topics: string[] = t('help.categories', { returnObjects: true });
+
     return (
         <UserLayout>
-            <AllHelpCategoriesHeader />
+            <AllHelpCategoriesHeader direction={direction} />
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {topics.map((topic) => (
@@ -26,9 +21,5 @@ export default function AllHelpCategories() {
                 </div>
             </Container>
         </UserLayout>
-    )
+    );
 }
-
-
-
-

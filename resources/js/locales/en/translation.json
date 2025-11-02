@@ -204,5 +204,18 @@
                 }
             ]
         }
+    },
+    "help": {
+        "categories": [
+            "In App Economy",
+            "Quests",
+            "Getting Started",
+            "Purchases",
+            "Account Management",
+            "Skill Ranks",
+            "Contact Support",
+            "Content And Community Guidelines",
+            "Troubleshooting"
+        ]
     }
 }

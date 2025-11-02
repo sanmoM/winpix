@@ -1,5 +1,6 @@
 import SingleHelpCategoryHeader from '@/components/help/single-help-category/single-help-category-header';
 import Container from '@/components/shared/container';
+import useLocales from '@/hooks/useLocales';
 import UserLayout from '@/layouts/user-layout';
 import { Link } from '@inertiajs/react';
 
@@ -12,11 +13,12 @@ export default function SingleCategoryHelps() {
         'Can I use PULSEpx on multiple devices with the same account?',
         'Is PULSEpx free to use?',
     ];
+    const { t } = useLocales();
 
     return (
         <UserLayout>
             <Container className="space-y-6 md:space-y-8 lg:space-y-12 my-10 md:my-16 lg:my-12">
-                <SingleHelpCategoryHeader />
+                <SingleHelpCategoryHeader t={t} />
                 <main className="w-fit mx-auto py-12 px-4 sm:px-6 lg:px-8">
                     <h1 className="text-3xl font-bold mb-8">Getting Started</h1>
 

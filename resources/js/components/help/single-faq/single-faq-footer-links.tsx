@@ -1,5 +1,5 @@
 
-const SingleFaqFooterLinks = () => {
+const SingleFaqFooterLinks = ({ t }: { t: any }) => {
     const recentlyViewed = [
         'What makes PULSEpx different from other photography contest apps?',
         'What is PULSEpx?',
@@ -16,7 +16,7 @@ const SingleFaqFooterLinks = () => {
     return (
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
             <div>
-                <h3 className="text-lg font-semibold mb-4">Recently viewed articles</h3>
+                <h3 className="text-lg font-semibold mb-4">{t('help.singleFaq.recentlyViewedArticleTitle')}</h3>
                 <ul className="space-y-2">
                     {recentlyViewed.map((article, index) => (
                         <li key={index}>
@@ -28,7 +28,7 @@ const SingleFaqFooterLinks = () => {
                 </ul>
             </div>
             <div>
-                <h3 className="text-lg font-semibold mb-4">Related articles</h3>
+                <h3 className="text-lg font-semibold mb-4">{t('help.singleFaq.relatedArticlesTitle')}</h3>
                 <ul className="space-y-2">
                     {relatedArticles.map((article, index) => (
                         <li key={index}>

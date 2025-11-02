@@ -3,19 +3,22 @@ import SingleFaqFooterLinks from "@/components/help/single-faq/single-faq-footer
 import SingleFaqHeader from "@/components/help/single-faq/single-faq-header";
 import SingleFaqSidebar from "@/components/help/single-faq/single-faq-sidebar";
 import Container from "@/components/shared/container";
+import useLocales from "@/hooks/useLocales";
 import UserLayout from "@/layouts/user-layout";
 
 
 export default function SingleFaq() {
+    const { t } = useLocales();
+    const paths = t('help.singleFaq.paths', { returnObjects: true });
     return (
         <UserLayout>
             <Container>
-                <SingleFaqHeader />
+                <SingleFaqHeader paths={paths} />
                 <div className="mx-auto py-12 lg:flex lg:space-x-8">
-                    <SingleFaqSidebar />
+                    <SingleFaqSidebar t={t} />
                     <div className="flex-1 mt-10 lg:mt-0 lg:pl-12">
-                        <SingleFaqArticleContent />
-                        <SingleFaqFooterLinks />
+                        <SingleFaqArticleContent t={t} />
+                        <SingleFaqFooterLinks t={t} />
                     </div>
                 </div>
             </Container>

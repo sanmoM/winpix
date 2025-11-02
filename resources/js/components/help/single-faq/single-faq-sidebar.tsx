@@ -1,7 +1,7 @@
 /**
  * Sidebar component for "Articles in this section".
  */
-const SingleFaqSidebar = () => {
+const SingleFaqSidebar = ({ t }: { t: any }) => {
     const articles = [
         'What is PULSEpx?',
         'What makes PULSEpx different from other photography contest apps?',
@@ -13,7 +13,7 @@ const SingleFaqSidebar = () => {
 
     return (
         <aside className="w-full lg:w-64 pr-4 border-r border-gray-200 lg:min-h-full">
-            <h3 className="text-base font-semibold mb-4">Articles in this section</h3>
+            <h3 className="text-base font-semibold mb-4">{t('help.singleFaq.sidebarHeading')}</h3>
             <nav className="space-y-2">
                 {articles.map((article, index) => (
                     <a

@@ -40,7 +40,7 @@ export function AppSidebar() {
                 },
                 {
                     title: 'Home',
-                    href: "/",
+                    href: route('home'),
                     icon: LayoutGrid,
                 },
                 {

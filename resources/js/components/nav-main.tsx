@@ -54,43 +54,29 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                                     item?.subItems.length > 0 && (
                                         <CollapsibleContent>
                                             <SidebarMenuSub>
-                                                {item?.subItems.map(
-                                                    (subItem) => {
-                                                        const isActive =
-                                                            currentPath.startsWith(
-                                                                normalizePath(
-                                                                    subItem?.href,
-                                                                ),
-                                                            );
-                                                        return (
-                                                            <SidebarMenuSubItem
-                                                                key={
-                                                                    subItem.title
-                                                                }
+                                                {item?.subItems.map((subItem) => {
+                                                    const normalizedHref = normalizePath(subItem?.href)
+                                                    const isActive =
+                                                        currentPath === normalizedHref ||
+                                                        `${normalizedHref}`.startsWith(currentPath);
+
+                                                    return (
+                                                        <SidebarMenuSubItem key={subItem.title}>
+                                                            <SidebarMenuSubButton
+                                                                asChild
+                                                                className={clsx(
+                                                                    isActive
+                                                                        ? 'bg-muted text-primary-color' // ✅ your active styles
+                                                                        : 'hover:bg-muted'
+                                                                )}
                                                             >
-                                                                <SidebarMenuSubButton
-                                                                    asChild
-                                                                    className={clsx(
-                                                                        isActive
-                                                                            ? 'bg-[#B345A4] text-white'
-                                                                            : 'hover:bg-muted',
-                                                                    )}
-                                                                >
-                                                                    <Link
-                                                                        href={
-                                                                            subItem.href
-                                                                        }
-                                                                    >
-                                                                        {
-                                                                            subItem.title
-                                                                        }
-                                                                    </Link>
-                                                                </SidebarMenuSubButton>
-                                                            </SidebarMenuSubItem>
-                                                        );
-                                                    },
-                                                )}
+                                                                <Link href={subItem.href}>{subItem.title}</Link>
+                                                            </SidebarMenuSubButton>
+                                                        </SidebarMenuSubItem>
+                                                    )
+                                                })}
                                             </SidebarMenuSub>
+
                                         </CollapsibleContent>
                                     )}
                             </SidebarMenuItem>

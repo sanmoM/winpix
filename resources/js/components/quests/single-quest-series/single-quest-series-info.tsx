@@ -28,7 +28,7 @@ const MetricItem: React.FC<MetricItemProps> = ({
         <span className="text-xs lg:text-sm text-gray-500">{label}</span>
     </div>
 );
-const SingleQuestSeriesInfo: React.FC = () => {
+const SingleQuestSeriesInfo: React.FC = ({ t }: any) => {
     return (
         <div className="w-full flex flex-col overflow-hidden">
             <CustomSlider mobileView={1} tabletView={1} desktopView={1}>
@@ -59,19 +59,19 @@ const SingleQuestSeriesInfo: React.FC = () => {
                     <MetricItem
                         icon={<FaTrophy />}
                         value="1500 USD"
-                        label="Total Prize Pool"
+                        label={t("singleQuestSeries.stats.prizeLabel")}
                         bgColor="bg-orange-100"
                     />
                     <MetricItem
                         icon={<FaRegImage />}
                         value="169"
-                        label="Entries"
+                        label={t("singleQuestSeries.stats.entriesLabel")}
                         bgColor="bg-blue-100"
                     />
                     <MetricItem
                         icon={<SiOpenlayers />}
                         value="3"
-                        label="Quests"
+                        label={t("singleQuestSeries.stats.questLabel")}
                         bgColor="bg-red-100"
                     />
                 </div>

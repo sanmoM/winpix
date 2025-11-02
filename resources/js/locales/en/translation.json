@@ -3,7 +3,28 @@
         "questCard": {
             "btnText": "Submit Quest",
             "days": "days"
-        }
+        },
+        "prizes": {
+            "title": "Prizes",
+            "viewAll": "View All",
+            "viewLess": "View Less",
+            "card": {
+                "no": "No.",
+                "first": "First Prize",
+                "second": "Second Prize",
+                "third": "Third Prize",
+                "fourth": "Fourth Prize",
+                "fifth": "Fifth Prize"
+            }
+        },
+        "followers": "Followers",
+        "follow": "Follow",
+        "following": "Following"
+    },
+    "stats": {
+        "quests": "Quests",
+        "awards": "Awards",
+        "level": "Level"
     },
     "root": {
         "navbar": {
@@ -62,7 +83,6 @@
     "discover": {
         "leaderboard": {
             "title": "Weekly Champions",
-            "followers": "Followers",
             "points": "PTS"
         },
         "activeQuests": {
@@ -81,7 +101,14 @@
             "title": "Active Quests"
         },
         "filter": {
-            "sortAndFilter": "Sort & Filter"
+            "sortAndFilter": "Sort & Filter",
+            "filterItems": [
+                "Discover",
+                "Ranked",
+                "Free",
+                "Premium",
+                "Community"
+            ]
         }
     },
     "questSeries": {
@@ -114,18 +141,6 @@
             "brief": "Brief",
             "entries": "Entries"
         },
-        "prizes": {
-            "viewAll": "View All",
-            "viewLess": "View Less",
-            "card": {
-                "no": "No.",
-                "first": "First Prize",
-                "second": "Second Prize",
-                "third": "Third Prize",
-                "fourth": "Fourth Prize",
-                "fifth": "Fifth Prize"
-            }
-        },
         "guidelines": {
             "title": "Guidelines",
             "guideLines": [
@@ -144,5 +159,63 @@
         "gallery": {
             "title": "Photo Library"
         }
+    },
+    "singleQuestSeries": {
+        "activeQuest": {
+            "title": "Active Quests"
+        },
+        "stats": {
+            "prizeLabel": "Total Prize Pool",
+            "entriesLabel": "Entries",
+            "questLabel": "Quest"
+        }
+    },
+    "singleQuestDetails": {
+        "brief": {
+            "title": "Brief"
+        },
+        "status": {
+            "title": "Status",
+            "submit": {
+                "title": "Submit",
+                "daysLeft": "days left"
+            },
+            "vote": {
+                "title": "Vote"
+            }
+        }
+    },
+    "aboutUs": {
+        "title": "About Us",
+        "whatWeDo": {
+            "title": "What We Do",
+            "services": [
+                {
+                    "title": "Built to Reward Good Photography",
+                    "description": "At winpix, we believe every photo deserves a fair chance. We’re committed to creating an impartial environment where photos are judged solely on their merit—regardless of the photographer's popularity or number of followers. Our goal is to ensure that excellence in photography shines through based purely on talent and creative expression."
+                },
+                {
+                    "title": "Built for Every Photographe",
+                    "description": "Photography is for everyone, and so is winpix. Whether you're just starting out or you're a seasoned professional, our platform is designed to foster healthy competition and community interaction. We're here to help you refine your skills, challenge your limits, and progress in your photographic journey alongside peers who share your passion."
+                },
+                {
+                    "title": "Built to Be Fun",
+                    "description": "We believe that photography should be exhilarating and rewarding. At winpix, participating in contests, voting on entries, winning prizes, tracking your progress, and connecting with fellow photographers are all part of the fun. We aim to make your experience with winpix enjoyable, inspiring you to pick up your camera and explore the world through your lens."
+                }
+            ]
+        }
+    },
+    "help": {
+        "categories": [
+            "In App Economy",
+            "Quests",
+            "Getting Started",
+            "Purchases",
+            "Account Management",
+            "Skill Ranks",
+            "Contact Support",
+            "Content And Community Guidelines",
+            "Troubleshooting"
+        ]
     }
 }

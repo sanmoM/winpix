@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { router } from '@inertiajs/react';
 import { useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
@@ -7,7 +8,7 @@ interface SearchIconProps {
 }
 
 
-const AllHelpCategoriesHeader = () => {
+const AllHelpCategoriesHeader = ({ direction }: any) => {
     const [searchTerm, setSearchTerm] = useState('');
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -18,7 +19,7 @@ const AllHelpCategoriesHeader = () => {
             <form className="max-w-xl mx-auto" onSubmit={handleSubmit}>
                 <div className="relative">
                     {/* Search Icon */}
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <div className={cn("absolute inset-y-0  flex items-center pointer-events-none", direction === 'left' ? 'left-4' : 'right-4')}>
                         <SearchIcon className="w-5 h-5 text-gray-400" />
                     </div>
 
@@ -30,11 +31,13 @@ const AllHelpCategoriesHeader = () => {
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         placeholder="Search"
-                        className="block w-full py-3 pl-12 pr-4 rounded-full border-0 shadow-sm
-                       bg-white placeholder-gray-500 text-black
-                       focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75"
+                        className={cn("block w-full py-3 rounded-full border-0 shadow-sm bg-white placeholder-gray-500 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75", direction === 'left' ? 'pr-4 pl-12' : 'pl-4 pr-12 ')}
                     />
-                    <MdOutlineClose className='absolute top-1/2 right-4 -translate-y-1/2 text-gray-400 cursor-pointer' />
+                    {
+                        searchTerm && (
+                            <MdOutlineClose className={cn('absolute top-1/2  -translate-y-1/2 text-gray-400 cursor-pointer', direction === 'left' ? 'right-4' : 'left-4')} onClick={() => setSearchTerm('')} />
+                        )
+                    }
                 </div>
             </form>
         </header>

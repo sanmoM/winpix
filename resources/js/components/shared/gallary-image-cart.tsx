@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 import ImageView from "./image-view/image-view";
-import { useState } from "react";
+import { JSX, useState } from "react";
 import ImageActionButtons from "./image-action-buttons";
 
-export default function GalleryImageCart({ src, aspect, className }: any) {
+export default function GalleryImageCart({ src, aspect, className, actionButtons = (< ImageActionButtons />) }: { src: string, aspect?: string, className?: string, actionButtons?: JSX.Element }) {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <div
@@ -20,7 +20,7 @@ export default function GalleryImageCart({ src, aspect, className }: any) {
 
             {/* Overlay buttons */}
             <div className="absolute inset-0 bg-black/30 transition-all opacity-0 group-hover:opacity-100 duration-300 flex justify-center items-center">
-                <ImageActionButtons />
+                {actionButtons}
             </div>
 
             {/* User info */}

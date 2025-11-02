@@ -63,12 +63,12 @@ export default function Tab({
             }}
         >
             {options.map((opt, i) => (
-                <div key={opt.value} className="w-full flex items-center justify-center px-6"
+                <div key={opt.value} className="w-full flex items-center justify-center px-4 lg:px-6"
 
                 >
                     <button
                         onClick={() => handleSelect(i, opt.value)}
-                        className={cn("w-full z-10 relative !text-center py-2.5 font-medium lg:text-sm cursor-pointer hover:!scale-100 text-primary-color duration-300", selected === i && "text-white")}
+                        className={cn("w-full z-10 relative !text-center py-[9px] lg:py-2.5 font-medium text-[13px] lg:text-base cursor-pointer hover:!scale-100 text-primary-color duration-300", selected === i && "text-white")}
                     >
                         {opt.label}
                     </button>

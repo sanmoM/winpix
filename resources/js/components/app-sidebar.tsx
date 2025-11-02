@@ -39,6 +39,11 @@ export function AppSidebar() {
                     icon: LayoutGrid,
                 },
                 {
+                    title: 'Home',
+                    href: "/",
+                    icon: LayoutGrid,
+                },
+                {
                     title: 'Create Quest',
                     href: "route('create')",
                     icon: LayoutGrid,

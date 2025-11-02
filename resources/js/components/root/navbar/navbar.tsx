@@ -77,8 +77,8 @@ export default function Navbar() {
     },
     { name: t("root.navbar.navLinks.store"), href: "/store" },
     { name: t("root.navbar.navLinks.redeem"), href: "/redeem" },
-    { name: t("root.navbar.navLinks.aboutUs"), href: "/about-us" },
-    { name: t("root.navbar.navLinks.help"), href: "/all-help-categories" },
+    // { name: t("root.navbar.navLinks.aboutUs"), href: "/about-us" },
+    // { name: t("root.navbar.navLinks.help"), href: "/all-help-categories" },
   ];
 
   const isUrlIncluded = differentNavUrls.some(pattern => {

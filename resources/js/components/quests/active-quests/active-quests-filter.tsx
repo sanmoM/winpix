@@ -85,7 +85,6 @@ export default function ActiveQuestsFilter({ t }: any) {
                             isActive={activeFilter === filter.id}
                             onClick={() => {
                                 setActiveFilter(filter.id);
-                                console.log('Selected filter:', filter.id);
                             }}
                             icon={filter.icon}
                         />

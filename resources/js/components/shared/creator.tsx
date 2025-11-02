@@ -1,13 +1,16 @@
 import SocialIcon from "@/components/shared/social-icon";
+import useLocales from "@/hooks/useLocales";
 import { cn } from "@/lib/utils";
 import React from "react";
 
 const Creator = ({ containerClassName, infoContainerClassName, imageClassName, followBtnClassName, children, nameClassName, imageContainerClassName, btnText, onClick }: { containerClassName?: string, infoContainerClassName?: string, imageClassName?: string, followBtnClassName?: string, children?: React.ReactNode, nameClassName?: string, imageContainerClassName?: string, btnText?: string, onClick?: () => void }) => {
+    const { t } = useLocales()
     const socialIcons = [
         { Icon: TwitterIcon, href: '#twitter', ariaLabel: 'Twitter' },
         { Icon: FacebookIcon, href: '#facebook', ariaLabel: 'Facebook' },
         { Icon: InstagramIcon, href: '#instagram', ariaLabel: 'Instagram' },
     ];
+
     return (
         <div className={cn("flex flex-row-reverse lg:flex-row items-center justify-end gap-4", containerClassName)}>
 
@@ -35,7 +38,7 @@ const Creator = ({ containerClassName, infoContainerClassName, imageClassName, f
                 <button className={cn("absolute cursor-pointer text-white bottom-0 left-1/2 -translate-x-1/2 transform translate-y-1/4 px-4 py-0.5 ease-in-out bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] rounded-full text-[10px]", followBtnClassName)}
                     onClick={onClick}
                 >
-                    {btnText}
+                    {btnText || t('shared.follow')}
                 </button>
             </div>
         </div>

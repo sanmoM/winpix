@@ -74,7 +74,7 @@ export default function ActiveQuestsBanner({ direction, t }: { direction: string
 
                                 {/* Action Buttons */}
                                 <div className="flex flex-row items-center justify-center md:justify-end gap-4 pt-4 buttons w-fit ml-auto">
-                                    <SecondaryButton text={t('activeQuests.banner.joinNowText')} />
+                                    <SecondaryButton text={t('activeQuests.banner.voteText')} />
                                     <Button className='w-32 py-2 md:py-3 btn mx-0' text={t('activeQuests.banner.joinNowText')} />
                                 </div>
 

@@ -12,7 +12,7 @@ export default function active() {
         <UserLayout>
             <ActiveQuestsBanner direction={direction} t={t} />
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
-                <ActiveQuestsFilter />
+                <ActiveQuestsFilter t={t} />
                 <QuestsSeries t={t} />
             </Container>
         </UserLayout>

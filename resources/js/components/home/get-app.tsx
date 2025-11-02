@@ -5,17 +5,17 @@ const GetApp = ({ t }: any) => {
 
 
     return (
-        <div className='flex flex-col lg:flex-row justify-center items-center gap-2 px-4 md:px-0 bg-bg-primary'>
+        <div className='flex flex-col lg:flex-row justify-center items-center gap-2 py-10 px-4 md:px-0 bg-bg-primary'>
             <img src='/images/mobile.png' className="w-1/2 md:w-[40%] lg:w-1/4" />
             <div className="max-w-2xl w-full font-sans">
                 {/* Header Text */}
-                <h1 className="text-xl md:text-5xl lg:text-4xl font-extrabold mb-3 md:mb-4 leading-tight !text-center lg:text-left">
+                <h1 className="text-xl md:text-5xl lg:text-4xl font-extrabold mb-3 md:mb-4 leading-tight lg:text-left">
                     {/* Download The App For <span className="text-secondary-color">FREE!</span> */}
                     {t("home.getApp.title")}
                 </h1>
 
                 {/* Subtext */}
-                <p className="text-sm md:text-2xl lg::text-xl text-gray-400 mb-4 md:mb-10 max-w-2xl !text-center lg:text-left">
+                <p className="text-sm md:text-2xl lg::text-xl text-gray-400 mb-4 md:mb-10 max-w-2xl lg:text-left">
                     {t("home.getApp.description")}
                 </p>
 

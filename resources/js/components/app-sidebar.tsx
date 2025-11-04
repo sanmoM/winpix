@@ -22,10 +22,13 @@ import {
 } from 'lucide-react';
 import { route } from 'ziggy-js';
 import AppLogo from './app-logo';
+import Logo from './shared/logo';
+import useBackground from '@/hooks/useBackground';
 
 export function AppSidebar() {
     const { auth } = usePage().props;
     const userRole = auth?.user?.role || 'user';
+    const { hasBackground } = useBackground();
 
     const mainNavItems: NavItem[] = [
         {
@@ -167,7 +170,8 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href={dashboardHref} prefetch>
-                                <AppLogo />
+                                {/* <AppLogo /> */}
+                                <Logo hasBackground={hasBackground} />
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>

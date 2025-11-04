@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('section');
             $table->string('question');
             $table->longText('answer');
+            $table->string('lang');
             $table->string('status')->default('Active');
             $table->timestamps();
         });

@@ -18,11 +18,8 @@ interface LoginProps {
 
 export default function Login({ status, canResetPassword }: LoginProps) {
     return (
-        <AuthLayout
-            title="Log in to your account"
-            description="Enter your email and password below to log in"
-        >
-            <Head title="Log in" />
+        <AuthLayout title="Sing In">
+            <Head title="Sing In" />
 
             <Form
                 {...store.form()}
@@ -33,7 +30,9 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     <>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                                <Label className="text-bold" htmlFor="email">
+                                    Email
+                                </Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -42,7 +41,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                     autoFocus
                                     tabIndex={1}
                                     autoComplete="email"
-                                    placeholder="email@example.com"
+                                    placeholder="Enter your email"
                                 />
                                 <InputError message={errors.email} />
                             </div>
@@ -67,7 +66,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                     required
                                     tabIndex={2}
                                     autoComplete="current-password"
-                                    placeholder="Password"
+                                    placeholder="Enter Your password"
                                 />
                                 <InputError message={errors.password} />
                             </div>
@@ -89,7 +88,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                 data-test="login-button"
                             >
                                 {processing && <Spinner />}
-                                Log in
+                                Sign in
                             </Button>
                         </div>
 

@@ -9,6 +9,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import useBackground from '@/hooks/useBackground';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
@@ -21,9 +22,7 @@ import {
     WashingMachine,
 } from 'lucide-react';
 import { route } from 'ziggy-js';
-import AppLogo from './app-logo';
 import Logo from './shared/logo';
-import useBackground from '@/hooks/useBackground';
 
 export function AppSidebar() {
     const { auth } = usePage().props;

@@ -44,13 +44,13 @@ export default function EndedSingleQuest() {
                 </div>
                 <Tab
                     options={[
-                        { label: "Brief", value: "brief" },
-                        { label: "Entries", value: "entries" },
+                        { label: t("singleEndedQuest.tab.brief"), value: "brief" },
+                        { label: t("singleEndedQuest.tab.entries"), value: "entries" },
                     ]}
                     onChange={(val) => setActiveTab(val)}
                 />
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "brief" && "hidden")}>
-                    <Brief />
+                    <Brief title={t("singleEndedQuest.brief.title")} />
                     <Prizes t={t} />
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
                         <Guidelines t={t} />

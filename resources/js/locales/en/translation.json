@@ -121,6 +121,15 @@
             "inactive": "Inactive"
         }
     },
+    "singleEndedQuest": {
+        "tab": {
+            "brief": "Brief",
+            "entries": "Entries"
+        },
+        "brief": {
+            "title": "Brief"
+        }
+    },
     "enteredQuests": {
         "title": "Entered Quests"
     },

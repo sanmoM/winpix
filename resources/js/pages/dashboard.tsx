@@ -55,7 +55,7 @@ export default function Dashboard() {
                         />
                     </div>
                     {
-                        activeTab === "my-stats" && <Stats containerClassName='translate-y-0 mb-0 md:mb-0 lg:mb-0' />
+                        activeTab === "my-stats" && <Stats containerClassName='translate-y-0 mb-0 md:mb-0 lg:mb-0' t={t} />
                     }
                     {
                         activeTab === "my-photos" && <Gallery />

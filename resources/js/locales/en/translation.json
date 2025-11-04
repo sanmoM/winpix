@@ -256,5 +256,15 @@
             "relatedArticlesTitle": "Related Articles",
             "recentlyViewedArticleTitle": "Recently Viewed Articles"
         }
+    },
+    "dashboard": {
+        "profile": {
+            "heading": "Profile",
+            "tab": {
+                "myStats": "My Stats",
+                "myPhotos": "My Photos",
+                "likedPhotos": "Liked Photos"
+            }
+        }
     }
 }

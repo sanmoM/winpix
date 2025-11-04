@@ -28,6 +28,8 @@ return new class extends Migration
             $table->enum('role', ['user','jury','admin'])->default('user');
             $table->string('password');
             $table->enum('status', ['active','inactive','ban'])->default('active');
+            $table->integer('level')->default(1);
+            $table->unsignedInteger('votes_cast')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

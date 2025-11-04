@@ -1,260 +1,370 @@
 {
-  "shared": {
-    "questCard": {
-      "btnText": "أرسل المهمة",
-      "days": "أيام"
-    },
-    "prizes": {
-      "title": "الجوائز",
-      "viewAll": "عرض الكل",
-      "viewLess": "عرض أقل",
-      "card": {
-        "no": "رقم",
-        "first": "الجائزة الأولى",
-        "second": "الجائزة الثانية",
-        "third": "الجائزة الثالثة",
-        "fourth": "الجائزة الرابعة",
-        "fifth": "الجائزة الخامسة"
-      }
-    },
-    "followers": "المتابعون",
-    "follow": "متابعة",
-    "following": "يتابع"
-  },
-  "stats": {
-    "quests": "المهام",
-    "awards": "الجوائز",
-    "level": "المستوى"
-  },
-  "root": {
-    "navbar": {
-      "navLinks": {
-        "discover": "اكتشف",
-        "quests": {
-          "title": "المهام",
-          "submenu": {
-            "activeQuests": "المهام النشطة",
-            "questSeries": "سلسلة المهام",
-            "enteredQuests": "المهام المشاركة",
-            "endedQuests": "المهام المنتهية"
-          }
+    "shared": {
+        "questCard": {
+            "btnText": "إرسال المهمة",
+            "days": "أيام"
         },
-        "store": "المتجر",
-        "redeem": "استبدال",
-        "dashboard": "لوحة التحكم",
-        "aboutUs": "معلومات عنا",
-        "help": "المساعدة"
-      },
-      "buttons": {
-        "signUp": "إنشاء حساب",
-        "logIn": "تسجيل الدخول"
-      },
-      "notifications": {
-        "title": "الإشعارات"
-      }
-    }
-  },
-  "footer": {
-    "navLinks": {
-      "home": "الرئيسية",
-      "agent": "وكيل",
-      "about": "عن الموقع",
-      "listing": "القائمة",
-      "blog": "المدونة",
-      "contact": "اتصل بنا"
-    },
-    "copyright": "حقوق الطبع والنشر &copy;{{year}} جميع الحقوق محفوظة | تم إنشاء هذا القالب بكل {{heart}} بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
-  },
-  "home": {
-    "banner": {
-      "btnText": "انضم الآن"
-    },
-    "newest": {
-      "title": "الأحدث"
-    },
-    "gallery": {
-      "title": "المعرض"
-    },
-    "getApp": {
-      "title": "حمّل التطبيق مجانًا!",
-      "description": "اجعل تجربة التسوق عبر الإنترنت أسهل وأسرع. اضغط على الرابط لتحميل التطبيق الآن."
-    }
-  },
-  "discover": {
-    "leaderboard": {
-      "title": "أبطال الأسبوع",
-      "points": "نقطة"
-    },
-    "activeQuests": {
-      "title": "المهام النشطة"
-    },
-    "topPhotos": {
-      "title": "أفضل الصور"
-    }
-  },
-  "activeQuests": {
-    "banner": {
-      "joinNowText": "انضم الآن",
-      "voteText": "صوّت"
-    },
-    "questSeries": {
-      "title": "المهام النشطة"
-    },
-    "filter": {
-      "sortAndFilter": "الفرز والتصفية",
-      "filterItems": [
-        "اكتشف",
-        "مصنّف",
-        "مجاني",
-        "مميز",
-        "مجتمعي"
-      ]
-    }
-  },
-  "questSeries": {
-    "title": "المهام النشطة"
-  },
-  "endedQuests": {
-    "tab": {
-      "myQuests": "مهامي",
-      "ended": "منتهية",
-      "inactive": "غير نشطة"
-    }
-  },
-  "singleEndedQuest": {
-    "tab": {
-      "brief": "الملخص",
-      "entries": "المشاركات"
-    },
-    "brief": {
-      "title": "الملخص"
-    }
-  },
-  "enteredQuests": {
-    "title": "المهام المشاركة"
-  },
-  "store": {
-    "title": "حول النقاط",
-    "description": "النقاط هي بوابتك للمحتوى الحصري! استخدمها لفتح عناصر فريدة، والمشاركة في فعاليات خاصة، والحصول على ميزة إضافية في مهامك. المزيد من النقاط تعني المزيد من القوة!"
-  },
-  "redeem": {
-    "appPriceTitle": "أسعار التطبيق",
-    "grandPriceTitle": "الجوائز الكبرى"
-  },
-  "singleQuest": {
-    "banner": {
-      "voteText": "صوّت",
-      "joinNowText": "انضم الآن"
-    },
-    "tabs": {
-      "brief": "الملخص",
-      "entries": "المشاركات"
-    },
-    "guidelines": {
-      "title": "الإرشادات",
-      "guideLines": [
-        {
-          "title": "رتبة المهارة",
-          "description": "جميع المستخدمين من مختلف رتب المهارات مرحب بهم لتقديم أعمالهم لهذه المهمة!"
+        "prizes": {
+            "title": "الجوائز",
+            "viewAll": "عرض الكل",
+            "viewLess": "عرض أقل",
+            "card": {
+                "no": "رقم",
+                "first": "الجائزة الأولى",
+                "second": "الجائزة الثانية",
+                "third": "الجائزة الثالثة",
+                "fourth": "الجائزة الرابعة",
+                "fifth": "الجائزة الخامسة"
+            }
         },
-        {
-          "title": "حقوق النشر",
-          "description": "يجب أن تكون المشاركات من صنعك الخاص، ولا يُسمح بالمشاركات المُنشأة بواسطة الذكاء الاصطناعي."
-        }
-      ]
-    }
-  },
-  "profile": {
-    "gallery": {
-      "title": "مكتبة الصور"
-    }
-  },
-  "singleQuestSeries": {
-    "activeQuest": {
-      "title": "المهام النشطة"
+        "followers": "المتابعون",
+        "follow": "متابعة",
+        "following": "يتابع"
     },
     "stats": {
-      "prizeLabel": "إجمالي الجوائز",
-      "entriesLabel": "المشاركات",
-      "questLabel": "المهمة"
-    }
-  },
-  "singleQuestDetails": {
-    "brief": {
-      "title": "الملخص"
+        "quests": "المهام",
+        "awards": "الجوائز",
+        "level": "المستوى"
     },
-    "status": {
-      "title": "الحالة",
-      "submit": {
-        "title": "إرسال",
-        "daysLeft": "أيام متبقية"
-      },
-      "vote": {
-        "title": "صوّت"
-      }
-    }
-  },
-  "aboutUs": {
-    "title": "معلومات عنا",
-    "whatWeDo": {
-      "title": "ماذا نفعل",
-      "services": [
-        {
-          "title": "مصمم لمكافأة التصوير الجيد",
-          "description": "في Winpix، نؤمن أن كل صورة تستحق فرصة عادلة. نحن ملتزمون بخلق بيئة نزيهة تُقيّم الصور بناءً على جودتها فقط — بغض النظر عن شهرة المصور أو عدد متابعيه. هدفنا هو أن تتألق التميز والإبداع في التصوير بفضل الموهبة الحقيقية فقط."
-        },
-        {
-          "title": "مصمم لكل المصورين",
-          "description": "التصوير الفوتوغرافي للجميع، وكذلك Winpix. سواء كنت مبتدئًا أو محترفًا متمرسًا، تم تصميم منصتنا لتعزيز المنافسة الصحية والتفاعل المجتمعي. نحن هنا لمساعدتك على تطوير مهاراتك وتحدي نفسك والتقدم في رحلتك الفوتوغرافية مع زملاء يشاركونك الشغف نفسه."
-        },
-        {
-          "title": "مصمم ليكون ممتعًا",
-          "description": "نحن نؤمن بأن التصوير يجب أن يكون ممتعًا ومكافئًا. في Winpix، المشاركة في المسابقات، والتصويت، والفوز بالجوائز، وتتبع تقدمك، والتفاعل مع المصورين الآخرين كلها جزء من المتعة. هدفنا أن تكون تجربتك معنا ملهمة وتشجعك على التقاط المزيد من الصور واستكشاف العالم بعدستك."
+    "root": {
+        "navbar": {
+            "navLinks": {
+                "discover": "اكتشف",
+                "quests": {
+                    "title": "المهام",
+                    "submenu": {
+                        "activeQuests": "المهام النشطة",
+                        "questSeries": "سلسلة المهام",
+                        "enteredQuests": "المهام المشتركة",
+                        "endedQuests": "المهام المنتهية"
+                    }
+                },
+                "store": "المتجر",
+                "redeem": "استبدال",
+                "dashboard": "لوحة التحكم",
+                "aboutUs": "معلومات عنا",
+                "help": "مساعدة"
+            },
+            "buttons": {
+                "signUp": "إنشاء حساب",
+                "logIn": "تسجيل الدخول"
+            },
+            "notifications": {
+                "title": "الإشعارات"
+            }
         }
-      ]
-    }
-  },
-  "help": {
-    "categories": [
-      "الاقتصاد داخل التطبيق",
-      "المهام",
-      "البدء",
-      "المشتريات",
-      "إدارة الحساب",
-      "رتب المهارة",
-      "الاتصال بالدعم",
-      "المحتوى وإرشادات المجتمع",
-      "استكشاف الأخطاء وإصلاحها"
-    ],
-    "singleCategoryHelps": {
-      "paths": [
-        {
-          "label": "جميع فئات المساعدة",
-          "href": "/all-help-categories"
-        },
-        {
-          "label": "مقالات فئة واحدة",
-          "href": "/single-category-helps"
-        }
-      ]
     },
-    "singleFaq": {
-      "paths": [
-        {
-          "label": "جميع فئات المساعدة",
-          "href": "/all-help-categories"
+    "footer": {
+        "navLinks": {
+            "home": "الرئيسية",
+            "agent": "الوكيل",
+            "about": "حول",
+            "listing": "القوائم",
+            "blog": "المدونة",
+            "contact": "اتصل بنا"
         },
-        {
-          "label": "الأسئلة الشائعة"
+        "copyright": "حقوق النشر &copy;{{year}} جميع الحقوق محفوظة | تم تصميم هذا القالب بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
+    },
+    "home": {
+        "banner": {
+            "btnText": "انضم الآن"
+        },
+        "newest": {
+            "title": "الأحدث"
+        },
+        "gallery": {
+            "title": "المعرض"
+        },
+        "getApp": {
+            "title": "حمّل التطبيق مجانًا!",
+            "description": "اجعل تجربة التسوق عبر الإنترنت أسهل وأسرع. اضغط على الرابط للحصول على التطبيق الآن."
         }
-      ],
-      "sidebarHeading": "مقالات في هذا القسم",
-      "haveMoreQuestionsLabel": {
-        "text1": "هل لديك المزيد من الأسئلة؟",
-        "text2": "اقرأ المزيد"
-      },
-      "relatedArticlesTitle": "مقالات ذات صلة",
-      "recentlyViewedArticleTitle": "المقالات التي تمت مشاهدتها مؤخرًا"
+    },
+    "discover": {
+        "leaderboard": {
+            "title": "الأبطال الأسبوعيين",
+            "points": "نقاط"
+        },
+        "activeQuests": {
+            "title": "المهام النشطة"
+        },
+        "topPhotos": {
+            "title": "أفضل الصور"
+        }
+    },
+    "activeQuests": {
+        "banner": {
+            "joinNowText": "انضم الآن",
+            "voteText": "صوّت"
+        },
+        "questSeries": {
+            "title": "المهام النشطة"
+        },
+        "filter": {
+            "sortAndFilter": "ترتيب وتصنيف",
+            "filterItems": [
+                "اكتشف",
+                "مصنف",
+                "مجاني",
+                "مدفوع",
+                "مجتمع"
+            ]
+        }
+    },
+    "questSeries": {
+        "title": "المهام النشطة"
+    },
+    "endedQuests": {
+        "tab": {
+            "myQuests": "مهامي",
+            "ended": "منتهية",
+            "inactive": "غير نشطة"
+        }
+    },
+    "singleEndedQuest": {
+        "tab": {
+            "brief": "ملخص",
+            "entries": "المشاركات"
+        },
+        "brief": {
+            "title": "ملخص"
+        }
+    },
+    "enteredQuests": {
+        "title": "المهام المشتركة"
+    },
+    "store": {
+        "title": "عن Pixels",
+        "description": "Pixels هي بوابتك للوصول إلى محتوى حصري! استخدمها لفتح عناصر فريدة، والمشاركة في فعاليات خاصة، والحصول على ميزة في مهامك. كلما زادت Pixels، زادت قوتك!"
+    },
+    "redeem": {
+        "appPriceTitle": "أسعار التطبيق",
+        "grandPriceTitle": "الجوائز الكبرى"
+    },
+    "singleQuest": {
+        "banner": {
+            "voteText": "صوّت",
+            "joinNowText": "انضم الآن"
+        },
+        "tabs": {
+            "brief": "ملخص",
+            "entries": "المشاركات"
+        },
+        "guidelines": {
+            "title": "إرشادات",
+            "guideLines": [
+                {
+                    "title": "مستوى المهارة",
+                    "description": "المستخدمون من جميع مستويات المهارة مرحب بهم للمشاركة في هذه المهمة!"
+                },
+                {
+                    "title": "حقوق النشر",
+                    "description": "يجب أن تكون المشاركات خاصة بك، ويجب ألا تكون مولدة بواسطة الذكاء الاصطناعي."
+                }
+            ]
+        }
+    },
+    "profile": {
+        "gallery": {
+            "title": "مكتبة الصور"
+        }
+    },
+    "singleQuestSeries": {
+        "activeQuest": {
+            "title": "المهام النشطة"
+        },
+        "stats": {
+            "prizeLabel": "إجمالي جوائز المسابقة",
+            "entriesLabel": "المشاركات",
+            "questLabel": "المهمة"
+        }
+    },
+    "singleQuestDetails": {
+        "brief": {
+            "title": "ملخص"
+        },
+        "status": {
+            "title": "الحالة",
+            "submit": {
+                "title": "إرسال",
+                "daysLeft": "أيام متبقية"
+            },
+            "vote": {
+                "title": "صوّت"
+            }
+        }
+    },
+    "aboutUs": {
+        "title": "معلومات عنا",
+        "whatWeDo": {
+            "title": "ماذا نفعل",
+            "services": [
+                {
+                    "title": "مصمم لمكافأة التصوير الجيد",
+                    "description": "في winpix، نعتقد أن كل صورة تستحق فرصة عادلة. نحن ملتزمون بخلق بيئة محايدة حيث يتم الحكم على الصور بناءً على جدارتها فقط - بغض النظر عن شعبية المصور أو عدد المتابعين. هدفنا هو ضمان أن يبرز التميز في التصوير بناءً على الموهبة والتعبير الإبداعي فقط."
+                },
+                {
+                    "title": "مصمم لكل المصورين",
+                    "description": "التصوير للجميع، وwinpix كذلك. سواء كنت مبتدئًا أو محترفًا متمرسًا، منصتنا مصممة لتعزيز المنافسة الصحية والتفاعل المجتمعي. نحن هنا لمساعدتك على صقل مهاراتك، تحدي حدودك، والتقدم في رحلتك التصويرية جنبًا إلى جنب مع زملائك."
+                },
+                {
+                    "title": "مصمم لتكون ممتعة",
+                    "description": "نعتقد أن التصوير يجب أن يكون ممتعًا ومجزياً. في winpix، المشاركة في المسابقات، التصويت على المشاركات، الفوز بالجوائز، تتبع تقدمك، والتواصل مع المصورين الآخرين كلها جزء من المتعة. هدفنا جعل تجربتك مع winpix ممتعة، ملهمة لاستكشاف العالم بعدستك."
+                }
+            ]
+        }
+    },
+    "help": {
+        "categories": [
+            "اقتصاد التطبيق",
+            "المهام",
+            "البدء",
+            "الشراءات",
+            "إدارة الحساب",
+            "مستويات المهارة",
+            "اتصل بالدعم",
+            "إرشادات المحتوى والمجتمع",
+            "استكشاف المشاكل"
+        ],
+        "singleCategoryHelps": {
+            "paths": [
+                {
+                    "label": "جميع فئات المساعدة",
+                    "href": "/all-help-categories"
+                },
+                {
+                    "label": "مساعدة فئة واحدة",
+                    "href": "/single-category-helps"
+                }
+            ]
+        },
+        "singleFaq": {
+            "paths": [
+                {
+                    "label": "جميع فئات المساعدة",
+                    "href": "/all-help-categories"
+                },
+                {
+                    "label": "الأسئلة الشائعة"
+                }
+            ],
+            "sidebarHeading": "المقالات في هذا القسم",
+            "haveMoreQuestionsLabel": {
+                "text1": "هل لديك المزيد من الأسئلة؟",
+                "text2": "اقرأ المزيد"
+            },
+            "relatedArticlesTitle": "مقالات ذات صلة",
+            "recentlyViewedArticleTitle": "المقالات التي شاهدتها مؤخراً"
+        }
+    },
+    "dashboard": {
+        "shared": {
+            "save": "حفظ",
+            "saved": "تم الحفظ",
+            "link": "رابط"
+        },
+        "profile": {
+            "heading": "الملف الشخصي",
+            "tab": {
+                "myStats": "إحصاءاتي",
+                "myPhotos": "صوري",
+                "likedPhotos": "الصور المعجبة بها"
+            },
+            "inputs": {
+                "name": {
+                    "label": "الاسم",
+                    "placeholder": "الاسم الكامل"
+                },
+                "email": {
+                    "label": "البريد الإلكتروني",
+                    "placeholder": "البريد الإلكتروني"
+                }
+            }
+        },
+        "settings": {
+            "heading": "الإعدادات",
+            "description": "إدارة إعدادات الملف الشخصي والحساب"
+        },
+        "editProfile": {
+            "heading": "إعدادات الملف الشخصي"
+        },
+        "socialLinks": {
+            "heading": "روابط التواصل الاجتماعي",
+            "inputs": {
+                "personalWebsite": {
+                    "label": "الموقع الشخصي",
+                    "placeholder": "أدخل رابط موقعك الشخصي"
+                },
+                "facebook": {
+                    "label": "اسم مستخدم فيسبوك",
+                    "placeholder": "أدخل اسم مستخدم فيسبوك"
+                },
+                "instagram": {
+                    "label": "اسم مستخدم انستغرام",
+                    "placeholder": "أدخل اسم مستخدم انستغرام"
+                },
+                "x": {
+                    "label": "اسم مستخدم X",
+                    "placeholder": "أدخل اسم مستخدم X"
+                }
+            }
+        },
+        "linkedAccounts": {
+            "heading": "الحسابات المرتبطة"
+        },
+        "address": {
+            "heading": "عنوان الشحن",
+            "inputs": {
+                "country": {
+                    "label": "الدولة",
+                    "placeholder": "اختر الدولة"
+                },
+                "city": {
+                    "label": "المدينة",
+                    "placeholder": "أدخل مدينتك"
+                },
+                "fullAddress": {
+                    "label": "العنوان الكامل",
+                    "placeholder": "أدخل عنوانك الكامل"
+                }
+            }
+        },
+        "password": {
+            "heading": "كلمة المرور",
+            "inputs": {
+                "currentPassword": {
+                    "label": "كلمة المرور الحالية",
+                    "placeholder": "كلمة المرور الحالية"
+                },
+                "password": {
+                    "label": "كلمة المرور الجديدة",
+                    "placeholder": "كلمة المرور الجديدة"
+                },
+                "passwordConfirmation": {
+                    "label": "تأكيد كلمة المرور",
+                    "placeholder": "تأكيد كلمة المرور"
+                }
+            }
+        },
+        "twoFactorAuth": {
+            "heading": "المصادقة الثنائية"
+        },
+        "appearance": {
+            "heading": "المظهر",
+            "tab": {
+                "light": "فاتح",
+                "dark": "داكن",
+                "system": "النظام"
+            }
+        },
+        "language": {
+            "heading": "اللغة",
+            "inputs": {
+                "language": {
+                    "label": "اختر اللغة:",
+                    "placeholder": "اختر اللغة"
+                }
+            }
+        }
     }
-  }
 }

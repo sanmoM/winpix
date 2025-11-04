@@ -4,6 +4,7 @@ import TwoFactorSetupModal from '@/components/two-factor-setup-modal';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useTwoFactorAuth } from '@/hooks/use-two-factor-auth';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { disable, enable, show } from '@/routes/two-factor';
@@ -17,17 +18,18 @@ interface TwoFactorProps {
     twoFactorEnabled?: boolean;
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Two-Factor Authentication',
-        href: show.url(),
-    },
-];
 
 export default function TwoFactor({
     requiresConfirmation = false,
     twoFactorEnabled = false,
 }: TwoFactorProps) {
+    const { t } = useLocales();
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: t('dashboard.twoFactorAuth.heading'),
+            href: show.url(),
+        },
+    ];
     const {
         qrCodeSvg,
         hasSetupData,

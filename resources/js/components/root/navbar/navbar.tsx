@@ -12,49 +12,22 @@ import Container from "../../shared/container";
 import Logo from "../../shared/logo";
 import CoinAndNotification from "./components/coin-and-notification";
 import NavItem from "./components/nav-item";
+import useBackground from "@/hooks/useBackground";
 
-const differentNavUrls = [
-  "/",
-  "/quests/active-quests",
-  /^\/profile\/[^/]+$/
-];
+// const differentNavUrls = [
+//   "/",
+//   "/quests/active-quests",
+//   /^\/profile\/[^/]+$/
+// ];
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [top, setTop] = useState(0);
   const { auth } = usePage<SharedData>().props;
-  const { url } = usePage();
   const { t, direction } = useLocales()
 
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => setTop(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event: Event) => {
-      if (
-        isMenuOpen &&
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        !buttonRef.current?.contains(event.target as Node)
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [isMenuOpen]);
+  const { hasBackground, isUrlIncluded } = useBackground();
 
   // === Nav Links ===
   const navLinks = [
@@ -78,14 +51,26 @@ export default function Navbar() {
     // { name: t("root.navbar.navLinks.help"), href: "/all-help-categories" },
   ];
 
-  const isUrlIncluded = differentNavUrls.some(pattern => {
-    if (pattern instanceof RegExp) {
-      return pattern.test(url);
-    }
-    return pattern === url;
-  });
+  useEffect(() => {
+    const handleClickOutside = (event: Event) => {
+      if (
+        isMenuOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        !buttonRef.current?.contains(event.target as Node)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
 
-  const hasBackground = top > 0 || !isUrlIncluded;
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   return (
     <div

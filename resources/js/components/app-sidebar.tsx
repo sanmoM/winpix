@@ -9,6 +9,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import useBackground from '@/hooks/useBackground';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
@@ -21,50 +22,18 @@ import {
     WashingMachine,
 } from 'lucide-react';
 import { route } from 'ziggy-js';
-import AppLogo from './app-logo';
 import Logo from './shared/logo';
-import useBackground from '@/hooks/useBackground';
+import useLocales from '@/hooks/useLocales';
+import { mainNavItemsAR, mainNavItemsEN } from '@/data/dashboard-nav-items';
 
 export function AppSidebar() {
     const { auth } = usePage().props;
     const userRole = auth?.user?.role || 'user';
     const { hasBackground } = useBackground();
+    const { currentLanguage } = useLocales();
 
-    const mainNavItems: NavItem[] = [
-        {
-            title: 'Dashboard',
-            icon: LayoutGrid,
-            // href: route('profile.edit'),
-            subItems: [
-                {
-                    title: 'My Profile',
-                    href: route('dashboard'),
-                    icon: LayoutGrid,
-                },
-                {
-                    title: 'Home',
-                    href: route('home'),
-                    icon: LayoutGrid,
-                },
-                {
-                    title: 'Create Quest',
-                    href: "route('create')",
-                    icon: LayoutGrid,
-                },
-                {
-                    title: 'About Us',
-                    href: route('about-us'),
-                    icon: LayoutGrid,
-                },
-                {
-                    title: 'Help',
-                    href: route('all-help-categories'),
-                    icon: LayoutGrid,
-                },
-            ],
-        },
-    ];
 
+    const mainNavItems: NavItem[] = currentLanguage === 'ar' ? mainNavItemsAR : mainNavItemsEN;
 
     const adminNavItems: NavItem[] = [
         {

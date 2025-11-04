@@ -121,6 +121,15 @@
             "inactive": "Inactive"
         }
     },
+    "singleEndedQuest": {
+        "tab": {
+            "brief": "Brief",
+            "entries": "Entries"
+        },
+        "brief": {
+            "title": "Brief"
+        }
+    },
     "enteredQuests": {
         "title": "Entered Quests"
     },
@@ -246,6 +255,16 @@
             },
             "relatedArticlesTitle": "Related Articles",
             "recentlyViewedArticleTitle": "Recently Viewed Articles"
+        }
+    },
+    "dashboard": {
+        "profile": {
+            "heading": "Profile",
+            "tab": {
+                "myStats": "My Stats",
+                "myPhotos": "My Photos",
+                "likedPhotos": "Liked Photos"
+            }
         }
     }
 }

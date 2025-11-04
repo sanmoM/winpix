@@ -20,7 +20,7 @@ interface UserMenuContentProps {
 
 export function UserMenuContent({ user }: UserMenuContentProps) {
     const cleanup = useMobileNavigation();
-    const { direction } = useLocales()
+    const { direction, t } = useLocales()
 
     const handleLogout = () => {
         cleanup();
@@ -45,7 +45,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                         onClick={cleanup}
                     >
                         <Settings className="mr-2" />
-                        Settings
+                        {t('dashboard.root.footer.setting')}
                     </Link>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -59,7 +59,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                     data-test="logout-button"
                 >
                     <LogOut className={cn("mr-2", direction === 'right' && 'rotate-180')} />
-                    Log out
+                    {t('dashboard.root.footer.logout')}
                 </Link>
             </DropdownMenuItem>
         </>

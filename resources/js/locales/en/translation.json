@@ -365,6 +365,12 @@
                     "placeholder": "Choose a language"
                 }
             }
+        },
+        "root": {
+            "footer": {
+                "setting": "Settings",
+                "logout": "Log out"
+            }
         }
     }
 }

@@ -258,12 +258,112 @@
         }
     },
     "dashboard": {
+        "shared": {
+            "save": "Save",
+            "saved": "Saved",
+            "link": "Link"
+        },
         "profile": {
             "heading": "Profile",
             "tab": {
                 "myStats": "My Stats",
                 "myPhotos": "My Photos",
                 "likedPhotos": "Liked Photos"
+            },
+            "inputs":{
+                "name": {
+                    "label": "Name",
+                    "placeholder": "Full name"
+                },
+                "email": {
+                    "label": "Email address",
+                    "placeholder": "Email address"
+                }
+            }
+        },
+        "settings": {
+            "heading": "Settings",
+            "description": "Manage your profile and account settings"
+        },
+        "editProfile": {
+            "heading": "Profile settings"
+        },
+        "socialLinks": {
+            "heading": "Social Links",
+            "inputs": {
+                "personalWebsite": {
+                    "label": "Personal Website",
+                    "placeholder": "Enter your personal website URL"
+                },
+                "facebook": {
+                    "label": "Facebook Username",
+                    "placeholder": "Enter your Facebook username"
+                },
+                "instagram": {
+                    "label": "Instagram Username",
+                    "placeholder": "Enter your Instagram username"
+                },
+                "x": {
+                    "label": "X Username",
+                    "placeholder": "Enter your X username"
+                }
+            }
+        },
+        "linkedAccounts": {
+            "heading": "Linked Accounts"
+        },
+        "address": {
+            "heading": "Shipping Address",
+            "inputs": {
+                "country": {
+                    "label": "Country",
+                    "placeholder": "Choose a country"
+                },
+                "city": {
+                    "label": "City",
+                    "placeholder": "Enter your city"
+                },
+                "fullAddress": {
+                    "label": "Full Address",
+                    "placeholder": "Enter your full address"
+                }
+            }
+        },
+        "password": {
+            "heading": "Password",
+            "inputs": {
+                "currentPassword": {
+                    "label": "Current password",
+                    "placeholder": "Current password"
+                },
+                "password": {
+                    "label": "New password",
+                    "placeholder": "New password"
+                },
+                "passwordConfirmation": {
+                    "label": "Confirm password",
+                    "placeholder": "Confirm password"
+                }
+            }
+        },
+        "twoFactorAuth": {
+            "heading": "Two-Factor Auth"
+        },
+        "appearance": {
+            "heading": "Appearance",
+            "tab": {
+                "light": "Light",
+                "dark": "Dark",
+                "system": "System"
+            }
+        },
+        "language": {
+            "heading": "Language",
+            "inputs": {
+                "language": {
+                    "label": "Choose a language:",
+                    "placeholder": "Choose a language"
+                }
             }
         }
     }

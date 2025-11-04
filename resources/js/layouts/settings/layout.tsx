@@ -1,59 +1,15 @@
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { settingsNavItemsAR, settingsNavItemsEN } from '@/data/settings-nav-items';
+import useLocales from '@/hooks/useLocales';
 import { cn } from '@/lib/utils';
-import { edit as editAppearance } from '@/routes/appearance';
-import { edit as editPassword } from '@/routes/password';
-import { edit } from '@/routes/profile';
-import { show } from '@/routes/two-factor';
-import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { type PropsWithChildren } from 'react';
 
-const sidebarNavItems: NavItem[] = [
-    {
-        title: 'Edit Profile',
-        href: edit(),
-        icon: null,
-    },
-    {
-        title: 'Social Links',
-        href: "/settings/social-links",
-        icon: null,
-    },
-    {
-        title: 'Linked Accounts',
-        href: "/settings/link-social-account",
-        icon: null,
-    },
-    {
-        title: 'Shipping Address',
-        href: "/settings/address",
-        icon: null,
-    },
-    {
-        title: 'Password',
-        href: editPassword(),
-        icon: null,
-    },
-    {
-        title: 'Two-Factor Auth',
-        href: show(),
-        icon: null,
-    },
-    {
-        title: 'Appearance',
-        href: editAppearance(),
-        icon: null,
-    },
-    {
-        title: 'Language',
-        href: '/settings/language',
-        icon: null,
-    },
-];
-
 export default function SettingsLayout({ children }: PropsWithChildren) {
+    const { currentLanguage, t } = useLocales();
+    const sidebarNavItems = currentLanguage === 'ar' ? settingsNavItemsAR : settingsNavItemsEN;
     // When server-side rendering, we only render the layout on the client...
     if (typeof window === 'undefined') {
         return null;
@@ -64,8 +20,8 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     return (
         <div className="px-4 py-6">
             <Heading
-                title="Settings"
-                description="Manage your profile and account settings"
+                title={t('dashboard.settings.heading')}
+                description={t('dashboard.settings.description')}
             />
 
             <div className="flex flex-col lg:flex-row lg:space-x-12">

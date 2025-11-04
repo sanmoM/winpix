@@ -4,6 +4,7 @@ import SelectInput from '@/components/shared/inputs/select-input';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { BreadcrumbItem } from '@/types';
@@ -29,12 +30,13 @@ interface PageProps {
     countries: Country[];
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Address', href: '/settings/address' },
-];
 
 const Address = ({ user, countries }: PageProps) => {
     // Use Inertia form helper
+    const { t } = useLocales();
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: t('dashboard.address.heading'), href: '/settings/address' },
+    ];
     const { data, setData, put, processing, errors, recentlySuccessful } =
         useForm({
             country_id: user.country_id || '',
@@ -52,19 +54,19 @@ const Address = ({ user, countries }: PageProps) => {
             <Head title="Profile settings" />
 
             <SettingsLayout>
-                <HeadingSmall
+                {/* <HeadingSmall
                     title="Shipping Address"
                     description="Add your shipping address"
-                />
+                /> */}
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="w-full max-w-2xl space-y-6 rounded-lg p-6 shadow-lg">
+                    <div className="w-full max-w-2xl space-y-6 rounded-lg shadow-lg">
                         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                             {/* Country */}
                             <SelectInput
                                 id="country"
                                 name="country_id"
-                                label="Country"
+                                label={t('dashboard.address.inputs.country.label')}
                                 options={countries.map((country) => ({
                                     value: country.id,
                                     label: country.country_name,
@@ -78,7 +80,7 @@ const Address = ({ user, countries }: PageProps) => {
 
                             {/* City */}
                             <div className="grid gap-2">
-                                <Label htmlFor="city">City</Label>
+                                <Label htmlFor="city">{t('dashboard.address.inputs.city.label')}</Label>
                                 <Input
                                     id="city"
                                     name="city"
@@ -86,7 +88,7 @@ const Address = ({ user, countries }: PageProps) => {
                                     onChange={(e) =>
                                         setData('city', e.target.value)
                                     }
-                                    placeholder="Please enter your city"
+                                    placeholder={t('dashboard.address.inputs.city.placeholder')}
                                 />
                                 <InputError message={errors.city} />
                             </div>
@@ -94,7 +96,7 @@ const Address = ({ user, countries }: PageProps) => {
 
                         {/* Full Address */}
                         <div className="grid gap-2">
-                            <Label htmlFor="full_address">Full Address</Label>
+                            <Label htmlFor="full_address">{t('dashboard.address.inputs.fullAddress.label')}</Label>
                             <Input
                                 id="full_address"
                                 name="full_address"
@@ -102,14 +104,14 @@ const Address = ({ user, countries }: PageProps) => {
                                 onChange={(e) =>
                                     setData('full_address', e.target.value)
                                 }
-                                placeholder="Enter your full address"
+                                placeholder={t('dashboard.address.inputs.fullAddress.placeholder')}
                             />
                             <InputError message={errors.full_address} />
                         </div>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <Button disabled={processing}>Save Address</Button>
+                        <Button disabled={processing}>  {t('dashboard.shared.save')}</Button>
 
                         <Transition
                             show={recentlySuccessful}
@@ -118,7 +120,7 @@ const Address = ({ user, countries }: PageProps) => {
                             leave="transition ease-in-out"
                             leaveTo="opacity-0"
                         >
-                            <p className="text-sm text-neutral-600">Saved</p>
+                            <p className="text-sm text-neutral-600">{t('dashboard.shared.saved')}</p>
                         </Transition>
                     </div>
                 </form>

@@ -29,7 +29,7 @@ export default function Prizes({ t }: { t: (key: string) => string }) {
             }
             <BorderButton
                 onClick={() => setIsViewingAllPrizes(!isViewingAllPrizes)}
-                text={isViewingAllPrizes ? t("prizes.viewLess") : t("prizes.viewAll")} className='w-fit mx-auto mt-10 py-2 px-10' />
+                text={isViewingAllPrizes ? t("shared.prizes.viewLess") : t("shared.prizes.viewAll")} className='w-fit mx-auto mt-10 py-2 px-10' />
         </div>
     )
 }

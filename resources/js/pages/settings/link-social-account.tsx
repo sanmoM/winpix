@@ -7,6 +7,7 @@ import { Form, Head } from '@inertiajs/react';
 import Button from '../../components/shared/buttons/button';
 import SocialAccountLinkCard from '@/components/settings/link-social-account/social-account-link-card';
 import { FaGoogle } from 'react-icons/fa';
+import useLocales from '@/hooks/useLocales';
 // Data for the link cards
 const linkData = [
     {
@@ -41,12 +42,7 @@ const linkData = [
     },
 ];
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Link Social Account',
-        href: "/settings/link-social-account",
-    },
-];
+
 
 
 
@@ -55,11 +51,19 @@ const SocialLinks = () => {
     // const [website, setWebsite] = useState('');
     // const [instagram, setInstagram] = useState('');
     // ...
+    const { t } = useLocales();
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
         // Handle form submission logic here
     };
+
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: t('dashboard.socialLinks.heading'),
+            href: "/settings/link-social-account",
+        },
+    ];
 
     return (
 
@@ -67,10 +71,10 @@ const SocialLinks = () => {
             <Head title="Profile settings" />
 
             <SettingsLayout>
-                <HeadingSmall
+                {/* <HeadingSmall
                     title="Add Social Links"
                     description="Add your social links to your profile"
-                />
+                /> */}
 
                 <Form
                     {...PasswordController.update.form()}

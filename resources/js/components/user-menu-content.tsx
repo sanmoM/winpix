@@ -6,6 +6,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { UserInfo } from '@/components/user-info';
 import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
+import useLocales from '@/hooks/useLocales';
+import { cn } from '@/lib/utils';
 import { logout } from '@/routes';
 import { edit } from '@/routes/profile';
 import { type User } from '@/types';
@@ -18,6 +20,7 @@ interface UserMenuContentProps {
 
 export function UserMenuContent({ user }: UserMenuContentProps) {
     const cleanup = useMobileNavigation();
+    const { direction, t } = useLocales()
 
     const handleLogout = () => {
         cleanup();
@@ -27,13 +30,13 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
     return (
         <>
             <DropdownMenuLabel className="p-0 font-normal">
-                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                <div className={cn("flex items-center gap-2 px-1 py-1.5 text-left text-sm", direction === 'right' && 'flex-row-reverse')}>
                     <UserInfo user={user} showEmail={true} />
                 </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className={`${direction === 'right' && 'flex-row-reverse'} justify-start`}>
                     <Link
                         className="block w-full"
                         href={edit()}
@@ -42,12 +45,12 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                         onClick={cleanup}
                     >
                         <Settings className="mr-2" />
-                        Settings
+                        {t('dashboard.root.footer.setting')}
                     </Link>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem asChild className={`${direction === 'right' && 'flex-row-reverse'} justify-start`}>
                 <Link
                     className="block w-full"
                     href={logout()}
@@ -55,8 +58,8 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                     onClick={handleLogout}
                     data-test="logout-button"
                 >
-                    <LogOut className="mr-2" />
-                    Log out
+                    <LogOut className={cn("mr-2", direction === 'right' && 'rotate-180')} />
+                    {t('dashboard.root.footer.logout')}
                 </Link>
             </DropdownMenuItem>
         </>

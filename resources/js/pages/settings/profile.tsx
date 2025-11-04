@@ -13,13 +13,8 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { edit } from '@/routes/profile';
+import useLocales from '@/hooks/useLocales';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Profile settings',
-        href: edit().url,
-    },
-];
 
 export default function Profile({
     mustVerifyEmail,
@@ -28,18 +23,25 @@ export default function Profile({
     mustVerifyEmail: boolean;
     status?: string;
 }) {
+    const { t } = useLocales();
     const { auth } = usePage<SharedData>().props;
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: t('dashboard.editProfile.heading'),
+            href: edit().url,
+        },
+    ];
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Profile settings" />
+            <Head />
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall
+                    {/* <HeadingSmall
                         title="Profile information"
                         description="Update your name and email address"
-                    />
+                    /> */}
 
                     <Form
                         {...ProfileController.update.form()}
@@ -54,7 +56,7 @@ export default function Profile({
 
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Name</Label>
+                                    <Label htmlFor="name">{t('dashboard.profile.inputs.name.label')}</Label>
 
                                     <Input
                                         id="name"
@@ -63,7 +65,7 @@ export default function Profile({
                                         name="name"
                                         required
                                         autoComplete="name"
-                                        placeholder="Full name"
+                                        placeholder={t('dashboard.profile.inputs.name.placeholder')}
                                     />
 
                                     <InputError
@@ -73,7 +75,7 @@ export default function Profile({
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email address</Label>
+                                    <Label htmlFor="email">{t('dashboard.profile.inputs.email.label')}</Label>
 
                                     <Input
                                         id="email"
@@ -83,7 +85,7 @@ export default function Profile({
                                         name="email"
                                         required
                                         autoComplete="username"
-                                        placeholder="Email address"
+                                        placeholder={t('dashboard.profile.inputs.email.placeholder')}
                                     />
 
                                     <InputError
@@ -125,7 +127,7 @@ export default function Profile({
                                         disabled={processing}
                                         data-test="update-profile-button"
                                     >
-                                        Save
+                                        {t('dashboard.shared.save')}
                                     </Button>
 
                                     <Transition
@@ -136,7 +138,7 @@ export default function Profile({
                                         leaveTo="opacity-0"
                                     >
                                         <p className="text-sm text-neutral-600">
-                                            Saved
+                                            {t('dashboard.shared.saved')}
                                         </p>
                                     </Transition>
                                 </div>

@@ -1,7 +1,9 @@
 import Button from "@/components/shared/buttons/button";
+import useLocales from "@/hooks/useLocales";
 
 // A single card component
 const SocialAccountLinkCard = ({ name, icon }) => {
+    const { t } = useLocales();
     return (
         <div className="bg-bg-primary rounded-xl px-5 py-3 flex items-center justify-between transition-all duration-300 ">
             <div className="flex items-center gap-4">
@@ -14,7 +16,7 @@ const SocialAccountLinkCard = ({ name, icon }) => {
             </div>
 
             {/* Link Button */}
-            <Button text='Link' className='py-1 mx-0' />
+            <Button className='py-1 mx-0' text={t('dashboard.shared.link')} />
         </div>
     );
 };

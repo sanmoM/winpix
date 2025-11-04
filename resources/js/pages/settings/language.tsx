@@ -2,6 +2,7 @@ import SelectInput from '@/components/shared/inputs/select-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
+import { BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 
 const languageOptions = [
@@ -10,16 +11,22 @@ const languageOptions = [
 ];
 
 export default function language() {
+    const { t } = useLocales();
     const { currentLanguage, changeLanguage } = useLocales();
-
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: t('dashboard.language.heading'),
+            href: '/settings/language',
+        },
+    ];
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Profile settings" />
             <SettingsLayout>
                 <SelectInput
                     id="language"
                     name="language"
-                    label="Choose a language:"
+                    label={t('dashboard.language.inputs.language.label')}
                     options={languageOptions}
                     value={currentLanguage}
                     onChange={(value) => changeLanguage(value)}

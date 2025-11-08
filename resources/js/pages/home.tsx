@@ -5,6 +5,7 @@ import Banner from '../components/home/banner/home-banner';
 import Gallery from '../components/home/Gallery';
 import GetApp from '../components/home/get-app';
 import Newest from '../components/home/newest/Newest';
+import AIGeneratedImageDetector from '@/components/ai-generated-image-detector';
 
 export default function Home() {
     const { t } = useLocales();
@@ -16,6 +17,7 @@ export default function Home() {
                 <Gallery title={t('home.gallery.title')} />
             </Container>
             <GetApp t={t} />
+            {/* <AIGeneratedImageDetector /> */}
         </UserLayout>
     );
 }

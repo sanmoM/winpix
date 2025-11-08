@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
 interface Option {
@@ -27,7 +28,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`w-full max-w-xs ${className}`}>
+    <div className={cn("w-full max-w-xs", className)}>
       {label && (
         <label
           htmlFor={id}
@@ -48,7 +49,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
             block w-full appearance-none rounded-lg border border-gray-300 
             py-3 px-4 pr-10 text-base 
             bg-bg-primary 
-            focus:border-none focus:outline-none focus:ring-0
+            focus:outline-none focus:ring-0
           "
         >
           {placeholder && (

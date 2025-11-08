@@ -1,5 +1,6 @@
 import InputError from '@/components/input-error';
 import DateInput from '@/components/shared/inputs/date-input';
+import ImageInput from '@/components/shared/inputs/image-input';
 import SelectInput from '@/components/shared/inputs/select-input';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,23 +19,26 @@ export default function Dashboard() {
     const { data, setData, put, processing, errors, recentlySuccessful } =
         useForm({
             title: '',
-            city: '',
-            full_address: '',
+            brief: '',
+            tag: 'trading',
+            startDate: '',
+            endDate: '',
+            singlePrize: [],
         });
 
 
     // --- Form State ---
-    const [formData, setFormData] = useState({
-        title: '',
-        brief: '',
-        tag: 'trading',
-        startDate: '',
-        endDate: '',
-        singlePrize: [],
-    });
+    // const [formData, setFormData] = useState({
+    //     title: '',
+    //     brief: '',
+    //     tag: 'trading',
+    //     startDate: '',
+    //     endDate: '',
+    //     singlePrize: [],
+    // });
 
     const [prizes, setPrizes] = useState([
-        { rankStart: '1', rankEnd: '', amount: 0 },
+        { rankStart: 0, rankEnd: 0, amount: 0 },
     ]);
 
     // --- Prize Checker State ---
@@ -43,10 +47,10 @@ export default function Dashboard() {
 
     // --- Form Handlers ---
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
+    // const handleInputChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setFormData(prev => ({ ...prev, [name]: value }));
+    // };
 
     const handlePrizeChange = (index, field, value) => {
         const newPrizes = [...prizes];
@@ -64,7 +68,7 @@ export default function Dashboard() {
         const newPrizes = prizes.filter((_, i) => i !== index);
         setPrizes(newPrizes);
     };
-
+    console.log(data)
     const handleSubmit = (e) => {
         e.preventDefault();
         const fullEventData = {
@@ -72,9 +76,8 @@ export default function Dashboard() {
             prizes,
         };
         // You can now send this data to your backend
-        console.log('Event Data:', fullEventData);
         // Show a message to the user (instead of alert)
-        setFoundPrize({ amount: 'Event Submitted! Check the console.' });
+        // setFoundPrize({ amount: 'Event Submitted! Check the console.' });
     };
 
     // --- Prize Check Logic ---
@@ -142,6 +145,12 @@ export default function Dashboard() {
             <Head />
             <div className='px-4 py-6'>
                 <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+                    <ImageInput 
+                        image={data.image}
+                        setImage={(value) => setData('image', value)}
+                        wrapperClassName='w-full aspect-[2/1]'
+                        iconClassName='w-[20%]'
+                    />
 
                     {/* Title */}
                     <div className="grid gap-2">
@@ -160,7 +169,7 @@ export default function Dashboard() {
 
                     <div className="grid gap-2">
                         <Label htmlFor="title">{t('dashboard.createQuest.inputs.brief.label')}</Label>
-                        
+
                         <textarea
                             id="brief"
                             name="brief"
@@ -195,14 +204,20 @@ export default function Dashboard() {
                         {/* Start Date */}
                         <div className="grid gap-2">
                             <Label htmlFor="startDate">{t('dashboard.createQuest.inputs.startDate.label')}</Label>
-                            <DateInput />
+                            <DateInput
+                                onChange={(value) =>
+                                    setData('startDate', value)
+                                } />
                             <InputError message={errors.city} />
                         </div>
 
                         {/* End Date */}
                         <div className="grid gap-2">
                             <Label htmlFor="endDate">{t('dashboard.createQuest.inputs.endDate.label')}</Label>
-                            <DateInput />
+                            <DateInput
+                                onChange={(value) =>
+                                    setData('endDate', value)
+                                } />
                             <InputError message={errors.city} />
                         </div>
                     </div>
@@ -216,10 +231,10 @@ export default function Dashboard() {
 
                         {/* Labels for Prize Rows */}
                         <div className="flex items-center gap-2 md:gap-4 mb-2">
-                            <div className="flex-[2] flex gap-2 md:gap-4">
+                            <div className="grid grid-cols-3 gap-2 md:gap-4 w-full">
                                 <span className="flex-1 text-sm font-medium "><Label htmlFor="startDate">{t('dashboard.createQuest.inputs.multiplePrizes.start.label')}</Label></span>
-                                <span className="flex-1 text-sm font-medium  ml-3"><Label htmlFor="endDate">{t('dashboard.createQuest.inputs.multiplePrizes.end.label')}</Label></span>
-                                <span className="flex-1 text-sm font-medium  ml-3"><Label htmlFor="amount">{t('dashboard.createQuest.inputs.multiplePrizes.amount.label')}</Label></span>
+                                <span className="flex-1 text-sm font-medium "><Label htmlFor="endDate">{t('dashboard.createQuest.inputs.multiplePrizes.end.label')}</Label></span>
+                                <span className="flex-1 text-sm font-medium "><Label htmlFor="amount">{t('dashboard.createQuest.inputs.multiplePrizes.amount.label')}</Label></span>
                             </div>
                             <span className="w-8"></span>
                         </div>
@@ -228,8 +243,9 @@ export default function Dashboard() {
                         <div className="space-y-4">
                             {prizes.map((prize, index) => (
                                 <div key={index} className="flex items-center gap-2 md:gap-4">
-                                    <div className="flex-[2] flex items-center gap-2 md:gap-4">
+                                    <div className="grid grid-cols-3 items-center gap-2 md:gap-4 w-full">
                                         <Input
+                                            type='number'
                                             id="start"
                                             name="start"
                                             value={data.start}
@@ -238,8 +254,9 @@ export default function Dashboard() {
                                             }
                                             placeholder={t('dashboard.createQuest.inputs.multiplePrizes.start.placeholder')}
                                         />
-                                        <span className="text-gray-400 text-center">-</span>
                                         <Input
+
+                                            type='number'
                                             id="end"
                                             name="end"
                                             value={data.end}
@@ -248,17 +265,19 @@ export default function Dashboard() {
                                             }
                                             placeholder={t('dashboard.createQuest.inputs.multiplePrizes.end.placeholder')}
                                         />
+                                        <Input
+                                            type='number'
+                                            id="amount"
+                                            name="amount"
+                                            value={data.amount}
+                                            onChange={(e) =>
+                                                setData('amount', e.target.value)
+                                            }
+                                            placeholder={t('dashboard.createQuest.inputs.multiplePrizes.amount.placeholder')}
+                                            className='w-fit'
+                                        />
                                     </div>
-                                    <Input
-                                        id="amount"
-                                        name="amount"
-                                        value={data.amount}
-                                        onChange={(e) =>
-                                            setData('amount', e.target.value)
-                                        }
-                                        placeholder={t('dashboard.createQuest.inputs.multiplePrizes.amount.placeholder')}
-                                        className='w-fit'
-                                    />
+
                                     <button
                                         type="button"
                                         onClick={() => removePrizeRow(index)}

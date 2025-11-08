@@ -11,9 +11,9 @@ class FrontendController extends Controller
     {
         $sliders = Slider::all();
         $user = auth()->user();
-        if ($user) {
-            return redirect("/discover");
-        }
+        // if ($user) {
+        //     return redirect("/discover");
+        // }
         return Inertia::render('home', [
             'sliders' => $sliders
         ]);

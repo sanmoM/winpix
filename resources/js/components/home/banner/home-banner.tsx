@@ -3,33 +3,6 @@ import Button from '@/components/shared/buttons/button';
 import CustomSlider from '../../shared/custom-slider/CustomSlider';
 import "./banner.css";
 
-const slides = [
-  {
-    imageUrl: "/images/banner-1.jpg",
-    title: "Discover Modern Design",
-    subtitle: "Sleek, intuitive, and built for the future. Explore our latest collection.",
-    buttonClass: "bg-blue-500 hover:bg-blue-600"
-  },
-  {
-    imageUrl: "/images/banner-2.jpg",
-    title: "Embrace Nature's Beauty",
-    subtitle: "Connect with the outdoors and find your inner peace.",
-    buttonClass: "bg-green-500 hover:bg-green-600"
-  },
-  {
-    imageUrl: "/images/banner-3.jpg",
-    title: "Urban Adventures Await",
-    subtitle: "Experience the vibrant energy of the city like never before.",
-    buttonClass: "bg-red-500 hover:bg-red-600"
-  },
-  {
-    imageUrl: "/images/banner-4.jpg",
-    title: "Unlock Creative Freedom",
-    subtitle: "Tools and inspiration to bring your boldest ideas to life.",
-    buttonClass: "bg-purple-500 hover:bg-purple-600"
-  }
-];
-
 
 
 export default function

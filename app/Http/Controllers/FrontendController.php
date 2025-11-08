@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Slider;
 use Inertia\Inertia;
 
 class FrontendController extends Controller
 {
     public function home()
     {
+        $sliders = Slider::all();
         $user = auth()->user();
         if ($user) {
             return redirect("/discover");
         }
-        return Inertia::render('home');
+        return Inertia::render('home', [
+            'sliders' => $sliders
+        ]);
     }
 
     public function store()

@@ -20,3 +20,4 @@ Route::get('/single-faq', [FrontendController::class, 'singleFaq'])->name('singl
 Route::get('/quests/ended-single-quest/{id}', [FrontendController::class, 'endedSingleQuest'])->name('ended-single-quest');
 Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('about-us');
 Route::get('/discover', [DiscoverController::class, 'discover'])->name('discover');
+Route::get('/create-quest', [FrontendController::class, 'createQuest'])->name('create-quest');

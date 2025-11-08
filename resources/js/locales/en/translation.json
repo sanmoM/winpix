@@ -270,7 +270,7 @@
                 "myPhotos": "My Photos",
                 "likedPhotos": "Liked Photos"
             },
-            "inputs":{
+            "inputs": {
                 "name": {
                     "label": "Name",
                     "placeholder": "Full name"
@@ -370,6 +370,58 @@
             "footer": {
                 "setting": "Settings",
                 "logout": "Log out"
+            }
+        },
+        "createQuest": {
+            "inputs": {
+                "title": {
+                    "label": "Title",
+                    "placeholder": "Enter a title"
+                },
+                "category": {
+                    "label": "Tag",
+                    "placeholder": "Select a tag"
+                },
+                "brief": {
+                    "label": "Brief",
+                    "placeholder": "Enter a brief"
+                },
+                "startDate": {
+                    "label": "Start Date",
+                    "placeholder": "Select a start date"
+                },
+                "endDate": {
+                    "label": "End Date",
+                    "placeholder": "Select an end date"
+                },
+                "singlePrize": {
+                    "label": "Single Prize",
+                    "placeholder": "Enter a single prize"
+                },
+                "multiplePrizes": {
+                    "start": {
+                        "label": "Start",
+                        "placeholder": "Enter a start"
+                    },
+                    "end": {
+                        "label": "End",
+                        "placeholder": "Enter an end"
+                    },
+                    "amount": {
+                        "label": "Amount",
+                        "placeholder": "Enter an amount"
+                    },
+                    "addPrize": {
+                        "text": "Add Prize"
+                    },
+                    "title": "Prizes"
+                },
+                "button": {
+                    "text": "Create Quest"
+                },
+                "save": {
+                    "text": "Quest Created"
+                }
             }
         }
     }

@@ -14,6 +14,7 @@ import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { edit } from '@/routes/profile';
 import useLocales from '@/hooks/useLocales';
+import EditProfilePhoto from '@/components/settings/profile/edit-profile-photo';
 
 
 export default function Profile({
@@ -53,7 +54,7 @@ export default function Profile({
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
                                 <div>
-
+                                    <EditProfilePhoto />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="name">{t('dashboard.profile.inputs.name.label')}</Label>

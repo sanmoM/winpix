@@ -8,6 +8,10 @@ class FrontendController extends Controller
 {
     public function home()
     {
+        $user = auth()->user();
+        if ($user) {
+            return redirect("/discover");
+        }
         return Inertia::render('home');
     }
 
@@ -82,5 +86,10 @@ class FrontendController extends Controller
     public function searchedHelps()
     {
         return Inertia::render('help/searched-helps');
+    }
+
+    public function createQuest()
+    {
+        return Inertia::render('create-quest');
     }
 }

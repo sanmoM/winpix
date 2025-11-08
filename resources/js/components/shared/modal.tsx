@@ -3,7 +3,7 @@ import React from "react";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
+  title?: string;
   children: React.ReactNode;
 }
 
@@ -30,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
         className="bg-background rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all duration-300 sm:my-8 sm:align-middle"
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-8 py-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between px-8 py-6 border-gray-200 dark:border-gray-700">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white" id="modal-title">
             {title}
           </h3>
@@ -44,7 +44,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
         </div>
 
         {/* Modal Body */}
-        <div className="px-6 py-10 text-gray-700 dark:text-gray-300 max-h-[60vh] overflow-y-auto">{children}</div>
+        <div className="px-8 pb-10 text-gray-700 dark:text-gray-300 max-h-[60vh] overflow-y-auto">{children}</div>
       </div>
     </div>
   );

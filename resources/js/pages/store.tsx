@@ -2,17 +2,11 @@ import Container from "@/components/shared/container";
 import StoreItem from "@/components/store/store-item";
 import useLocales from "@/hooks/useLocales";
 import UserLayout from "@/layouts/user-layout";
+import { usePage } from "@inertiajs/react";
 
 export default function StoreModalContents() {
+    const { coinsPricing:storeItems } = usePage().props;
     const { t } = useLocales()
-    const storeItems = [
-        { quantity: 30, price: "$2.99" },
-        { quantity: 80, price: "$6.99" },
-        { quantity: 180, price: "$14.99" },
-        { quantity: 400, price: "$29.99" },
-        { quantity: 900, price: "$59.99" },
-        { quantity: 1600, price: "$99.99", isBestValue: true },
-    ];
 
     return (
         <UserLayout>
@@ -38,11 +32,11 @@ export default function StoreModalContents() {
 
                     {/* Item Grid */}
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
-                        {storeItems.map((item, index) => (
+                        {storeItems?.map((item, index) => (
                             <StoreItem
                                 key={index}
-                                quantity={item.quantity}
-                                price={item.price}
+                                quantity={item.number_of_coin}
+                                price={`$ ${item.price}`}
                                 isBestValue={item.isBestValue ?? false} // default false
                             />
                         ))}

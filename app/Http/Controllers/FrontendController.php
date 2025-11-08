@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Redeem;
 use App\Models\Slider;
+use App\Models\Store;
 use Inertia\Inertia;
 
 class FrontendController extends Controller
@@ -21,12 +23,18 @@ class FrontendController extends Controller
 
     public function store()
     {
-        return Inertia::render('store');
+        $coinsPricing = Store::all();
+        return Inertia::render('store', [
+            'coinsPricing' => $coinsPricing
+        ]);
     }
 
     public function redeem()
     {
-        return Inertia::render('redeem');
+        $coinsPricing = Redeem::all();
+        return Inertia::render('redeem', [
+            'prizes' => $coinsPricing
+        ]);
     }
 
     public function activeQuests()

@@ -18,7 +18,7 @@ export default function ImageInput({
 }) {
     const inputId = useId(); // ✅ unique ID per component instance
 
-    const handleFileChange = (e) => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             setImage(e.target.files[0]);
         }

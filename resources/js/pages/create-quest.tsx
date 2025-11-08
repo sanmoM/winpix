@@ -26,17 +26,6 @@ export default function Dashboard() {
             singlePrize: [],
         });
 
-
-    // --- Form State ---
-    // const [formData, setFormData] = useState({
-    //     title: '',
-    //     brief: '',
-    //     tag: 'trading',
-    //     startDate: '',
-    //     endDate: '',
-    //     singlePrize: [],
-    // });
-
     const [prizes, setPrizes] = useState([
         { rankStart: 0, rankEnd: 0, amount: 0 },
     ]);
@@ -45,14 +34,7 @@ export default function Dashboard() {
     const [checkPosition, setCheckPosition] = useState('');
     const [foundPrize, setFoundPrize] = useState(null);
 
-    // --- Form Handlers ---
-
-    // const handleInputChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setFormData(prev => ({ ...prev, [name]: value }));
-    // };
-
-    const handlePrizeChange = (index, field, value) => {
+    const handlePrizeChange = (index: number, field: string, value: { rankStart: string, rankEnd: string, amount: string }) => {
         const newPrizes = [...prizes];
         newPrizes[index][field] = value;
         setPrizes(newPrizes);
@@ -62,14 +44,14 @@ export default function Dashboard() {
         setPrizes([...prizes, { rankStart: '', rankEnd: '', amount: 0 }]);
     };
 
-    const removePrizeRow = (index) => {
+    const removePrizeRow = (index: number) => {
         // Don't remove the last row
         if (prizes.length <= 1) return;
         const newPrizes = prizes.filter((_, i) => i !== index);
         setPrizes(newPrizes);
     };
     console.log(data)
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const fullEventData = {
             ...formData,
@@ -145,7 +127,7 @@ export default function Dashboard() {
             <Head />
             <div className='px-4 py-6'>
                 <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
-                    <ImageInput 
+                    <ImageInput
                         image={data.image}
                         setImage={(value) => setData('image', value)}
                         wrapperClassName='w-full aspect-[2/1]'

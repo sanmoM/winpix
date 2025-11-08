@@ -52,8 +52,8 @@ export default function Profile({
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
                                 <ImageInput
-                                    image={auth.user.image}
-                                    setImage={(value) => setData('image', value)}
+                                    image={"auth.user.image"}
+                                    setImage={(value) => {}}
                                     wrapperClassName='w-full aspect-[1/1] w-[200px]'
                                     iconClassName='w-[20%]'
                                 />

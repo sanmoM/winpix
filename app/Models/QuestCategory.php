@@ -8,6 +8,7 @@ class QuestCategory extends Model
 {
     protected $fillable =[
         'name',
-        'status'
+        'status',
+        'description'
     ];
 }

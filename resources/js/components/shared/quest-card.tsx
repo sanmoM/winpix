@@ -19,7 +19,7 @@ interface QuestCardProps {
     href?: string
 }
 
-function QuestCard({ quest, href }: QuestCardProps) {
+function QuestSubmitCard({ quest, href }: QuestCardProps) {
     const { t } = useLocales()
     return (
         <Link
@@ -62,4 +62,4 @@ function QuestCard({ quest, href }: QuestCardProps) {
     );
 }
 
-export default QuestCard;
+export default QuestSubmitCard;

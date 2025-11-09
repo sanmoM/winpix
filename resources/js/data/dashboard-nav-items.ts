@@ -20,7 +20,7 @@ export const mainNavItemsEN: NavItem[] = [
       // },
       {
         title: 'Create Quest',
-        href: route('create-quest'),
+        href: route('user-dashboard.quest.index'),
         icon: LayoutGrid,
       },
       {
@@ -54,7 +54,7 @@ export const mainNavItemsAR: NavItem[] = [
       // },
       {
         title: 'إنشاء مهمة',
-        href: route('create-quest'),
+        href: route('user-dashboard.quest.index'),
         icon: LayoutGrid,
       },
       {

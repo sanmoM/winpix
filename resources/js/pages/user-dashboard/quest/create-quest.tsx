@@ -12,11 +12,12 @@ import { type BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Head, useForm } from '@inertiajs/react';
 import { useState } from 'react';
+import { route } from 'ziggy-js';
 
 
 export default function Dashboard() {
     const { t } = useLocales();
-    const { data, setData, put, processing, errors, recentlySuccessful } =
+    const { data, setData, put, post, processing, errors, recentlySuccessful, reset } =
         useForm({
             title: '',
             brief: '',
@@ -24,6 +25,7 @@ export default function Dashboard() {
             startDate: '',
             endDate: '',
             singlePrize: [],
+            image: null,
         });
 
     const [prizes, setPrizes] = useState([
@@ -50,13 +52,21 @@ export default function Dashboard() {
         const newPrizes = prizes.filter((_, i) => i !== index);
         setPrizes(newPrizes);
     };
+
     console.log(data)
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const fullEventData = {
             ...formData,
             prizes,
         };
+        post(route('user-dashboard.quest.store'), {
+            onSuccess: () => {
+                reset();
+                setPrizes([]);
+            },
+        });
         // You can now send this data to your backend
         // Show a message to the user (instead of alert)
         // setFoundPrize({ amount: 'Event Submitted! Check the console.' });
@@ -126,7 +136,7 @@ export default function Dashboard() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head />
             <div className='px-4 py-6'>
-                <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+                <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl" encType="multipart/form-data">
                     <ImageInput
                         image={data.image}
                         setImage={(value) => setData('image', value)}

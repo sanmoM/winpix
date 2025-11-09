@@ -1,5 +1,5 @@
 import Container from '@/components/shared/container';
-import QuestCard from '@/components/shared/quest-card';
+import QuestSubmitCard from '@/components/shared/quest-card';
 import Tab from '@/components/shared/tab';
 import useLocales from '@/hooks/useLocales';
 import UserLayout from '@/layouts/user-layout';
@@ -76,7 +76,7 @@ export default function EndedQuests() {
                 />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                     {questsData.map((quest) => (
-                        <QuestCard key={quest.id} quest={quest} href='/quests/ended-single-quest/2' />
+                        <QuestSubmitCard key={quest.id} quest={quest} href='/quests/ended-single-quest/2' />
                     ))}
                 </div>
             </Container>

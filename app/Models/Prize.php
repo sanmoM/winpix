@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Prize extends Model
 {
-    protected $fillable =[
-      'quest_id',
-      'min',
-      'max',
-      'coin'
-    ];
+  protected $fillable = [
+    'quest_id',
+    'min',
+    'max',
+    'coin',
+    'title'
+  ];
+  public function quest()
+  {
+    return $this->belongsTo(Quest::class);
+  }
 }

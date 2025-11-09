@@ -1,4 +1,4 @@
-import QuestCard from '@/components/shared/quest-card'
+import QuestSubmitCard from '@/components/shared/quest-card'
 import SectionHeading from '@/components/shared/SectionHeading'
 const questsData = [
     {
@@ -60,7 +60,7 @@ export default function QuestsSeries({ t }: { t: (key: string) => string }) {
             <SectionHeading title={t('activeQuests.questSeries.title')} />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 {questsData.map((quest) => (
-                    <QuestCard key={quest.id} quest={quest} href='/quests/single-quest-series' />
+                    <QuestSubmitCard key={quest.id} quest={quest} href='/quests/single-quest-series' />
                 ))}
             </div>
         </div>

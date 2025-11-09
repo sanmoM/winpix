@@ -1,5 +1,5 @@
 import SectionHeading from '@/components/shared/SectionHeading'
-import QuestCard from '../shared/quest-card'
+import QuestSubmitCard from '../shared/quest-card'
 
 const questsData = [
     {
@@ -63,7 +63,7 @@ export default function Quests({ t }: { t: (key: string) => string }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 {questsData.map((quest) => (
-                    <QuestCard key={quest.id} quest={quest} />
+                    <QuestSubmitCard key={quest.id} quest={quest} />
                 ))}
             </div>
         </div>

@@ -9,7 +9,7 @@ type PhotoCardItem = {
     buttonClass: string
 }
 
-export default function PhotoCard({ item }: { item: PhotoCardItem }) {
+export default function QuestCard({ item }: { item: PhotoCardItem }) {
     return (
         <div className="relative block w-full rounded-2xl overflow-hidden group cursor-pointer">
 

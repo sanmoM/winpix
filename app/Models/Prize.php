@@ -8,7 +8,8 @@ class Prize extends Model
 {
     protected $fillable =[
       'quest_id',
-      'rank',
-      'star_coin'
+      'min',
+      'max',
+      'coin'
     ];
 }

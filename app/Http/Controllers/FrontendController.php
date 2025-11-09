@@ -99,9 +99,4 @@ class FrontendController extends Controller
     {
         return Inertia::render('help/searched-helps');
     }
-
-    public function createQuest()
-    {
-        return Inertia::render('create-quest');
-    }
 }

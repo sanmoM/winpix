@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UserDashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\QuestCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,8 +14,11 @@ class QuestController extends Controller
      */
     public function index()
     {
+        $categories = QuestCategory::all();
         // return "hellow";
-        return Inertia::render('user-dashboard/quest/create-quest');
+        return Inertia::render('user-dashboard/quest/create-quest', [
+            'categories' => $categories
+        ]);
     }
 
     /**

@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->integer('min');
             $table->integer('max');
             $table->integer('coin')->nullable();
+            $table->string('title');
             $table->timestamps();
         });
     }

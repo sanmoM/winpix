@@ -412,8 +412,8 @@
                         "placeholder": "Enter an end"
                     },
                     "amount": {
-                        "label": "Amount",
-                        "placeholder": "Enter an amount"
+                        "label": "Prize",
+                        "placeholder": "Enter a prize"
                     },
                     "addPrize": {
                         "text": "Add Prize"

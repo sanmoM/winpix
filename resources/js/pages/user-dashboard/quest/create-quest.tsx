@@ -12,18 +12,19 @@ import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Head, useForm, usePage } from '@inertiajs/react';
+import { route } from 'ziggy-js';
 
 interface Prize {
-    min: number;
-    max: number;
-    coin: number;
+    min: number | string;
+    max: number | string;
+    coin: number | string;
     title: string;
 }
 
 interface Quest {
     title: string;
     brief: string;
-    tag: string;
+    category_id: string;
     startDate: string;
     endDate: string;
     prizes: Prize[];
@@ -32,23 +33,29 @@ interface Quest {
 
 
 export default function Dashboard() {
-    const { categories } = usePage().props;
-    console.log(categories)
+    const { categories }: { categories: { id: number, name: string }[] } = usePage<any>().props;
     const { t } = useLocales();
+
     const { data, setData, post, processing, errors, recentlySuccessful, reset } =
         useForm<Quest>({
             title: '',
             brief: '',
-            tag: 'trading',
+            category_id: '',
             startDate: '',
             endDate: '',
-            prizes: [{ min: 0, max: 0, coin: 0, title: "" }],
+            prizes: [{ min: "", max: "", coin: "", title: "" }],
             image: null,
         });
 
+
+    const categoryOptions = categories.map((category) => ({
+        value: category.id,
+        label: category.name,
+    }));
+
     const addPrizeRow = () => {
         // setPrizes([...prizes, { min: '', max: '', coin: 0, title: "" }]);
-        setData('prizes', [...data.prizes, { min: 0, max: 0, coin: 0, title: "" }]);
+        setData('prizes', [...data.prizes, { min: "", max: "", coin: "", title: "" }]);
     };
 
     const removePrizeRow = (index: number) => {
@@ -58,16 +65,48 @@ export default function Dashboard() {
         setData('prizes', newPrizes);
     };
 
+    const validateForm = () => {
+        const newErrors: Record<string, string> = {};
+
+        if (!data.title) newErrors.title = "Title is required";
+        if (!data.brief) newErrors.brief = "Brief is required";
+        if (!data.category_id) newErrors.category_id = "Category is required";
+        if (!data.startDate) newErrors.startDate = "Start date is required";
+        if (!data.endDate) newErrors.endDate = "End date is required";
+
+        data.prizes.forEach((prize, index) => {
+            if (prize.min === '' || Number(prize.min) < 0)
+                newErrors[`prizes.${index}.min`] = "Min must be >= 0";
+            if (prize.max === '' || Number(prize.max) < Number(prize.min))
+                newErrors[`prizes.${index}.max`] = "Max must be >= Min";
+            if (prize.coin === '' || Number(prize.coin) < 0)
+                newErrors[`prizes.${index}.coin`] = "Coin must be >= 0";
+            if (!prize.title)
+                newErrors[`prizes.${index}.title`] = "Title is required";
+        });
+
+        return newErrors;
+    };
+
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(data)
-        // post(route('user-d.quest.store'), {
-        //     onSuccess: () => {
-        //         reset();
-        //         setPrizes([]);
-        //     },
-        // });
+        // const clientErrors = validateForm();
+
+        // if (Object.keys(clientErrors).length > 0) {
+        //     // Show errors in the frontend
+        //     console.log(clientErrors);
+        //     // Optionally set them in your state to display
+        //     return;
+        // }
+
+        post(route('user-dashboard.quest.store'), {
+            onSuccess: () => reset(),
+            onError: (errors) => console.log(errors),
+        });
     };
+
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -82,13 +121,7 @@ export default function Dashboard() {
         value: string | number
     ) => {
         const newPrizes: Prize[] = [...data.prizes];
-
-        // type casting, যদি field min/max/coin হয়, convert to number
-        if (field === 'min' || field === 'max' || field === 'coin') {
-            newPrizes[index][field] = Number(value) as any;
-        } else {
-            newPrizes[index][field] = value as any;
-        }
+        newPrizes[index][field] = value as any;
 
         setData('prizes', newPrizes);
     };
@@ -123,17 +156,6 @@ export default function Dashboard() {
 
                     <div className="grid gap-2">
                         <Label htmlFor="title">{t('dashboard.createQuest.inputs.brief.label')}</Label>
-
-                        {/* <textarea
-                            id="brief"
-                            name="brief"
-                            value={data.brief}
-                            onChange={(e) =>
-                                setData('brief', e.target.value)
-                            }
-                            placeholder={t('dashboard.createQuest.inputs.brief.placeholder')}
-                            className='resize-none border focus:outline-0 h-32 bg-bg-primary rounded-sm p-4'
-                        /> */}
                         <TextAreaInput
                             value={data.brief}
                             onChange={(e) =>
@@ -147,15 +169,10 @@ export default function Dashboard() {
                         id="tag"
                         name="tag"
                         label={t('dashboard.createQuest.inputs.category.label')}
-                        options={[
-                            { value: 'trading', label: 'Trading Competition' },
-                            { value: 'staking', label: 'Staking Event' },
-                            { value: 'airdrop', label: 'Airdrop' },
-                            { value: 'gleam', label: 'Gleam Giveaway' },
-                        ]}
-                        value={data.tag}
+                        options={categoryOptions}
+                        value={data.category_id}
                         onChange={(value) =>
-                            setData('tag', value as string)
+                            setData('category_id', value as string)
                         }
                         className='w-full max-w-auto'
                     />
@@ -220,8 +237,10 @@ export default function Dashboard() {
                                             id="start"
                                             name="start"
                                             value={prize.min}
-                                            onChange={(e) =>
+                                            onChange={(e) => {
                                                 setPrizeData(index, 'min', e.target.value)
+                                                setPrizeData(index, 'max', e.target.value)
+                                            }
                                             }
                                             placeholder={t('dashboard.createQuest.inputs.multiplePrizes.start.placeholder')}
                                         />

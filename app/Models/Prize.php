@@ -10,6 +10,7 @@ class Prize extends Model
       'quest_id',
       'min',
       'max',
-      'coin'
+      'coin',
+      'title'
     ];
 }

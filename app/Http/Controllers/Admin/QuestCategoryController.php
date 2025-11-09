@@ -15,7 +15,7 @@ class QuestCategoryController extends Controller
     public function index()
     {
         $items = QuestCategory::orderBy('id', 'DESC')->get();
-        return Inertia::render('Admin/Category/Index',[
+        return Inertia::render('Admin/Category/Index', [
             'items' => $items
         ]);
     }
@@ -36,14 +36,15 @@ class QuestCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
         ]);
 
 
         QuestCategory::create($validated);
 
         return redirect()
-        ->back()
-        ->with('success', 'Quest Category saved successfully 🎉');
+            ->back()
+            ->with('success', 'Quest Category saved successfully 🎉');
 
     }
 

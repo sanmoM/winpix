@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Slider;
 use App\Models\User;
 use App\Models\QuestCategory;
 use Illuminate\Database\Seeder;
@@ -13,7 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // ✅ Create or find the first test user
+        // -----------------------------
+        // 1️⃣ Create Users
+        // -----------------------------
         User::firstOrCreate(
             ['email' => 'test@example.com'],
             [
@@ -23,7 +26,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // ✅ Create or find the second user (Sanmo)
         User::firstOrCreate(
             ['email' => 'sanmobd@gmail.com'],
             [
@@ -33,7 +35,9 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // ✅ Create or find the "animal" quest category
+        // -----------------------------
+        // 2️⃣ Create Quest Category
+        // -----------------------------
         QuestCategory::firstOrCreate(
             ['name' => 'animal'],
             [
@@ -41,5 +45,20 @@ class DatabaseSeeder extends Seeder
                 'description' => 'Only animal photo can upload...',
             ]
         );
+
+        // -----------------------------
+        // 3️⃣ Create Sliders
+        // -----------------------------
+        $sliders = require __DIR__ . '/../data/slider.php';
+
+        foreach ($sliders as $slider) {
+            Slider::create(
+                [
+                    'title' => $slider['title'],
+                    'content' => $slider['description'],
+                    'bg_image' => $slider['image'],
+                ]
+            );
+        }
     }
 }

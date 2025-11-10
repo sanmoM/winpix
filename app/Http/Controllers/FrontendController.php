@@ -13,8 +13,8 @@ class FrontendController extends Controller
     public function home()
     {
         $sliders = Slider::all();
-        $user = auth()->user();
-        $new_quest = Quest::where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
+        $new_quest = Quest::with(["category", "user"])->where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
+        // $user = auth()->user();
         // if ($user) {
         //     return redirect("/discover");
         // }

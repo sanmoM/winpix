@@ -374,6 +374,18 @@
         },
         "createQuest": {
             "inputs": {
+                "level_requirement": {
+                    "label": "Level Requirement",
+                    "placeholder": "Enter a level requirement"
+                },
+                "categories_requirement": {
+                    "label": "Categories Requirement",
+                    "placeholder": "Enter a categories requirement"
+                },
+                "copyright_requirement": {
+                    "label": "Copyright Requirement",
+                    "placeholder": "Enter a copyright requirement"
+                },
                 "title": {
                     "label": "Title",
                     "placeholder": "Enter a title"

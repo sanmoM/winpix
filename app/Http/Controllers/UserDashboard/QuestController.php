@@ -59,8 +59,9 @@ class QuestController extends Controller
             'prizes.*.max' => 'required|integer|gte:prizes.*.min',
             'prizes.*.coin' => 'required|integer|min:0',
             'prizes.*.title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'entry_coin' => 'required|integer|min:0',
+
         ]);
 
         if ($validator->fails()) {
@@ -98,10 +99,6 @@ class QuestController extends Controller
 
         return redirect()->route('user-dashboard.quest.index');
     }
-
-
-
-
 
     /**
      * Display the specified resource.

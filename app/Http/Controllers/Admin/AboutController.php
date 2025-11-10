@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\Translation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,7 +16,7 @@ class AboutController extends Controller
     public function index()
     {
         $items = About::all();
-        return Inertia::render('Admin/About/Index',[
+        return Inertia::render('Admin/About/Index', [
             'items' => $items
         ]);
     }
@@ -34,12 +35,15 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
+        // return "test";
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'picture' => 'required|image|max:2048',
+            // 'picture' => 'required|image|max:2048',
         ]);
 
+        $translationData = Translation::translate($validated);
+        dd($translationData);
         if ($request->hasFile('picture')) {
 
             $file = $request->file('picture');
@@ -52,8 +56,8 @@ class AboutController extends Controller
         About::create($validated);
 
         return redirect()
-        ->route('admin.about.index')
-        ->with('success', 'About date saved successfully 🎉');
+            ->route('admin.about.index')
+            ->with('success', 'About date saved successfully 🎉');
 
     }
 
@@ -99,11 +103,9 @@ class AboutController extends Controller
             if ($item->picture && file_exists(storage_path('uploads/about/' . $item->picture))) {
                 unlink(storage_path('uploads/about/' . $item->picture));
             }
+        } else {
+            $validated['picture'] = $item->picture;
         }
-       else
-       {
-        $validated['picture'] = $item->picture;
-       }
 
         $item->update($validated);
 

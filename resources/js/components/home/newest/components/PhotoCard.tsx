@@ -1,15 +1,11 @@
+import { Quest } from "@/types/quest";
 import { Link } from "@inertiajs/react";
 import { TbTrophyFilled } from "react-icons/tb";
 
-type PhotoCardItem = {
-    imageUrl: string,
-    title: string,
-    subtitle: string,
-    buttonText: string,
-    buttonClass: string
-}
 
-export default function QuestCard({ item }: { item: PhotoCardItem }) {
+export default function QuestCard({ item }: { item: Quest }) {
+
+    console.log(item)
     return (
         <div className="relative block w-full rounded-2xl overflow-hidden group cursor-pointer">
 
@@ -26,7 +22,7 @@ export default function QuestCard({ item }: { item: PhotoCardItem }) {
             {/* Top Content */}
             <div className="absolute top-0 right-0 p-4">
                 <div className="bg-white/10 text-white px-5 py-1 rounded-full backdrop-blur-[3px] text-xs font-semibold">
-
+                    #{item?.category?.name}
                 </div>
 
             </div>
@@ -38,10 +34,10 @@ export default function QuestCard({ item }: { item: PhotoCardItem }) {
                         <h2 className="text-2xl font-bold mb-2">{item?.title}</h2>
                         <div className="items-center border !border-white rounded-full flex justify-center gap-2 w-fit px-4 py-1">
                             <TbTrophyFilled />
-                            <span className="text-sm font-medium ">{item?.coin} USD</span>
+                            <span className="text-sm font-medium ">{item?.entry_coin} USD</span>
                         </div>
                     </div>
-                    <span className="text-white bg-white/10 px-4 py-1 rounded-full backdrop-blur-[3px] text-sm font-semibold tracking-wider">@polatina</span>
+                    <span className="text-white bg-white/10 px-4 py-1 rounded-full backdrop-blur-[3px] text-sm font-semibold tracking-wider">@{item?.user?.name}</span>
                 </div>
             </div>
 

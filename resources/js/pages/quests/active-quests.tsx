@@ -7,7 +7,6 @@ import UserLayout from '@/layouts/user-layout'
 import React from 'react'
 
 export default function active({series}: any) {
-    console.log(series)
 
     const { t, direction } = useLocales()
     return (
@@ -15,7 +14,11 @@ export default function active({series}: any) {
             <ActiveQuestsBanner direction={direction} t={t} />
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
                 <ActiveQuestsFilter t={t} />
-                <QuestsSeries t={t} />
+                {
+                    series?.map((item: any) => (
+                        <QuestsSeries key={item.id} title={item.title} quests={item.quests} />
+                    ))
+                }
             </Container>
         </UserLayout>
     )

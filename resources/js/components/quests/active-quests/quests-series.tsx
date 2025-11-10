@@ -1,3 +1,4 @@
+import QuestCard from '@/components/home/newest/components/PhotoCard'
 import QuestSubmitCard from '@/components/shared/quest-card'
 import SectionHeading from '@/components/shared/SectionHeading'
 const questsData = [
@@ -54,13 +55,14 @@ const questsData = [
 ]
 
 
-export default function QuestsSeries({ t }: { t: (key: string) => string }) {
+export default function QuestsSeries({ title, quests }: { title: string, quests: any[] }) {
     return (
         <div>
-            <SectionHeading title={t('activeQuests.questSeries.title')} />
+            <SectionHeading title={title} />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                {questsData.map((quest) => (
-                    <QuestSubmitCard key={quest.id} quest={quest} href='/quests/single-quest-series' />
+                {quests.map((quest) => (
+                    // <QuestSubmitCard key={quest.id} quest={quest} href='/quests/single-quest-series' />
+                    <QuestCard key={quest.id} item={quest}  />
                 ))}
             </div>
         </div>

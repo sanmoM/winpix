@@ -28,7 +28,7 @@ function QuestSubmitCard({ quest, href }: QuestCardProps) {
         >
             <div className="relative h-56 w-full overflow-hidden bg-gray-100 dark:bg-gray-700">
                 <img
-                    src={quest.image || "/placeholder.svg"}
+                    src={"/storage/" + quest.image}
                     alt={quest.title}
                     className="object-cover transition-transform duration-300 w-full group-hover:scale-110 h-full"
                 />

@@ -128,6 +128,7 @@ class QuestController extends Controller
                 'endDate' => $quest->end_date,
                 'prizes' => $quest->prizes,
                 'image' => $quest->image,
+                'entry_coin' => $quest->entry_coin,
             ],
             'categories' => $categories
         ]);
@@ -169,6 +170,7 @@ class QuestController extends Controller
                     }
                 },
             ],
+            'entry_coin' => 'required|integer|min:0',
         ]);
 
 
@@ -192,6 +194,7 @@ class QuestController extends Controller
             'start_date' => $input['startDate'],
             'end_date' => $input['endDate'],
             'image' => $input['image'],
+            'entry_coin' => $input['entry_coin'],
         ]);
 
         // Update prizes

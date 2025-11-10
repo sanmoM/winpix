@@ -378,6 +378,10 @@
                     "label": "Title",
                     "placeholder": "Enter a title"
                 },
+                "entryCoin": {
+                    "label": "Entry Coin",
+                    "placeholder": "Enter an entry coin"
+                },
                 "category": {
                     "label": "Tag",
                     "placeholder": "Select a tag"

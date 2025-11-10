@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Help;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class HelpController extends Controller
 {
     public function index()
     {
-        $items = Help::where('status', 'Active')->get();
-        return Inertia::render('Admin/Help/Index',[
-            'items' => $items
+        $items = Help::orderBy('id', 'desc')->get();
+
+        return Inertia::render('Admin/Help/Index', [
+            'items' => $items,
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-
     public function create()
     {
         return Inertia::render('Admin/Help/Create');
@@ -35,14 +35,14 @@ class HelpController extends Controller
             'section' => 'required|string|max:255',
             'question' => 'required|string',
             'answer' => 'required',
+            'lang' => 'required',
         ]);
-
 
         Help::create($validated);
 
         return redirect()
-        ->route('admin.help.index')
-        ->with('success', 'Question saved successfully 🎉');
+            ->back()
+            ->with('success', 'Question saved successfully 🎉');
 
     }
 
@@ -60,6 +60,7 @@ class HelpController extends Controller
     public function edit(string $id)
     {
         $item = Help::findOrFail($id);
+
         return Inertia::render('Admin/Help/Edit', [
             'item' => $item,
         ]);
@@ -76,6 +77,7 @@ class HelpController extends Controller
             'section' => 'required|string|max:255',
             'question' => 'required|string',
             'answer' => 'required',
+            'lang' => 'required',
         ]);
 
         $item->update($validated);
@@ -89,7 +91,6 @@ class HelpController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-
     public function destroy($id)
     {
         $help = Help::findOrFail($id);

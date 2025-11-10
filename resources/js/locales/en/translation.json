@@ -398,6 +398,10 @@
                     "label": "Tag",
                     "placeholder": "Select a tag"
                 },
+                "series": {
+                    "label": "Series",
+                    "placeholder": "Select a series"
+                },
                 "brief": {
                     "label": "Brief",
                     "placeholder": "Enter a brief"

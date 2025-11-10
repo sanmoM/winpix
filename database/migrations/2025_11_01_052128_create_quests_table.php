@@ -23,6 +23,9 @@ return new class extends Migration
             $table->foreignId('category_id')
                 ->constrained('quest_categories')
                 ->onDelete('cascade');
+            $table->foreignId('quest_series_id')
+                ->constrained('series')
+                ->onDelete('cascade');
 
             // ✅ Foreign key to users table (User model)
             $table->foreignId('user_id')

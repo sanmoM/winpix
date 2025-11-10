@@ -61,9 +61,12 @@ class FrontendController extends Controller
         return Inertia::render('quests/quest-series');
     }
 
-    public function singleQuestSeries()
+    public function singleQuestSeries($id)
     {
-        return Inertia::render('quests/single-quest-series');
+        $series = Series::with('quests.user', 'quests.category')->findOrFail($id);
+        return Inertia::render('quests/single-quest-series', [
+            'series' => $series,
+        ]);
     }
 
     public function enteredQuests()

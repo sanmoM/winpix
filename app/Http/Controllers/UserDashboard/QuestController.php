@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Prize;
 use App\Models\Quest;
 use App\Models\QuestCategory;
+use App\Models\Series;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
@@ -29,8 +30,10 @@ class QuestController extends Controller
     public function create()
     {
         $categories = QuestCategory::all();
+        $series = Series::all();
         return Inertia::render('user-dashboard/quest/create-quest', [
-            'categories' => $categories
+            'categories' => $categories,
+            'series' => $series,
         ]);
     }
 
@@ -46,7 +49,7 @@ class QuestController extends Controller
         // dd($userId);
 
         $input = $request->all();
-
+// return $input;
         // Validate request
         $validator = Validator::make($input, [
             'title' => 'required|string|max:255',
@@ -64,6 +67,7 @@ class QuestController extends Controller
             'level_requirement' => 'nullable|string|max:255',
             'categories_requirement' => 'nullable|string|max:255',
             'copyright_requirement' => 'nullable|string|max:255',
+            'quest_series_id' => 'required|integer|exists:series,id',
         ]);
 
         if ($validator->fails()) {
@@ -89,6 +93,7 @@ class QuestController extends Controller
             'level_requirement' => $input['level_requirement'],
             'categories_requirement' => $input['categories_requirement'],
             'copyright_requirement' => $input['copyright_requirement'],
+            'quest_series_id' => $input['quest_series_id'],
         ]);
 
         // Create prizes
@@ -119,6 +124,7 @@ class QuestController extends Controller
     public function edit(string $id)
     {
         $quest = Quest::with('prizes')->findOrFail($id);
+        $series = Series::all();
         $categories = QuestCategory::all();
         return Inertia::render('user-dashboard/quest/edit-quest', [
             'quest' => [
@@ -134,8 +140,10 @@ class QuestController extends Controller
                 'level_requirement' => $quest->level_requirement,
                 'categories_requirement' => $quest->categories_requirement,
                 'copyright_requirement' => $quest->copyright_requirement,
+                'quest_series_id' => $quest->quest_series_id,
             ],
-            'categories' => $categories
+            'categories' => $categories,
+            'series' => $series,
         ]);
     }
 
@@ -147,6 +155,8 @@ class QuestController extends Controller
         $quest = Quest::with('prizes')->findOrFail($id);
 
         $input = $request->all();
+
+        // return $input;
 
         // Validate
         $validator = Validator::make($input, [
@@ -163,7 +173,6 @@ class QuestController extends Controller
             'prizes.*.title' => 'required|string|max:255',
             // Conditional validation for image
             'image' => [
-                'nullable',
                 function ($attribute, $value, $fail) {
                     if ($value instanceof \Illuminate\Http\UploadedFile) {
                         $validator = Validator::make([$attribute => $value], [
@@ -176,6 +185,10 @@ class QuestController extends Controller
                 },
             ],
             'entry_coin' => 'required|integer|min:0',
+            'level_requirement' => 'nullable|string|max:255',
+            'categories_requirement' => 'nullable|string|max:255',
+            'copyright_requirement' => 'nullable|string|max:255',
+            'quest_series_id' => 'integer|exists:series,id',
         ]);
 
 
@@ -203,6 +216,7 @@ class QuestController extends Controller
             'level_requirement' => $input['level_requirement'],
             'categories_requirement' => $input['categories_requirement'],
             'copyright_requirement' => $input['copyright_requirement'],
+            'quest_series_id' => $input['quest_series_id'],
         ]);
 
         // Update prizes

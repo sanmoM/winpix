@@ -33,11 +33,12 @@ interface Quest {
     level_requirement: string;
     categories_requirement: string;
     copyright_requirement: string;
+    quest_series_id: string;
 }
 
 
 export default function Dashboard() {
-    const { categories }: { categories: { id: number, name: string }[] } = usePage<any>().props;
+    const { categories, series }: { categories: { id: number, name: string }[] } = usePage<any>().props;
     const { t } = useLocales();
 
     const { data, setData, post, processing, errors, recentlySuccessful, reset } =
@@ -53,12 +54,18 @@ export default function Dashboard() {
             level_requirement: "",
             categories_requirement: "",
             copyright_requirement: "",
+            quest_series_id: "",
         });
 
 
     const categoryOptions = categories.map((category) => ({
         value: category.id,
         label: category.name,
+    }));
+
+    const seriesOptions = series.map((series) => ({
+        value: series.id,
+        label: series.title,
     }));
 
     const addPrizeRow = () => {
@@ -72,30 +79,6 @@ export default function Dashboard() {
         const newPrizes = data.prizes.filter((_, i) => i !== index);
         setData('prizes', newPrizes);
     };
-
-    const validateForm = () => {
-        const newErrors: Record<string, string> = {};
-
-        if (!data.title) newErrors.title = "Title is required";
-        if (!data.brief) newErrors.brief = "Brief is required";
-        if (!data.category_id) newErrors.category_id = "Category is required";
-        if (!data.startDate) newErrors.startDate = "Start date is required";
-        if (!data.endDate) newErrors.endDate = "End date is required";
-
-        data.prizes.forEach((prize, index) => {
-            if (prize.min === '' || Number(prize.min) < 0)
-                newErrors[`prizes.${index}.min`] = "Min must be >= 0";
-            if (prize.max === '' || Number(prize.max) < Number(prize.min))
-                newErrors[`prizes.${index}.max`] = "Max must be >= Min";
-            if (prize.coin === '' || Number(prize.coin) < 0)
-                newErrors[`prizes.${index}.coin`] = "Coin must be >= 0";
-            if (!prize.title)
-                newErrors[`prizes.${index}.title`] = "Title is required";
-        });
-
-        return newErrors;
-    };
-
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -176,23 +159,34 @@ export default function Dashboard() {
                             }
                             className='w-full max-w-auto'
                         />
-                        <div className="grid gap-2">
-                            <Label htmlFor="title">{t('dashboard.createQuest.inputs.entryCoin.label')}</Label>
-                            <Input
-                                type='number'
-                                id="start"
-                                name="start"
-                                value={data.entry_coin}
-                                onChange={(e) => {
-                                    setData("entry_coin", e.target.value)
-                                }
-                                }
-                                placeholder={t('dashboard.createQuest.inputs.entryCoin.placeholder')}
-                            />
-                            <InputError message={errors.entry_coin} />
-                        </div>
+                        <SelectInput
+                            id="series"
+                            name="series"
+                            label={t('dashboard.createQuest.inputs.series.label')}
+                            options={seriesOptions}
+                            value={data.quest_series_id}
+                            onChange={(value) =>
+                                setData('quest_series_id', value as string)
+                            }
+                            className='w-full max-w-auto'
+                        />
                     </div>
 
+                    <div className="grid gap-2">
+                        <Label htmlFor="title">{t('dashboard.createQuest.inputs.entryCoin.label')}</Label>
+                        <Input
+                            type='number'
+                            id="start"
+                            name="start"
+                            value={data.entry_coin}
+                            onChange={(e) => {
+                                setData("entry_coin", e.target.value)
+                            }
+                            }
+                            placeholder={t('dashboard.createQuest.inputs.entryCoin.placeholder')}
+                        />
+                        <InputError message={errors.entry_coin} />
+                    </div>
                     <div className='grid grid-cols-3 gap-4'>
                         <div className="grid gap-2">
                             <Label htmlFor="title">{t('dashboard.createQuest.inputs.level_requirement.label')}</Label>

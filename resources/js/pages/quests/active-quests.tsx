@@ -6,7 +6,9 @@ import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import React from 'react'
 
-export default function active() {
+export default function active({series}: any) {
+    console.log(series)
+
     const { t, direction } = useLocales()
     return (
         <UserLayout>

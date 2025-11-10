@@ -34,6 +34,11 @@ class Quest extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function questSeries()
+    {
+        return $this->belongsTo(Series::class, 'quest_series_id');
+    }
+
     public function category()
     {
         return $this->belongsTo(QuestCategory::class);

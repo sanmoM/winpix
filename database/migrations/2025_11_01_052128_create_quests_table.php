@@ -15,22 +15,24 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('brief');
-            $table->date('start_date');
-            $table->date('end_date');
             $table->string('image')->nullable();
             $table->enum('status', ['active', 'ended'])->default('active');
-            $table->integer("entry_coin");
+            $table->integer('entry_coin');
 
             // ✅ Foreign key to quest_categories
             $table->foreignId('category_id')
-                  ->constrained('quest_categories')
-                  ->onDelete('cascade');
+                ->constrained('quest_categories')
+                ->onDelete('cascade');
 
             // ✅ Foreign key to users table (User model)
             $table->foreignId('user_id')
-                  ->constrained('users')
-                  ->onDelete('cascade');
-
+                ->constrained('users')
+                ->onDelete('cascade');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->text('level_requirement')->nullable();
+            $table->text('categories_requirement')->nullable();
+            $table->text('copyright_requirement')->nullable();
             $table->timestamps();
         });
     }

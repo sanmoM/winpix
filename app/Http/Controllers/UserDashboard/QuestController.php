@@ -39,9 +39,15 @@ class QuestController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Get authenticated user
+        $user = auth()->user(); // full user model
+        $userId = $user->id;    // or just use auth()->id()
+        // dd($userId);
+
         $input = $request->all();
 
-        // Validate
+        // Validate request
         $validator = Validator::make($input, [
             'title' => 'required|string|max:255',
             'brief' => 'required|string|max:255',
@@ -54,10 +60,12 @@ class QuestController extends Controller
             'prizes.*.coin' => 'required|integer|min:0',
             'prizes.*.title' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'entry_coin' => 'required|integer|min:0',
         ]);
-        // if ($validator->fails()) {
-        //     dd($validator->errors()->toArray());
-        // }
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
         // Handle image upload
         if ($request->hasFile('image')) {
@@ -73,6 +81,8 @@ class QuestController extends Controller
             'end_date' => $input['endDate'],
             'image' => $input['image'] ?? null,
             'status' => 'active',
+            'user_id' => $userId,
+            'entry_coin' => $input['entry_coin'],
         ]);
 
         // Create prizes
@@ -86,8 +96,10 @@ class QuestController extends Controller
             ]);
         }
 
-        return "hellow";
+        return redirect()->route('user-dashboard.quest.index');
     }
+
+
 
 
 
@@ -116,6 +128,7 @@ class QuestController extends Controller
                 'endDate' => $quest->end_date,
                 'prizes' => $quest->prizes,
                 'image' => $quest->image,
+                'entry_coin' => $quest->entry_coin,
             ],
             'categories' => $categories
         ]);
@@ -157,6 +170,7 @@ class QuestController extends Controller
                     }
                 },
             ],
+            'entry_coin' => 'required|integer|min:0',
         ]);
 
 
@@ -180,6 +194,7 @@ class QuestController extends Controller
             'start_date' => $input['startDate'],
             'end_date' => $input['endDate'],
             'image' => $input['image'],
+            'entry_coin' => $input['entry_coin'],
         ]);
 
         // Update prizes
@@ -224,6 +239,9 @@ class QuestController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // delete prizes
+        Prize::where('quest_id', $id)->delete();
+        Quest::destroy($id);
+        return redirect()->route('user-dashboard.quest.index');
     }
 }

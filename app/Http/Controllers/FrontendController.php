@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quest;
 use App\Models\Redeem;
 use App\Models\Slider;
 use App\Models\Store;
@@ -13,11 +14,13 @@ class FrontendController extends Controller
     {
         $sliders = Slider::all();
         $user = auth()->user();
+        $new_quest = Quest::where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
         // if ($user) {
         //     return redirect("/discover");
         // }
         return Inertia::render('home', [
-            'sliders' => $sliders
+            'sliders' => $sliders,
+            'new_quest' => $new_quest,
         ]);
     }
 

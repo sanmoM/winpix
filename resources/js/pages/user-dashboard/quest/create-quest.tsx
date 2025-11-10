@@ -29,6 +29,7 @@ interface Quest {
     endDate: string;
     prizes: Prize[];
     image: File | null | string;
+    entry_coin: string;
 }
 
 
@@ -45,6 +46,7 @@ export default function Dashboard() {
             endDate: '',
             prizes: [{ min: "", max: "", coin: "", title: "" }],
             image: null,
+            entry_coin: "",
         });
 
 
@@ -91,15 +93,6 @@ export default function Dashboard() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(data)
-        // const clientErrors = validateForm();
-
-        // if (Object.keys(clientErrors).length > 0) {
-        //     // Show errors in the frontend
-        //     console.log(clientErrors);
-        //     // Optionally set them in your state to display
-        //     return;
-        // }
 
         post(route('user-dashboard.quest.store'), {
             onSuccess: () => reset(),
@@ -165,17 +158,34 @@ export default function Dashboard() {
                         />
                         <InputError message={errors.brief} />
                     </div>
-                    <SelectInput
-                        id="tag"
-                        name="tag"
-                        label={t('dashboard.createQuest.inputs.category.label')}
-                        options={categoryOptions}
-                        value={data.category_id}
-                        onChange={(value) =>
-                            setData('category_id', value as string)
-                        }
-                        className='w-full max-w-auto'
-                    />
+                    <div className='grid grid-cols-2 gap-4'>
+                        <SelectInput
+                            id="tag"
+                            name="tag"
+                            label={t('dashboard.createQuest.inputs.category.label')}
+                            options={categoryOptions}
+                            value={data.category_id}
+                            onChange={(value) =>
+                                setData('category_id', value as string)
+                            }
+                            className='w-full max-w-auto'
+                        />
+                        <div className="grid gap-2">
+                            <Label htmlFor="title">{t('dashboard.createQuest.inputs.entryCoin.label')}</Label>
+                            <Input
+                                type='number'
+                                id="start"
+                                name="start"
+                                value={data.entry_coin}
+                                onChange={(e) => {
+                                    setData("entry_coin", e.target.value)
+                                }
+                                }
+                                placeholder={t('dashboard.createQuest.inputs.entryCoin.placeholder')}
+                            />
+                            <InputError message={errors.entry_coin} />
+                        </div>
+                    </div>
 
                     {/* Start Date & End Date Row */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -183,6 +193,7 @@ export default function Dashboard() {
                         <div className="grid gap-2">
                             <Label htmlFor="startDate">{t('dashboard.createQuest.inputs.startDate.label')}</Label>
                             <DateInput
+                                value={data.startDate}
                                 onChange={(value) =>
                                     setData('startDate', value)
                                 } />
@@ -193,6 +204,7 @@ export default function Dashboard() {
                         <div className="grid gap-2">
                             <Label htmlFor="endDate">{t('dashboard.createQuest.inputs.endDate.label')}</Label>
                             <DateInput
+                                value={data.endDate}
                                 onChange={(value) =>
                                     setData('endDate', value)
                                 } />

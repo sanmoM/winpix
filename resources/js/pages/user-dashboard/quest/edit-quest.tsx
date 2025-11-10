@@ -30,6 +30,7 @@ interface Quest {
     endDate: string;
     prizes: Prize[];
     image: File | null | string;
+    entry_coin: string;
 }
 
 // Utility to format ISO date string to YYYY-MM-DD
@@ -61,11 +62,10 @@ export default function EditQuest() {
             endDate: formatDate(quest.endDate),
             prizes: quest.prizes,
             image: quest.image || null,
+            entry_coin: quest.entry_coin,
         });
 
-    console.log('startDate', formatDate(quest.startDate), typeof formatDate(quest.startDate));
-    console.log('endDate', quest.endDate, typeof quest.endDate);
-    console.log(data)
+        console.log(data)
 
 
     const categoryOptions = categories.map((category) => ({
@@ -138,16 +138,32 @@ export default function EditQuest() {
                     </div>
 
                     {/* Category */}
-                    <SelectInput
-                        id="category"
-                        name="category"
-                        label={t('dashboard.createQuest.inputs.category.label')}
-                        options={categoryOptions}
-                        value={data.category_id}
-                        onChange={(value) => setData('category_id', value as string)}
-                        className='w-full max-w-auto'
-                    />
-
+                    <div className='grid grid-cols-2 gap-4'>
+                        <SelectInput
+                            id="category"
+                            name="category"
+                            label={t('dashboard.createQuest.inputs.category.label')}
+                            options={categoryOptions}
+                            value={data.category_id}
+                            onChange={(value) => setData('category_id', value as string)}
+                            className='w-full max-w-auto'
+                        />
+                        <div className="grid gap-2">
+                            <Label htmlFor="title">{t('dashboard.createQuest.inputs.entryCoin.label')}</Label>
+                            <Input
+                                type='number'
+                                id="start"
+                                name="start"
+                                value={data.entry_coin}
+                                onChange={(e) => {
+                                    setData("entry_coin", e.target.value)
+                                }
+                                }
+                                placeholder={t('dashboard.createQuest.inputs.entryCoin.placeholder')}
+                            />
+                            <InputError message={errors.entry_coin} />
+                        </div>
+                    </div>
                     {/* Dates */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="grid gap-2">

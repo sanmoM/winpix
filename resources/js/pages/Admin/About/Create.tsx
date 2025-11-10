@@ -22,10 +22,18 @@ export default function Create() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // post(route('admin.about.store'));
-        translateVariants(data, import.meta.env.VITE_GEMINI_API_KEY).then((translatedData) => {
-            console.log(translatedData)
-        })
+        post(route('admin.about.store'));
+        // translateVariants(data, import.meta.env.VITE_GEMINI_API_KEY).then((translatedData) => {
+        //     fetch(route('admin.about.store'), {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(translatedData),
+        //     }).then((response) => {
+        //         console.log(response)
+        //     })
+        // })
     };
 
     async function translateVariants(data, apiKey) {

@@ -31,6 +31,9 @@ interface Quest {
     prizes: Prize[];
     image: File | null | string;
     entry_coin: string;
+    level_requirement: string;
+    categories_requirement: string;
+    copyright_requirement: string;
 }
 
 // Utility to format ISO date string to YYYY-MM-DD
@@ -63,9 +66,10 @@ export default function EditQuest() {
             prizes: quest.prizes,
             image: quest.image || null,
             entry_coin: quest.entry_coin,
+            level_requirement: quest.level_requirement,
+            categories_requirement: quest.categories_requirement,
+            copyright_requirement: quest.copyright_requirement,
         });
-
-        console.log(data)
 
 
     const categoryOptions = categories.map((category) => ({
@@ -162,6 +166,51 @@ export default function EditQuest() {
                                 placeholder={t('dashboard.createQuest.inputs.entryCoin.placeholder')}
                             />
                             <InputError message={errors.entry_coin} />
+                        </div>
+                    </div>
+
+                    <div className='grid grid-cols-3 gap-4'>
+                        <div className="grid gap-2">
+                            <Label htmlFor="title">{t('dashboard.createQuest.inputs.level_requirement.label')}</Label>
+                            <Input
+                                id="level_require"
+                                name="level_require"
+                                value={data.level_requirement}
+                                onChange={(e) => {
+                                    setData("level_requirement", e.target.value)
+                                }
+                                }
+                                placeholder={t('dashboard.createQuest.inputs.level_requirement.placeholder')}
+                            />
+                            <InputError message={errors.level_requirement} />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="title">{t('dashboard.createQuest.inputs.categories_requirement.label')}</Label>
+                            <Input
+                                id="categories_require"
+                                name="categories_require"
+                                value={data.categories_requirement}
+                                onChange={(e) => {
+                                    setData("categories_requirement", e.target.value)
+                                }
+                                }
+                                placeholder={t('dashboard.createQuest.inputs.categories_requirement.placeholder')}
+                            />
+                            <InputError message={errors.categories_requirement} />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="title">{t('dashboard.createQuest.inputs.copyright_requirement.label')}</Label>
+                            <Input
+                                id="copyright_require"
+                                name="copyright_require"
+                                value={data.copyright_requirement}
+                                onChange={(e) => {
+                                    setData("copyright_requirement", e.target.value)
+                                }
+                                }
+                                placeholder={t('dashboard.createQuest.inputs.copyright_requirement.placeholder')}
+                            />
+                            <InputError message={errors.copyright_requirement} />
                         </div>
                     </div>
                     {/* Dates */}

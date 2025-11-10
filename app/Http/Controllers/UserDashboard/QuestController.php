@@ -61,7 +61,9 @@ class QuestController extends Controller
             'prizes.*.title' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'entry_coin' => 'required|integer|min:0',
-
+            'level_requirement' => 'nullable|string|max:255',
+            'categories_requirement' => 'nullable|string|max:255',
+            'copyright_requirement' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -84,6 +86,9 @@ class QuestController extends Controller
             'status' => 'active',
             'user_id' => $userId,
             'entry_coin' => $input['entry_coin'],
+            'level_requirement' => $input['level_requirement'],
+            'categories_requirement' => $input['categories_requirement'],
+            'copyright_requirement' => $input['copyright_requirement'],
         ]);
 
         // Create prizes
@@ -126,6 +131,9 @@ class QuestController extends Controller
                 'prizes' => $quest->prizes,
                 'image' => $quest->image,
                 'entry_coin' => $quest->entry_coin,
+                'level_requirement' => $quest->level_requirement,
+                'categories_requirement' => $quest->categories_requirement,
+                'copyright_requirement' => $quest->copyright_requirement,
             ],
             'categories' => $categories
         ]);
@@ -192,6 +200,9 @@ class QuestController extends Controller
             'end_date' => $input['endDate'],
             'image' => $input['image'],
             'entry_coin' => $input['entry_coin'],
+            'level_requirement' => $input['level_requirement'],
+            'categories_requirement' => $input['categories_requirement'],
+            'copyright_requirement' => $input['copyright_requirement'],
         ]);
 
         // Update prizes

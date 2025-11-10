@@ -197,7 +197,6 @@ export default function Dashboard() {
                         <div className="grid gap-2">
                             <Label htmlFor="title">{t('dashboard.createQuest.inputs.level_requirement.label')}</Label>
                             <Input
-                                type='number'
                                 id="level_require"
                                 name="level_require"
                                 value={data.level_requirement}
@@ -212,7 +211,6 @@ export default function Dashboard() {
                         <div className="grid gap-2">
                             <Label htmlFor="title">{t('dashboard.createQuest.inputs.categories_requirement.label')}</Label>
                             <Input
-                                type='number'
                                 id="categories_require"
                                 name="categories_require"
                                 value={data.categories_requirement}
@@ -227,7 +225,6 @@ export default function Dashboard() {
                         <div className="grid gap-2">
                             <Label htmlFor="title">{t('dashboard.createQuest.inputs.copyright_requirement.label')}</Label>
                             <Input
-                                type='number'
                                 id="copyright_require"
                                 name="copyright_require"
                                 value={data.copyright_requirement}

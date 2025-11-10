@@ -6,14 +6,19 @@ import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import React from 'react'
 
-export default function active() {
+export default function active({ series }: any) {
+
     const { t, direction } = useLocales()
     return (
         <UserLayout>
             <ActiveQuestsBanner direction={direction} t={t} />
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
                 <ActiveQuestsFilter t={t} />
-                <QuestsSeries t={t} />
+                {
+                    series?.map((item: any) => (
+                        <QuestsSeries key={item.id} title={item.title} quests={item.quests} href={`/quests/single-quest-series/${item?.id}`} />
+                    ))
+                }
             </Container>
         </UserLayout>
     )

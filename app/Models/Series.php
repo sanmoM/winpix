@@ -12,4 +12,9 @@ class Series extends Model
         'description',
         'status'
     ];
+
+    public function quests()
+    {
+        return $this->hasMany(Quest::class, 'quest_series_id');
+    }
 }

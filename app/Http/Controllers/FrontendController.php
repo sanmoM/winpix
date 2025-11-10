@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Quest;
 use App\Models\Redeem;
+use App\Models\Series;
 use App\Models\Slider;
 use App\Models\Store;
 use Inertia\Inertia;
@@ -42,7 +43,10 @@ class FrontendController extends Controller
 
     public function activeQuests()
     {
-        return Inertia::render('quests/active-quests');
+        $series = Series::with('quests.user', 'quests.category')->get();
+        return Inertia::render('quests/active-quests', [
+            'series' => $series
+        ]);
     }
 
     public function singleQuest($id)
@@ -57,9 +61,12 @@ class FrontendController extends Controller
         return Inertia::render('quests/quest-series');
     }
 
-    public function singleQuestSeries()
+    public function singleQuestSeries($id)
     {
-        return Inertia::render('quests/single-quest-series');
+        $series = Series::with('quests.user', 'quests.category')->findOrFail($id);
+        return Inertia::render('quests/single-quest-series', [
+            'series' => $series,
+        ]);
     }
 
     public function enteredQuests()

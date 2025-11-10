@@ -5,7 +5,6 @@ import { TbTrophyFilled } from "react-icons/tb";
 
 export default function QuestCard({ item }: { item: Quest }) {
 
-    console.log(item)
     return (
         <div className="relative block w-full rounded-2xl overflow-hidden group cursor-pointer">
 

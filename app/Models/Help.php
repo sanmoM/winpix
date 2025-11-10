@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Help extends Model
 {
-
     protected $fillable = [
         'section',
         'question',
         'answer',
+        'lang',
         'status',
     ];
-
 }

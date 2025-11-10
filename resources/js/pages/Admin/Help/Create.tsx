@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -14,16 +14,23 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Create() {
-    const { data, setData, post, processing } = useForm({
-        section: '',
+    const { data, setData, post, reset, processing, errors } = useForm({
+        section: 'Getting_Start',
         question: '',
         answer: '',
+        lang: 'ar',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('admin.help.store'));
+        post(route('admin.help.store'), {
+            onSuccess: () => {
+                reset();
+            },
+        });
     };
+    const isArabic = data.lang === 'ar';
+    const dir = isArabic ? 'rtl' : 'ltr';
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -33,7 +40,25 @@ export default function Create() {
                 className="flex flex-col space-y-4 p-6"
             >
                 <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="section">Section</Label>
+                    <Label htmlFor="lang">Language</Label>
+                    <select
+                        id="lang"
+                        value={data.lang}
+                        onChange={(e) => setData('lang', e.target.value)}
+                        className="w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                    >
+                        <option value="ar">Arabic</option>
+                        <option value="en">English</option>
+                        <option value="de">German</option>
+                        <option value="du">Dutch</option>
+                    </select>
+
+                    {errors.lang && (
+                        <p className="text-sm text-red-600">{errors.lang}</p>
+                    )}
+                </div>
+                <div className="grid w-full items-center gap-3">
+                    <Label htmlFor="section">Question Type</Label>
                     <select
                         id="section"
                         value={data.section}
@@ -54,33 +79,58 @@ export default function Create() {
                         </option>
                         <option value="Contact_Support">Contact Support</option>
                     </select>
+
+                    {errors.section && (
+                        <p className="text-sm text-red-600">{errors.section}</p>
+                    )}
                 </div>
 
                 {/* Question */}
-                <Label htmlFor="question">Question</Label>
-                <Input
-                    id="question"
-                    type="text"
-                    value={data.question}
-                    onChange={(e) => setData('question', e.target.value)}
-                    placeholder="Enter question"
-                />
-
+                <div className="grid w-full items-center gap-3">
+                    <Label htmlFor="question">Question</Label>
+                    <Input
+                        dir={dir}
+                        id="question"
+                        type="text"
+                        value={data.question}
+                        onChange={(e) => setData('question', e.target.value)}
+                        placeholder="Enter question"
+                    />
+                    {errors.question && (
+                        <p className="text-sm text-red-600">
+                            {errors.question}
+                        </p>
+                    )}
+                </div>
                 {/* Answer */}
-                <Label htmlFor="answer">Answer</Label>
-                <RichTextEditor
-                    modelValue={data.answer}
-                    onChange={(val) => setData('answer', val)}
-                />
+                <div className="grid w-full items-center gap-3">
+                    <Label htmlFor="answer">Answer</Label>
+                    <RichTextEditor
+                        dir={dir}
+                        modelValue={data.answer}
+                        onChange={(val) => setData('answer', val)}
+                    />
+                    {errors.answer && (
+                        <p className="text-sm text-red-600">{errors.answer}</p>
+                    )}
+                </div>
+                {/* Action Buttons */}
+                <div className="flex items-center justify-end space-x-4 pt-4">
+                    <Link
+                        href={route('admin.help.index')}
+                        className="w-28 rounded-lg border border-gray-300 px-6 py-2 text-center font-semibold text-gray-700 hover:bg-gray-100"
+                    >
+                        Back
+                    </Link>
 
-                {/* Submit */}
-                <button
-                    type="submit"
-                    className="w-28 rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700"
-                    disabled={processing}
-                >
-                    {processing ? 'Saving...' : 'Save'}
-                </button>
+                    <button
+                        type="submit"
+                        className="w-28 cursor-pointer rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700 disabled:opacity-70"
+                        disabled={processing}
+                    >
+                        {processing ? 'Saving...' : 'Save'}
+                    </button>
+                </div>
             </form>
         </AppLayout>
     );

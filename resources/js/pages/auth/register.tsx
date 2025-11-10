@@ -12,10 +12,7 @@ import AuthLayout from '@/layouts/auth-layout';
 
 export default function Register() {
     return (
-        <AuthLayout
-            title="Create an account"
-            description="Enter your details below to create your account"
-        >
+        <AuthLayout title="Create an account">
             <Head title="Register" />
             <Form
                 {...RegisteredUserController.store.form()}
@@ -45,7 +42,7 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                                <Label htmlFor="email">Email</Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -53,7 +50,7 @@ export default function Register() {
                                     tabIndex={2}
                                     autoComplete="email"
                                     name="email"
-                                    placeholder="email@example.com"
+                                    placeholder="Enter your email"
                                 />
                                 <InputError message={errors.email} />
                             </div>
@@ -66,7 +63,7 @@ export default function Register() {
                                     tabIndex={3}
                                     autoComplete="new-password"
                                     name="password"
-                                    placeholder="Password"
+                                    placeholder="Enter your password"
                                 />
                                 <InputError message={errors.password} />
                             </div>
@@ -82,7 +79,7 @@ export default function Register() {
                                     tabIndex={4}
                                     autoComplete="new-password"
                                     name="password_confirmation"
-                                    placeholder="Confirm password"
+                                    placeholder="Confirm your password"
                                 />
                                 <InputError
                                     message={errors.password_confirmation}

@@ -23,14 +23,16 @@ interface EditProps {
         section: string;
         question: string;
         answer: string;
+        lang: string;
     };
 }
 
 export default function Edit({ item }: EditProps) {
-    const { data, setData, put, processing } = useForm({
+    const { data, setData, put, errors, processing } = useForm({
         section: item.section,
         question: item.question,
         answer: item.answer,
+        lang: item.lang,
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -46,6 +48,24 @@ export default function Edit({ item }: EditProps) {
                 onSubmit={handleSubmit}
                 className="flex flex-col space-y-4 p-6"
             >
+                <div className="grid w-full items-center gap-3">
+                    <Label htmlFor="lang">Language</Label>
+                    <select
+                        id="lang"
+                        value={data.lang}
+                        onChange={(e) => setData('lang', e.target.value)}
+                        className="w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                    >
+                        <option value="ar">Arabic</option>
+                        <option value="en">English</option>
+                        <option value="de">German</option>
+                        <option value="du">Dutch</option>
+                    </select>
+
+                    {errors.lang && (
+                        <p className="text-sm text-red-600">{errors.lang}</p>
+                    )}
+                </div>
                 {/* Section */}
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="section">Section</Label>

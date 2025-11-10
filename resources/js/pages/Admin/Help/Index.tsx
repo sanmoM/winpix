@@ -18,6 +18,7 @@ interface HelpItem {
     section: string;
     question: string;
     answer: string;
+    lang: string;
     status: string;
 }
 
@@ -70,14 +71,13 @@ export default function Index({
                             <th className="px-4 py-3">#</th>
                             <th className="px-4 py-3">Section</th>
                             <th className="px-4 py-3">Question</th>
-                            <th className="px-4 py-3">Answer</th>
                             <th className="px-4 py-3">Status</th>
-                            <th className="px-4 py-3 text-right">Actions</th>
+                            <th className="px-4 py-3 !text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {items?.length > 0 ? (
-                            items.map((item, index) => (
+                            items?.map((item, index) => (
                                 <tr
                                     key={item.id}
                                     className="border-t transition hover:bg-amber-50"
@@ -92,9 +92,6 @@ export default function Index({
                                         {item?.question}
                                     </td>
                                     <td className="px-4 py-3">
-                                        {item?.answer}
-                                    </td>
-                                    <td className="px-4 py-3">
                                         <Badge
                                             className={
                                                 item?.status === 'Active'
@@ -105,7 +102,7 @@ export default function Index({
                                             {item?.status}
                                         </Badge>
                                     </td>
-                                    <td className="space-x-3 px-4 py-3 text-right">
+                                    <td className="space-x-3 px-4 py-3 !text-right">
                                         <Link
                                             href={route(
                                                 'admin.help.edit',

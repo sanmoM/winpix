@@ -2,23 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quest;
+use App\Models\Redeem;
+use App\Models\Slider;
+use App\Models\Store;
 use Inertia\Inertia;
 
 class FrontendController extends Controller
 {
     public function home()
     {
-        return Inertia::render('home');
+        $sliders = Slider::all();
+        $user = auth()->user();
+        $new_quest = Quest::where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
+        // if ($user) {
+        //     return redirect("/discover");
+        // }
+        return Inertia::render('home', [
+            'sliders' => $sliders,
+            'new_quest' => $new_quest,
+        ]);
     }
 
     public function store()
     {
-        return Inertia::render('store');
+        $coinsPricing = Store::all();
+        return Inertia::render('store', [
+            'coinsPricing' => $coinsPricing
+        ]);
     }
 
     public function redeem()
     {
-        return Inertia::render('redeem');
+        $coinsPricing = Redeem::all();
+        return Inertia::render('redeem', [
+            'prizes' => $coinsPricing
+        ]);
     }
 
     public function activeQuests()

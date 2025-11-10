@@ -13,14 +13,14 @@ export const mainNavItemsEN: NavItem[] = [
         href: route('dashboard'),
         icon: LayoutGrid,
       },
-      {
-        title: 'Home',
-        href: route('home'),
-        icon: LayoutGrid,
-      },
+      // {
+      //   title: 'Home',
+      //   href: route('home'),
+      //   icon: LayoutGrid,
+      // },
       {
         title: 'Create Quest',
-        // href: route('create'),
+        href: route('user-dashboard.quest.index'),
         icon: LayoutGrid,
       },
       {
@@ -47,14 +47,14 @@ export const mainNavItemsAR: NavItem[] = [
         href: route('dashboard'),
         icon: LayoutGrid,
       },
-      {
-        title: 'الصفحة الرئيسية',
-        href: route('home'),
-        icon: LayoutGrid,
-      },
+      // {
+      //   title: 'الصفحة الرئيسية',
+      //   href: route('home'),
+      //   icon: LayoutGrid,
+      // },
       {
         title: 'إنشاء مهمة',
-        href: "route('create')",
+        href: route('user-dashboard.quest.index'),
         icon: LayoutGrid,
       },
       {

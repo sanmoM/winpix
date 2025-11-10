@@ -1,3 +1,4 @@
+import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
@@ -26,6 +27,7 @@ interface Props {
 export default function Create({ flash }: Props) {
     const { data, setData, post, errors, processing, reset } = useForm({
         name: '',
+        description: '',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -63,6 +65,19 @@ export default function Create({ flash }: Props) {
                     />
                     {errors.name && (
                         <p className="text-sm text-red-600">{errors.name}</p>
+                    )}
+                </div>
+                <div className="grid w-full items-center gap-2">
+                    <Label htmlFor="name" className="font-semibold">
+                        Description <span className="text-red-600">*</span>
+                    </Label>
+                    <TextAreaInput
+                        value={data.description}
+                        onChange={(e) => setData('description', e.target.value)}
+                        placeholder="Enter Description"
+                    />
+                    {errors.name && (
+                        <p className="text-sm text-red-600">{errors.description}</p>
                     )}
                 </div>
 

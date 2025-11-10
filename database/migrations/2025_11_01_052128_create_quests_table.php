@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
     /**
      * Run the migrations.
      */
@@ -20,12 +19,24 @@ return new class extends Migration
             $table->date('end_date');
             $table->string('image')->nullable();
             $table->enum('status', ['active', 'ended'])->default('active');
-            $table->foreignId('category_id')->constrained('quest_categories')->onDelete('cascade');
+
+            // ✅ Foreign key to quest_categories
+            $table->foreignId('category_id')
+                  ->constrained('quest_categories')
+                  ->onDelete('cascade');
+
+            // ✅ Foreign key to users table (User model)
+            $table->foreignId('user_id')
+                  ->constrained('users')
+                  ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
 
-    
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('quests');

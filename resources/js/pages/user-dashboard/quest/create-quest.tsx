@@ -183,6 +183,7 @@ export default function Dashboard() {
                         <div className="grid gap-2">
                             <Label htmlFor="startDate">{t('dashboard.createQuest.inputs.startDate.label')}</Label>
                             <DateInput
+                            value={data.startDate}
                                 onChange={(value) =>
                                     setData('startDate', value)
                                 } />
@@ -193,6 +194,7 @@ export default function Dashboard() {
                         <div className="grid gap-2">
                             <Label htmlFor="endDate">{t('dashboard.createQuest.inputs.endDate.label')}</Label>
                             <DateInput
+                                value={data.endDate}
                                 onChange={(value) =>
                                     setData('endDate', value)
                                 } />

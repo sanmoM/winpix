@@ -16,6 +16,7 @@ class Quest extends Model
         'image',
         'status',
         'category_id',
+        'user_id',
     ];
     // Define the relation to prizes
     public function prizes()

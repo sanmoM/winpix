@@ -39,9 +39,15 @@ class QuestController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Get authenticated user
+        $user = auth()->user(); // full user model
+        $userId = $user->id;    // or just use auth()->id()
+        // dd($userId);
+
         $input = $request->all();
 
-        // Validate
+        // Validate request
         $validator = Validator::make($input, [
             'title' => 'required|string|max:255',
             'brief' => 'required|string|max:255',
@@ -55,9 +61,10 @@ class QuestController extends Controller
             'prizes.*.title' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        // if ($validator->fails()) {
-        //     dd($validator->errors()->toArray());
-        // }
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
         // Handle image upload
         if ($request->hasFile('image')) {
@@ -73,6 +80,7 @@ class QuestController extends Controller
             'end_date' => $input['endDate'],
             'image' => $input['image'] ?? null,
             'status' => 'active',
+            'user_id' => $userId,
         ]);
 
         // Create prizes
@@ -86,8 +94,10 @@ class QuestController extends Controller
             ]);
         }
 
-        return "hellow";
+        return redirect()->route('user-dashboard.quest.index');
     }
+
+
 
 
 
@@ -224,6 +234,9 @@ class QuestController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // delete prizes
+        Prize::where('quest_id', $id)->delete();
+        Quest::destroy($id);
+        return redirect()->route('user-dashboard.quest.index');
     }
 }

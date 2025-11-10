@@ -22,8 +22,63 @@ export default function Create() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('admin.about.store'));
+        // post(route('admin.about.store'));
+        translateVariants(data, import.meta.env.VITE_GEMINI_API_KEY).then((translatedData) => {
+            console.log(translatedData)
+        })
     };
+
+    async function translateVariants(data, apiKey) {
+        if (!apiKey) throw new Error("Gemini API key is required");
+
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+        const jsonInput = JSON.stringify(data);
+        const prompt = `
+Translate the following JSON object into English and Arabic.
+Return an array with exactly two JSON objects:
+- One with lang = 'en' (English translations)
+- One with lang = 'ar' (Arabic translations)
+Maintain the same keys as the original object.
+Input: ${jsonInput}
+`;
+
+        const payload = {
+            contents: [
+                {
+                    role: "user",
+                    parts: [{ text: prompt }]
+                }
+            ]
+        };
+
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error?.message || "Unknown API error");
+        }
+
+        const result = await response.json();
+        let text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        if (!text) throw new Error("No valid translation returned from Gemini");
+
+        // ✅ Strip Markdown code blocks if present
+        text = text.replace(/^```json\s*/, "").replace(/\s*```$/, "").trim();
+
+        const translatedArray = JSON.parse(text);
+
+        if (!Array.isArray(translatedArray)) {
+            throw new Error(`Invalid translation format: ${text}`);
+        }
+
+        return translatedArray;
+    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

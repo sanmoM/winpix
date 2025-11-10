@@ -3,7 +3,7 @@ import useLocales from "@/hooks/useLocales";
 import { cn } from "@/lib/utils";
 import React from "react";
 
-const Creator = ({ containerClassName, infoContainerClassName, imageClassName, followBtnClassName, children, nameClassName, imageContainerClassName, btnText, onClick }: { containerClassName?: string, infoContainerClassName?: string, imageClassName?: string, followBtnClassName?: string, children?: React.ReactNode, nameClassName?: string, imageContainerClassName?: string, btnText?: string, onClick?: () => void }) => {
+const Creator = ({ containerClassName, infoContainerClassName, imageClassName, followBtnClassName, children, nameClassName, imageContainerClassName, btnText, onClick, user }: { containerClassName?: string, infoContainerClassName?: string, imageClassName?: string, followBtnClassName?: string, children?: React.ReactNode, nameClassName?: string, imageContainerClassName?: string, btnText?: string, onClick?: () => void, user: any }) => {
     const { t } = useLocales()
     const socialIcons = [
         { Icon: TwitterIcon, href: '#twitter', ariaLabel: 'Twitter' },
@@ -17,7 +17,7 @@ const Creator = ({ containerClassName, infoContainerClassName, imageClassName, f
             {/* Creator Name and Social Links */}
             <div className={cn("flex flex-col lg:items-end  lg:justify-end", infoContainerClassName)}>
                 <span className={cn("text-2xl font-semibold", nameClassName)}>
-                    hasmonaut
+                    {user?.name}
                 </span>
                 <div className="flex space-x-4 mt-1 md:mt-2">
                     {socialIcons.map(({ Icon, href, ariaLabel }) => (
@@ -30,7 +30,7 @@ const Creator = ({ containerClassName, infoContainerClassName, imageClassName, f
             {/* Profile Picture */}
             <div className={cn("relative", imageContainerClassName)}>
                 <img
-                    src="https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.jpg?s=612x612&w=0&k=20&c=9zbG2-9fl741fbTWw5fNgcEEe4ll-JegrGlQQ6m54rg="
+                    src={user?.image ? "/storage/" + user?.image : "/images/user-avatar.png"}
                     alt="hasmonaut's profile"
                     className={cn("w-20 h-20 rounded-full object-cover object-top border-2", imageClassName)}
                 />

@@ -8,7 +8,7 @@ import GetApp from '../components/home/get-app';
 import Newest from '../components/home/newest/Newest';
 
 export default function Home() {
-    const { sliders, new_quest } = usePage().props;
+    const { sliders, new_quest } = usePage<any>().props;
     const { t } = useLocales();
     return (
         <UserLayout>

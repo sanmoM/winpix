@@ -35,6 +35,7 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         // return "test";
         $validated = $request->validate([
             'title' => 'required|string|max:255',

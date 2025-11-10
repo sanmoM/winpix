@@ -1,4 +1,5 @@
 type Quest = {
+    id: number,
     image: string,
     title: string,
     subtitle: string,

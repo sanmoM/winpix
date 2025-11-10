@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->string('image')->nullable();
             $table->enum('status', ['active', 'ended'])->default('active');
+            $table->integer("entry_coin");
 
             // ✅ Foreign key to quest_categories
             $table->foreignId('category_id')

@@ -60,6 +60,7 @@ class QuestController extends Controller
             'prizes.*.coin' => 'required|integer|min:0',
             'prizes.*.title' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'entry_coin' => 'required|integer|min:0',
         ]);
 
         if ($validator->fails()) {
@@ -81,6 +82,7 @@ class QuestController extends Controller
             'image' => $input['image'] ?? null,
             'status' => 'active',
             'user_id' => $userId,
+            'entry_coin' => $input['entry_coin'],
         ]);
 
         // Create prizes

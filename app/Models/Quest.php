@@ -18,6 +18,9 @@ class Quest extends Model
         'category_id',
         'user_id',
         'entry_coin',
+        'level_requirement',
+        'categories_requirement',
+        'copyright_requirement',
     ];
     // Define the relation to prizes
     public function prizes()

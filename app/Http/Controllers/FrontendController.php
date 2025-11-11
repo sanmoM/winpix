@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quest;
+use App\Models\QuestJoin;
 use App\Models\Redeem;
 use App\Models\Series;
 use App\Models\Slider;
@@ -11,6 +12,8 @@ use Inertia\Inertia;
 
 class FrontendController extends Controller
 {
+
+    // this all are get controller for frontend
     public function home()
     {
         $sliders = Slider::all();
@@ -115,5 +118,22 @@ class FrontendController extends Controller
     public function searchedHelps()
     {
         return Inertia::render('help/searched-helps');
+    }
+
+
+
+
+    // this all are the functional controller for handle user interaction
+    public function joinQuest($id)
+    {
+        $user = auth()->user();
+        request()->validate([
+            'quest_id' => 'required|integer|exists:quests,id'
+        ]);
+        QuestJoin::create([
+            'quest_id' => $id,
+            'user_id' => $user->id,
+        ]);
+        return redirect()->back();
     }
 }

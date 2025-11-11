@@ -10,7 +10,8 @@ class Series extends Model
         'image',
         'title',
         'description',
-        'status'
+        'status',
+        'user_id'
     ];
 
     public function quests()

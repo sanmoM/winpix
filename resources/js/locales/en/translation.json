@@ -98,7 +98,7 @@
             "voteText": "Vote"
         },
         "questSeries": {
-            "title": "Active Quests"
+            "title": "Quest Series"
         },
         "filter": {
             "sortAndFilter": "Sort & Filter",
@@ -112,7 +112,7 @@
         }
     },
     "questSeries": {
-        "title": "Active Quests"
+        "title": "Quest Series"
     },
     "endedQuests": {
         "tab": {

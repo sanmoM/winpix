@@ -35,6 +35,7 @@ class SeriesController extends Controller
      */
     public function store(Request $request)
     {
+        $user = $request->user();
         $validated = $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -49,6 +50,7 @@ class SeriesController extends Controller
        if ($request->hasFile('image')) {
             $file = $request->file('image')->store('uploads/series', 'public');
             $series->image = $file;
+            $series->user_id = $user->id;
        }
 
 

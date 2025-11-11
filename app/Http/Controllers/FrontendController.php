@@ -43,7 +43,7 @@ class FrontendController extends Controller
 
     public function activeQuests()
     {
-        $series = Series::with('quests.user', 'quests.category')->get();
+        $series = Series::with('quests.user', 'quests.category', 'user')->get();
         $quests = Quest::with(['category', 'user'])->where('status', 'active')->orderBy("created_at", 'desc')->take(5)->get();
         return Inertia::render('quests/active-quests', [
             'series' => $series,
@@ -60,7 +60,10 @@ class FrontendController extends Controller
 
     public function questSeries()
     {
-        return Inertia::render('quests/quest-series');
+        $series = Series::with('quests.user', 'quests.category', 'user')->get();
+        return Inertia::render('quests/quest-series', [
+            'series' => $series,
+        ]);
     }
 
     public function singleQuestSeries($id)

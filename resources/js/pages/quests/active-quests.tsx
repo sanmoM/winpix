@@ -16,7 +16,7 @@ export default function active({ series, quests }: any) {
                 <ActiveQuestsFilter t={t} />
                 {
                     series?.map((item: any) => (
-                        <QuestsSeries key={item.id} title={item.title} quests={item.quests} href={`/quests/single-quest-series/${item?.id}`} />
+                        <QuestsSeries key={item.id} title={t("activeQuests.questSeries.title")} series={series} href={`/quests/single-quest-series/${item?.id}`} />
                     ))
                 }
             </Container>

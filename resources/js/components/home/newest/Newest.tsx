@@ -1,6 +1,6 @@
 import { Quest } from "@/types/quest";
 import SectionHeading from "../../shared/SectionHeading";
-import QuestCard from "./components/PhotoCard";
+import Card from "./components/Card";
 import { Link } from "@inertiajs/react";
 export default function Newest({ t, newQuest }: { t: any, newQuest: Quest[] }) {
     return (
@@ -10,7 +10,7 @@ export default function Newest({ t, newQuest }: { t: any, newQuest: Quest[] }) {
                 {
                     newQuest?.map((item: Quest, index: number) => (
                         <Link className="block" href={"/quests/single-quest/" + item.id}>
-                            <QuestCard key={index} item={item} />
+                            <Card key={index} item={item} />
                         </Link>
                     ))
                 }

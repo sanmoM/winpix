@@ -6,12 +6,12 @@ import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import React from 'react'
 
-export default function active({ series }: any) {
+export default function active({ series, quests }: any) {
 
     const { t, direction } = useLocales()
     return (
         <UserLayout>
-            <ActiveQuestsBanner direction={direction} t={t} />
+            <ActiveQuestsBanner direction={direction} t={t} quests={quests} />
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
                 <ActiveQuestsFilter t={t} />
                 {

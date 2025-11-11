@@ -44,8 +44,10 @@ class FrontendController extends Controller
     public function activeQuests()
     {
         $series = Series::with('quests.user', 'quests.category')->get();
+        $quests = Quest::with(['category', 'user'])->where('status', 'active')->orderBy("created_at", 'desc')->take(5)->get();
         return Inertia::render('quests/active-quests', [
-            'series' => $series
+            'series' => $series,
+            'quests' => $quests,
         ]);
     }
 

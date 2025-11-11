@@ -6,15 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Series extends Model
 {
-    protected $fillable =[
+    protected $fillable = [
         'image',
         'title',
         'description',
-        'status'
+        'status',
+        'user_id'
     ];
 
     public function quests()
     {
         return $this->hasMany(Quest::class, 'quest_series_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

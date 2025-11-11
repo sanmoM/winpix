@@ -39,7 +39,7 @@ export default function ActiveQuestsBanner({ direction, quests, t }: any) {
                 quests.map((slide, index) => (
                     <Banner src={"/storage/" + slide.image} key={index} containerClass="h-[80vh] md:h-[60vh] lg:h-[80vh]">
                         <div className={cn("absolute inset-0 bg-black/50 flex w-full h-full justify-center items-center md:items-end md:justify-end text-white !text-center md:text-right md:p-8", direction === "right" && "md:justify-start")}>
-                            <div className="relative z-10 p-8 md:p-12 flex flex-col gap-3 md:gap-6 text-white">
+                            <div className="relative z-10 p-8 md:p-12 flex flex-col gap-3 md:gap-4 text-white">
 
                                 {/* Header Title */}
                                 <h1 className="text-3xl md:text-5xl font-bold title !text-right">{slide.title}</h1>

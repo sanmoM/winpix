@@ -1,4 +1,4 @@
-import QuestCard from '@/components/home/newest/components/PhotoCard'
+import Card from '@/components/home/newest/components/Card'
 import QuestSubmitCard from '@/components/shared/quest-card'
 import SectionHeading from '@/components/shared/SectionHeading'
 import { Link } from '@inertiajs/react'
@@ -56,16 +56,25 @@ const questsData = [
 ]
 
 
-export default function QuestsSeries({ title, quests, href }: { title: string, quests: any[], href: string }) {
+export default function QuestsSeries({ title, series, href }: { title: string, series: any[], href: string }) {
     return (
-        <Link href={href} className='block'>
+        <div>
             <SectionHeading title={title} />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                {quests.map((quest) => (
-                    // <QuestSubmitCard key={quest.id} quest={quest} href='/quests/single-quest-series' />
-                    <QuestCard key={quest.id} item={quest}  />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {series.map((singleSeries) => (
+                    <Link href={href} className='block'>
+                        <Card key={singleSeries.id} item={{
+                            title: singleSeries.title,
+                            category: singleSeries.category,
+                            image: singleSeries.image,
+                            user: singleSeries.user,
+
+                        }}
+                            isSeries
+                        />
+                    </Link>
                 ))}
             </div>
-        </Link>
+        </div>
     )
 }

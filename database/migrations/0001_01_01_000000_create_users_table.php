@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -25,11 +24,13 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->text('full_address')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->enum('role', ['user','jury','admin'])->default('user');
+            $table->enum('role', ['user', 'jury', 'admin'])->default('user');
             $table->string('password');
-            $table->enum('status', ['active','inactive','ban'])->default('active');
+            $table->enum('status', ['active', 'inactive', 'ban'])->default('active');
             $table->integer('level')->default(1);
             $table->unsignedInteger('votes_cast')->default(0);
+            $table->integer('coin')->default(0);
+            $table->integer('pixel')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

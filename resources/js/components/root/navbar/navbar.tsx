@@ -25,6 +25,8 @@ export default function Navbar() {
   const { auth } = usePage<SharedData>().props;
   const { t, direction } = useLocales()
 
+  const user = auth?.user
+
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { hasBackground, isUrlIncluded } = useBackground();

@@ -1,4 +1,4 @@
-import QuestCard from '@/components/home/newest/components/PhotoCard'
+import Card from '@/components/home/newest/components/Card'
 import QuestSubmitCard from '@/components/shared/quest-card'
 import SectionHeading from '@/components/shared/SectionHeading'
 import { Link } from '@inertiajs/react'
@@ -11,7 +11,7 @@ export default function ActiveQuests({ title, quests }: { title: string, quests:
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 {quests.map((quest) => (
                     <Link className='block' href={`/quests/single-quest/${quest.id}`}>
-                        <QuestCard key={quest.id} item={quest} />
+                        <Card key={quest.id} item={quest} />
                     </Link>
                 ))}
             </div>

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('max');
             $table->integer('coin')->nullable();
             $table->timestamps();
+            $table->string('coinType');
         });
     }
 

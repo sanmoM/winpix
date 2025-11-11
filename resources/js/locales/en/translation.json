@@ -419,24 +419,29 @@
                     "placeholder": "Enter a single prize"
                 },
                 "multiplePrizes": {
+                    "buttons": {
+                        "addSinglePrize": "Add Prize",
+                        "addMultiplePrizes": "Add Multiple Prizes"
+                    },
                     "titleInput": {
                         "label": "Prize Title",
                         "placeholder": "Enter a prize title"
                     },
                     "start": {
                         "label": "Start",
-                        "placeholder": "Enter a start"
+                        "placeholder": "Enter"
                     },
                     "end": {
                         "label": "End",
-                        "placeholder": "Enter an end"
+                        "placeholder": "Enter"
+                    },
+                    "numOfPrizes": {
+                        "label": "Number of Prizes",
+                        "placeholder": "Enter"
                     },
                     "amount": {
                         "label": "Prize",
-                        "placeholder": "Enter a prize"
-                    },
-                    "addPrize": {
-                        "text": "Add Prize"
+                        "placeholder": "Enter"
                     },
                     "title": "Prizes"
                 },

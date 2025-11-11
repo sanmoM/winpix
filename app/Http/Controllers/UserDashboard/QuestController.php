@@ -62,6 +62,7 @@ class QuestController extends Controller
             'prizes.*.max' => 'required|integer|gte:prizes.*.min',
             'prizes.*.coin' => 'required|integer|min:0',
             'prizes.*.title' => 'required|string|max:255',
+            'prizes.*.coinType' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'entry_coin' => 'required|integer|min:0',
             'level_requirement' => 'nullable|string|max:255',
@@ -104,6 +105,7 @@ class QuestController extends Controller
                 'max' => $prizeData['max'],
                 'coin' => $prizeData['coin'],
                 'title' => $prizeData['title'],
+                'coinType' => $prizeData['coinType'],
             ]);
         }
 
@@ -171,6 +173,7 @@ class QuestController extends Controller
             'prizes.*.max' => 'required|integer|gte:prizes.*.min',
             'prizes.*.coin' => 'nullable|integer|min:0',
             'prizes.*.title' => 'required|string|max:255',
+            'prizes.*.coinType' => 'required|string|max:255',
             // Conditional validation for image
             'image' => [
                 function ($attribute, $value, $fail) {
@@ -217,6 +220,7 @@ class QuestController extends Controller
             'categories_requirement' => $input['categories_requirement'],
             'copyright_requirement' => $input['copyright_requirement'],
             'quest_series_id' => $input['quest_series_id'],
+
         ]);
 
         // Update prizes
@@ -238,6 +242,7 @@ class QuestController extends Controller
                     'max' => $prizeData['max'],
                     'coin' => $prizeData['coin'],
                     'title' => $prizeData['title'],
+                    'coinType' => $prizeData['coinType'],
                 ]);
             } else {
                 Prize::create([
@@ -246,6 +251,7 @@ class QuestController extends Controller
                     'max' => $prizeData['max'],
                     'coin' => $prizeData['coin'],
                     'title' => $prizeData['title'],
+                    'coinType' => $prizeData['coinType'],
                 ]);
             }
         }

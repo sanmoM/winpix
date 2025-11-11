@@ -6,6 +6,7 @@ import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import PrizesInput from '@/components/user-dashboard/quest/create-quest/prizes-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
@@ -73,7 +74,7 @@ export default function EditQuest() {
             quest_series_id: quest.quest_series_id,
         });
 
-        console.log(data)
+    console.log(data)
 
 
     const categoryOptions = categories.map((category) => ({
@@ -256,7 +257,7 @@ export default function EditQuest() {
                     </div>
 
                     {/* Prizes */}
-                    <div>
+                    {/* <div>
                         <div className="flex justify-between items-center mb-4">
                             <label className="text-lg font-medium text-white">{t('dashboard.createQuest.inputs.multiplePrizes.title')}</label>
                             <Button disabled={processing} onClick={addPrizeRow}>+ {t('dashboard.createQuest.inputs.multiplePrizes.addPrize.text')}</Button>
@@ -298,7 +299,8 @@ export default function EditQuest() {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </div> */}
+                    <PrizesInput prizes={data.prizes} setPrizes={(value) => setData('prizes', value)} />
 
                     {/* Submit */}
                     <div className="flex items-center gap-4">

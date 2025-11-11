@@ -70,11 +70,11 @@ class DatabaseSeeder extends Seeder
             'user_id' => 2
         ]);
 
-        Quest::create([
-            'image' => 'uploads/slider/Ft1NxqiJVmD9v9hy2y2efiBQhjJYNkvnAvdDinP4.jpg',
-            'title' => 'Animal Photography',
-            'description' => 'Only animal photo can upload...',
-            'user_id' => 2
-        ]);
+        // Quest::create([
+        //     'image' => 'uploads/slider/Ft1NxqiJVmD9v9hy2y2efiBQhjJYNkvnAvdDinP4.jpg',
+        //     'title' => 'Animal Photography',
+        //     'description' => 'Only animal photo can upload...',
+        //     'user_id' => 2
+        // ]);
     }
 }

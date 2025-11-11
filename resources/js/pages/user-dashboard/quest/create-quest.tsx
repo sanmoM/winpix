@@ -6,6 +6,7 @@ import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import PrizesInput from '@/components/user-dashboard/quest/create-quest/prizes-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
@@ -19,6 +20,9 @@ interface Prize {
     max: number | string;
     coin: number | string;
     title: string;
+    minEditable: boolean;
+    maxEditable: boolean;
+    coinType: string;
 }
 
 interface Quest {
@@ -48,7 +52,7 @@ export default function Dashboard() {
             category_id: '',
             startDate: '',
             endDate: '',
-            prizes: [{ min: "", max: "", coin: "", title: "" }],
+            prizes: [],
             image: null,
             entry_coin: "",
             level_requirement: "",
@@ -68,21 +72,8 @@ export default function Dashboard() {
         label: series.title,
     }));
 
-    const addPrizeRow = () => {
-        // setPrizes([...prizes, { min: '', max: '', coin: 0, title: "" }]);
-        setData('prizes', [...data.prizes, { min: "", max: "", coin: "", title: "" }]);
-    };
-
-    const removePrizeRow = (index: number) => {
-        // Don't remove the last row
-        if (data.prizes.length <= 1) return;
-        const newPrizes = data.prizes.filter((_, i) => i !== index);
-        setData('prizes', newPrizes);
-    };
-
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         post(route('user-dashboard.quest.store'), {
             onSuccess: () => reset(),
             onError: (errors) => console.log(errors),
@@ -113,7 +104,7 @@ export default function Dashboard() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head />
             <div className='px-4 py-6'>
-                <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl" encType="multipart/form-data">
+                <form onSubmit={handleSubmit} className="space-y-6 max-w-6xl" encType="multipart/form-data">
                     <ImageInput
                         image={data.image}
                         setImage={(value) => setData('image', value)}
@@ -258,28 +249,27 @@ export default function Dashboard() {
                     </div>
 
                     {/* --- Prizes Section --- */}
-                    <div>
+                    {/* <div>
                         <div className="flex justify-between items-center mb-4">
                             <label className="text-lg font-medium text-white">{t('dashboard.createQuest.inputs.multiplePrizes.title')}</label>
-                            <Button disabled={processing} onClick={addPrizeRow}>  + {t('dashboard.createQuest.inputs.multiplePrizes.addPrize.text')}</Button>
+                            <Button disabled={processing} onClick={addPrizeRow} type='button'>  + {t('dashboard.createQuest.inputs.multiplePrizes.buttons.addSinglePrize')}</Button>
                         </div>
 
-                        {/* Labels for Prize Rows */}
                         <div className="flex items-center gap-2 md:gap-4 mb-2">
-                            <div className="grid grid-cols-[1fr_130px_130px_130px] gap-2 md:gap-4 w-full">
+                            <div className="grid grid-cols-[1fr_100px_100px_120px_100px_100px] gap-2 md:gap-4 w-full">
                                 <span className="flex-1 text-sm font-medium "><Label htmlFor="startDate">{t('dashboard.createQuest.inputs.multiplePrizes.titleInput.label')}</Label></span>
                                 <span className="flex-1 text-sm font-medium "><Label htmlFor="startDate">{t('dashboard.createQuest.inputs.multiplePrizes.start.label')}</Label></span>
                                 <span className="flex-1 text-sm font-medium "><Label htmlFor="endDate">{t('dashboard.createQuest.inputs.multiplePrizes.end.label')}</Label></span>
+                                <span className="flex-1 text-sm font-medium "><Label htmlFor="endDate">{t('dashboard.createQuest.inputs.multiplePrizes.numOfPrizes.label')}</Label></span>
                                 <span className="flex-1 text-sm font-medium "><Label htmlFor="amount">{t('dashboard.createQuest.inputs.multiplePrizes.amount.label')}</Label></span>
                             </div>
                             <span className="w-8"></span>
                         </div>
 
-                        {/* Dynamic Prize Rows Container */}
                         <div className="space-y-4">
                             {data?.prizes.map((prize, index) => (
                                 <div key={index} className="flex items-center gap-2 md:gap-4">
-                                    <div className="grid grid-cols-[1fr_130px_130px_130px] items-center gap-2 md:gap-4 w-full">
+                                    <div className="grid grid-cols-[1fr_100px_100px_120px_100px_100px] items-center gap-2 md:gap-4 w-full">
                                         <Input
                                             id="title"
                                             name="title"
@@ -294,23 +284,29 @@ export default function Dashboard() {
                                             id="start"
                                             name="start"
                                             value={prize.min}
-                                            onChange={(e) => {
-                                                setPrizeData(index, 'min', e.target.value)
-                                                setPrizeData(index, 'max', e.target.value)
-                                            }
-                                            }
                                             placeholder={t('dashboard.createQuest.inputs.multiplePrizes.start.placeholder')}
                                         />
                                         <Input
-
                                             type='number'
                                             id="end"
                                             name="end"
                                             value={prize.max}
-                                            onChange={(e) =>
-                                                setPrizeData(index, 'max', e.target.value)
+                                            onChange={(e) => {
+                                                if (prize.maxEditable) {
+                                                    setPrizeData(index, 'title', `${Number(prize.max)-Number(prize.min) + 1}`)
+                                                    setPrizeData(index, 'max', e.target.value)
+                                                }
+                                            }
                                             }
                                             placeholder={t('dashboard.createQuest.inputs.multiplePrizes.end.placeholder')}
+                                        />
+                                        <Input
+                                            type='number'
+                                            id="amount"
+                                            name="amount"
+                                            value={Number(prize?.max) - Number(prize?.min) + 1}
+                                            placeholder={t('dashboard.createQuest.inputs.multiplePrizes.amount.placeholder')}
+
                                         />
                                         <Input
                                             type='number'
@@ -325,19 +321,26 @@ export default function Dashboard() {
                                         />
                                     </div>
 
-                                    <button
-                                        type="button"
-                                        onClick={() => removePrizeRow(index)}
-                                        className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full transition-colors ${data?.prizes.length > 1 ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-gray-700 text-gray-500 cursor-not-allowed'}`}
-                                        aria-label="Remove prize row"
-                                        disabled={data?.prizes.length <= 1}
-                                    >
-                                        <MinusIcon />
-                                    </button>
+                                    {
+                                        (data?.prizes?.length <= (index + 1)) && (data?.prizes?.length > 5) ? (
+                                            <button
+                                                type="button"
+                                                onClick={() => removePrizeRow(index)}
+                                                className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full transition-colors ${data?.prizes.length > 1 ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-gray-700 text-gray-500 cursor-not-allowed'}`}
+                                                aria-label="Remove prize row"
+                                                disabled={data?.prizes.length <= 1}
+                                            >
+                                                <MinusIcon />
+                                            </button>
+                                        ) : (
+                                            <span className='w-8 h-8'></span>
+                                        )
+                                    }
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </div> */}
+                    <PrizesInput prizes={data.prizes} setPrizes={(value) => setData('prizes', value)} />
 
                     {/* Submit Button */}
                     <div className="flex items-center gap-4">

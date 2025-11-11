@@ -11,7 +11,8 @@ class Prize extends Model
     'min',
     'max',
     'coin',
-    'title'
+    'title',
+    'coinType'
   ];
   public function quest()
   {

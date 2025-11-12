@@ -5,6 +5,7 @@ import CustomSlider from "@/components/shared/custom-slider/CustomSlider";
 import { cn } from "@/lib/utils";
 import { IoTrophySharp } from "react-icons/io5";
 import "./active-quests-banner.css";
+import { Link } from "@inertiajs/react";
 
 function dateDiff(date1Str, date2Str) {
     const d1 = new Date(date1Str);
@@ -70,8 +71,10 @@ export default function ActiveQuestsBanner({ direction, quests, t }: any) {
 
                                 {/* Action Buttons */}
                                 <div className="flex flex-row items-center justify-center md:justify-end gap-4 pt-4 buttons w-fit ml-auto">
-                                    <SecondaryButton text={t('activeQuests.banner.voteText')} />
-                                    <Button className='w-32 py-2 md:py-3 btn mx-0' text={t('activeQuests.banner.joinNowText')} />
+                                    {/* <SecondaryButton text={t('activeQuests.banner.voteText')} /> */}
+                                    <Link href={`/quests/single-quest/${slide?.id}`}>
+                                        <Button className='w-32 py-2 md:py-3 btn mx-0' text={t('activeQuests.banner.joinNowText')} />
+                                    </Link>
                                 </div>
 
                             </div>

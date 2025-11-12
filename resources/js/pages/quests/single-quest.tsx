@@ -1,4 +1,5 @@
 import JoinModal from '@/components/quests/single-quest/join-modal'
+import LibraryModal from '@/components/quests/single-quest/library-modal'
 import Status from '@/components/quests/single-quest/status'
 import Banner from '@/components/shared/banner'
 import Brief from '@/components/shared/brief'
@@ -14,6 +15,7 @@ import Tab from '@/components/shared/tab'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
+import { joinQuest } from '@/routes'
 import { router, useForm, usePage } from '@inertiajs/react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -35,12 +37,16 @@ const images = [
 ]
 
 export default function SingleQuest() {
-    const { quest, auth } = usePage<any>().props;
+    const { quest, auth, joinedQuests } = usePage<any>().props;
     const [joinModalOpen, setJoinModalOpen] = useState(false);
+    const [libraryModalOpen, setLibraryModalOpen] = useState(false);
     const { post, setData, data } = useForm<any>({
         quest_id: quest.id,
         image: null
     })
+
+    const isJoined = joinedQuests?.map((item: any) => item.quest_id).includes(quest.id)
+    const images = joinedQuests?.map((item: any) => item.image)
 
     const setImage = (image: any) => {
         setData('image', image)
@@ -55,6 +61,8 @@ export default function SingleQuest() {
             post(route('join-quest', quest.id), {
                 onSuccess: () => {
                     toast.success('Join Quest Successfully')
+                    setJoinModalOpen(false)
+                    setLibraryModalOpen(false)
                 }
             })
         } else {
@@ -73,9 +81,11 @@ export default function SingleQuest() {
                         <img src="/images/coin.png" alt="" className="w-6 h-6" />
                         <p>{quest?.entry_coin}</p>
                     </div>
-                    <div className='grid grid-cols-2 gap-4'>
-                        <SecondaryButton text={t('singleQuest.banner.voteText')} />
-                        <Button text={t('singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' type='button' onClick={() => setJoinModalOpen(true)} />
+                    <div className='grid gap-4 grid-cols-2'
+                    >
+                        <SecondaryButton text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white" />
+
+                        <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' type='button' onClick={() => setJoinModalOpen(true)} />F
                     </div>
                 </div>
             </Banner>
@@ -115,7 +125,15 @@ export default function SingleQuest() {
                     title='Join Quest'
                     containerClassName='w-full max-w-lg'
                 >
-                    <JoinModal handleJoinQuest={handleJoinQuest} image={data?.image} setImage={setImage} />
+                    <JoinModal handleJoinQuest={handleJoinQuest} image={data?.image} setImage={setImage} setLibraryModalOpen={setLibraryModalOpen} />
+                </Modal>
+                <Modal
+                    isOpen={libraryModalOpen}
+                    onClose={() => setLibraryModalOpen(false)}
+                    title='Your Library'
+                    containerClassName='w-full'
+                >
+                    <LibraryModal images={images} setImage={(value) => setData("image", value)} selectedImage={data?.image} handleJoinQuest={handleJoinQuest} />
                 </Modal>
             </Container>
         </UserLayout>

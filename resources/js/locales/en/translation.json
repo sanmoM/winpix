@@ -144,7 +144,8 @@
     "singleQuest": {
         "banner": {
             "voteText": "Vote",
-            "joinNowText": "Join Now"
+            "joinNowText": "Join Now",
+            "addEntryText": "Add Entry"
         },
         "tabs": {
             "brief": "Brief",

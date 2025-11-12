@@ -8,6 +8,8 @@ use App\Models\Redeem;
 use App\Models\Series;
 use App\Models\Slider;
 use App\Models\Store;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
 class FrontendController extends Controller
@@ -56,9 +58,11 @@ class FrontendController extends Controller
 
     public function singleQuest($id)
     {
+        $userId = auth()->user()->id;
+        $joinedQuests = QuestJoin::with(['user'])->where('user_id', $userId)->get();
         $quest = Quest::with(['category', 'user', 'prizes'])->findOrFail($id);
         // return dd($quest);
-        return Inertia::render('quests/single-quest', ['id' => $id, "quest" => $quest]);
+        return Inertia::render('quests/single-quest', ['id' => $id, "quest" => $quest, "joinedQuests" => $joinedQuests]);
     }
 
     public function questSeries()
@@ -121,16 +125,22 @@ class FrontendController extends Controller
     }
 
 
-
-
     // this all are the functional controller for handle user interaction
-    public function joinQuest($request, $id)
+    public function joinQuest(Request $request, $id)
     {
         $user = auth()->user();
-        request()->validate([
-            'quest_id' => 'required|integer|exists:quests,id',
-            'image' => 'string|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        try {
+            $request->validate([
+                'quest_id' => 'required|integer|exists:quests,id',
+                'image' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validation failed',
+                'errors' => $e->errors(),
+            ], 422);
+        }
 
         // Handle uploaded image
         $image = null;
@@ -140,11 +150,24 @@ class FrontendController extends Controller
             $image = $request->image;
         }
 
-        QuestJoin::create([
-            'quest_id' => $id,
-            'user_id' => $user->id,
-            'image' => $image,
-        ]);
-        return redirect()->back();
+        $questFromDb = Quest::findOrFail($id);
+
+        // Deduct user's pixels only if they haven't joined before
+        $questJoin = QuestJoin::firstOrCreate(
+            [
+                'quest_id' => $id,
+                'user_id' => $user->id,
+            ],
+            [
+                'image' => $image,
+            ]
+        );
+
+        if ($questJoin->wasRecentlyCreated) {
+            // Only deduct pixels if a new record was created
+            $user->decrement('pixel', $questFromDb->entry_coin);
+        }
+
+        return redirect()->back()->with('success', 'Join Quest Successfully');
     }
 }

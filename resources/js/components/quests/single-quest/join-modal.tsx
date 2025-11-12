@@ -1,37 +1,29 @@
-import React, { useEffect, useRef } from 'react';
+import Button from '@/components/shared/buttons/button';
+import React, { useRef, useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 
-const JoinModal = ({ handleJoinQuest, image, setImage }: any) => {
+const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen }: any) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const [imageUrl, setImageUrl] = React.useState<string | null>(null);
-
-    // Update preview when image changes
-    useEffect(() => {
-        if (image) {
-            const url = URL.createObjectURL(image);
-            setImageUrl(url);
-
-            // Cleanup old object URL
-            return () => URL.revokeObjectURL(url);
-        } else {
-            setImageUrl(null);
-        }
-    }, [image]);
-
+    // const imageUrl = image && URL.createObjectURL(image?.file);
+    const [imageUrl, setImageUrl] = useState<any>(null);
+    // Trigger file picker
     const handleUploadClick = () => {
         fileInputRef.current?.click();
     };
 
+    // Handle file selection
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
+        // Optional: Validate type (e.g. only images)
         if (!file.type.startsWith('image/')) {
             alert('Please upload a valid image file.');
             return;
         }
 
         setImage(file);
+        setImageUrl(URL.createObjectURL(file));
     };
 
     return (
@@ -68,6 +60,8 @@ const JoinModal = ({ handleJoinQuest, image, setImage }: any) => {
 
                     {/* Quest Library Button */}
                     <button
+                        type='button'
+                        onClick={() => setLibraryModalOpen(true)}
                         className="flex-1 flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg shadow-sm hover:border-indigo-500 transition duration-150 ease-in-out cursor-pointer"
                     >
                         <svg
@@ -99,12 +93,20 @@ const JoinModal = ({ handleJoinQuest, image, setImage }: any) => {
                         <button
                             className="mt-2 lg:mt-4 text-sm text-red-500 hover:underline mx-auto block cursor-pointer"
                             type='button'
-                            onClick={() => setImage(null)}
+                            onClick={() => {
+                                setImage(null);
+                                setImageUrl(null);
+                            }}
                         >
                             Remove Image
                         </button>
                     </div>
                 )}
+                {
+                    image && <div>
+                        <Button text='Join' onClick={handleJoinQuest} className='mt-4 px-6 lg:px-14 text-lg' />
+                    </div>
+                }
             </div>
         </div>
     );

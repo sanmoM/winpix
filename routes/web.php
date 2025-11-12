@@ -1,18 +1,19 @@
 <?php
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use App\Http\Controllers\Admin\AdminController;
+
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\FollowController;
 use App\Http\Controllers\Admin\HelpController;
+use App\Http\Controllers\Admin\OthersController;
+use App\Http\Controllers\Admin\QuestCategoryController;
+use App\Http\Controllers\Admin\QuestTypeController;
+use App\Http\Controllers\Admin\RankingController;
+use App\Http\Controllers\Admin\RedeemController;
+use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
-use App\Http\Controllers\Admin\RedeemController;
-use App\Http\Controllers\Admin\OthersController;
-use App\Http\Controllers\Admin\SeriesController;
-use App\Http\Controllers\Admin\QuestTypeController;
-use App\Http\Controllers\Admin\QuestCategoryController;
-use App\Http\Controllers\Admin\RankingController;
-use App\Http\Controllers\Admin\FollowController;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('auth-error', function () {
     return view('error');
@@ -55,7 +56,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
 });
 
-require __DIR__ . '/settings.php';
-require __DIR__ . '/auth.php';
-require __DIR__ . '/frontend.php';
-require __DIR__ . '/user-dashboard.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/frontend.php';
+require __DIR__.'/user-dashboard.php';

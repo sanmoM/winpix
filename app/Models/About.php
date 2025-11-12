@@ -10,7 +10,7 @@ class About extends Model
         'title',
         'content',
         'picture',
+        'lang',
         'status',
     ];
-
 }

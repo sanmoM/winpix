@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('content');
             $table->string('picture')->nullable();
             $table->string('status')->default('Active');
+            $table->string('lang');
             $table->timestamps();
         });
     }

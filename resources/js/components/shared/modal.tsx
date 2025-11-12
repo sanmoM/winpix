@@ -46,7 +46,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, contain
         </div>
 
         {/* Modal Body */}
-        <div className="px-8 pb-10 text-gray-700 dark:text-gray-300 max-h-[60vh] overflow-y-auto">{children}</div>
+        <div className="px-6 pb-6 text-gray-700 dark:text-gray-300 max-h-[60vh] overflow-y-auto">{children}</div>
       </div>
     </div>
   );

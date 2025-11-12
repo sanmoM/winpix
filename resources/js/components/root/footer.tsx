@@ -1,17 +1,13 @@
-import { FaHeart } from "react-icons/fa";
+import useLocales from "@/hooks/useLocales";
 import Container from "../shared/container";
 import SocialIcon from "../shared/social-icon";
-import useLocales from "@/hooks/useLocales";
 
 const Footer = () => {
   const { t } = useLocales()
   const navLinks = [
-    { name: t("footer.navLinks.home"), href: '/' },
-    { name: t("footer.navLinks.agent"), href: '/' },
-    { name: t("footer.navLinks.about"), href: '/' },
-    { name: t("footer.navLinks.listing"), href: '/' },
-    { name: t("footer.navLinks.blog"), href: '/' },
-    { name: t("footer.navLinks.contact"), href: '/' },
+    { name: t("root.footer.navLinks.home"), href: '/' },
+    { name: t("root.footer.navLinks.about"), href: '/about-us' },
+    { name: t("root.footer.navLinks.help"), href: '/all-help-categories' },
   ];
 
   const socialIcons = [
@@ -57,7 +53,7 @@ const Footer = () => {
         {/* Copyright and Credits */}
         <div className="text-[6px] md:text-base lg:text-sm text-gray-400 pt-6 border-t border-gray-700 w-full flex items-center justify-center"
           dangerouslySetInnerHTML={{
-            __html: t('footer.copyright', {
+            __html: t('root.footer.copyright', {
               year: new Date().getFullYear(),
               heart: '<span class="mx-1 text-primary-color">❤️</span>'
             })

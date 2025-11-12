@@ -52,18 +52,15 @@
             "notifications": {
                 "title": "Notifications"
             }
-        }
-    },
-    "footer": {
-        "navLinks": {
-            "home": "Home",
-            "agent": "Agent",
-            "about": "About",
-            "listing": "Listing",
-            "blog": "Blog",
-            "contact": "Contact"
         },
-        "copyright": "Copyright &copy;{{year}} All rights reserved | This template is made with {{heart}}  by  <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
+        "footer": {
+            "navLinks": {
+                "home": "Home",
+                "about": "About",
+                "help": "Help"
+            },
+            "copyright": "Copyright &copy;{{year}} All rights reserved | This template is made with {{heart}}  by  <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
+        }
     },
     "home": {
         "banner": {
@@ -144,7 +141,8 @@
     "singleQuest": {
         "banner": {
             "voteText": "Vote",
-            "joinNowText": "Join Now"
+            "joinNowText": "Join Now",
+            "addEntryText": "Add Entry"
         },
         "tabs": {
             "brief": "Brief",

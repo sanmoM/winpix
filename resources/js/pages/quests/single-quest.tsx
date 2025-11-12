@@ -1,6 +1,7 @@
 import JoinModal from '@/components/quests/single-quest/join-modal'
 import LibraryModal from '@/components/quests/single-quest/library-modal'
 import Status from '@/components/quests/single-quest/status'
+import VoteModal from '@/components/quests/single-quest/vote-modal'
 import Banner from '@/components/shared/banner'
 import Brief from '@/components/shared/brief'
 import Button from '@/components/shared/buttons/button'
@@ -37,16 +38,19 @@ const images = [
 ]
 
 export default function SingleQuest() {
-    const { quest, auth, joinedQuests } = usePage<any>().props;
+    const { quest, auth, joinedQuests, questImages } = usePage<any>().props;
     const [joinModalOpen, setJoinModalOpen] = useState(false);
     const [libraryModalOpen, setLibraryModalOpen] = useState(false);
+    const [voteModalOpen, setVoteModalOpen] = useState(false)
+
     const { post, setData, data } = useForm<any>({
         quest_id: quest.id,
         image: null
     })
+
+    // images filter logic for library modal starts
     const currentJoinedQuest = joinedQuests?.filter((item: any) => item?.quest_id === quest.id)
     const currentJoinedQuestImage = currentJoinedQuest?.map((item: any) => item?.quest_images?.map(item => item?.image))?.flat()
-
     const isJoined = joinedQuests?.map((item: any) => item.quest_id).includes(quest.id)
     const othersJoinedQuests = joinedQuests?.filter((item: any) => {
         if (item?.quest_id !== quest.id) {
@@ -55,10 +59,11 @@ export default function SingleQuest() {
             return false
         }
     })
-
     const othersJoinedQuestImage = othersJoinedQuests?.map((item: any) => item?.quest_images?.map(item => item?.image))?.flat()
-
     const images = othersJoinedQuestImage?.filter((item: any) => !currentJoinedQuestImage?.includes(item))
+    // images filter logic for library modal ends
+
+    const votingItems = joinedQuests?.map((item: any) => item?.user?.name)
 
     const setImage = (image: any) => {
         setData('image', image)
@@ -152,6 +157,8 @@ export default function SingleQuest() {
                 >
                     <LibraryModal images={images} setImage={(value) => setData("image", value)} selectedImage={data?.image} handleJoinQuest={handleJoinQuest} btnText={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} />
                 </Modal>
+
+                <VoteModal />
             </Container>
         </UserLayout>
     )

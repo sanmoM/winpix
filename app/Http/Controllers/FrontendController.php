@@ -84,7 +84,10 @@ class FrontendController extends Controller
 
     public function enteredQuests()
     {
-        return Inertia::render('quests/entered-quests');
+        $joinedQuests = QuestJoin::with(["quest", "quest.user", "quest.category"])->where('user_id', auth()->user()->id)->get();
+        return Inertia::render('quests/entered-quests', [
+            'enteredQuests' => $joinedQuests,
+        ]);
     }
 
     public function endedQuests()

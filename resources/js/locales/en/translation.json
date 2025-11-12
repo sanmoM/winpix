@@ -372,7 +372,7 @@
                 "logout": "Log out"
             }
         },
-        "createQuest": {
+        "quest": {
             "inputs": {
                 "level_requirement": {
                     "label": "Level Requirement",
@@ -444,13 +444,12 @@
                         "placeholder": "Enter"
                     },
                     "title": "Prizes"
-                },
-                "button": {
-                    "text": "Create Quest"
-                },
-                "save": {
-                    "text": "Quest Created"
                 }
+            },
+            "button": {
+                "createButton": "Create Quest",
+                "updateButton": "Update Quest",
+                "saveText": "Saved"
             }
         }
     }

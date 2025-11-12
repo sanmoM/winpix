@@ -1080,7 +1080,7 @@ const PrizesInput = ({ prizes, setPrizes }: { prizes: any[], setPrizes: any }) =
     const [isRange, setIsRange] = useState(false);
 
     // --- Edit State ---
-    const [editingId, setEditingId] = useState<number | null>(null);
+    const [editingPrizeId, setEditingPrizeId] = useState<number | null>(null);
     const [editData, setEditData] = useState<any>({
         min: '',
         max: '',
@@ -1127,7 +1127,8 @@ const PrizesInput = ({ prizes, setPrizes }: { prizes: any[], setPrizes: any }) =
         const title = generatePrizeTitle(min, max);
 
         const newPrize = {
-            id: Date.now(),
+            prizeId: Date.now(), // Local unique ID for UI tracking
+            // id: null, // Reserved for DB id
             min,
             max,
             coin,
@@ -1142,13 +1143,13 @@ const PrizesInput = ({ prizes, setPrizes }: { prizes: any[], setPrizes: any }) =
     }, [newMin, newMax, newCoin, prizes, nextRequiredMin, coinType, setPrizes]);
 
     // --- Remove Prize ---
-    const removePrize = useCallback((id) => {
-        setPrizes([...prizes.filter(p => p.id !== id)]);
-    }, [setPrizes]);
+    const removePrize = useCallback((prizeId) => {
+        setPrizes([...prizes.filter(p => p.prizeId !== prizeId)]);
+    }, [setPrizes, prizes]);
 
     // --- Editing Logic ---
     const startEditing = (prize) => {
-        setEditingId(prize.id);
+        setEditingPrizeId(prize.prizeId);
         setEditData({
             min: prize.min,
             max: prize.max,
@@ -1159,7 +1160,7 @@ const PrizesInput = ({ prizes, setPrizes }: { prizes: any[], setPrizes: any }) =
     };
 
     const cancelEditing = () => {
-        setEditingId(null);
+        setEditingPrizeId(null);
         setEditData({ min: '', max: '', coin: '', coinType: 'coin' });
         setEditError('');
     };
@@ -1176,7 +1177,7 @@ const PrizesInput = ({ prizes, setPrizes }: { prizes: any[], setPrizes: any }) =
         if (min > max)
             return setEditError('Min position cannot be greater than the max position.');
 
-        const others = prizes.filter(p => p.id !== editingId);
+        const others = prizes.filter(p => p.prizeId !== editingPrizeId);
         const overlap = others.some(p => (
             (min >= p.min && min <= p.max) ||
             (max >= p.min && max <= p.max) ||
@@ -1193,12 +1194,14 @@ const PrizesInput = ({ prizes, setPrizes }: { prizes: any[], setPrizes: any }) =
 
         const title = generatePrizeTitle(min, max);
         const updatedPrizes = prizes.map(p =>
-            p.id === editingId ? { ...p, min, max, coin, title, coinType: editData.coinType } : p
+            p.prizeId === editingPrizeId
+                ? { ...p, min, max, coin, title, coinType: editData.coinType }
+                : p
         );
 
         setPrizes(updatedPrizes.sort((a, b) => a.min - b.min));
         cancelEditing();
-    }, [editData, prizes, editingId, setPrizes]);
+    }, [editData, prizes, editingPrizeId, setPrizes]);
 
     // --- Render ---
     return (
@@ -1208,8 +1211,8 @@ const PrizesInput = ({ prizes, setPrizes }: { prizes: any[], setPrizes: any }) =
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
                 {sortedPrizes.length > 0 ? (
                     sortedPrizes.map((prize) => (
-                        <div key={prize.id} className="prize-card bg-bg-primary p-4 rounded-xl border flex flex-col justify-between">
-                            {editingId === prize.id ? (
+                        <div key={prize.prizeId} className="prize-card bg-bg-primary p-4 rounded-xl border flex flex-col justify-between">
+                            {editingPrizeId === prize.prizeId ? (
                                 <>
                                     <div className="flex items-center justify-between mb-3">
                                         <input
@@ -1272,15 +1275,22 @@ const PrizesInput = ({ prizes, setPrizes }: { prizes: any[], setPrizes: any }) =
                                         <span className="text-lg font-bold text-purple-400">{prize.title}</span>
                                         <Award className="w-5 h-5 text-yellow-500" />
                                     </div>
-                                    <div className="flex items-center space-x-2">
+                                    <div className="flex items-center justify-center space-x-2">
                                         <span className="text-3xl font-extrabold">{prize.coin}</span>
                                         <span className="text-sm text-gray-400 capitalize">{prize.coinType}</span>
                                     </div>
                                     <div className="mt-4 flex justify-between">
+                                        {/* <button
+                                            type="button"
+                                            onClick={() => startEditing(prize)}
+                                            className="px-4 py-2 text-xs text-blue-400 border border-blue-500 rounded-lg flex items-center"
+                                        >
+                                            Edit
+                                        </button> */}
                                         <button
                                             type="button"
-                                            onClick={() => removePrize(prize.id)}
-                                            className="px-4 py-2 text-xs text-red-400 border border-red-500 rounded-lg flex items-center mx-auto"
+                                            onClick={() => removePrize(prize.prizeId)}
+                                            className="px-4 py-2 text-xs mx-auto text-red-400 border border-red-500 rounded-lg flex items-center"
                                         >
                                             <Trash2 className="w-3 h-3 mr-1" /> Remove
                                         </button>
@@ -1420,5 +1430,6 @@ const PrizesInput = ({ prizes, setPrizes }: { prizes: any[], setPrizes: any }) =
 };
 
 export default PrizesInput;
+
 
 

@@ -124,15 +124,26 @@ class FrontendController extends Controller
 
 
     // this all are the functional controller for handle user interaction
-    public function joinQuest($id)
+    public function joinQuest($request, $id)
     {
         $user = auth()->user();
         request()->validate([
-            'quest_id' => 'required|integer|exists:quests,id'
+            'quest_id' => 'required|integer|exists:quests,id',
+            'image' => 'string|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        // Handle uploaded image
+        $image = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('uploads/quests', 'public');
+        } else {
+            $image = $request->image;
+        }
+
         QuestJoin::create([
             'quest_id' => $id,
             'user_id' => $user->id,
+            'image' => $image,
         ]);
         return redirect()->back();
     }

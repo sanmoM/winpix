@@ -98,7 +98,7 @@
             "voteText": "Vote"
         },
         "questSeries": {
-            "title": "Active Quests"
+            "title": "Quest Series"
         },
         "filter": {
             "sortAndFilter": "Sort & Filter",
@@ -112,7 +112,7 @@
         }
     },
     "questSeries": {
-        "title": "Active Quests"
+        "title": "Quest Series"
     },
     "endedQuests": {
         "tab": {
@@ -372,8 +372,20 @@
                 "logout": "Log out"
             }
         },
-        "createQuest": {
+        "quest": {
             "inputs": {
+                "level_requirement": {
+                    "label": "Level Requirement",
+                    "placeholder": "Enter a level requirement"
+                },
+                "categories_requirement": {
+                    "label": "Categories Requirement",
+                    "placeholder": "Enter a categories requirement"
+                },
+                "copyright_requirement": {
+                    "label": "Copyright Requirement",
+                    "placeholder": "Enter a copyright requirement"
+                },
                 "title": {
                     "label": "Title",
                     "placeholder": "Enter a title"
@@ -385,6 +397,10 @@
                 "category": {
                     "label": "Tag",
                     "placeholder": "Select a tag"
+                },
+                "series": {
+                    "label": "Series",
+                    "placeholder": "Select a series"
                 },
                 "brief": {
                     "label": "Brief",
@@ -403,33 +419,37 @@
                     "placeholder": "Enter a single prize"
                 },
                 "multiplePrizes": {
+                    "buttons": {
+                        "addSinglePrize": "Add Prize",
+                        "addMultiplePrizes": "Add Multiple Prizes"
+                    },
                     "titleInput": {
                         "label": "Prize Title",
                         "placeholder": "Enter a prize title"
                     },
                     "start": {
                         "label": "Start",
-                        "placeholder": "Enter a start"
+                        "placeholder": "Enter"
                     },
                     "end": {
                         "label": "End",
-                        "placeholder": "Enter an end"
+                        "placeholder": "Enter"
+                    },
+                    "numOfPrizes": {
+                        "label": "Number of Prizes",
+                        "placeholder": "Enter"
                     },
                     "amount": {
                         "label": "Prize",
-                        "placeholder": "Enter a prize"
-                    },
-                    "addPrize": {
-                        "text": "Add Prize"
+                        "placeholder": "Enter"
                     },
                     "title": "Prizes"
-                },
-                "button": {
-                    "text": "Create Quest"
-                },
-                "save": {
-                    "text": "Quest Created"
                 }
+            },
+            "button": {
+                "createButton": "Create Quest",
+                "updateButton": "Update Quest",
+                "saveText": "Saved"
             }
         }
     }

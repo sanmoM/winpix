@@ -26,6 +26,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   placeholder,
   onChange,
   className = "",
+  inputClassName = "",
 }) => {
   return (
     <div className={cn("w-full max-w-xs", className)}>
@@ -45,12 +46,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
           name={name || id}
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
-          className="
-            block w-full appearance-none rounded-lg border border-gray-300 
-            py-3 px-4 pr-10 text-base 
-            bg-bg-primary 
-            focus:outline-none focus:ring-0
-          "
+          className={cn("block w-full appearance-none rounded-lg border border-gray-300 py-3 px-4 pr-10 text-base bg-bg-primary focus:outline-none focus:ring-0", inputClassName)}
         >
           {placeholder && (
             <option value="" disabled>

@@ -18,6 +18,10 @@ class Quest extends Model
         'category_id',
         'user_id',
         'entry_coin',
+        'level_requirement',
+        'categories_requirement',
+        'copyright_requirement',
+        'quest_series_id',
     ];
     // Define the relation to prizes
     public function prizes()
@@ -28,6 +32,11 @@ class Quest extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function questSeries()
+    {
+        return $this->belongsTo(Series::class, 'quest_series_id');
     }
 
     public function category()

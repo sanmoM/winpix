@@ -15,13 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('brief');
-            $table->string('image')->nullable();
+            $table->string('image');
             $table->enum('status', ['active', 'ended'])->default('active');
             $table->integer('entry_coin');
 
             // ✅ Foreign key to quest_categories
             $table->foreignId('category_id')
                 ->constrained('quest_categories')
+                ->onDelete('cascade');
+            $table->foreignId('quest_series_id')
+                ->constrained('series')
                 ->onDelete('cascade');
 
             // ✅ Foreign key to users table (User model)

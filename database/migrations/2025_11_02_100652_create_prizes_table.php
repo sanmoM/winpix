@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('prizes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('quest_id')->constrained('quests');
+            $table->unsignedBigInteger('quest_id');
+            $table->foreign('quest_id')->references('id')->on('quests')->onDelete('cascade');
             $table->string('title');
             $table->integer('min');
             $table->integer('max');
             $table->integer('coin')->nullable();
             $table->timestamps();
+            $table->string('coinType');
         });
     }
 

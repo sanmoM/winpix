@@ -1,7 +1,7 @@
 import SecondarySectionHeading from "@/components/shared/secondary-section-heading";
 import { cn } from "@/lib/utils";
 import { dashboard } from "@/routes";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 import { FaRocket } from "react-icons/fa";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -10,6 +10,7 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
     const [notifyOpen, setNotifyOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const { auth } = usePage<any>().props
 
     useEffect(() => {
         const handleClickOutside = (event: Event) => {
@@ -37,11 +38,11 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
         <div className="flex gap-4 items-center">
             <div className="flex items-center gap-2">
                 <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
-                <p>10</p>
+                <p>{auth?.user?.coin}</p>
             </div>
             <div className="flex items-center gap-2">
                 <img src="/images/coin.png" alt="" className="w-4 h-4" />
-                <p>200</p>
+                <p>{auth?.user?.pixel}</p>
             </div>
             <div className="">
                 <button

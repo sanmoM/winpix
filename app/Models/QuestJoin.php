@@ -4,19 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Series extends Model
+class QuestJoin extends Model
 {
     protected $fillable = [
+        'quest_id',
+        'user_id',
         'image',
-        'title',
-        'description',
-        'status',
-        'user_id'
     ];
 
-    public function quests()
+    public function quest()
     {
-        return $this->hasMany(Quest::class, 'quest_series_id');
+        return $this->belongsTo(Quest::class);
     }
 
     public function user()

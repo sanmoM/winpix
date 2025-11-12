@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quest;
+use App\Models\QuestJoin;
 use App\Models\Redeem;
+use App\Models\Series;
 use App\Models\Slider;
 use App\Models\Store;
 use Inertia\Inertia;
 
 class FrontendController extends Controller
 {
+
+    // this all are get controller for frontend
     public function home()
     {
         $sliders = Slider::all();
@@ -42,22 +46,35 @@ class FrontendController extends Controller
 
     public function activeQuests()
     {
-        return Inertia::render('quests/active-quests');
+        $series = Series::with('quests.user', 'quests.category', 'user')->get();
+        $quests = Quest::with(['category', 'user'])->where('status', 'active')->orderBy("created_at", 'desc')->take(5)->get();
+        return Inertia::render('quests/active-quests', [
+            'series' => $series,
+            'quests' => $quests,
+        ]);
     }
 
     public function singleQuest($id)
     {
-        return Inertia::render('quests/single-quest', ['id' => $id]);
+        $quest = Quest::with(['category', 'user', 'prizes'])->findOrFail($id);
+        // return dd($quest);
+        return Inertia::render('quests/single-quest', ['id' => $id, "quest" => $quest]);
     }
 
     public function questSeries()
     {
-        return Inertia::render('quests/quest-series');
+        $series = Series::with('quests.user', 'quests.category', 'user')->get();
+        return Inertia::render('quests/quest-series', [
+            'series' => $series,
+        ]);
     }
 
-    public function singleQuestSeries()
+    public function singleQuestSeries($id)
     {
-        return Inertia::render('quests/single-quest-series');
+        $series = Series::with('quests.user', 'quests.category')->findOrFail($id);
+        return Inertia::render('quests/single-quest-series', [
+            'series' => $series,
+        ]);
     }
 
     public function enteredQuests()
@@ -101,5 +118,33 @@ class FrontendController extends Controller
     public function searchedHelps()
     {
         return Inertia::render('help/searched-helps');
+    }
+
+
+
+
+    // this all are the functional controller for handle user interaction
+    public function joinQuest($request, $id)
+    {
+        $user = auth()->user();
+        request()->validate([
+            'quest_id' => 'required|integer|exists:quests,id',
+            'image' => 'string|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // Handle uploaded image
+        $image = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('uploads/quests', 'public');
+        } else {
+            $image = $request->image;
+        }
+
+        QuestJoin::create([
+            'quest_id' => $id,
+            'user_id' => $user->id,
+            'image' => $image,
+        ]);
+        return redirect()->back();
     }
 }

@@ -1,11 +1,9 @@
-import { Quest } from "@/types/quest";
-import { Link } from "@inertiajs/react";
+import { LuLayers } from "react-icons/lu";
 import { TbTrophyFilled } from "react-icons/tb";
 
 
-export default function QuestCard({ item }: { item: Quest }) {
+export default function Card({ item, isSeries=false }: any) {
 
-    console.log(item)
     return (
         <div className="relative block w-full rounded-2xl overflow-hidden group cursor-pointer">
 
@@ -13,7 +11,7 @@ export default function QuestCard({ item }: { item: Quest }) {
             <img
                 src={"/storage/" + item?.image}
                 alt="Dochula Pass in Bhutan with a dog"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full aspect-[3/2] object-cover transition-transform duration-500 group-hover:scale-110"
             />
             <div className="absolute bg-black/30 inset-0 w-full h-cull"></div>
             {/* Overlay */}
@@ -21,8 +19,16 @@ export default function QuestCard({ item }: { item: Quest }) {
 
             {/* Top Content */}
             <div className="absolute top-0 right-0 p-4">
-                <div className="bg-white/10 text-white px-5 py-1 rounded-full backdrop-blur-[3px] text-xs font-semibold">
-                    #{item?.category?.name}
+                <div className="bg-white/10 text-white px-5 py-1 rounded-full backdrop-blur-[3px] text-sm font-semibold ">
+                    {
+                        isSeries ? (
+                            <span className="flex items-center gap-2">
+                                <LuLayers /> <span>Series</span>
+                            </span>
+                        ) : (<>
+                            #{item?.category?.name}
+                        </>)
+                    }
                 </div>
 
             </div>
@@ -37,7 +43,7 @@ export default function QuestCard({ item }: { item: Quest }) {
                             <span className="text-sm font-medium ">{item?.entry_coin} USD</span>
                         </div>
                     </div>
-                    <span className="text-white bg-white/10 px-4 py-1 rounded-full backdrop-blur-[3px] text-sm font-semibold tracking-wider">@{item?.user?.name}</span>
+                    <span className="text-white bg-white/10 px-4 py-1 rounded-full backdrop-blur-[3px] text-[11px] font-semibold tracking-wider">@{item?.user?.name}</span>
                 </div>
             </div>
 

@@ -64,7 +64,11 @@ export default function SingleQuest() {
         setData('image', image)
     }
 
-    console.log(images)
+
+    const galleryImage = quest?.quest_join?.map((joinedQuest: any) => joinedQuest?.quest_images?.map(item => {
+        return { image: item?.image, user: joinedQuest?.user }
+    }))?.flat()
+
 
     const [activeTab, setActiveTab] = useState("brief");
     const { t, direction } = useLocales()
@@ -125,9 +129,9 @@ export default function SingleQuest() {
                 </div>
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "entries" && "hidden")}>
                     <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-                        {images.map((item, index) => (
+                        {galleryImage?.map((item, index) => (
                             <div key={index} className="break-inside-avoid rounded overflow-hidden shadow-lg">
-                                <GalleryImageCart src={item} />
+                                <GalleryImageCart item={item} />
                             </div>
                         ))}
                     </div>

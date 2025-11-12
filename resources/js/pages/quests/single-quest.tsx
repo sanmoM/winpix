@@ -83,7 +83,8 @@ export default function SingleQuest() {
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "brief" && "hidden")}>
                     <Status t={t} direction={direction} />
                     <Brief title={t('singleQuestDetails.brief.title')} text={quest?.brief} />
-                    <Prizes t={t} />
+                    {console.log(quest)}
+                    <Prizes t={t} prizes={quest?.prizes} />
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
                         <Guidelines t={t} level_requirement={quest?.level_requirement} categories_requirement={quest?.categories_requirement} copyright_requirement={quest?.copyright_requirement} />
                         <div className='className="w-fit lg:w-full md:max-w-md mt-auto mx-auto lg:mx-0'>

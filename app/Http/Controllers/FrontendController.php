@@ -56,7 +56,7 @@ class FrontendController extends Controller
 
     public function singleQuest($id)
     {
-        $quest = Quest::with(['category', 'user'])->findOrFail($id);
+        $quest = Quest::with(['category', 'user', 'prizes'])->findOrFail($id);
         // return dd($quest);
         return Inertia::render('quests/single-quest', ['id' => $id, "quest" => $quest]);
     }

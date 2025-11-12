@@ -2,106 +2,58 @@ import RichTextEditor from '@/components/RichTextEditor';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
+import React from 'react';
 import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'About',
-        href: 'admin/about',
-    },
+    { title: 'Dashboard', href: route('admin.dashboard') },
+    { title: 'About', href: route('admin.about.index') },
+    { title: 'Create', href: '' },
 ];
 
 export default function Create() {
-    const { data, setData, post, processing } = useForm({
-        title: '',
-        content: '',
-        picture: null as File | null,
-    });
+    const { data, setData, post, processing, progress, errors, reset } =
+        useForm<{
+            title: string;
+            content: string;
+            picture: File | null;
+        }>({
+            title: '',
+            content: '',
+            picture: null,
+        });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('admin.about.store'));
-        // translateVariants(data, import.meta.env.VITE_GEMINI_API_KEY).then((translatedData) => {
-        //     fetch(route('admin.about.store'), {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(translatedData),
-        //     }).then((response) => {
-        //         console.log(response)
-        //     })
-        // })
-    };
 
-    async function translateVariants(data, apiKey) {
-        if (!apiKey) throw new Error("Gemini API key is required");
+        const formData = new FormData();
+        formData.append('title', data.title);
+        formData.append('content', data.content);
+        if (data.picture) formData.append('picture', data.picture);
 
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-
-        const jsonInput = JSON.stringify(data);
-        const prompt = `
-Translate the following JSON object into English and Arabic.
-Return an array with exactly two JSON objects:
-- One with lang = 'en' (English translations)
-- One with lang = 'ar' (Arabic translations)
-Maintain the same keys as the original object.
-Input: ${jsonInput}
-`;
-
-        const payload = {
-            contents: [
-                {
-                    role: "user",
-                    parts: [{ text: prompt }]
-                }
-            ]
-        };
-
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
+        post(route('admin.about.store'), {
+            data: formData,
+            forceFormData: true, // ensure multipart/form-data
+            onSuccess: () => reset(),
         });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error?.message || "Unknown API error");
-        }
-
-        const result = await response.json();
-        let text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-
-        if (!text) throw new Error("No valid translation returned from Gemini");
-
-        // ✅ Strip Markdown code blocks if present
-        text = text.replace(/^```json\s*/, "").replace(/\s*```$/, "").trim();
-
-        const translatedArray = JSON.parse(text);
-
-        if (!Array.isArray(translatedArray)) {
-            throw new Error(`Invalid translation format: ${text}`);
-        }
-
-        return translatedArray;
-    }
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="About" />
+            <Head title="Create About" />
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col space-y-4 p-6"
-                encType="multipart/form-data"
+                className="mx-auto max-w-3xl space-y-6 rounded-lg bg-white p-6 shadow"
             >
-                {/* Image Upload */}
-                <div className="grid w-full items-center gap-3">
+                {/* IMAGE UPLOAD */}
+                <div>
                     <Label htmlFor="picture">Image</Label>
                     <Input
                         id="picture"
                         type="file"
+                        accept="image/*"
                         onChange={(e) =>
                             setData(
                                 'picture',
@@ -109,33 +61,54 @@ Input: ${jsonInput}
                             )
                         }
                     />
+                    {progress && (
+                        <p className="mt-1 text-xs text-gray-500">
+                            Uploading: {progress.percentage}%
+                        </p>
+                    )}
+                    {errors.picture && (
+                        <p className="text-sm text-red-600">{errors.picture}</p>
+                    )}
                 </div>
 
-                {/* Title */}
-                <Label htmlFor="title">Title</Label>
-                <Input
-                    id="title"
-                    type="text"
-                    value={data.title}
-                    onChange={(e) => setData('title', e.target.value)}
-                    placeholder="Enter title"
-                />
+                {/* TITLE */}
+                <div>
+                    <Label htmlFor="title">Title (Default Language)</Label>
+                    <Input
+                        id="title"
+                        value={data.title}
+                        onChange={(e) => setData('title', e.target.value)}
+                        placeholder="Enter title"
+                    />
+                    {errors.title && (
+                        <p className="text-sm text-red-600">{errors.title}</p>
+                    )}
+                </div>
 
-                {/* Content */}
-                <Label htmlFor="content">Content</Label>
-                <RichTextEditor
-                    modelValue={data.content}
-                    onChange={(val) => setData('content', val)}
-                />
+                {/* CONTENT */}
+                <div>
+                    <Label htmlFor="content">Content (Default Language)</Label>
+                    <RichTextEditor
+                        modelValue={data.content}
+                        onChange={(val) => setData('content', val)}
+                    />
+                    {errors.content && (
+                        <p className="text-sm text-red-600">{errors.content}</p>
+                    )}
+                </div>
 
-                {/* Submit */}
-                <button
-                    type="submit"
-                    className="w-28 rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700"
-                    disabled={processing}
-                >
-                    {processing ? 'Saving...' : 'Save'}
-                </button>
+                {/* SUBMIT */}
+                <div className="pt-4">
+                    <button
+                        type="submit"
+                        disabled={processing}
+                        className={`rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow transition hover:bg-amber-700 ${
+                            processing && 'cursor-not-allowed opacity-60'
+                        }`}
+                    >
+                        {processing ? 'Saving...' : 'Save'}
+                    </button>
+                </div>
             </form>
         </AppLayout>
     );

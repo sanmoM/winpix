@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
 interface ModalProps {
@@ -5,9 +6,10 @@ interface ModalProps {
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
+  containerClassName?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, containerClassName }) => {
   if (!isOpen) return null;
 
   // Stop clicks inside modal from closing it
@@ -27,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
       {/* Modal Dialog Box */}
       <div
         onClick={handleModalClick} // prevent closing when clicking inside modal
-        className="bg-background rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all duration-300 sm:my-8 sm:align-middle"
+        className={cn("bg-background rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all duration-300 sm:my-8 sm:align-middle", containerClassName)}
       >
         {/* Modal Header */}
         <div className="flex items-center justify-between px-8 py-6 border-gray-200 dark:border-gray-700">

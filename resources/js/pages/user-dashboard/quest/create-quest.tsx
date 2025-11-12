@@ -114,7 +114,7 @@ export default function Dashboard() {
 
                     {/* Title */}
                     <div className="grid gap-2">
-                        <Label htmlFor="title">{t('dashboard.createQuest.inputs.title.label')}</Label>
+                        <Label htmlFor="title">{t('dashboard.quest.inputs.title.label')}</Label>
                         <Input
                             id="title"
                             name="title"
@@ -122,19 +122,19 @@ export default function Dashboard() {
                             onChange={(e) =>
                                 setData('title', e.target.value)
                             }
-                            placeholder={t('dashboard.createQuest.inputs.title.placeholder')}
+                            placeholder={t('dashboard.quest.inputs.title.placeholder')}
                         />
                         <InputError message={errors.title} />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="title">{t('dashboard.createQuest.inputs.brief.label')}</Label>
+                        <Label htmlFor="title">{t('dashboard.quest.inputs.brief.label')}</Label>
                         <TextAreaInput
                             value={data.brief}
                             onChange={(e) =>
                                 setData('brief', e.target.value)
                             }
-                            placeholder={t('dashboard.createQuest.inputs.brief.placeholder')}
+                            placeholder={t('dashboard.quest.inputs.brief.placeholder')}
                         />
                         <InputError message={errors.brief} />
                     </div>
@@ -142,7 +142,7 @@ export default function Dashboard() {
                         <SelectInput
                             id="tag"
                             name="tag"
-                            label={t('dashboard.createQuest.inputs.category.label')}
+                            label={t('dashboard.quest.inputs.category.label')}
                             options={categoryOptions}
                             value={data.category_id}
                             onChange={(value) =>
@@ -153,7 +153,7 @@ export default function Dashboard() {
                         <SelectInput
                             id="series"
                             name="series"
-                            label={t('dashboard.createQuest.inputs.series.label')}
+                            label={t('dashboard.quest.inputs.series.label')}
                             options={seriesOptions}
                             value={data.quest_series_id}
                             onChange={(value) =>
@@ -164,7 +164,7 @@ export default function Dashboard() {
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="title">{t('dashboard.createQuest.inputs.entryCoin.label')}</Label>
+                        <Label htmlFor="title">{t('dashboard.quest.inputs.entryCoin.label')}</Label>
                         <Input
                             type='number'
                             id="start"
@@ -174,13 +174,13 @@ export default function Dashboard() {
                                 setData("entry_coin", e.target.value)
                             }
                             }
-                            placeholder={t('dashboard.createQuest.inputs.entryCoin.placeholder')}
+                            placeholder={t('dashboard.quest.inputs.entryCoin.placeholder')}
                         />
                         <InputError message={errors.entry_coin} />
                     </div>
                     <div className='grid grid-cols-3 gap-4'>
                         <div className="grid gap-2">
-                            <Label htmlFor="title">{t('dashboard.createQuest.inputs.level_requirement.label')}</Label>
+                            <Label htmlFor="title">{t('dashboard.quest.inputs.level_requirement.label')}</Label>
                             <Input
                                 id="level_require"
                                 name="level_require"
@@ -189,12 +189,12 @@ export default function Dashboard() {
                                     setData("level_requirement", e.target.value)
                                 }
                                 }
-                                placeholder={t('dashboard.createQuest.inputs.level_requirement.placeholder')}
+                                placeholder={t('dashboard.quest.inputs.level_requirement.placeholder')}
                             />
                             <InputError message={errors.level_requirement} />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="title">{t('dashboard.createQuest.inputs.categories_requirement.label')}</Label>
+                            <Label htmlFor="title">{t('dashboard.quest.inputs.categories_requirement.label')}</Label>
                             <Input
                                 id="categories_require"
                                 name="categories_require"
@@ -203,12 +203,12 @@ export default function Dashboard() {
                                     setData("categories_requirement", e.target.value)
                                 }
                                 }
-                                placeholder={t('dashboard.createQuest.inputs.categories_requirement.placeholder')}
+                                placeholder={t('dashboard.quest.inputs.categories_requirement.placeholder')}
                             />
                             <InputError message={errors.categories_requirement} />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="title">{t('dashboard.createQuest.inputs.copyright_requirement.label')}</Label>
+                            <Label htmlFor="title">{t('dashboard.quest.inputs.copyright_requirement.label')}</Label>
                             <Input
                                 id="copyright_require"
                                 name="copyright_require"
@@ -217,7 +217,7 @@ export default function Dashboard() {
                                     setData("copyright_requirement", e.target.value)
                                 }
                                 }
-                                placeholder={t('dashboard.createQuest.inputs.copyright_requirement.placeholder')}
+                                placeholder={t('dashboard.quest.inputs.copyright_requirement.placeholder')}
                             />
                             <InputError message={errors.copyright_requirement} />
                         </div>
@@ -227,7 +227,7 @@ export default function Dashboard() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Start Date */}
                         <div className="grid gap-2">
-                            <Label htmlFor="startDate">{t('dashboard.createQuest.inputs.startDate.label')}</Label>
+                            <Label htmlFor="startDate">{t('dashboard.quest.inputs.startDate.label')}</Label>
                             <DateInput
                                 value={data.startDate}
                                 onChange={(value) =>
@@ -238,7 +238,7 @@ export default function Dashboard() {
 
                         {/* End Date */}
                         <div className="grid gap-2">
-                            <Label htmlFor="endDate">{t('dashboard.createQuest.inputs.endDate.label')}</Label>
+                            <Label htmlFor="endDate">{t('dashboard.quest.inputs.endDate.label')}</Label>
                             <DateInput
                                 value={data.endDate}
                                 onChange={(value) =>
@@ -247,104 +247,11 @@ export default function Dashboard() {
                             <InputError message={errors.endDate} />
                         </div>
                     </div>
-
-                    {/* --- Prizes Section --- */}
-                    {/* <div>
-                        <div className="flex justify-between items-center mb-4">
-                            <label className="text-lg font-medium text-white">{t('dashboard.createQuest.inputs.multiplePrizes.title')}</label>
-                            <Button disabled={processing} onClick={addPrizeRow} type='button'>  + {t('dashboard.createQuest.inputs.multiplePrizes.buttons.addSinglePrize')}</Button>
-                        </div>
-
-                        <div className="flex items-center gap-2 md:gap-4 mb-2">
-                            <div className="grid grid-cols-[1fr_100px_100px_120px_100px_100px] gap-2 md:gap-4 w-full">
-                                <span className="flex-1 text-sm font-medium "><Label htmlFor="startDate">{t('dashboard.createQuest.inputs.multiplePrizes.titleInput.label')}</Label></span>
-                                <span className="flex-1 text-sm font-medium "><Label htmlFor="startDate">{t('dashboard.createQuest.inputs.multiplePrizes.start.label')}</Label></span>
-                                <span className="flex-1 text-sm font-medium "><Label htmlFor="endDate">{t('dashboard.createQuest.inputs.multiplePrizes.end.label')}</Label></span>
-                                <span className="flex-1 text-sm font-medium "><Label htmlFor="endDate">{t('dashboard.createQuest.inputs.multiplePrizes.numOfPrizes.label')}</Label></span>
-                                <span className="flex-1 text-sm font-medium "><Label htmlFor="amount">{t('dashboard.createQuest.inputs.multiplePrizes.amount.label')}</Label></span>
-                            </div>
-                            <span className="w-8"></span>
-                        </div>
-
-                        <div className="space-y-4">
-                            {data?.prizes.map((prize, index) => (
-                                <div key={index} className="flex items-center gap-2 md:gap-4">
-                                    <div className="grid grid-cols-[1fr_100px_100px_120px_100px_100px] items-center gap-2 md:gap-4 w-full">
-                                        <Input
-                                            id="title"
-                                            name="title"
-                                            value={prize.title}
-                                            onChange={(e) =>
-                                                setPrizeData(index, 'title', e.target.value)
-                                            }
-                                            placeholder={t('dashboard.createQuest.inputs.multiplePrizes.titleInput.placeholder')}
-                                        />
-                                        <Input
-                                            type='number'
-                                            id="start"
-                                            name="start"
-                                            value={prize.min}
-                                            placeholder={t('dashboard.createQuest.inputs.multiplePrizes.start.placeholder')}
-                                        />
-                                        <Input
-                                            type='number'
-                                            id="end"
-                                            name="end"
-                                            value={prize.max}
-                                            onChange={(e) => {
-                                                if (prize.maxEditable) {
-                                                    setPrizeData(index, 'title', `${Number(prize.max)-Number(prize.min) + 1}`)
-                                                    setPrizeData(index, 'max', e.target.value)
-                                                }
-                                            }
-                                            }
-                                            placeholder={t('dashboard.createQuest.inputs.multiplePrizes.end.placeholder')}
-                                        />
-                                        <Input
-                                            type='number'
-                                            id="amount"
-                                            name="amount"
-                                            value={Number(prize?.max) - Number(prize?.min) + 1}
-                                            placeholder={t('dashboard.createQuest.inputs.multiplePrizes.amount.placeholder')}
-
-                                        />
-                                        <Input
-                                            type='number'
-                                            id="amount"
-                                            name="amount"
-                                            value={prize.coin}
-                                            onChange={(e) =>
-                                                setPrizeData(index, 'coin', e.target.value)
-                                            }
-                                            placeholder={t('dashboard.createQuest.inputs.multiplePrizes.amount.placeholder')}
-
-                                        />
-                                    </div>
-
-                                    {
-                                        (data?.prizes?.length <= (index + 1)) && (data?.prizes?.length > 5) ? (
-                                            <button
-                                                type="button"
-                                                onClick={() => removePrizeRow(index)}
-                                                className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full transition-colors ${data?.prizes.length > 1 ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-gray-700 text-gray-500 cursor-not-allowed'}`}
-                                                aria-label="Remove prize row"
-                                                disabled={data?.prizes.length <= 1}
-                                            >
-                                                <MinusIcon />
-                                            </button>
-                                        ) : (
-                                            <span className='w-8 h-8'></span>
-                                        )
-                                    }
-                                </div>
-                            ))}
-                        </div>
-                    </div> */}
                     <PrizesInput prizes={data.prizes} setPrizes={(value) => setData('prizes', value)} />
 
                     {/* Submit Button */}
                     <div className="flex items-center gap-4">
-                        <Button disabled={processing}>  {t('dashboard.createQuest.inputs.button.text')}</Button>
+                        <Button disabled={processing}>  {t('dashboard.quest.button.createButton')}</Button>
 
                         <Transition
                             show={recentlySuccessful}
@@ -353,7 +260,7 @@ export default function Dashboard() {
                             leave="transition ease-in-out"
                             leaveTo="opacity-0"
                         >
-                            <p className="text-sm text-neutral-600">{t('dashboard.createQuest.inputs.save.text')}</p>
+                            <p className="text-sm text-neutral-600">{t('dashboard.quest.button.saveText')}</p>
                         </Transition>
                     </div>
 

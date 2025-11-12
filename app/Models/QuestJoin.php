@@ -9,6 +9,7 @@ class QuestJoin extends Model
     protected $fillable = [
         'quest_id',
         'user_id',
+        'image',
     ];
 
     public function quest()

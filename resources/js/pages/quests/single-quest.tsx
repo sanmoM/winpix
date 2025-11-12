@@ -1,3 +1,4 @@
+import JoinModal from '@/components/quests/single-quest/join-modal'
 import Status from '@/components/quests/single-quest/status'
 import Banner from '@/components/shared/banner'
 import Brief from '@/components/shared/brief'
@@ -7,6 +8,7 @@ import Container from '@/components/shared/container'
 import Creator from '@/components/shared/creator'
 import GalleryImageCart from '@/components/shared/gallary-image-cart'
 import Guidelines from '@/components/shared/guidelines/guidelines'
+import Modal from '@/components/shared/modal'
 import Prizes from '@/components/shared/prizes/prizes'
 import Tab from '@/components/shared/tab'
 import useLocales from '@/hooks/useLocales'
@@ -34,9 +36,15 @@ const images = [
 
 export default function SingleQuest() {
     const { quest, auth } = usePage<any>().props;
-    const { post } = useForm({
-        quest_id: quest.id
+    const [joinModalOpen, setJoinModalOpen] = useState(false);
+    const { post, setData, data } = useForm<any>({
+        quest_id: quest.id,
+        image: null
     })
+
+    const setImage = (image: any) => {
+        setData('image', image)
+    }
 
     const [activeTab, setActiveTab] = useState("brief");
     const { t, direction } = useLocales()
@@ -53,6 +61,7 @@ export default function SingleQuest() {
             toast.error('Not enough Pixels')
             router.visit('/store')
         }
+
     }
     return (
         <UserLayout>
@@ -64,10 +73,10 @@ export default function SingleQuest() {
                         <img src="/images/coin.png" alt="" className="w-6 h-6" />
                         <p>{quest?.entry_coin}</p>
                     </div>
-                    <form className='grid grid-cols-2 gap-4' onSubmit={handleJoinQuest}>
+                    <div className='grid grid-cols-2 gap-4'>
                         <SecondaryButton text={t('singleQuest.banner.voteText')} />
-                        <Button text={t('singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' />
-                    </form>
+                        <Button text={t('singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' type='button' onClick={() => setJoinModalOpen(true)} />
+                    </div>
                 </div>
             </Banner>
             <Container className="space-y-14 md:space-y-20 lg:space-y-10 my-10 md:my-16 lg:mb-28 lg:mt-8">
@@ -83,7 +92,7 @@ export default function SingleQuest() {
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "brief" && "hidden")}>
                     <Status t={t} direction={direction} />
                     <Brief title={t('singleQuestDetails.brief.title')} text={quest?.brief} />
-                    <Prizes t={t} />
+                    <Prizes t={t} prizes={quest?.prizes} />
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
                         <Guidelines t={t} level_requirement={quest?.level_requirement} categories_requirement={quest?.categories_requirement} copyright_requirement={quest?.copyright_requirement} />
                         <div className='className="w-fit lg:w-full md:max-w-md mt-auto mx-auto lg:mx-0'>
@@ -100,6 +109,14 @@ export default function SingleQuest() {
                         ))}
                     </div>
                 </div>
+                <Modal
+                    isOpen={joinModalOpen}
+                    onClose={() => setJoinModalOpen(false)}
+                    title='Join Quest'
+                    containerClassName='w-full max-w-lg'
+                >
+                    <JoinModal handleJoinQuest={handleJoinQuest} image={data?.image} setImage={setImage} />
+                </Modal>
             </Container>
         </UserLayout>
     )

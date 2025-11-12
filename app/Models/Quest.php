@@ -44,6 +44,11 @@ class Quest extends Model
         return $this->belongsTo(QuestCategory::class);
     }
 
+    public function quest_join()
+    {
+        return $this->hasMany(QuestJoin::class);
+    }
+
     protected $casts = [
         'start_date' => 'date:Y-m-d',
         'end_date' => 'date:Y-m-d',

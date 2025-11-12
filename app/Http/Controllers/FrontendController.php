@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quest;
+use App\Models\QuestImage;
 use App\Models\QuestJoin;
 use App\Models\Redeem;
 use App\Models\Series;
@@ -59,7 +60,7 @@ class FrontendController extends Controller
     public function singleQuest($id)
     {
         $userId = auth()->user()->id;
-        $joinedQuests = QuestJoin::with(['user'])->where('user_id', $userId)->get();
+        $joinedQuests = QuestJoin::with(['user', 'quest_images'])->where('user_id', $userId)->get();
         $quest = Quest::with(['category', 'user', 'prizes'])->findOrFail($id);
         // return dd($quest);
         return Inertia::render('quests/single-quest', ['id' => $id, "quest" => $quest, "joinedQuests" => $joinedQuests]);
@@ -157,11 +158,13 @@ class FrontendController extends Controller
             [
                 'quest_id' => $id,
                 'user_id' => $user->id,
-            ],
-            [
-                'image' => $image,
             ]
         );
+
+        QuestImage::create([
+            'quest_join_id' => $questJoin->id,
+            'image' => $image,
+        ]);
 
         if ($questJoin->wasRecentlyCreated) {
             // Only deduct pixels if a new record was created

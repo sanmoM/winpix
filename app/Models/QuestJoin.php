@@ -9,7 +9,6 @@ class QuestJoin extends Model
     protected $fillable = [
         'quest_id',
         'user_id',
-        'image',
     ];
 
     public function quest()
@@ -20,5 +19,10 @@ class QuestJoin extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function quest_images()
+    {
+        return $this->hasMany(QuestImage::class);
     }
 }

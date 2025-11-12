@@ -44,13 +44,27 @@ export default function SingleQuest() {
         quest_id: quest.id,
         image: null
     })
+    const currentJoinedQuest = joinedQuests?.filter((item: any) => item?.quest_id === quest.id)
+    const currentJoinedQuestImage = currentJoinedQuest?.map((item: any) => item?.quest_images?.map(item => item?.image))?.flat()
 
     const isJoined = joinedQuests?.map((item: any) => item.quest_id).includes(quest.id)
-    const images = joinedQuests?.map((item: any) => item.image)
+    const othersJoinedQuests = joinedQuests?.filter((item: any) => {
+        if (item?.quest_id !== quest.id) {
+            return true
+        } else {
+            return false
+        }
+    })
+
+    const othersJoinedQuestImage = othersJoinedQuests?.map((item: any) => item?.quest_images?.map(item => item?.image))?.flat()
+
+    const images = othersJoinedQuestImage?.filter((item: any) => !currentJoinedQuestImage?.includes(item))
 
     const setImage = (image: any) => {
         setData('image', image)
     }
+
+    console.log(images)
 
     const [activeTab, setActiveTab] = useState("brief");
     const { t, direction } = useLocales()
@@ -84,8 +98,7 @@ export default function SingleQuest() {
                     <div className='grid gap-4 grid-cols-2'
                     >
                         <SecondaryButton text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white" />
-
-                        <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' type='button' onClick={() => setJoinModalOpen(true)} />F
+                        <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' type='button' onClick={() => setJoinModalOpen(true)} />
                     </div>
                 </div>
             </Banner>
@@ -125,7 +138,7 @@ export default function SingleQuest() {
                     title='Join Quest'
                     containerClassName='w-full max-w-lg'
                 >
-                    <JoinModal handleJoinQuest={handleJoinQuest} image={data?.image} setImage={setImage} setLibraryModalOpen={setLibraryModalOpen} />
+                    <JoinModal handleJoinQuest={handleJoinQuest} image={data?.image} setImage={setImage} setLibraryModalOpen={setLibraryModalOpen} btnText={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} setJoinModalOpen={setJoinModalOpen} />
                 </Modal>
                 <Modal
                     isOpen={libraryModalOpen}
@@ -133,7 +146,7 @@ export default function SingleQuest() {
                     title='Your Library'
                     containerClassName='w-full'
                 >
-                    <LibraryModal images={images} setImage={(value) => setData("image", value)} selectedImage={data?.image} handleJoinQuest={handleJoinQuest} />
+                    <LibraryModal images={images} setImage={(value) => setData("image", value)} selectedImage={data?.image} handleJoinQuest={handleJoinQuest} btnText={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} />
                 </Modal>
             </Container>
         </UserLayout>

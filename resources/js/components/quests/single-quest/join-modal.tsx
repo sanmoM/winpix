@@ -2,7 +2,7 @@ import Button from '@/components/shared/buttons/button';
 import React, { useRef, useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 
-const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen }: any) => {
+const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnText, setJoinModalOpen }: any) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     // const imageUrl = image && URL.createObjectURL(image?.file);
     const [imageUrl, setImageUrl] = useState<any>(null);
@@ -61,7 +61,10 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen }: an
                     {/* Quest Library Button */}
                     <button
                         type='button'
-                        onClick={() => setLibraryModalOpen(true)}
+                        onClick={() => {
+                            setLibraryModalOpen(true)
+                            setJoinModalOpen(false)
+                        }}
                         className="flex-1 flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg shadow-sm hover:border-indigo-500 transition duration-150 ease-in-out cursor-pointer"
                     >
                         <svg
@@ -104,7 +107,7 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen }: an
                 )}
                 {
                     image && <div>
-                        <Button text='Join' onClick={handleJoinQuest} className='mt-4 px-6 lg:px-14 text-lg' />
+                        <Button text={btnText} onClick={handleJoinQuest} className='mt-4 px-6 lg:px-14 text-lg' />
                     </div>
                 }
             </div>

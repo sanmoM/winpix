@@ -4,17 +4,13 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
+import React from 'react';
 import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'About',
-        href: 'admin/about',
-    },
-    {
-        title: 'Edit',
-        href: '',
-    },
+    { title: 'Dashboard', href: route('admin.dashboard') },
+    { title: 'About', href: route('admin.about.index') },
+    { title: 'Edit', href: '' },
 ];
 
 interface EditProps {
@@ -27,7 +23,8 @@ interface EditProps {
 }
 
 export default function Edit({ item }: EditProps) {
-    const { data, setData, put, processing } = useForm({
+    const { data, setData, post, processing, progress, errors } = useForm({
+        _method: 'PUT',
         title: item.title,
         content: item.content,
         picture: null as File | null,
@@ -35,34 +32,47 @@ export default function Edit({ item }: EditProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(route('admin.about.update', item.id));
+
+        const formData = new FormData();
+        formData.append('_method', 'PUT');
+        formData.append('title', data.title);
+        formData.append('content', data.content);
+        if (data.picture) formData.append('picture', data.picture);
+
+        post(route('admin.about.update', item.id), {
+            data: formData,
+            forceFormData: true,
+            onSuccess: () => console.log('Updated successfully'),
+        });
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Edit About" />
+
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col space-y-4 p-6"
-                encType="multipart/form-data"
+                className="mx-auto max-w-3xl space-y-6 rounded-lg bg-white p-6 shadow"
             >
-                {/* Current Image Preview */}
+                {/* CURRENT IMAGE PREVIEW */}
                 {item.picture && (
-                    <div className="mb-2">
+                    <div className="mb-4">
+                        <Label>Current Image</Label>
                         <img
-                            src={`public/storage/uploads/about/${item.picture}`}
+                            src={`/storage/${item.picture}`}
                             alt={item.title}
-                            className="h-20 w-20 rounded object-cover"
+                            className="mt-1 h-24 w-24 rounded border object-cover"
                         />
                     </div>
                 )}
 
-                {/* Image Upload */}
-                <div className="grid w-full items-center gap-3">
+                {/* IMAGE UPLOAD */}
+                <div>
                     <Label htmlFor="picture">Change Image</Label>
                     <Input
                         id="picture"
                         type="file"
+                        accept="image/*"
                         onChange={(e) =>
                             setData(
                                 'picture',
@@ -70,33 +80,54 @@ export default function Edit({ item }: EditProps) {
                             )
                         }
                     />
+                    {progress && (
+                        <p className="mt-1 text-xs text-gray-500">
+                            Uploading: {progress.percentage}%
+                        </p>
+                    )}
+                    {errors.picture && (
+                        <p className="text-sm text-red-600">{errors.picture}</p>
+                    )}
                 </div>
 
-                {/* Title */}
-                <Label htmlFor="title">Title</Label>
-                <Input
-                    id="title"
-                    type="text"
-                    value={data.title}
-                    onChange={(e) => setData('title', e.target.value)}
-                    placeholder="Enter title"
-                />
+                {/* TITLE */}
+                <div>
+                    <Label htmlFor="title">Title</Label>
+                    <Input
+                        id="title"
+                        value={data.title}
+                        onChange={(e) => setData('title', e.target.value)}
+                        placeholder="Enter title"
+                    />
+                    {errors.title && (
+                        <p className="text-sm text-red-600">{errors.title}</p>
+                    )}
+                </div>
 
-                {/* Content */}
-                <Label htmlFor="content">Content</Label>
-                <RichTextEditor
-                    modelValue={data.content}
-                    onChange={(val) => setData('content', val)}
-                />
+                {/* CONTENT */}
+                <div>
+                    <Label htmlFor="content">Content</Label>
+                    <RichTextEditor
+                        modelValue={data.content}
+                        onChange={(val) => setData('content', val)}
+                    />
+                    {errors.content && (
+                        <p className="text-sm text-red-600">{errors.content}</p>
+                    )}
+                </div>
 
-                {/* Submit */}
-                <button
-                    type="submit"
-                    className="w-28 rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700"
-                    disabled={processing}
-                >
-                    {processing ? 'Updating...' : 'Update'}
-                </button>
+                {/* SUBMIT BUTTON */}
+                <div className="pt-4">
+                    <button
+                        type="submit"
+                        disabled={processing}
+                        className={`rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow transition hover:bg-amber-700 ${
+                            processing && 'cursor-not-allowed opacity-60'
+                        }`}
+                    >
+                        {processing ? 'Updating...' : 'Update'}
+                    </button>
+                </div>
             </form>
         </AppLayout>
     );

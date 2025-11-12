@@ -13,6 +13,7 @@ import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { edit } from '@/routes/profile';
+import { useState } from 'react';
 
 
 export default function Profile({
@@ -24,6 +25,7 @@ export default function Profile({
 }) {
     const { t } = useLocales();
     const { auth } = usePage<SharedData>().props;
+    const [image, setImage] = useState<string | null>(auth.user.image);
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: t('dashboard.editProfile.heading'),
@@ -52,8 +54,8 @@ export default function Profile({
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
                                 <ImageInput
-                                    image={"auth.user.image"}
-                                    setImage={(value) => {}}
+                                    image={image}
+                                    setImage={(value) => { setImage(value) }}
                                     wrapperClassName='w-full aspect-[1/1] w-[200px]'
                                     iconClassName='w-[20%]'
                                 />

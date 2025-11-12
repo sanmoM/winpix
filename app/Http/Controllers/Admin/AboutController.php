@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class AboutController extends Controller
@@ -165,36 +166,34 @@ class AboutController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $item = About::findOrFail($id);
+        $about = About::findOrFail($id);
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'picture' => 'nullable|image|max:2048',
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
+        // Handle image upload
         if ($request->hasFile('picture')) {
-
-            $file = $request->file('picture');
-            $filename = time().'.'.$file->getClientOriginalExtension();
-            $file->storeAs('uploads/about', $filename, 'public');
-            $validated['picture'] = $filename;
-
-            if ($item->picture && file_exists(storage_path('uploads/about/'.$item->picture))) {
-                unlink(storage_path('uploads/about/'.$item->picture));
+            // ✅ Delete old image if exists
+            if ($about->picture && file_exists(public_path('storage/'.$about->picture))) {
+                unlink(public_path('storage/'.$about->picture));
             }
-        } else {
-            $validated['picture'] = $item->picture;
+
+            // ✅ Store new image
+            $path = $request->file('picture')->store('uploads/about', 'public');
+            $validated['picture'] = $path;
         }
 
-        $item->update($validated);
+        // ✅ Update data
+        $about->update($validated);
 
         return redirect()
             ->route('admin.about.index')
-            ->with('success', 'About data updated successfully 🎉');
-
+            ->with('success', 'About updated successfully!');
     }
 
     /**
@@ -203,10 +202,8 @@ class AboutController extends Controller
     public function destroy($id)
     {
         $about = About::findOrFail($id);
-
-        // Delete image if exists
-        if ($about->picture && file_exists(storage_path('app/public/uploads/about/'.$about->picture))) {
-            unlink(storage_path('app/public/uploads/about/'.$about->picture));
+        if ($about->picture && file_exists(public_path('storage/'.$about->picture))) {
+            unlink(public_path('storage/'.$about->picture));
         }
 
         $about->delete();

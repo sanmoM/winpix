@@ -35,7 +35,7 @@ export default function Create() {
 
         post(route('admin.about.store'), {
             data: formData,
-            forceFormData: true, // ensure multipart/form-data
+            forceFormData: true,
             onSuccess: () => reset(),
         });
     };

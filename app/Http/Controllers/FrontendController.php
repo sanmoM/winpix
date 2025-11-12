@@ -166,10 +166,7 @@ class FrontendController extends Controller
             'image' => $image,
         ]);
 
-        if ($questJoin->wasRecentlyCreated) {
-            // Only deduct pixels if a new record was created
-            $user->decrement('pixel', $questFromDb->entry_coin);
-        }
+        $user->decrement('pixel', $questFromDb->entry_coin);
 
         return redirect()->back()->with('success', 'Join Quest Successfully');
     }

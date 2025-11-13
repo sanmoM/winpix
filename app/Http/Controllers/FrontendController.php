@@ -21,13 +21,15 @@ class FrontendController extends Controller
     {
         $sliders = Slider::all();
         $new_quest = Quest::with(["category", "user"])->where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
-        // $user = auth()->user();
-        // if ($user) {
-        //     return redirect("/discover");
-        // }
+        $galleryImages = QuestImage::with(["quest_join.user", "quest_join.quest.category", "quest_join.quest.user"])->orderBy('vote_count', 'desc')->take(value: 20)->get();
+        $user = auth()->user();
+        if ($user) {
+            return redirect("/discover");
+        }
         return Inertia::render('home', [
             'sliders' => $sliders,
             'new_quest' => $new_quest,
+            'galleryImages' => $galleryImages,
         ]);
     }
 

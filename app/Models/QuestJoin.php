@@ -33,9 +33,4 @@ class QuestJoin extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    // public function quest_images()
-    // {
-    //     return $this->hasMany(QuestImage::class);
-    // }
 }

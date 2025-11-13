@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('quest_join_id')->constrained('quest_joins');
             $table->string('image');
+            $table->integer('vote_count')->default(0);
             $table->timestamps();
         });
     }

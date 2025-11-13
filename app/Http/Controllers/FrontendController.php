@@ -21,13 +21,15 @@ class FrontendController extends Controller
     {
         $sliders = Slider::all();
         $new_quest = Quest::with(["category", "user"])->where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
-        // $user = auth()->user();
-        // if ($user) {
-        //     return redirect("/discover");
-        // }
+        $galleryImages = QuestImage::with(["quest_join.user", "quest_join.quest.category", "quest_join.quest.user"])->orderBy('vote_count', 'desc')->take(value: 20)->get();
+        $user = auth()->user();
+        if ($user) {
+            return redirect("/discover");
+        }
         return Inertia::render('home', [
             'sliders' => $sliders,
             'new_quest' => $new_quest,
+            'galleryImages' => $galleryImages,
         ]);
     }
 
@@ -62,8 +64,13 @@ class FrontendController extends Controller
         $userId = auth()->user()->id;
         $joinedQuests = QuestJoin::with(['user', 'images'])->where('user_id', $userId)->get();
         $quest = Quest::with(['category', 'user', 'prizes', "quest_join.images", "quest_join.user"])->findOrFail($id);
-        // return dd($quest);
-        return Inertia::render('quests/single-quest', ['id' => $id, "quest" => $quest, "joinedQuests" => $joinedQuests]);
+        // $questImages = QuestImage::with(['quest_join.user', 'quest_join.quest.category', 'quest_join.quest.user'])->where('quest_id', $id)->get();
+        return Inertia::render('quests/single-quest', [
+            'id' => $id,
+            "quest" => $quest,
+            "joinedQuests" => $joinedQuests,
+            // "questImages" => $questImages,
+        ]);
     }
 
     public function questSeries()

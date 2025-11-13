@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class AboutController extends Controller
@@ -59,6 +60,8 @@ class AboutController extends Controller
                 ]];
             }
 
+            $groupId = Str::uuid()->toString();
+
             // Step 3: Create records for each language
             foreach ($translations as $t) {
                 About::create([
@@ -66,6 +69,7 @@ class AboutController extends Controller
                     'title' => $t['title'],
                     'content' => $t['content'],
                     'picture' => $path,
+                    'group_id' => $groupId,
                 ]);
             }
 
@@ -176,20 +180,27 @@ class AboutController extends Controller
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        // Handle image upload
+        $about->update([
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+        ]);
+
         if ($request->hasFile('picture')) {
-            // ✅ Delete old image if exists
+            // Delete old image
             if ($about->picture && file_exists(public_path('storage/'.$about->picture))) {
                 unlink(public_path('storage/'.$about->picture));
             }
 
-            // ✅ Store new image
+            // Store new image
             $path = $request->file('picture')->store('uploads/about', 'public');
-            $validated['picture'] = $path;
-        }
 
-        // ✅ Update data
-        $about->update($validated);
+            if ($about->group_id) {
+                About::where('group_id', $about->group_id)
+                    ->update(['picture' => $path]);
+            } else {
+                $about->update(['picture' => $path]);
+            }
+        }
 
         return redirect()
             ->route('admin.about.index')

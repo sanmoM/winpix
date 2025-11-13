@@ -48,11 +48,13 @@ export default function SingleQuest() {
     // images filter logic for library modal ends
 
     // Voting items logic starts
-    const allItems = joinedQuests?.map((item: any) => item?.images)?.flat()
+    const allItems = questImages
     const votingItems = allItems?.slice(((votes?.length || 0) * 2), allItems?.length)?.filter((item: any) => {
         return !votes?.map((vote: any) => vote?.image_id)?.includes(item?.id)
     })
     // Voting items logic ends
+
+    console.log(votes, allItems, questImages)
 
     const setImage = (image: any) => {
         setData('image', image)

@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('quest_joins', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('quest_id')->constrained('quests')->onDelete('cascade');
+            $table->foreignId('quest_id')->constrained('quests');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

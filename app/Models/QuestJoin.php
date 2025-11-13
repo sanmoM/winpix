@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class QuestJoin extends Model
 {
@@ -11,6 +12,18 @@ class QuestJoin extends Model
         'user_id',
     ];
 
+    public function images()
+    {
+        return $this->hasMany(QuestImage::class, 'quest_join_id');
+    }
+
+    protected static function booted()
+    {
+        static::deleting(function ($join) {
+            // Delete all related QuestImages
+            $join->images->each->delete();
+        });
+    }
     public function quest()
     {
         return $this->belongsTo(Quest::class);
@@ -21,8 +34,8 @@ class QuestJoin extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function quest_images()
-    {
-        return $this->hasMany(QuestImage::class);
-    }
+    // public function quest_images()
+    // {
+    //     return $this->hasMany(QuestImage::class);
+    // }
 }

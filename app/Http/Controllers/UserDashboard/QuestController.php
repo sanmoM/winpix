@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Prize;
 use App\Models\Quest;
 use App\Models\QuestCategory;
+use App\Models\QuestImage;
+use App\Models\QuestJoin;
 use App\Models\Series;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -346,9 +348,8 @@ class QuestController extends Controller
      */
     public function destroy(string $id)
     {
-        // delete prizes
-        Prize::where('quest_id', $id)->delete();
-        Quest::destroy($id);
+        $quest = Quest::findOrFail($id);
+        $quest->delete(); // This triggers all cascading deletes
         return redirect()->route('user-dashboard.quest.index');
     }
 }

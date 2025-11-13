@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
 
 class FollowController extends Controller
 {
-public function follow(User $user)
-
+    public function follow(User $user)
     {
         auth()->user()->following()->attach($user->id);
 

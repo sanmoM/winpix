@@ -12,7 +12,7 @@ import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 
 interface Prize {
@@ -77,8 +77,6 @@ export default function EditQuest() {
             quest_series_id: quest.quest_series_id,
         });
 
-    console.log(data)
-
 
     const categoryOptions = categories.map((category) => ({
         value: category.id,
@@ -90,26 +88,68 @@ export default function EditQuest() {
         label: series.title,
     }));
 
-    const addPrizeRow = () => {
-        setData('prizes', [...data.prizes, { min: "", max: "", coin: "", title: "" }]);
-    };
-
-    const removePrizeRow = (index: number) => {
-        if (data.prizes.length <= 1) return;
-        setData('prizes', data.prizes.filter((_, i) => i !== index));
-    };
-
-    const setPrizeData = (index: number, field: keyof Prize, value: string | number) => {
-        const newPrizes: Prize[] = [...data.prizes];
-        newPrizes[index][field] = value as any;
-        setData('prizes', newPrizes);
-    };
-
+    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     put(route('user-dashboard.quest.update', data.id), {
+    //         onSuccess: () => reset(),
+    //         onError: (errors) => console.log(errors),
+    //         forceFormData: true,
+    //     });
+    // };
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        put(route('user-dashboard.quest.update', data.id), {
-            onSuccess: () => reset(),
-            onError: (errors) => console.log(errors),
+
+        // Create FormData object (required for file upload)
+        const formData = new FormData();
+
+        // Laravel expects a PUT, but browsers only support POST in multipart/form-data
+        // So we spoof the method:
+        formData.append('_method', 'PUT');
+
+        // Append all quest fields
+        formData.append('title', data.title);
+        formData.append('brief', data.brief);
+        formData.append('category_id', data.category_id);
+        formData.append('startDate', data.startDate);
+        formData.append('endDate', data.endDate);
+        formData.append('entry_coin', data.entry_coin);
+        formData.append('level_requirement', data.level_requirement || '');
+        formData.append('categories_requirement', data.categories_requirement || '');
+        formData.append('copyright_requirement', data.copyright_requirement || '');
+        formData.append('quest_series_id', data.quest_series_id);
+
+        // Append prizes (array of objects)
+        data.prizes.forEach((prize, index) => {
+            if ('id' in prize && prize.id) {
+                formData.append(`prizes[${index}][id]`, (prize as any).id);
+            }
+            formData.append(`prizes[${index}][min]`, prize.min.toString());
+            formData.append(`prizes[${index}][max]`, prize.max.toString());
+            formData.append(`prizes[${index}][coin]`, prize.coin.toString());
+            formData.append(`prizes[${index}][title]`, prize.title);
+            if ('coinType' in prize) {
+                formData.append(`prizes[${index}][coinType]`, (prize as any).coinType || '');
+            }
+        });
+
+        // Append image — only if a new file is selected
+        if (data.image instanceof File) {
+            formData.append('image', data.image);
+        } else if (typeof data.image === 'string') {
+            // Keep the same image path if not updated
+            formData.append('image', data.image);
+        }
+
+        // Send FormData to Laravel via Inertia
+        router.post(route('user-dashboard.quest.update', data.id), formData, {
+            forceFormData: true,         // ensures multipart/form-data encoding
+            preserveScroll: true,        // keeps scroll position after submit
+            onSuccess: () => {
+                console.log('Quest updated successfully');
+            },
+            onError: (errors) => {
+                console.error('Validation errors:', errors);
+            },
         });
     };
 

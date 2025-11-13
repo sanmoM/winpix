@@ -60,8 +60,8 @@ class FrontendController extends Controller
     public function singleQuest($id)
     {
         $userId = auth()->user()->id;
-        $joinedQuests = QuestJoin::with(['user', 'quest_images'])->where('user_id', $userId)->get();
-        $quest = Quest::with(['category', 'user', 'prizes', "quest_join.quest_images", "quest_join.user"])->findOrFail($id);
+        $joinedQuests = QuestJoin::with(['user', 'images'])->where('user_id', $userId)->get();
+        $quest = Quest::with(['category', 'user', 'prizes', "quest_join.images", "quest_join.user"])->findOrFail($id);
         // return dd($quest);
         return Inertia::render('quests/single-quest', ['id' => $id, "quest" => $quest, "joinedQuests" => $joinedQuests]);
     }

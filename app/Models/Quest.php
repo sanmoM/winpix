@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Quest extends Model
 {
@@ -23,6 +24,23 @@ class Quest extends Model
         'copyright_requirement',
         'quest_series_id',
     ];
+
+    protected static function booted()
+    {
+        static::deleting(function ($quest) {
+            // Delete all joins (this triggers QuestJoin deleting → QuestImages deleted)
+            $quest->quest_join->each->delete(); // <-- remove parentheses
+
+            // Delete all prizes
+            $quest->prizes()->delete();
+
+            // Delete Quest main image
+            if ($quest->image && Storage::disk('public')->exists($quest->image)) {
+                Storage::disk('public')->delete($quest->image);
+            }
+        });
+    }
+
     // Define the relation to prizes
     public function prizes()
     {

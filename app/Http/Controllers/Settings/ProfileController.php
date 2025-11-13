@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\Helpers\File;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -27,18 +28,29 @@ class ProfileController extends Controller
     /**
      * Update the user's profile settings.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request)
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Update only allowed fields (e.g., name)
+        $user->name = $request->validated()['name'] ?? $user->name;
+
+        // Handle image upload using your File helper
+        if ($request->hasFile('image')) {
+            // Delete old image
+            if ($user->image) {
+                File::deleteFile($user->image);
+            }
+
+            // Upload new image
+            $user->image = File::uploadFile($request->file('image'), 'users');
         }
 
-        $request->user()->save();
+        $user->save();
 
-        return to_route('profile.edit');
+        return to_route('profile.edit')->with('success', 'Profile updated successfully!');
     }
+
 
     /**
      * Delete the user's account.

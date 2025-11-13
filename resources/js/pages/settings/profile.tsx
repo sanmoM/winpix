@@ -25,7 +25,7 @@ export default function Profile({
 }) {
     const { t } = useLocales();
     const { auth } = usePage<SharedData>().props;
-    const [image, setImage] = useState<string | null>(auth.user.image);
+    const [image, setImage] = useState<string | null>("/storage/" + auth.user.image);
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: t('dashboard.editProfile.heading'),
@@ -54,6 +54,7 @@ export default function Profile({
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
                                 <ImageInput
+                                    name="image"
                                     image={image}
                                     setImage={(value) => { setImage(value) }}
                                     wrapperClassName='w-full aspect-[1/1] w-[200px]'
@@ -85,7 +86,9 @@ export default function Profile({
                                         id="email"
                                         type="email"
                                         className="mt-1 block w-full"
-                                        defaultValue={auth.user.email}
+                                        value={auth.user.email}
+                                        onChange={() => { }}
+                                        // disabled
                                         name="email"
                                         required
                                         autoComplete="username"

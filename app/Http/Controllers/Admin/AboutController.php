@@ -51,7 +51,6 @@ class AboutController extends Controller
             // Step 1: Translate
             $translations = $this->translateData($validatedData['title'], $validatedData['content']);
 
-            // Step 2: Ensure we always have at least one translation
             if (! is_array($translations) || empty($translations)) {
                 $translations = [[
                     'lang' => 'en',

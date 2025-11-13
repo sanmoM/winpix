@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
+            $table->uuid('group_id')->unique()->nullable();
             $table->string('bg_image');
             $table->text('title');
             $table->longText('content');

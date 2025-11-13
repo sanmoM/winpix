@@ -70,7 +70,7 @@ export default function Index({
                             <th className="px-4 py-3">Image</th>
                             <th className="px-4 py-3">Title</th>
                             <th className="px-4 py-3">Status</th>
-                            <th className="px-4 py-3 text-right">Actions</th>
+                            <th className="px-4 py-3 !text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,7 +86,7 @@ export default function Index({
                                     <td className="px-4 py-3">
                                         {item.picture ? (
                                             <img
-                                                src={`localhost:8000/storage/uploads/about/${item.picture}`}
+                                                src={`/storage/${item.picture}`}
                                                 alt={item.title}
                                                 className="h-10 w-10 rounded object-cover"
                                             />
@@ -108,7 +108,7 @@ export default function Index({
                                             {item?.status}
                                         </Badge>
                                     </td>
-                                    <td className="space-x-3 px-4 py-3 text-right">
+                                    <td className="space-x-3 px-4 py-3 !text-right">
                                         <Link
                                             href={route(
                                                 'admin.about.edit',

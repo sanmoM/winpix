@@ -28,13 +28,14 @@ const images = [
 ]
 
 
-export default function discover() {
+export default function discover({ quests }) {
+    console.log(quests)
     const { t } = useLocales()
     return (
         <UserLayout>
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
                 <Leaderboard t={t} />
-                <Quests t={t} />
+                <Quests t={t} quests={quests} />
                 <InfiniteGallery images={images} t={t} />
             </Container>
         </UserLayout>

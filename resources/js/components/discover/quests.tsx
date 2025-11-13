@@ -1,5 +1,7 @@
 import SectionHeading from '@/components/shared/SectionHeading'
 import QuestSubmitCard from '../shared/quest-card'
+import { Link } from '@inertiajs/react'
+import Card from '../home/newest/components/Card'
 
 const questsData = [
     {
@@ -54,16 +56,30 @@ const questsData = [
     },
 ]
 
-export default function Quests({ t }: { t: (key: string) => string }) {
+export default function Quests({ t, quests }) {
     return (
         <div>
             <div className="mb-12">
                 <SectionHeading title={t('discover.activeQuests.title')} />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                {questsData.map((quest) => (
-                    <QuestSubmitCard key={quest.id} quest={quest} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {quests.map((quest) => (
+                    <Link href={`/quests/single-quest/${quest.id}`}>
+                        <Card key={quest.id} item={
+                            {
+                                id: quest.id,
+                                title: quest.title,
+                                brief: quest.brief,
+                                category: quest.category,
+                                reward: quest.entry_coin,
+                                participants: quest.user.name,
+                                image: quest.image,
+                                entry_coin: quest.entry_coin,
+                                user: quest.user,
+                            }
+                        } />
+                    </Link>
                 ))}
             </div>
         </div>

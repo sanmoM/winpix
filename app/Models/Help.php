@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Help extends Model
 {
     protected $fillable = [
+        'group_id',
         'section',
         'question',
         'answer',

@@ -6,15 +6,10 @@ import FroalaEditor from 'react-froala-wysiwyg';
 
 interface Props {
     modelValue?: string;
-    dir?: string;
     onChange?: (value: string) => void;
 }
 
-export default function RichTextEditor({
-    modelValue = '',
-    dir = 'ltr',
-    onChange,
-}: Props) {
+export default function RichTextEditor({ modelValue = '', onChange }: Props) {
     const [content, setContent] = useState(modelValue);
 
     useEffect(() => {
@@ -31,7 +26,6 @@ export default function RichTextEditor({
     return (
         <div className="w-full rounded-2xl border border-gray-200 bg-bg-primary p-4 shadow-sm">
             <FroalaEditor
-                key={dir}
                 tag="textarea"
                 model={content}
                 onModelChange={handleModelChange}
@@ -39,7 +33,6 @@ export default function RichTextEditor({
                     placeholderText: 'Write your content here...',
                     heightMin: 300,
                     charCounterCount: true,
-                    direction: dir,
                     toolbarButtons: [
                         'bold',
                         'italic',

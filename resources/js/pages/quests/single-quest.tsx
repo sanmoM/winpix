@@ -69,7 +69,6 @@ export default function SingleQuest() {
         setData('image', image)
     }
 
-
     const galleryImage = quest?.quest_join?.map((joinedQuest: any) => joinedQuest?.quest_images?.map(item => {
         return { image: item?.image, user: joinedQuest?.user }
     }))?.flat()

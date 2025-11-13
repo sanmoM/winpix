@@ -3,6 +3,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { router } from '@inertiajs/react'
 
 import "./vote-modal.css";
+import axios from "axios";
 
 interface QuestImage {
   id: number;
@@ -56,23 +57,16 @@ const VoteModal: React.FC<ModalProps> = ({ isOpen, onClose, questImages }) => {
   //   }, 800);
   // };
 
-  const handleVote = (votedImageId: number) => {
+  const handleVote = async (votedImageId: number) => {
     setLikedId(votedImageId);
 
-    router.post(`/vote/${votedImageId}`, { image_id: votedImageId }, {
-      preserveScroll: true,
-      onSuccess: () => {
-        console.log("✅ Vote submitted successfully!");
+    try {
+      await axios.post(`/vote/${votedImageId}`, { image_id: votedImageId });
+      console.log("✅ Vote submitted successfully!");
+    } catch (error) {
+      console.error("❌ Vote failed:", error);
+    }
 
-        // 🌀 Re-fetch current page data (refresh props)
-        router.reload({ only: ['votes', 'questImages'] });
-      },
-      onError: (errors) => {
-        console.error(errors);
-      },
-    });
-
-    // Delay for like animation
     setTimeout(() => {
       setLikedId(null);
       if (currentIndex + 2 < questImages.length) {

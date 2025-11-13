@@ -186,14 +186,11 @@ class FrontendController extends Controller
     {
         $user = auth()->user();
         $imageId = $request->image_id;
-        $vote = Vote::firstOrCreate([
+        Vote::firstOrCreate([
             'image_id' => $imageId,
             'user_id' => $user->id,
         ]);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Vote Successfully',
-        ]);
+        return response()->json(['success' => true]);
     }
 }

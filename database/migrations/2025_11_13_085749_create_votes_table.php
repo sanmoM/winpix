@@ -4,17 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('quest_images', function (Blueprint $table) {
+        Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('quest_join_id')->constrained('quest_joins');
-            $table->string('image');
-            $table->integer('vote_count')->default(0);
+            $table->foreignId('image_id')->constrained('quest_images');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('quest_images');
+        Schema::dropIfExists('votes');
     }
 };

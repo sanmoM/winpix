@@ -1,7 +1,7 @@
 import JoinModal from '@/components/quests/single-quest/join-modal'
 import LibraryModal from '@/components/quests/single-quest/library-modal'
 import Status from '@/components/quests/single-quest/status'
-import VoteModal from '@/components/quests/single-quest/vote-modal'
+import VoteModal from '@/components/quests/single-quest/vote-modal/vote-modal'
 import Banner from '@/components/shared/banner'
 import Brief from '@/components/shared/brief'
 import Button from '@/components/shared/buttons/button'
@@ -16,29 +16,13 @@ import Tab from '@/components/shared/tab'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
-import { joinQuest } from '@/routes'
 import { router, useForm, usePage } from '@inertiajs/react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { route } from 'ziggy-js'
 
-const images = [
-    "https://images.unsplash.com/photo-1549388604-817d15aa0110",
-    "https://images.unsplash.com/photo-1525097487452-6278ff080c31",
-    "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6",
-    "https://images.unsplash.com/photo-1563298723-dcfebaa392e3",
-    "https://images.unsplash.com/photo-1588436706487-9d55d73a39e3",
-    "https://images.unsplash.com/photo-1574180045827-681f8a1a9622",
-    "https://images.unsplash.com/photo-1530731141654-5993c3016c77",
-    "https://images.unsplash.com/photo-1481277542470-605612bd2d61",
-    "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7",
-    "https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee",
-    "https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62",
-    "https://images.unsplash.com/photo-1519710164239-da123dc03ef4"
-]
-
 export default function SingleQuest() {
-    const { quest, auth, joinedQuests, questImages } = usePage<any>().props;
+    const { quest, auth, joinedQuests, questImages, votes } = usePage<any>().props;
     const [joinModalOpen, setJoinModalOpen] = useState(false);
     const [libraryModalOpen, setLibraryModalOpen] = useState(false);
     const [voteModalOpen, setVoteModalOpen] = useState(false)
@@ -63,7 +47,14 @@ export default function SingleQuest() {
     const images = othersJoinedQuestImage?.filter((item: any) => !currentJoinedQuestImage?.includes(item))
     // images filter logic for library modal ends
 
-    const votingItems = joinedQuests?.map((item: any) => item?.user?.name)
+    // Voting items logic starts
+    const allItems = questImages
+    const votingItems = allItems?.slice(((votes?.length || 0) * 2), allItems?.length)?.filter((item: any) => {
+        return !votes?.map((vote: any) => vote?.image_id)?.includes(item?.id)
+    })
+    // Voting items logic ends
+
+    console.log(votes, allItems, questImages)
 
     const setImage = (image: any) => {
         setData('image', image)
@@ -105,7 +96,9 @@ export default function SingleQuest() {
                     </div>
                     <div className='grid gap-4 grid-cols-2'
                     >
-                        <SecondaryButton text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white" />
+                        <SecondaryButton text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white"
+                            onClick={() => setVoteModalOpen(true)}
+                        />
                         <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' type='button' onClick={() => setJoinModalOpen(true)} />
                     </div>
                 </div>
@@ -157,7 +150,7 @@ export default function SingleQuest() {
                     <LibraryModal images={images} setImage={(value) => setData("image", value)} selectedImage={data?.image} handleJoinQuest={handleJoinQuest} btnText={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} />
                 </Modal>
 
-                <VoteModal />
+                <VoteModal questImages={votingItems} isOpen={voteModalOpen} onClose={() => setVoteModalOpen(false)} />
             </Container>
         </UserLayout>
     )

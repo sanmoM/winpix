@@ -9,9 +9,11 @@ use App\Models\Redeem;
 use App\Models\Series;
 use App\Models\Slider;
 use App\Models\Store;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
 {
@@ -21,13 +23,21 @@ class FrontendController extends Controller
     {
         $sliders = Slider::all();
         $new_quest = Quest::with(["category", "user"])->where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
-        // $user = auth()->user();
-        // if ($user) {
-        //     return redirect("/discover");
-        // }
+        $topVotedImages = Vote::select('image_id', DB::raw('COUNT(*) as vote_count'))
+            ->groupBy('image_id')
+            ->orderByDesc('vote_count')
+            ->with('image') // eager load the related QuestImage
+            ->take(10)      // limit to top 10
+            ->get();
+        // QuestImage::with(["quest_join.user", "quest_join.quest.category", "quest_join.quest.user"])->orderBy('vote_count', 'desc')->take(value: 20)->get();
+        $user = auth()->user();
+        if ($user) {
+            return redirect("/discover");
+        }
         return Inertia::render('home', [
             'sliders' => $sliders,
             'new_quest' => $new_quest,
+            'galleryImages' => $topVotedImages,
         ]);
     }
 
@@ -62,8 +72,15 @@ class FrontendController extends Controller
         $userId = auth()->user()->id;
         $joinedQuests = QuestJoin::with(['user', 'images'])->where('user_id', $userId)->get();
         $quest = Quest::with(['category', 'user', 'prizes', "quest_join.images", "quest_join.user"])->findOrFail($id);
-        // return dd($quest);
-        return Inertia::render('quests/single-quest', ['id' => $id, "quest" => $quest, "joinedQuests" => $joinedQuests]);
+        $votes = Vote::where('user_id', $userId)->get();
+        $allItems = QuestImage::with(['quest_join.user', 'quest_join.quest.category', 'quest_join.quest.user'])->get();
+        return Inertia::render('quests/single-quest', [
+            'id' => $id,
+            "quest" => $quest,
+            "joinedQuests" => $joinedQuests,
+            "votes" => $votes,
+            'questImages' => $allItems,
+        ]);
     }
 
     public function questSeries()
@@ -172,5 +189,17 @@ class FrontendController extends Controller
         $user->decrement('pixel', $questFromDb->entry_coin);
 
         return redirect()->back()->with('success', 'Join Quest Successfully');
+    }
+
+    public function vote(Request $request, $id)
+    {
+        $user = auth()->user();
+        $imageId = $request->image_id;
+        Vote::firstOrCreate([
+            'image_id' => $imageId,
+            'user_id' => $user->id,
+        ]);
+
+        return response()->json(['success' => true]);
     }
 }

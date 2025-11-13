@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Help;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class HelpController extends Controller
@@ -29,21 +33,120 @@ class HelpController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'section' => 'required|string|max:255',
             'question' => 'required|string',
             'answer' => 'required',
-            'lang' => 'required',
         ]);
 
-        Help::create($validated);
+        try {
+            // Step 1: Translate
+            $translations = $this->translateData(
+                $validated['question'],
+                $validated['answer']
+            );
 
-        return redirect()
-            ->back()
-            ->with('success', 'Question saved successfully 🎉');
+            // Step 2: Fallback if translation fails
+            if (! is_array($translations) || empty($translations)) {
+                $translations = [
+                    'lang' => 'en',
+                    'question' => $validated['question'],
+                    'answer' => $validated['answer'],
+                ];
+            }
 
+            $groupId = Str::uuid()->toString();
+
+            // Step 4: Create records for each language
+            foreach ($translations as $t) {
+                Help::create([
+                    'lang' => $t['lang'],
+                    'section' => $validated['section'],
+                    'question' => $t['question'],
+                    'answer' => $t['answer'],
+                    'group_id' => $groupId,
+                ]);
+            }
+
+            return Redirect::route('admin.help.index')
+                ->with('success', 'Help items created successfully 🎉');
+
+        } catch (\Exception $e) {
+            Log::error('Gemini API Translation Failed: '.$e->getMessage());
+
+            return back()->with('error', 'Translation failed. Please try again.');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    private function translateData(string $question, string $answer): ?array
+    {
+        $apiKey = config('app.gemini_api_key');
+
+        if (! $apiKey) {
+            throw new \Exception('Gemini API key is not set');
+        }
+
+        $apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={$apiKey}";
+
+        $prompt = <<<PROMPT
+        You are a translation assistant.
+        Translate the following data into **English (en)** and **Arabic (ar)**.
+        Return a valid JSON array of objects, like this:
+        [
+            {"lang": "en", "question": "...", "answer": "..."},
+            {"lang": "ar", "question": "...", "answer": "..."}
+        ]
+        If translation fails, just return the original English text.
+
+        Question: {$question}
+        Answer: {$answer}
+        PROMPT;
+
+        $payload = [
+            'contents' => [
+                [
+                    'role' => 'user',
+                    'parts' => [['text' => $prompt]],
+                ],
+            ],
+        ];
+
+        $response = Http::post($apiUrl, $payload);
+
+        if (! $response->ok()) {
+            Log::error('Gemini API Error: '.$response->body());
+
+            return null;
+        }
+
+        $result = $response->json();
+        $text = $result['candidates'][0]['content']['parts'][0]['text'] ?? null;
+
+        if (! $text) {
+            Log::error('Gemini Response Malformed: '.$response->body());
+
+            return null;
+        }
+
+        // Clean up the JSON string
+        $text = trim(str_replace(['```json', '```', "\n"], '', $text));
+        $translatedArray = json_decode($text, true);
+
+        if (! is_array($translatedArray)) {
+            Log::warning('Gemini JSON Parse Failed, using fallback: '.$text);
+
+            return null; // Fallback will be triggered in store()
+        }
+
+        return $translatedArray;
     }
 
     /**
@@ -80,7 +183,12 @@ class HelpController extends Controller
             'lang' => 'required',
         ]);
 
-        $item->update($validated);
+        if ($item->group_id) {
+            Help::where('group_id', $item->group_id)
+                ->update(['section' => $validated['section']]);
+        } else {
+            $item->update(['section' => $validated['section']]);
+        }
 
         return redirect()
             ->route('admin.help.index')

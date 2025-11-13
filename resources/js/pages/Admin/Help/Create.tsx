@@ -18,19 +18,28 @@ export default function Create() {
         section: 'Getting_Start',
         question: '',
         answer: '',
-        lang: 'ar',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('section', data.section);
+        formData.append('question', data.question);
+        formData.append('answer', data.answer);
+
         post(route('admin.help.store'), {
-            onSuccess: () => {
-                reset();
-            },
+            data: formData,
+            forceFormData: true,
+            onSuccess: () => reset(),
         });
+
+        // post(route('admin.help.store'), {
+        //     onSuccess: () => {
+        //         reset();
+        //     },
+        // });
     };
-    const isArabic = data.lang === 'ar';
-    const dir = isArabic ? 'rtl' : 'ltr';
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -39,24 +48,6 @@ export default function Create() {
                 onSubmit={handleSubmit}
                 className="flex flex-col space-y-4 p-6"
             >
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="lang">Language</Label>
-                    <select
-                        id="lang"
-                        value={data.lang}
-                        onChange={(e) => setData('lang', e.target.value)}
-                        className="w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-                    >
-                        <option value="ar">Arabic</option>
-                        <option value="en">English</option>
-                        <option value="de">German</option>
-                        <option value="du">Dutch</option>
-                    </select>
-
-                    {errors.lang && (
-                        <p className="text-sm text-red-600">{errors.lang}</p>
-                    )}
-                </div>
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="section">Question Type</Label>
                     <select
@@ -89,7 +80,6 @@ export default function Create() {
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="question">Question</Label>
                     <Input
-                        dir={dir}
                         id="question"
                         type="text"
                         value={data.question}
@@ -106,7 +96,6 @@ export default function Create() {
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="answer">Answer</Label>
                     <RichTextEditor
-                        dir={dir}
                         modelValue={data.answer}
                         onChange={(val) => setData('answer', val)}
                     />

@@ -9,6 +9,7 @@ use App\Models\Redeem;
 use App\Models\Series;
 use App\Models\Slider;
 use App\Models\Store;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
@@ -64,12 +65,12 @@ class FrontendController extends Controller
         $userId = auth()->user()->id;
         $joinedQuests = QuestJoin::with(['user', 'images'])->where('user_id', $userId)->get();
         $quest = Quest::with(['category', 'user', 'prizes', "quest_join.images", "quest_join.user"])->findOrFail($id);
-        // $questImages = QuestImage::with(['quest_join.user', 'quest_join.quest.category', 'quest_join.quest.user'])->where('quest_id', $id)->get();
+        $votes = Vote::where('user_id', $userId)->get();
         return Inertia::render('quests/single-quest', [
             'id' => $id,
             "quest" => $quest,
             "joinedQuests" => $joinedQuests,
-            // "questImages" => $questImages,
+            "votes" => $votes,
         ]);
     }
 
@@ -179,5 +180,20 @@ class FrontendController extends Controller
         $user->decrement('pixel', $questFromDb->entry_coin);
 
         return redirect()->back()->with('success', 'Join Quest Successfully');
+    }
+
+    public function vote(Request $request, $id)
+    {
+        $user = auth()->user();
+        $imageId = $request->image_id;
+        $vote = Vote::firstOrCreate([
+            'image_id' => $imageId,
+            'user_id' => $user->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Vote Successfully',
+        ]);
     }
 }

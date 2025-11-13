@@ -8,7 +8,9 @@ export default function ImageInput({
     setImage,
     containerClassName,
     iconClassName,
-    wrapperClassName
+    wrapperClassName,
+    id,
+    name,
 }: {
     image: string | File | null;
     setImage: (image: string | File | null) => void;
@@ -71,6 +73,7 @@ export default function ImageInput({
                 </div>
 
                 <input
+                    name={name}
                     id={inputId} // ✅ unique input per component
                     type="file"
                     className="hidden"

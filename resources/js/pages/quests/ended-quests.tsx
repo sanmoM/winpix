@@ -58,7 +58,8 @@ const questsData = [
 ]
 
 
-export default function EndedQuests() {
+export default function EndedQuests({ myQuests, endedQuests, inactiveQuests }: any) {
+    console.log(myQuests)
     const { t } = useLocales()
     const [activeTab, setActiveTab] = useState("my-quests");
     return (

@@ -10,10 +10,10 @@ use App\Models\Series;
 use App\Models\Slider;
 use App\Models\Store;
 use App\Models\Vote;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
 {
@@ -104,7 +104,13 @@ class FrontendController extends Controller
 
     public function endedQuests()
     {
-        return Inertia::render('quests/ended-quests');
+        $myQuests = Quest::with(["category", "user"])
+            ->where('end_date', '<', Carbon::now())
+            ->orderBy("created_at", 'desc')
+            ->get();
+        return Inertia::render('quests/ended-quests', [
+            'myQuests' => $myQuests,
+        ]);
     }
     public function profile()
     {

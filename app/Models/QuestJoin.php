@@ -12,10 +12,10 @@ class QuestJoin extends Model
         'user_id',
     ];
 
-    public function images()
-    {
-        return $this->hasMany(QuestImage::class, 'quest_join_id');
-    }
+    // public function images()
+    // {
+    //     return $this->hasMany(QuestImage::class, 'quest_join_id');
+    // }
 
     // protected static function booted()
     // {

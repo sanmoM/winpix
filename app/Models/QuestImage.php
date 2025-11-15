@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Storage;
 class QuestImage extends Model
 {
     protected $fillable = [
-        'quest_join_id',
+        'quest_id',
         'image',
+        'user_id',
     ];
 
     protected static function booted()
@@ -22,8 +23,18 @@ class QuestImage extends Model
         });
     }
 
-    public function quest_id()
+    public function quest()
     {
         return $this->belongsTo(Quest::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function vote()
+    {
+        return $this->hasMany(Vote::class);
     }
 }

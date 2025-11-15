@@ -32,29 +32,25 @@ export default function SingleQuest() {
         image: null
     })
 
-    // images filter logic for library modal starts
-    const currentJoinedQuest = joinedQuests?.filter((item: any) => item?.quest_id === quest.id)
-    const currentJoinedQuestImage = currentJoinedQuest?.map((item: any) => item?.quest_images?.map(item => item?.image))?.flat()
     const isJoined = joinedQuests?.map((item: any) => item.quest_id).includes(quest.id)
-    const othersJoinedQuests = joinedQuests?.filter((item: any) => {
-        if (item?.quest_id !== quest.id) {
-            return true
-        } else {
-            return false
-        }
-    })
-    const othersJoinedQuestImage = othersJoinedQuests?.map((item: any) => item?.quest_images?.map(item => item?.image))?.flat()
-    const images = othersJoinedQuestImage?.filter((item: any) => !currentJoinedQuestImage?.includes(item))
-    // images filter logic for library modal ends
+
+    // get all items which is not in currentQuestImage
+    const currentQuestImageItems = questImages?.filter((item: any) => item?.quest_id === quest.id)
+
+    // get all images in which is not in currentQuestImage
+    const currentQuestImage = currentQuestImageItems?.map((item: any) => item?.image)
+
+    // get all images which is not belong to currentQuestImage
+    const images = questImages?.filter((item: any) => (item?.quest_id !== quest.id) && !currentQuestImage?.includes(item?.image))
+
+    // get all images for library modal
+    const libraryImages = images?.map((item: any) => item?.image)
 
     // Voting items logic starts
     const allItems = questImages
     const votingItems = allItems?.slice(((votes?.length || 0) * 2), allItems?.length)?.filter((item: any) => {
         return !votes?.map((vote: any) => vote?.image_id)?.includes(item?.id)
     })
-    // Voting items logic ends
-
-    console.log(votes, allItems, questImages)
 
     const setImage = (image: any) => {
         setData('image', image)
@@ -147,7 +143,7 @@ export default function SingleQuest() {
                     title='Your Library'
                     containerClassName='w-full'
                 >
-                    <LibraryModal images={images} setImage={(value) => setData("image", value)} selectedImage={data?.image} handleJoinQuest={handleJoinQuest} btnText={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} />
+                    <LibraryModal images={libraryImages} setImage={(value) => setData("image", value)} selectedImage={data?.image} handleJoinQuest={handleJoinQuest} btnText={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} />
                 </Modal>
 
                 <VoteModal questImages={votingItems} isOpen={voteModalOpen} onClose={() => setVoteModalOpen(false)} />

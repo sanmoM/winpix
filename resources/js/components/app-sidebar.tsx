@@ -9,7 +9,9 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { mainNavItemsAR, mainNavItemsEN } from '@/data/dashboard-nav-items';
 import useBackground from '@/hooks/useBackground';
+import useLocales from '@/hooks/useLocales';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
@@ -23,8 +25,6 @@ import {
 } from 'lucide-react';
 import { route } from 'ziggy-js';
 import Logo from './shared/logo';
-import useLocales from '@/hooks/useLocales';
-import { mainNavItemsAR, mainNavItemsEN } from '@/data/dashboard-nav-items';
 
 export function AppSidebar() {
     const { auth } = usePage().props;
@@ -32,8 +32,8 @@ export function AppSidebar() {
     const { hasBackground } = useBackground();
     const { currentLanguage } = useLocales();
 
-
-    const mainNavItems: NavItem[] = currentLanguage === 'ar' ? mainNavItemsAR : mainNavItemsEN;
+    const mainNavItems: NavItem[] =
+        currentLanguage === 'ar' ? mainNavItemsAR : mainNavItemsEN;
 
     const adminNavItems: NavItem[] = [
         {
@@ -87,6 +87,11 @@ export function AppSidebar() {
                     href: route('admin.questCategory.index'),
                     icon: ServerIcon,
                 },
+                {
+                    title: 'Quests',
+                    href: route('admin.quests.index'),
+                    icon: ServerIcon,
+                },
             ],
         },
         {
@@ -129,8 +134,8 @@ export function AppSidebar() {
         userRole === 'admin'
             ? 'admin/dashboard'
             : userRole === 'jury'
-                ? 'jury/dashboard'
-                : '/dashboard';
+              ? 'jury/dashboard'
+              : '/dashboard';
 
     return (
         <Sidebar collapsible="icon" variant="inset">

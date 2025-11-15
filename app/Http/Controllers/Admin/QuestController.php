@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\UserDashboard;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Prize;
@@ -21,7 +21,7 @@ class QuestController extends Controller
     {
         $quests = Quest::with('prizes')->get();
 
-        return Inertia::render('user-dashboard/quest/show-quests', [
+        return Inertia::render('Admin/Quest/show-quests', [
             'quests' => $quests,
         ]);
     }
@@ -34,7 +34,7 @@ class QuestController extends Controller
         $categories = QuestCategory::all();
         $series = Series::all();
 
-        return Inertia::render('user-dashboard/quest/create-quest', [
+        return Inertia::render('Admin/Quest/create-quest', [
             'categories' => $categories,
             'series' => $series,
         ]);

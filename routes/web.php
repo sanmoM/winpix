@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\FollowController;
 use App\Http\Controllers\Admin\HelpController;
 use App\Http\Controllers\Admin\OthersController;
 use App\Http\Controllers\Admin\QuestCategoryController;
+use App\Http\Controllers\Admin\QuestController;
 use App\Http\Controllers\Admin\QuestTypeController;
 use App\Http\Controllers\Admin\RankingController;
 use App\Http\Controllers\Admin\RedeemController;
@@ -44,6 +45,8 @@ Route::middleware(['auth', 'verified', 'role:jury'])->prefix('jury')->group(func
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
 
     Route::get('dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');
+    Route::get('/quest', [QuestController::class, 'index'])->name('admin.quest');
+    Route::get('/quest/create', [QuestController::class, 'create'])->name('admin.quest.create');
     Route::resource('about', AboutController::class)->names('admin.about');
     Route::resource('slider', SliderController::class)->names('admin.slider');
     Route::resource('store', StoreController::class)->names('admin.store');

@@ -22,10 +22,11 @@ import toast from 'react-hot-toast'
 import { route } from 'ziggy-js'
 
 export default function SingleQuest() {
-    const { quest, auth, joinedQuests, questImages, votes } = usePage<any>().props;
+    const { quest, auth, joinedQuests, questImages, votes, isFollowing } = usePage<any>().props;
     const [joinModalOpen, setJoinModalOpen] = useState(false);
     const [libraryModalOpen, setLibraryModalOpen] = useState(false);
     const [voteModalOpen, setVoteModalOpen] = useState(false)
+
 
     const isDisabled = useMemo(() => {
         const today = new Date(); // current date
@@ -89,6 +90,13 @@ export default function SingleQuest() {
         }
 
     }
+
+
+    const handleFollow = () => {
+        router.post(route('follow-user'), {
+            followed_id: quest?.user?.id
+        });
+    }
     return (
         <UserLayout>
             <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]' hasOverlay={false}>
@@ -127,7 +135,7 @@ export default function SingleQuest() {
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
                         <Guidelines t={t} level_requirement={quest?.level_requirement} categories_requirement={quest?.categories_requirement} copyright_requirement={quest?.copyright_requirement} />
                         <div className='className="w-fit lg:w-full md:max-w-md mt-auto mx-auto lg:mx-0'>
-                            <Creator user={quest?.user} />
+                            <Creator user={quest?.user} onClick={handleFollow} btnText={isFollowing ? "Unfollow" : "Follow"} />
                         </div>
                     </div>
                 </div>

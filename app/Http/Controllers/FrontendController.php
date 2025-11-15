@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follower;
 use App\Models\Quest;
 use App\Models\QuestImage;
 use App\Models\QuestJoin;
@@ -70,12 +71,14 @@ class FrontendController extends Controller
         $quest = Quest::with(['category', 'user', 'prizes', "images"])->findOrFail($id);
         $votes = Vote::where('user_id', $userId)->get();
         $allItems = QuestImage::with(['user', 'quest.category', 'quest.user'])->get();
+        $isFollowing = Follower::where('follower_id', auth()->user()->id)->where('followed_id', $quest->user->id)->exists();
         return Inertia::render('quests/single-quest', [
             'id' => $id,
             "quest" => $quest,
             "joinedQuests" => $joinedQuests,
             "votes" => $votes,
             'questImages' => $allItems,
+            'isFollowing' => $isFollowing,
         ]);
     }
 
@@ -216,5 +219,19 @@ class FrontendController extends Controller
         ]);
 
         return response()->json(['success' => true]);
+    }
+
+    public function followUser(Request $request)
+    {
+        $user = auth()->user();
+        $isAlreadyFollowing = Follower::where('follower_id', $user->id)->where('followed_id', $request->followed_id)->exists();
+        if ($isAlreadyFollowing) {
+            Follower::where('follower_id', $user->id)->where('followed_id', $request->followed_id)->delete();
+        } else {
+            Follower::firstOrCreate([
+                'follower_id' => $user->id,
+                'followed_id' => $request->followed_id
+            ]);
+        }
     }
 }

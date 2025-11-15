@@ -29,11 +29,16 @@ interface Props {
 }
 
 export default function Create({ flash }: Props) {
-    const { data, setData, post, processing, reset, errors } = useForm({
+    const { data, setData, post, processing, reset, errors } = useForm<{
+        title: string;
+        content: string;
+        bg_image: File | null;
+    }>({
         title: '',
         content: '',
         bg_image: null as File | null,
     });
+
     const fileInputRef = useRef<HTMLInputElement>(null);
     useEffect(() => {
         if (flash?.success) toast.success(flash.success);
@@ -42,7 +47,15 @@ export default function Create({ flash }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('title', data.title);
+        formData.append('content', data.content);
+        if (data.bg_image) formData.append('bg_image', data.bg_image);
+
         post(route('admin.slider.store'), {
+            data: formData,
+            forceFormData: true,
             onSuccess: () => {
                 reset();
                 if (fileInputRef.current) {

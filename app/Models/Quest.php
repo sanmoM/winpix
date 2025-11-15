@@ -62,9 +62,14 @@ class Quest extends Model
         return $this->belongsTo(QuestCategory::class);
     }
 
-    public function quest_join()
+    // public function quest_join()
+    // {
+    //     return $this->hasMany(QuestJoin::class);
+    // }
+
+    public function images()
     {
-        return $this->hasMany(QuestJoin::class);
+        return $this->hasMany(QuestImage::class);
     }
 
     protected $casts = [

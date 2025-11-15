@@ -12,9 +12,10 @@ return new class extends Migration {
     {
         Schema::create('quest_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('quest_join_id')->constrained('quest_joins');
+            $table->foreignId('quest_id')->constrained('quests');
             $table->string('image');
             $table->integer('vote_count')->default(0);
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

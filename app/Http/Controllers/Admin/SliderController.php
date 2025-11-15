@@ -48,7 +48,7 @@ class SliderController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
-            'bg_image' => 'required|image|max:2048',
+            'bg_image' => 'nullable|image|max:2048',
         ]);
 
         $path = null;
@@ -77,9 +77,8 @@ class SliderController extends Controller
                     'lang' => $t['lang'],
                     'title' => $t['title'],
                     'content' => $t['content'],
-                    'bg_image' => $path, // Shared image
-                    'status' => $validated['status'], // <-- ADDED shared status
-                    'group_id' => $groupId,      // Shared group ID
+                    'bg_image' => $path,
+                    'group_id' => $groupId,
                 ]);
             }
 
@@ -179,7 +178,7 @@ class SliderController extends Controller
 
         return Inertia::render('Admin/Slider/Edit', [
             'slider' => $slider,
-            'otherLanguages' => $otherLanguages, // <-- Pass to view
+            'otherLanguages' => $otherLanguages,
         ]);
     }
 
@@ -188,7 +187,6 @@ class SliderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // <-- This whole method is fixed to use group logic
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',

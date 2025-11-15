@@ -28,4 +28,4 @@ Route::get('/discover', [DiscoverController::class, 'discover'])->name('discover
 // this all are the functional route for handle user interaction
 Route::post('/join-quest/{id}', [FrontendController::class, 'joinQuest'])->name('join-quest')->middleware('auth');
 // Route::post('/vote/{id}', [FrontendController::class, 'vote'])->name('vote')->middleware('auth');
-Route::post('/vote/{id}', [FrontendController::class, 'vote'])->name('vote')->withoutMiddleware(\App\Http\Middleware\HandleInertiaRequests::class);
+Route::post('/vote/{imageId}/{questId}', [FrontendController::class, 'vote'])->name('vote')->withoutMiddleware(\App\Http\Middleware\HandleInertiaRequests::class);

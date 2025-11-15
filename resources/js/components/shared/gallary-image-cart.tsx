@@ -17,7 +17,7 @@ export default function GalleryImageCart({ item, aspect, className, actionButton
         >
             <img
                 className="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
-                src={"/storage/" + item?.image}
+                src={"/storage/" + item?.image?.image}
                 alt={`Gallery image `}
             />
 
@@ -32,7 +32,7 @@ export default function GalleryImageCart({ item, aspect, className, actionButton
                     src={item?.quest_join?.user?.image ? "/storage/" + item?.quest_join?.user?.image : "/images/user-avatar.png"}
                     alt={`User avatar`}
                 />
-                <p className="text-xl font-medium">{item?.quest_join?.user?.name}</p>
+                <p className="text-xl font-medium">{item?.image?.user?.name}</p>
             </div>
 
             <ImageView isOpen={isOpen} setIsOpen={setIsOpen} />

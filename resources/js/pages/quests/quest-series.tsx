@@ -3,6 +3,7 @@ import Container from '@/components/shared/container'
 import SectionHeading from '@/components/shared/SectionHeading'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
+import { Link } from '@inertiajs/react'
 
 export default function QuestsSeries({ series }: any) {
     const { t } = useLocales()
@@ -15,12 +16,9 @@ export default function QuestsSeries({ series }: any) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {series?.map((singleSeries: any) => (
-                        <Card key={singleSeries.id} item={{
-                            title: singleSeries.title,
-                            category: singleSeries.category,
-                            image: singleSeries.image,
-                            user: singleSeries.user,
-                        }} isSeries />
+                        <Link href={`/quests/single-quest-series/${singleSeries?.id}`} className='block'>
+                            <Card key={singleSeries.id} item={singleSeries} isSeries={true} />
+                        </Link>
                     ))}
                 </div>
             </Container>

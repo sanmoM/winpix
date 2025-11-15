@@ -22,8 +22,8 @@ class QuestImage extends Model
         });
     }
 
-    public function quest_join()
+    public function quest_id()
     {
-        return $this->belongsTo(QuestJoin::class);
+        return $this->belongsTo(Quest::class);
     }
 }

@@ -17,13 +17,13 @@ class QuestJoin extends Model
         return $this->hasMany(QuestImage::class, 'quest_join_id');
     }
 
-    protected static function booted()
-    {
-        static::deleting(function ($join) {
-            // Delete all related QuestImages
-            $join->images->each->delete();
-        });
-    }
+    // protected static function booted()
+    // {
+    //     static::deleting(function ($join) {
+    //         // Delete all related QuestImages
+    //         $join->images->each->delete();
+    //     });
+    // }
     public function quest()
     {
         return $this->belongsTo(Quest::class);

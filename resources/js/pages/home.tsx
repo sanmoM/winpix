@@ -11,7 +11,7 @@ export default function Home() {
     const { sliders, new_quest, galleryImages } = usePage().props;
     const { t } = useLocales();
 
-
+    console.log(galleryImages)
     return (
         <UserLayout>
             <Banner t={t} sliders={sliders} />

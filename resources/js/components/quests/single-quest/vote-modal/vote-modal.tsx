@@ -16,7 +16,7 @@ interface ModalProps {
   questImages: QuestImage[];
 }
 
-const VoteModal: React.FC<ModalProps> = ({ isOpen, onClose, questImages }) => {
+const VoteModal: React.FC<ModalProps> = ({ isOpen, onClose, questImages, questId }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [likedId, setLikedId] = useState<number | null>(null);
 
@@ -31,37 +31,11 @@ const VoteModal: React.FC<ModalProps> = ({ isOpen, onClose, questImages }) => {
 
   const currentPair = questImages?.slice(currentIndex, currentIndex + 2);
 
-  // const handleVote = (votedImageId: number) => {
-  //   setLikedId(votedImageId);
-
-  //   router.post(`/vote/${votedImageId}`, {
-  //     image_id: votedImageId,
-  //   }, {
-  //     preserveScroll: true,
-  //     onSuccess: () => {
-  //       console.log("Vote submitted successfully!");
-  //     },
-  //     onError: (errors) => {
-  //       console.error(errors);
-  //     },
-  //   });
-
-  //   // Delay for animation
-  //   setTimeout(() => {
-  //     setLikedId(null);
-  //     if (currentIndex + 2 < questImages.length) {
-  //       setCurrentIndex(currentIndex + 2);
-  //     } else {
-  //       onClose();
-  //     }
-  //   }, 800);
-  // };
-
   const handleVote = async (votedImageId: number) => {
     setLikedId(votedImageId);
 
     try {
-      await axios.post(`/vote/${votedImageId}`, { image_id: votedImageId });
+      await axios.post(`/vote/${votedImageId}/${questId}`, { image_id: votedImageId });
       console.log("✅ Vote submitted successfully!");
     } catch (error) {
       console.error("❌ Vote failed:", error);

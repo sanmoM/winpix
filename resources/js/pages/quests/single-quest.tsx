@@ -146,7 +146,7 @@ export default function SingleQuest() {
                     <LibraryModal images={libraryImages} setImage={(value) => setData("image", value)} selectedImage={data?.image} handleJoinQuest={handleJoinQuest} btnText={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} />
                 </Modal>
 
-                <VoteModal questImages={votingItems} isOpen={voteModalOpen} onClose={() => setVoteModalOpen(false)} />
+                <VoteModal questImages={votingItems} isOpen={voteModalOpen} onClose={() => setVoteModalOpen(false)} questId={quest?.id} />
             </Container>
         </UserLayout>
     )

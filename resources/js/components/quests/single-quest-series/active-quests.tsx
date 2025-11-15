@@ -1,5 +1,4 @@
 import Card from '@/components/home/newest/components/Card'
-import QuestSubmitCard from '@/components/shared/quest-card'
 import SectionHeading from '@/components/shared/SectionHeading'
 import { Link } from '@inertiajs/react'
 

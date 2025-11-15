@@ -10,7 +10,9 @@ import TopPositions from '@/components/shared/top-positions'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
+import { router } from '@inertiajs/react'
 import { useState } from 'react'
+import { route } from 'ziggy-js'
 
 const images = [
     "https://images.unsplash.com/photo-1549388604-817d15aa0110",
@@ -28,11 +30,13 @@ const images = [
 ]
 
 
-export default function EndedSingleQuest() {
+export default function EndedSingleQuest({ quest }: any) {
     const [activeTab, setActiveTab] = useState("brief");
     const { t } = useLocales()
     const handleFollow = () => {
-        console.log("follow")
+        router.post(route('follow-user'), {
+            followed_id: quest?.user?.id
+        });
     }
     return (
         <UserLayout>

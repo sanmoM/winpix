@@ -89,7 +89,7 @@ export function AppSidebar() {
                 },
                 {
                     title: 'Quests',
-                    href: route('admin.quest'),
+                    href: route('admin.quests.index'),
                     icon: ServerIcon,
                 },
             ],

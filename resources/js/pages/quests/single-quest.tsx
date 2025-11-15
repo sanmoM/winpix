@@ -17,7 +17,7 @@ import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
 import { router, useForm, usePage } from '@inertiajs/react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { route } from 'ziggy-js'
 
@@ -26,6 +26,15 @@ export default function SingleQuest() {
     const [joinModalOpen, setJoinModalOpen] = useState(false);
     const [libraryModalOpen, setLibraryModalOpen] = useState(false);
     const [voteModalOpen, setVoteModalOpen] = useState(false)
+
+    const isDisabled = useMemo(() => {
+        const today = new Date(); // current date
+        const startDate = new Date(quest.start_date);
+        const endDate = new Date(quest.end_date);
+
+        // disable if today is before start or after end
+        return today < startDate || today > endDate;
+    }, [quest.start_date, quest.end_date]);
 
     const { post, setData, data } = useForm<any>({
         quest_id: quest.id,
@@ -92,7 +101,9 @@ export default function SingleQuest() {
                     </div>
                     <div className='grid gap-4 grid-cols-2'
                     >
-                        <SecondaryButton text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white"
+                        <SecondaryButton
+                            disabled={isDisabled}
+                            text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white"
                             onClick={() => setVoteModalOpen(true)}
                         />
                         <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' type='button' onClick={() => setJoinModalOpen(true)} />
@@ -122,7 +133,7 @@ export default function SingleQuest() {
                 </div>
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "entries" && "hidden")}>
                     <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-                        {galleryImage?.map((item, index) => (
+                        {questImages?.map((item, index) => (
                             <div key={index} className="break-inside-avoid rounded overflow-hidden shadow-lg">
                                 <GalleryImageCart item={item} />
                             </div>

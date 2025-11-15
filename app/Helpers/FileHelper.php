@@ -5,7 +5,7 @@ namespace App\Helpers;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class File
+class FileHelper
 {
     /**
      * Upload a file to a disk and return the path.

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Prize;
 use App\Models\Quest;
 use App\Models\QuestCategory;
+use App\Models\QuestType;
 use App\Models\Series;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -33,10 +34,12 @@ class QuestController extends Controller
     {
         $categories = QuestCategory::all();
         $series = Series::all();
+        $types = QuestType::all();
 
         return Inertia::render('user-dashboard/quest/create-quest', [
             'categories' => $categories,
             'series' => $series,
+            'types' => $types,
         ]);
     }
 
@@ -45,13 +48,12 @@ class QuestController extends Controller
      */
     public function store(Request $request)
     {
-
         // Get authenticated user
         $user = auth()->user();
         $userId = $user->id;
 
         $input = $request->all();
-        // return $input;
+
         // Validate request
         $validator = Validator::make($input, [
             'title' => 'required|string|max:255',
@@ -71,6 +73,8 @@ class QuestController extends Controller
             'categories_requirement' => 'nullable|string|max:255',
             'copyright_requirement' => 'nullable|string|max:255',
             'quest_series_id' => 'required|integer|exists:series,id',
+            'quest_type_id' => 'required|integer|exists:quest_types,id',
+
         ]);
 
         if ($validator->fails()) {
@@ -97,6 +101,7 @@ class QuestController extends Controller
             'categories_requirement' => $input['categories_requirement'],
             'copyright_requirement' => $input['copyright_requirement'],
             'quest_series_id' => $input['quest_series_id'],
+            'quest_type_id' => $input['quest_type_id'],
         ]);
 
         // Create prizes
@@ -111,7 +116,8 @@ class QuestController extends Controller
             ]);
         }
 
-        return redirect()->route('user-dashboard.quest.index');
+        return redirect()->back()
+            ->with('success', 'Quest created successfully.');
     }
 
     /**
@@ -146,6 +152,7 @@ class QuestController extends Controller
                 'categories_requirement' => $quest->categories_requirement,
                 'copyright_requirement' => $quest->copyright_requirement,
                 'quest_series_id' => $quest->quest_series_id,
+                'quest_type_id' => $quest->quest_series_id,
             ],
             'categories' => $categories,
             'series' => $series,
@@ -298,6 +305,7 @@ class QuestController extends Controller
             'categories_requirement' => 'nullable|string|max:255',
             'copyright_requirement' => 'nullable|string|max:255',
             'quest_series_id' => 'integer|exists:series,id',
+            'quest_type_id' => 'integer|exists:quest_types,id',
         ]);
 
         if ($validator->fails()) {
@@ -331,11 +339,12 @@ class QuestController extends Controller
             'categories_requirement' => $input['categories_requirement'],
             'copyright_requirement' => $input['copyright_requirement'],
             'quest_series_id' => $input['quest_series_id'],
+            'quest_type_id' => $input['quest_type_id'],
         ]);
 
         // (Prizes update logic same as before...)
 
-        return redirect()->route('user-dashboard.quest.index')
+        return redirect()->back()
             ->with('success', 'Quest updated successfully.');
     }
 

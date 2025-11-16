@@ -47,6 +47,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');
     Route::get('/quest', [QuestController::class, 'index'])->name('admin.quest');
     Route::get('/quest/create', [QuestController::class, 'create'])->name('admin.quest.create');
+    Route::get('/quest/edit/{id}', [QuestController::class, 'edit'])->name('admin.quest.edit');
     Route::resource('about', AboutController::class)->names('admin.about');
     Route::resource('slider', SliderController::class)->names('admin.slider');
     Route::resource('store', StoreController::class)->names('admin.store');

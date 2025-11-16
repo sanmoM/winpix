@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class Quest extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'title',
         'brief',
@@ -23,6 +24,7 @@ class Quest extends Model
         'categories_requirement',
         'copyright_requirement',
         'quest_series_id',
+        'quest_type_id',
     ];
 
     protected static function booted()
@@ -30,6 +32,7 @@ class Quest extends Model
         static::deleting(function ($quest) {
             // Delete all joins (this triggers QuestJoin deleting → QuestImages deleted)
             $quest->quest_join->each->delete(); // <-- remove parentheses
+            $quest->images->each->delete(); // <-- remove parentheses
 
             // Delete all prizes
             $quest->prizes()->delete();
@@ -62,10 +65,10 @@ class Quest extends Model
         return $this->belongsTo(QuestCategory::class);
     }
 
-    // public function quest_join()
-    // {
-    //     return $this->hasMany(QuestJoin::class);
-    // }
+    public function quest_join()
+    {
+        return $this->hasMany(QuestJoin::class);
+    }
 
     public function images()
     {

@@ -16,7 +16,6 @@ class QuestImage extends Model
     protected static function booted()
     {
         static::deleting(function ($questImage) {
-            \Log::info('Deleting QuestImage: ' . $questImage->id);
             if ($questImage->image && Storage::disk('public')->exists($questImage->image)) {
                 Storage::disk('public')->delete($questImage->image);
             }

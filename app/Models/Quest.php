@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class Quest extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'title',
         'brief',
@@ -23,6 +24,7 @@ class Quest extends Model
         'categories_requirement',
         'copyright_requirement',
         'quest_series_id',
+        'quest_type_id',
     ];
 
     protected static function booted()
@@ -67,7 +69,6 @@ class Quest extends Model
     {
         return $this->hasMany(QuestJoin::class);
     }
-    
 
     public function images()
     {

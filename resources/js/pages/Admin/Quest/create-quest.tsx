@@ -29,6 +29,7 @@ interface Quest {
     title: string;
     brief: string;
     category_id: string;
+    quest_type_id: string;
     startDate: string;
     endDate: string;
     prizes: Prize[];
@@ -40,27 +41,37 @@ interface Quest {
     quest_series_id: string;
 }
 
-
 export default function Dashboard() {
-    const { categories, series }: { categories: { id: number, name: string }[] } = usePage<any>().props;
+    const {
+        categories,
+        series,
+        types,
+    }: { categories: { id: number; name: string }[] } = usePage<any>().props;
     const { t } = useLocales();
 
-    const { data, setData, post, processing, errors, recentlySuccessful, reset } =
-        useForm<Quest>({
-            title: '',
-            brief: '',
-            category_id: '',
-            startDate: '',
-            endDate: '',
-            prizes: [],
-            image: null,
-            entry_coin: "",
-            level_requirement: "",
-            categories_requirement: "",
-            copyright_requirement: "",
-            quest_series_id: "",
-        });
-
+    const {
+        data,
+        setData,
+        post,
+        processing,
+        errors,
+        recentlySuccessful,
+        reset,
+    } = useForm<Quest>({
+        title: '',
+        brief: '',
+        category_id: '',
+        quest_type_id: '',
+        startDate: '',
+        endDate: '',
+        prizes: [],
+        image: null,
+        entry_coin: '',
+        level_requirement: '',
+        categories_requirement: '',
+        copyright_requirement: '',
+        quest_series_id: '',
+    });
 
     const categoryOptions = categories.map((category) => ({
         value: category.id,
@@ -72,6 +83,11 @@ export default function Dashboard() {
         label: series.title,
     }));
 
+    const typesOptions = types.map((types) => ({
+        value: types.id,
+        label: types.name,
+    }));
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         post(route('user-dashboard.quest.store'), {
@@ -80,65 +96,60 @@ export default function Dashboard() {
         });
     };
 
-
     const breadcrumbs: BreadcrumbItem[] = [
         {
-            title: t("dashboard.profile.heading"),
+            title: t('dashboard.sidebar.links.dashboard'),
             href: dashboard().url,
         },
     ];
 
-    const setPrizeData = (
-        index: number,
-        field: keyof Prize,
-        value: string | number
-    ) => {
-        const newPrizes: Prize[] = [...data.prizes];
-        newPrizes[index][field] = value as any;
-
-        setData('prizes', newPrizes);
-    };
-
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head />
-            <div className='px-4 py-6'>
-                <form onSubmit={handleSubmit} className="space-y-6 max-w-6xl" encType="multipart/form-data">
+            <div className="px-4 py-6">
+                <form
+                    onSubmit={handleSubmit}
+                    className="max-w-6xl space-y-6"
+                    encType="multipart/form-data"
+                >
                     <ImageInput
                         image={data.image}
                         setImage={(value) => setData('image', value)}
-                        wrapperClassName='w-full aspect-[2/1]'
-                        iconClassName='w-[20%]'
+                        wrapperClassName="w-full aspect-[2/1]"
+                        iconClassName="w-[20%]"
                     />
 
                     {/* Title */}
                     <div className="grid gap-2">
-                        <Label htmlFor="title">{t('dashboard.quest.inputs.title.label')}</Label>
+                        <Label htmlFor="title">
+                            {t('dashboard.quest.inputs.title.label')}
+                        </Label>
                         <Input
                             id="title"
                             name="title"
                             value={data.title}
-                            onChange={(e) =>
-                                setData('title', e.target.value)
-                            }
-                            placeholder={t('dashboard.quest.inputs.title.placeholder')}
+                            onChange={(e) => setData('title', e.target.value)}
+                            placeholder={t(
+                                'dashboard.quest.inputs.title.placeholder',
+                            )}
                         />
                         <InputError message={errors.title} />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="title">{t('dashboard.quest.inputs.brief.label')}</Label>
+                        <Label htmlFor="title">
+                            {t('dashboard.quest.inputs.brief.label')}
+                        </Label>
                         <TextAreaInput
                             value={data.brief}
-                            onChange={(e) =>
-                                setData('brief', e.target.value)
-                            }
-                            placeholder={t('dashboard.quest.inputs.brief.placeholder')}
+                            onChange={(e) => setData('brief', e.target.value)}
+                            placeholder={t(
+                                'dashboard.quest.inputs.brief.placeholder',
+                            )}
                         />
                         <InputError message={errors.brief} />
                     </div>
-                    <div className='grid grid-cols-2 gap-4'>
+                    <div className="grid grid-cols-2 gap-4">
                         <SelectInput
                             id="tag"
                             name="tag"
@@ -148,7 +159,7 @@ export default function Dashboard() {
                             onChange={(value) =>
                                 setData('category_id', value as string)
                             }
-                            className='w-full max-w-auto'
+                            className="max-w-auto w-full"
                         />
                         <SelectInput
                             id="series"
@@ -159,99 +170,156 @@ export default function Dashboard() {
                             onChange={(value) =>
                                 setData('quest_series_id', value as string)
                             }
-                            className='w-full max-w-auto'
+                            className="max-w-auto w-full"
+                        />
+                    </div>
+
+                    <div className="grid gap-4">
+                        <SelectInput
+                            id="quest_type_id"
+                            name="quest_type_id"
+                            label={t(
+                                'dashboard.quest.inputs.questTypeId.label',
+                            )}
+                            options={typesOptions}
+                            value={data.quest_type_id}
+                            onChange={(value) =>
+                                setData('quest_type_id', value as string)
+                            }
+                            className="max-w-auto w-full"
                         />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="title">{t('dashboard.quest.inputs.entryCoin.label')}</Label>
+                        <Label htmlFor="title">
+                            {t('dashboard.quest.inputs.entryCoin.label')}
+                        </Label>
                         <Input
-                            type='number'
+                            type="number"
                             id="start"
                             name="start"
                             value={data.entry_coin}
                             onChange={(e) => {
-                                setData("entry_coin", e.target.value)
-                            }
-                            }
-                            placeholder={t('dashboard.quest.inputs.entryCoin.placeholder')}
+                                setData('entry_coin', e.target.value);
+                            }}
+                            placeholder={t(
+                                'dashboard.quest.inputs.entryCoin.placeholder',
+                            )}
                         />
                         <InputError message={errors.entry_coin} />
                     </div>
-                    <div className='grid grid-cols-3 gap-4'>
+                    <div className="grid grid-cols-3 gap-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="title">{t('dashboard.quest.inputs.level_requirement.label')}</Label>
+                            <Label htmlFor="title">
+                                {t(
+                                    'dashboard.quest.inputs.level_requirement.label',
+                                )}
+                            </Label>
                             <Input
                                 id="level_require"
                                 name="level_require"
                                 value={data.level_requirement}
                                 onChange={(e) => {
-                                    setData("level_requirement", e.target.value)
-                                }
-                                }
-                                placeholder={t('dashboard.quest.inputs.level_requirement.placeholder')}
+                                    setData(
+                                        'level_requirement',
+                                        e.target.value,
+                                    );
+                                }}
+                                placeholder={t(
+                                    'dashboard.quest.inputs.level_requirement.placeholder',
+                                )}
                             />
                             <InputError message={errors.level_requirement} />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="title">{t('dashboard.quest.inputs.categories_requirement.label')}</Label>
+                            <Label htmlFor="title">
+                                {t(
+                                    'dashboard.quest.inputs.categories_requirement.label',
+                                )}
+                            </Label>
                             <Input
                                 id="categories_require"
                                 name="categories_require"
                                 value={data.categories_requirement}
                                 onChange={(e) => {
-                                    setData("categories_requirement", e.target.value)
-                                }
-                                }
-                                placeholder={t('dashboard.quest.inputs.categories_requirement.placeholder')}
+                                    setData(
+                                        'categories_requirement',
+                                        e.target.value,
+                                    );
+                                }}
+                                placeholder={t(
+                                    'dashboard.quest.inputs.categories_requirement.placeholder',
+                                )}
                             />
-                            <InputError message={errors.categories_requirement} />
+                            <InputError
+                                message={errors.categories_requirement}
+                            />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="title">{t('dashboard.quest.inputs.copyright_requirement.label')}</Label>
+                            <Label htmlFor="title">
+                                {t(
+                                    'dashboard.quest.inputs.copyright_requirement.label',
+                                )}
+                            </Label>
                             <Input
                                 id="copyright_require"
                                 name="copyright_require"
                                 value={data.copyright_requirement}
                                 onChange={(e) => {
-                                    setData("copyright_requirement", e.target.value)
-                                }
-                                }
-                                placeholder={t('dashboard.quest.inputs.copyright_requirement.placeholder')}
+                                    setData(
+                                        'copyright_requirement',
+                                        e.target.value,
+                                    );
+                                }}
+                                placeholder={t(
+                                    'dashboard.quest.inputs.copyright_requirement.placeholder',
+                                )}
                             />
-                            <InputError message={errors.copyright_requirement} />
+                            <InputError
+                                message={errors.copyright_requirement}
+                            />
                         </div>
                     </div>
 
                     {/* Start Date & End Date Row */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                         {/* Start Date */}
                         <div className="grid gap-2">
-                            <Label htmlFor="startDate">{t('dashboard.quest.inputs.startDate.label')}</Label>
+                            <Label htmlFor="startDate">
+                                {t('dashboard.quest.inputs.startDate.label')}
+                            </Label>
                             <DateInput
                                 value={data.startDate}
                                 onChange={(value) =>
                                     setData('startDate', value)
-                                } />
+                                }
+                            />
                             <InputError message={errors.startDate} />
                         </div>
 
                         {/* End Date */}
                         <div className="grid gap-2">
-                            <Label htmlFor="endDate">{t('dashboard.quest.inputs.endDate.label')}</Label>
+                            <Label htmlFor="endDate">
+                                {t('dashboard.quest.inputs.endDate.label')}
+                            </Label>
                             <DateInput
                                 value={data.endDate}
-                                onChange={(value) =>
-                                    setData('endDate', value)
-                                } />
+                                onChange={(value) => setData('endDate', value)}
+                            />
                             <InputError message={errors.endDate} />
                         </div>
                     </div>
-                    <PrizesInput prizes={data.prizes} setPrizes={(value) => setData('prizes', value)} />
+                    <PrizesInput
+                        prizes={data.prizes}
+                        setPrizes={(value) => setData('prizes', value)}
+                    />
 
                     {/* Submit Button */}
                     <div className="flex items-center gap-4">
-                        <Button disabled={processing}>  {t('dashboard.quest.button.createButton')}</Button>
+                        <Button disabled={processing}>
+                            {' '}
+                            {t('dashboard.quest.button.createButton')}
+                        </Button>
 
                         <Transition
                             show={recentlySuccessful}
@@ -260,10 +328,11 @@ export default function Dashboard() {
                             leave="transition ease-in-out"
                             leaveTo="opacity-0"
                         >
-                            <p className="text-sm text-neutral-600">{t('dashboard.quest.button.saveText')}</p>
+                            <p className="text-sm text-neutral-600">
+                                {t('dashboard.quest.button.saveText')}
+                            </p>
                         </Transition>
                     </div>
-
                 </form>
             </div>
         </AppLayout>
@@ -272,7 +341,18 @@ export default function Dashboard() {
 
 // Minus Icon
 const MinusIcon = () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 12H6"></path>
+    <svg
+        className="h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M18 12H6"
+        ></path>
     </svg>
 );

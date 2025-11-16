@@ -118,7 +118,7 @@ export default function Create({ flash }: Props) {
                 {/* Action Buttons */}
                 <div className="flex items-center justify-end space-x-4 pt-4">
                     <Link
-                        href={route('admin.redeem.index')}
+                        href={route('admin.series.index')}
                         className="w-28 rounded-lg border border-gray-300 px-6 py-2 text-center font-semibold text-gray-700 hover:bg-gray-100"
                     >
                         Back

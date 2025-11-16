@@ -19,13 +19,14 @@ class SliderController extends Controller
      */
     public function index()
     {
-        // <-- UPDATED to group items for a cleaner view
-        $sliders = Slider::where('lang', 'en')
-            ->orWhereDoesntHave('group', function ($query) {
-                $query->where('lang', 'en');
-            })
-            ->orderBy('created_at', 'desc')
-            ->get();
+        // Updated to group items for a cleaner view
+        // $sliders = Slider::where('lang', 'en')
+        //     ->orWhereDoesntHave('group', function ($query) {
+        //         $query->where('lang', 'en');
+        //     })
+        //     ->orderBy('created_at', 'desc')
+        //     ->get();
+        $sliders = Slider::all();
 
         return Inertia::render('Admin/Slider/Index', [
             'sliders' => $sliders,
@@ -82,7 +83,7 @@ class SliderController extends Controller
                 ]);
             }
 
-            // <-- UPDATED redirect to index
+            // UPDATED redirect to index
             return Redirect::route('admin.slider.index')->with('success', 'Slider page created successfully.');
 
         } catch (\Exception $e) {
@@ -166,7 +167,7 @@ class SliderController extends Controller
      */
     public function edit(string $id)
     {
-        // <-- UPDATED to use findOrFail and load other languages
+        // UPDATED to use findOrFail and load other languages
         $slider = Slider::findOrFail($id);
 
         $otherLanguages = collect();

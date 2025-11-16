@@ -10,7 +10,7 @@ import { route } from 'ziggy-js';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Quests',
-        href: 'user-dashboard/quest',
+        href: 'admin.quest',
     },
 ];
 
@@ -37,24 +37,25 @@ export default function Index() {
             <ToastContainer />
             <Head title="Quests" />
 
-            <div className='p-4'>
+            <div className="p-4">
                 <div className="mb-4 flex items-center justify-between">
                     <h1 className="text-lg font-semibold">Quest</h1>
-                    <Link
-                        href={route('user-dashboard.quest.create')}
-                    >
-                        <Button text='Create' />
+                    <Link href={route('admin.quest.create')}>
+                        <Button text="Create" />
                     </Link>
                 </div>
                 <div className="overflow-x-auto rounded-lg border border-gray-200 bg-bg-primary shadow-sm">
                     <table className="min-w-full border-collapse text-left text-sm">
-                        <thead className=" bg-primary-color text-white">
+                        <thead className="bg-primary-color text-white">
                             <tr>
                                 <th className="px-4 py-3">#</th>
                                 <th className="px-4 py-3">Image</th>
                                 <th className="px-4 py-3">Name</th>
+                                <th className="px-4 py-3">Creator</th>
                                 <th className="px-4 py-3">Status</th>
-                                <th className="px-4 py-3 !text-right">Actions</th>
+                                <th className="px-4 py-3 !text-right">
+                                    Actions
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,12 +70,17 @@ export default function Index() {
                                         </td>
                                         <td className="px-4 py-3 font-medium">
                                             <img
-                                                src={"/storage/" + item?.image}
+                                                src={'/storage/' + item?.image}
                                                 alt="quest image"
-                                                className="w-10 h-10 rounded-full"
+                                                className="h-10 w-10 rounded-full"
                                             />
                                         </td>
-                                        <td className="px-4 py-3">{item?.title}</td>
+                                        <td className="px-4 py-3">
+                                            {item?.title}
+                                        </td>
+                                        <td className="px-4 py-3">
+                                            {item?.user?.name}
+                                        </td>
                                         <td className="px-4 py-3">
                                             <Badge
                                                 className={
@@ -89,7 +95,7 @@ export default function Index() {
                                         <td className="space-x-3 px-4 py-3 !text-right">
                                             <Link
                                                 href={route(
-                                                    'user-dashboard.quest.edit',
+                                                    'admin.quest.edit',
                                                     item.id,
                                                 )}
                                                 className="bg-dark cursor-pointer rounded-md bg-slate-800 px-3 py-2 font-medium text-white"

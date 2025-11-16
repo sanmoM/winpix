@@ -95,17 +95,6 @@ export default function Dashboard() {
         },
     ];
 
-    const setPrizeData = (
-        index: number,
-        field: keyof Prize,
-        value: string | number,
-    ) => {
-        const newPrizes: Prize[] = [...data.prizes];
-        newPrizes[index][field] = value as any;
-
-        setData('prizes', newPrizes);
-    };
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head />

@@ -17,15 +17,25 @@ import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
 import { router, useForm, usePage } from '@inertiajs/react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { route } from 'ziggy-js'
 
 export default function SingleQuest() {
-    const { quest, auth, joinedQuests, questImages, votes } = usePage<any>().props;
+    const { quest, auth, joinedQuests, questImages, votes, isFollowing } = usePage<any>().props;
     const [joinModalOpen, setJoinModalOpen] = useState(false);
     const [libraryModalOpen, setLibraryModalOpen] = useState(false);
     const [voteModalOpen, setVoteModalOpen] = useState(false)
+
+
+    const isDisabled = useMemo(() => {
+        const today = new Date(); // current date
+        const startDate = new Date(quest.start_date);
+        const endDate = new Date(quest.end_date);
+
+        // disable if today is before start or after end
+        return today < startDate || today > endDate;
+    }, [quest.start_date, quest.end_date]);
 
     const { post, setData, data } = useForm<any>({
         quest_id: quest.id,
@@ -80,6 +90,13 @@ export default function SingleQuest() {
         }
 
     }
+
+
+    const handleFollow = () => {
+        router.post(route('follow-user'), {
+            followed_id: quest?.user?.id
+        });
+    }
     return (
         <UserLayout>
             <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]' hasOverlay={false}>
@@ -92,7 +109,9 @@ export default function SingleQuest() {
                     </div>
                     <div className='grid gap-4 grid-cols-2'
                     >
-                        <SecondaryButton text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white"
+                        <SecondaryButton
+                            disabled={isDisabled}
+                            text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white"
                             onClick={() => setVoteModalOpen(true)}
                         />
                         <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' type='button' onClick={() => setJoinModalOpen(true)} />
@@ -116,13 +135,13 @@ export default function SingleQuest() {
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
                         <Guidelines t={t} level_requirement={quest?.level_requirement} categories_requirement={quest?.categories_requirement} copyright_requirement={quest?.copyright_requirement} />
                         <div className='className="w-fit lg:w-full md:max-w-md mt-auto mx-auto lg:mx-0'>
-                            <Creator user={quest?.user} />
+                            <Creator user={quest?.user} onClick={handleFollow} btnText={isFollowing ? "Unfollow" : "Follow"} />
                         </div>
                     </div>
                 </div>
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "entries" && "hidden")}>
                     <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-                        {galleryImage?.map((item, index) => (
+                        {questImages?.map((item, index) => (
                             <div key={index} className="break-inside-avoid rounded overflow-hidden shadow-lg">
                                 <GalleryImageCart item={item} />
                             </div>
@@ -146,7 +165,7 @@ export default function SingleQuest() {
                     <LibraryModal images={libraryImages} setImage={(value) => setData("image", value)} selectedImage={data?.image} handleJoinQuest={handleJoinQuest} btnText={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} />
                 </Modal>
 
-                <VoteModal questImages={votingItems} isOpen={voteModalOpen} onClose={() => setVoteModalOpen(false)} />
+                <VoteModal questImages={votingItems} isOpen={voteModalOpen} onClose={() => setVoteModalOpen(false)} questId={quest?.id} />
             </Container>
         </UserLayout>
     )

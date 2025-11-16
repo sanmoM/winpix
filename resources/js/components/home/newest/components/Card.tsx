@@ -1,9 +1,9 @@
+import { Link } from "@inertiajs/react";
 import { LuLayers } from "react-icons/lu";
 import { TbTrophyFilled } from "react-icons/tb";
 
 
-export default function Card({ item, isSeries=false }: any) {
-
+export default function Card({ item, isSeries = false }: any) {
     return (
         <div className="relative block w-full rounded-2xl overflow-hidden group cursor-pointer">
 
@@ -40,7 +40,14 @@ export default function Card({ item, isSeries=false }: any) {
                         <h2 className="text-2xl font-bold mb-2">{item?.title}</h2>
                         <div className="items-center border !border-white rounded-full flex justify-center gap-2 w-fit px-4 py-1">
                             <TbTrophyFilled />
-                            <span className="text-sm font-medium ">{item?.entry_coin} USD</span>
+                            <span className="text-sm font-medium ">
+                                {
+                                    isSeries ? item?.quests?.reduce((acc, current) => {
+                                        acc += current?.entry_coin
+                                        console.log(acc)
+                                        return acc
+                                    }, 0) : item?.entry_coin
+                                } USD</span>
                         </div>
                     </div>
                     <span className="text-white bg-white/10 px-4 py-1 rounded-full backdrop-blur-[3px] text-[11px] font-semibold tracking-wider">@{item?.user?.name}</span>

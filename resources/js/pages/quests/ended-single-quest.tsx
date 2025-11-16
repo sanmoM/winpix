@@ -10,7 +10,9 @@ import TopPositions from '@/components/shared/top-positions'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
+import { router } from '@inertiajs/react'
 import { useState } from 'react'
+import { route } from 'ziggy-js'
 
 const images = [
     "https://images.unsplash.com/photo-1549388604-817d15aa0110",
@@ -28,9 +30,14 @@ const images = [
 ]
 
 
-export default function EndedSingleQuest() {
+export default function EndedSingleQuest({ quest }: any) {
     const [activeTab, setActiveTab] = useState("brief");
     const { t } = useLocales()
+    const handleFollow = () => {
+        router.post(route('follow-user'), {
+            followed_id: quest?.user?.id
+        });
+    }
     return (
         <UserLayout>
             <Banner src='https://cdn.pulsepx.com/photos/112044230/6d744332dae2e82b70e0d97a74b9343033479481bde91ff4c807642da8ec82c5/2048.jpg' containerClass='h-[40vh] lg:h-[70vh]'>
@@ -55,7 +62,7 @@ export default function EndedSingleQuest() {
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
                         <Guidelines t={t} />
                         <div className='className="w-fit lg:w-full md:max-w-md mt-auto mx-auto lg:mx-0'>
-                            <Creator />
+                            <Creator onClick={handleFollow} />
                         </div>
                     </div>
                 </div>

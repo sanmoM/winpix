@@ -25,7 +25,7 @@ export default function Profile({
 }) {
     const { t } = useLocales();
     const { auth } = usePage<SharedData>().props;
-    const [image, setImage] = useState<string | null>("/storage/" + auth.user.image);
+    const [image, setImage] = useState<string | null>(auth?.user?.image ? "/storage/" + auth.user.image : null);
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: t('dashboard.editProfile.heading'),

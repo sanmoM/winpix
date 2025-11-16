@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follower;
 use App\Models\Quest;
 use App\Models\QuestImage;
 use App\Models\QuestJoin;
@@ -10,10 +11,10 @@ use App\Models\Series;
 use App\Models\Slider;
 use App\Models\Store;
 use App\Models\Vote;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
 {
@@ -23,16 +24,17 @@ class FrontendController extends Controller
     {
         $sliders = Slider::all();
         $new_quest = Quest::with(["category", "user"])->where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
-        $topVotedImages = QuestImage::with(["user", "quest.category", "quest.user"])->orderBy('vote_count', 'desc')->take(value: 20)->get();
-        // QuestImage::with(["quest_join.user", "quest_join.quest.category", "quest_join.quest.user"])->orderBy('vote_count', 'desc')->take(value: 20)->get();
-        $user = auth()->user();
-        // if ($user) {
-        //     return redirect("/discover");
-        // }
+        $topImages = Vote::select('image_id')
+            ->selectRaw('count(*) as total_votes')   // count votes per image
+            ->groupBy('image_id')                    // group by image
+            ->orderByDesc('total_votes')             // most votes first
+            ->take(10)                               // top 10
+            ->with(['image.user', 'image.quest'])    // eager load image, its user, and quest
+            ->get();
         return Inertia::render('home', [
             'sliders' => $sliders,
             'new_quest' => $new_quest,
-            'galleryImages' => $topVotedImages,
+            'galleryImages' => $topImages,
         ]);
     }
 
@@ -69,12 +71,14 @@ class FrontendController extends Controller
         $quest = Quest::with(['category', 'user', 'prizes', "images"])->findOrFail($id);
         $votes = Vote::where('user_id', $userId)->get();
         $allItems = QuestImage::with(['user', 'quest.category', 'quest.user'])->get();
+        $isFollowing = Follower::where('follower_id', auth()->user()->id)->where('followed_id', $quest->user->id)->exists();
         return Inertia::render('quests/single-quest', [
             'id' => $id,
             "quest" => $quest,
             "joinedQuests" => $joinedQuests,
             "votes" => $votes,
             'questImages' => $allItems,
+            'isFollowing' => $isFollowing,
         ]);
     }
 
@@ -104,7 +108,25 @@ class FrontendController extends Controller
 
     public function endedQuests()
     {
-        return Inertia::render('quests/ended-quests');
+        $user = auth()->user();
+        $userId = $user->id;
+        $myQuests = Quest::with(["category", "user"])
+            ->where('user_id', $userId)
+            ->where('end_date', '<', Carbon::now())
+            ->orderBy("created_at", 'desc')
+            ->get();
+        $recentlyEnded = Quest::with(['category', 'user'])
+            ->where('end_date', '<', Carbon::now())
+            ->orderBy('end_date', 'desc')
+            ->take(10)
+            ->get();
+        $inactiveSeries = Series::with('quests.user', 'quests.category', 'user')->get();
+
+        return Inertia::render('quests/ended-quests', [
+            'myQuests' => $myQuests,
+            'recentlyEnded' => $recentlyEnded,
+            'inactiveSeries' => $inactiveSeries,
+        ]);
     }
     public function profile()
     {
@@ -187,15 +209,29 @@ class FrontendController extends Controller
         return redirect()->back()->with('success', 'Join Quest Successfully');
     }
 
-    public function vote(Request $request, $id)
+    public function vote($imageId, $questId)
     {
         $user = auth()->user();
-        $imageId = $request->image_id;
         Vote::firstOrCreate([
             'image_id' => $imageId,
             'user_id' => $user->id,
+            'quest_id' => $questId,
         ]);
 
         return response()->json(['success' => true]);
+    }
+
+    public function followUser(Request $request)
+    {
+        $user = auth()->user();
+        $isAlreadyFollowing = Follower::where('follower_id', $user->id)->where('followed_id', $request->followed_id)->exists();
+        if ($isAlreadyFollowing) {
+            Follower::where('follower_id', $user->id)->where('followed_id', $request->followed_id)->delete();
+        } else {
+            Follower::firstOrCreate([
+                'follower_id' => $user->id,
+                'followed_id' => $request->followed_id
+            ]);
+        }
     }
 }

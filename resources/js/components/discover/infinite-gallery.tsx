@@ -102,7 +102,10 @@ export default function MasonryGallery({ galleryImages, t }: { images: string[],
               className="w-full object-cover mb-2 rounded"
             />
             <p className="text-sm text-gray-600 px-2 pb-2">{item.title}</p> */}
-            <GalleryImageCart item={item} />
+            <GalleryImageCart item={{
+              image: item?.image.image,
+              user: item?.image.user
+            }} />
           </div>
         ))}
       </div>

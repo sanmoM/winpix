@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('helps', function (Blueprint $table) {
             $table->id();
-            $table->uuid('group_id')->unique()->nullable();
+            $table->uuid('group_id')->nullable();
             $table->string('section');
             $table->string('question');
             $table->longText('answer');

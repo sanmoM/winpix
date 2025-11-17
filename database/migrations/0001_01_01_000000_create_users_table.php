@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -29,8 +30,8 @@ return new class extends Migration {
             $table->enum('status', ['active', 'inactive', 'ban'])->default('active');
             $table->integer('level')->default(1);
             $table->unsignedInteger('votes_cast')->default(0);
-            $table->integer('coin')->default(0);
-            $table->integer('pixel')->default(0);
+            $table->bigInteger('coin')->default(0);
+            $table->bigInteger('pixel')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

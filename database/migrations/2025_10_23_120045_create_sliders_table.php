@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('bg_image');
             $table->text('title');
             $table->longText('content');
+            $table->string('lang');
             $table->string('status')->default('Active');
             $table->timestamps();
         });

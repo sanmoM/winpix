@@ -46,7 +46,7 @@ export default function Create() {
             <Head title="Help" />
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col space-y-4 p-6"
+                className="flex max-w-6xl flex-col space-y-4 p-6"
             >
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="section">Question Type</Label>
@@ -114,8 +114,10 @@ export default function Create() {
 
                     <button
                         type="submit"
-                        className="w-28 cursor-pointer rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700 disabled:opacity-70"
                         disabled={processing}
+                        className={`cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white shadow transition ease-in-out hover:bg-amber-700 ${
+                            processing && 'cursor-not-allowed opacity-60'
+                        }`}
                     >
                         {processing ? 'Saving...' : 'Save'}
                     </button>

@@ -89,15 +89,17 @@ export default function Edit({ item }: EditProps) {
                     modelValue={data.answer}
                     onChange={(val) => setData('answer', val)}
                 />
-
-                {/* Submit */}
-                <button
-                    type="submit"
-                    className="w-28 rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700"
-                    disabled={processing}
-                >
-                    {processing ? 'Updating...' : 'Update'}
-                </button>
+                <div className="flex justify-end">
+                    <button
+                        type="submit"
+                        disabled={processing}
+                        className={`cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white shadow transition ease-in-out hover:bg-amber-700 ${
+                            processing && 'cursor-not-allowed opacity-60'
+                        }`}
+                    >
+                        {processing ? 'Updating...' : 'Update'}
+                    </button>
+                </div>
             </form>
         </AppLayout>
     );

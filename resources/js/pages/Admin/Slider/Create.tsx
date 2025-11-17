@@ -1,3 +1,4 @@
+import ImageInput from '@/components/shared/inputs/image-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -72,7 +73,7 @@ export default function Create({ flash }: Props) {
 
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col space-y-4 p-6"
+                className="max-w-6xl space-y-6 p-4"
                 encType="multipart/form-data"
             >
                 {/* Background Image */}
@@ -80,14 +81,13 @@ export default function Create({ flash }: Props) {
                     <Label htmlFor="bg_image" className="font-semibold">
                         Background Image <span className="text-red-600">*</span>
                     </Label>
-                    <Input
-                        ref={fileInputRef}
-                        id="bg_image"
-                        type="file"
-                        onChange={(e) =>
-                            setData('bg_image', e.target.files?.[0] ?? null)
-                        }
+                    <ImageInput
+                        image={data.bg_image}
+                        setImage={(value) => setData('bg_image', value)}
+                        wrapperClassName="w-full aspect-[2/1]"
+                        iconClassName="w-[20%]"
                     />
+
                     {errors.bg_image && (
                         <p className="text-sm text-red-600">
                             {errors.bg_image}
@@ -129,21 +129,20 @@ export default function Create({ flash }: Props) {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex items-center space-x-4 pt-4">
-                    <button
-                        type="submit"
-                        className="w-28 rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700 disabled:opacity-70"
-                        disabled={processing}
-                    >
-                        {processing ? 'Saving...' : 'Save'}
-                    </button>
-
+                <div className="flex items-center justify-end space-x-4 pt-4">
                     <Link
                         href={route('admin.slider.index')}
                         className="w-28 rounded-lg border border-gray-300 px-6 py-2 !text-center font-semibold text-gray-700 hover:bg-gray-100"
                     >
                         Back
                     </Link>
+                    <button
+                        type="submit"
+                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold disabled:opacity-70"
+                        disabled={processing}
+                    >
+                        {processing ? 'Saving...' : 'Save'}
+                    </button>
                 </div>
             </form>
         </AppLayout>

@@ -53,11 +53,11 @@ class HelpController extends Controller
 
             // Step 2: Fallback if translation fails
             if (! is_array($translations) || empty($translations)) {
-                $translations = [
+                $translations = [[
                     'lang' => 'en',
                     'question' => $validated['question'],
                     'answer' => $validated['answer'],
-                ];
+                ]];
             }
 
             $groupId = Str::uuid()->toString();

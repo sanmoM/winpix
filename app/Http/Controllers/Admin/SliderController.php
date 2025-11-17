@@ -63,11 +63,11 @@ class SliderController extends Controller
 
             // <-- FIXED FALLBACK (must be an array of arrays)
             if (! is_array($translations) || empty($translations)) {
-                $translations = [
+                $translations = [[
                     'lang' => 'en',
                     'title' => $validated['title'],
                     'content' => $validated['content'],
-                ];
+                ]];
             }
 
             $groupId = Str::uuid()->toString();

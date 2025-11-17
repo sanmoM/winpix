@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Slider extends Model
 {
     protected $fillable = [
-        'lang',
         'group_id',
         'bg_image',
         'title',
         'content',
+        'lang',
         'status',
     ];
 }

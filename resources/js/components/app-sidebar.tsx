@@ -103,6 +103,10 @@ export function AppSidebar() {
                     href: route('admin.help.index'),
                     icon: ServerIcon,
                 },
+                {
+                    title: 'Settings',
+                    icon: ServerIcon,
+                },
             ],
         },
     ];

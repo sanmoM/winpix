@@ -11,6 +11,6 @@ class AdminController extends Controller
 {
     public function admin(Request $request): Response
     {
-         return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Dashboard');
     }
 }

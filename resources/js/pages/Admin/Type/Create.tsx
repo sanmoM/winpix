@@ -47,7 +47,7 @@ export default function Create({ flash }: Props) {
             <ToastContainer />
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col space-y-4 p-6"
+                className="flex max-w-6xl flex-col space-y-4 p-6"
             >
                 <div className="grid w-full items-center gap-2">
                     <Label htmlFor="name" className="font-semibold">
@@ -76,7 +76,7 @@ export default function Create({ flash }: Props) {
 
                     <button
                         type="submit"
-                        className="w-28 cursor-pointer rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700 disabled:opacity-70"
+                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white disabled:opacity-70"
                         disabled={processing}
                     >
                         {processing ? 'Saving...' : 'Save'}

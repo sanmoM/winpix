@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
@@ -16,10 +16,17 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        if(!Auth::check() || !in_array(Auth()->user()->role, $roles))
-        {
+        if (! Auth::check() || ! in_array(Auth()->user()->role, $roles)) {
             if ($request->inertia()) {
-                return redirect()->route('auth.error');
+
+                if (Auth::user()->role === 'user') {
+                    return redirect()->route('dashboard');
+                } elseif (Auth::user()->role === 'admin') {
+                    return redirect()->route('admin.dashboard');
+                } else {
+                    return redirect()->route('auth.error');
+                }
+
             }
             abort(403);
         }

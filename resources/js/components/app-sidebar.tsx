@@ -95,6 +95,17 @@ export function AppSidebar() {
             ],
         },
         {
+            title: 'User',
+            icon: UserPlus,
+            subItems: [
+                {
+                    title: 'All Users',
+                    href: route('admin.allUsers'),
+                    icon: ServerIcon,
+                },
+            ],
+        },
+        {
             title: 'Others',
             icon: WashingMachine,
             subItems: [

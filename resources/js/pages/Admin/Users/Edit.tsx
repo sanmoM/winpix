@@ -1,4 +1,3 @@
-import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
@@ -8,8 +7,8 @@ import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Category',
-        href: 'admin/quest-category',
+        title: 'User',
+        href: 'admin/all-users',
     },
     {
         title: 'Edit',
@@ -18,64 +17,56 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 interface EditProps {
-    item: {
+    user: {
         id: number;
         name: string;
-        description: string;
+        email: string;
         status: string;
     };
 }
 
-export default function Edit({ item }: EditProps) {
+export default function Edit({ user }: EditProps) {
     const { data, setData, put, errors, processing } = useForm({
-        name: item.name,
-        description: item.description,
-        status: item.status,
+        name: user.name,
+        email: user.email,
+        status: user.status,
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(route('admin.questCategory.update', item.id));
+        put(route('admin.updateUsers', user.id));
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Edit Quest Category" />
+            <Head title="Edit Help" />
 
             <form
                 onSubmit={handleSubmit}
                 className="flex max-w-6xl flex-col space-y-4 p-6"
             >
-                <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="name" className="font-semibold">
-                        Name <span className="text-red-600">*</span>
-                    </Label>
+                {/* Name */}
+                <div className="grid w-full items-center gap-3">
+                    <Label htmlFor="name">Name</Label>
                     <Input
                         id="name"
                         type="text"
                         value={data.name}
                         onChange={(e) => setData('name', e.target.value)}
-                        placeholder="Enter Name"
+                        placeholder="Enter name"
                     />
-                    {errors.name && (
-                        <p className="text-sm text-red-600">{errors.name}</p>
-                    )}
                 </div>
 
-                <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="name" className="font-semibold">
-                        Description <span className="text-red-600">*</span>
-                    </Label>
-                    <TextAreaInput
-                        value={data.description}
-                        onChange={(e) => setData('description', e.target.value)}
-                        placeholder="Enter Description"
+                {/* Email */}
+                <div className="grid w-full items-center gap-3">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                        id="email"
+                        type="email"
+                        value={data.email}
+                        onChange={(e) => setData('email', e.target.value)}
+                        placeholder="Enter email"
                     />
-                    {errors.name && (
-                        <p className="text-sm text-red-600">
-                            {errors.description}
-                        </p>
-                    )}
                 </div>
 
                 {/* Status */}
@@ -89,20 +80,22 @@ export default function Edit({ item }: EditProps) {
                         onChange={(e) => setData('status', e.target.value)}
                         className="rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-amber-600 focus:outline-none"
                     >
-                        <option value="Active">Active</option>
-                        <option value="InActive">InActive</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">InActive</option>
+                        {/* <option value="ban">Ban</option> */}
                     </select>
                     {errors.status && (
                         <p className="text-sm text-red-600">{errors.status}</p>
                     )}
                 </div>
 
-                {/* Submit */}
-                <div className="flex items-center justify-end space-x-4 pt-4">
+                <div className="flex justify-end">
                     <button
                         type="submit"
-                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white disabled:opacity-70"
                         disabled={processing}
+                        className={`cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white shadow transition ease-in-out ${
+                            processing && 'cursor-not-allowed opacity-60'
+                        }`}
                     >
                         {processing ? 'Updating...' : 'Update'}
                     </button>

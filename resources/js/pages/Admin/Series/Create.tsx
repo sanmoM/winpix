@@ -1,10 +1,11 @@
+import ImageInput from '@/components/shared/inputs/image-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
 
@@ -29,12 +30,12 @@ interface Props {
 }
 
 export default function Create({ flash }: Props) {
-    const { data, setData, post, processing, reset, errors } = useForm({
-        title: '',
-        description: '',
-        image: null as File | null,
-    });
-    const fileInputRef = useRef<HTMLInputElement>(null);
+    const { data, setData, post, processing, progress, reset, errors } =
+        useForm({
+            title: '',
+            description: '',
+            image: null as File | null,
+        });
     useEffect(() => {
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
@@ -45,9 +46,6 @@ export default function Create({ flash }: Props) {
         post(route('admin.series.store'), {
             onSuccess: () => {
                 reset();
-                if (fileInputRef.current) {
-                    fileInputRef.current.value = '';
-                }
             },
         });
     };
@@ -59,23 +57,25 @@ export default function Create({ flash }: Props) {
 
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col space-y-4 p-6"
+                className="flex max-w-6xl flex-col space-y-4 p-6"
                 encType="multipart/form-data"
             >
                 {/* Image Upload */}
                 <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="image">
-                        Image <span className="text-red-600">*</span>
+                    <Label htmlFor="bg_image">
+                        Series Image <span className="text-red-600">*</span>
                     </Label>
-                    <Input
-                        id="image"
-                        ref={fileInputRef}
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) =>
-                            setData('image', e.target.files?.[0] ?? null)
-                        }
+                    <ImageInput
+                        image={data.image}
+                        setImage={(value) => setData('image', value)}
+                        wrapperClassName="w-full aspect-[2/1]"
+                        iconClassName="w-[20%]"
                     />
+                    {progress && (
+                        <p className="mt-1 text-xs text-gray-500">
+                            Uploading: {progress.percentage}%
+                        </p>
+                    )}
                     {errors.image && (
                         <p className="text-sm text-red-600">{errors.image}</p>
                     )}
@@ -126,7 +126,7 @@ export default function Create({ flash }: Props) {
 
                     <button
                         type="submit"
-                        className="w-28 rounded-lg bg-amber-600 px-6 py-2 font-semibold text-white shadow hover:bg-amber-700 disabled:opacity-70"
+                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white disabled:opacity-70"
                         disabled={processing}
                     >
                         {processing ? 'Saving...' : 'Save'}

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\QuestCategory;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class QuestCategoryController extends Controller
@@ -15,15 +15,15 @@ class QuestCategoryController extends Controller
     public function index()
     {
         $items = QuestCategory::orderBy('id', 'DESC')->get();
+
         return Inertia::render('Admin/Category/Index', [
-            'items' => $items
+            'items' => $items,
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-
     public function create()
     {
         return Inertia::render('Admin/Category/Create');
@@ -38,7 +38,6 @@ class QuestCategoryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
         ]);
-
 
         QuestCategory::create($validated);
 
@@ -62,6 +61,7 @@ class QuestCategoryController extends Controller
     public function edit(string $id)
     {
         $item = QuestCategory::findOrFail($id);
+
         return Inertia::render('Admin/Category/Edit', [
             'item' => $item,
         ]);
@@ -76,6 +76,7 @@ class QuestCategoryController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'required',
             'status' => 'required',
         ]);
 
@@ -90,7 +91,6 @@ class QuestCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-
     public function destroy($id)
     {
         $questCategory = QuestCategory::findOrFail($id);

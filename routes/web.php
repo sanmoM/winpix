@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\RedeemController;
 use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,7 +21,7 @@ Route::get('auth-error', function () {
     return view('error');
 })->name('auth.error');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
@@ -44,7 +45,10 @@ Route::middleware(['auth', 'verified', 'role:jury'])->prefix('jury')->group(func
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
 
-    Route::get('dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');
+    Route::get('/users', [UserController::class, 'allUsers'])->name('admin.allUsers');
+    Route::get('/users/edit/{id}', [UserController::class, 'EditUsers'])->name('admin.editUsers');
+    Route::put('/users/update/{id}', [UserController::class, 'updateUsers'])->name('admin.updateUsers');
     Route::get('/quest', [QuestController::class, 'index'])->name('admin.quest');
     Route::get('/quest/create', [QuestController::class, 'create'])->name('admin.quest.create');
     Route::get('/quest/edit/{id}', [QuestController::class, 'edit'])->name('admin.quest.edit');
@@ -54,8 +58,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::resource('redeem', RedeemController::class)->names('admin.redeem');
     Route::resource('help', HelpController::class)->names('admin.help');
     Route::resource('series', SeriesController::class)->names('admin.series');
-    Route::resource('quest-type', QuestTypeController::class)->names('admin.questType');
-    Route::resource('quest-category', QuestCategoryController::class)->names('admin.questCategory');
+    Route::resource('type', QuestTypeController::class)->names('admin.questType');
+    Route::resource('category', QuestCategoryController::class)->names('admin.questCategory');
     Route::get('others', [OthersController::class, 'index'])->name('admin.others');
 
 });

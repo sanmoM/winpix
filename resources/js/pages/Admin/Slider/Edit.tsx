@@ -135,7 +135,7 @@ export default function Edit({ slider }: EditProps) {
                 <div className="flex justify-end">
                     <button
                         type="submit"
-                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold disabled:opacity-70"
+                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white disabled:opacity-70"
                         disabled={processing}
                     >
                         {processing ? 'Updating...' : 'Update'}

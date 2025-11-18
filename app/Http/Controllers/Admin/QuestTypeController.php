@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\QuestType;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class QuestTypeController extends Controller
@@ -15,15 +15,15 @@ class QuestTypeController extends Controller
     public function index()
     {
         $items = QuestType::orderBy('id', 'DESC')->get();
-        return Inertia::render('Admin/Type/Index',[
-            'items' => $items
+
+        return Inertia::render('Admin/Type/Index', [
+            'items' => $items,
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-
     public function create()
     {
         return Inertia::render('Admin/Type/Create');
@@ -38,12 +38,11 @@ class QuestTypeController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-
         QuestType::create($validated);
 
         return redirect()
-        ->back()
-        ->with('success', 'Quest Type saved successfully 🎉');
+            ->back()
+            ->with('success', 'Quest Type saved successfully 🎉');
 
     }
 
@@ -61,6 +60,7 @@ class QuestTypeController extends Controller
     public function edit(string $id)
     {
         $item = QuestType::findOrFail($id);
+
         return Inertia::render('Admin/Type/Edit', [
             'item' => $item,
         ]);
@@ -89,7 +89,6 @@ class QuestTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-
     public function destroy($id)
     {
         $questType = QuestType::findOrFail($id);

@@ -38,12 +38,14 @@ interface Quest {
     categories_requirement: string;
     copyright_requirement: string;
     quest_series_id: string;
+    quest_type_id: string;
 }
 
 export default function Dashboard() {
     const {
         categories,
         series,
+        types,
     }: { categories: { id: number; name: string }[] } = usePage<any>().props;
     const { t } = useLocales();
 
@@ -68,6 +70,7 @@ export default function Dashboard() {
         categories_requirement: '',
         copyright_requirement: '',
         quest_series_id: '',
+        quest_type_id: '',
     });
 
     const categoryOptions = categories.map((category) => ({
@@ -78,6 +81,11 @@ export default function Dashboard() {
     const seriesOptions = series.map((series) => ({
         value: series.id,
         label: series.title,
+    }));
+
+    const typesOptions = types.map((types) => ({
+        value: types.id,
+        label: types.name,
     }));
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -161,6 +169,22 @@ export default function Dashboard() {
                             value={data.quest_series_id}
                             onChange={(value) =>
                                 setData('quest_series_id', value as string)
+                            }
+                            className="max-w-auto w-full"
+                        />
+                    </div>
+
+                    <div className="grid gap-4">
+                        <SelectInput
+                            id="quest_type_id"
+                            name="quest_type_id"
+                            label={t(
+                                'dashboard.quest.inputs.quest_type_id.label',
+                            )}
+                            options={typesOptions}
+                            value={data.quest_type_id}
+                            onChange={(value) =>
+                                setData('quest_type_id', value as string)
                             }
                             className="max-w-auto w-full"
                         />

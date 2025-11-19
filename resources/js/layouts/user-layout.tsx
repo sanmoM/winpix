@@ -1,5 +1,5 @@
-import Footer from "@/components/root/footer";
-import Navbar from "@/components/root/navbar/navbar";
+import Footer from '@/components/root/footer';
+import Navbar from '@/components/root/navbar/navbar';
 import { Toaster } from 'react-hot-toast';
 
 export default function UserLayout({
@@ -11,7 +11,7 @@ export default function UserLayout({
         <div>
             <Navbar />
             {children}
-                  <Toaster />
+            <Toaster />
             <Footer />
         </div>
     );

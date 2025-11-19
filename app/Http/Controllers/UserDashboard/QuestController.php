@@ -20,7 +20,9 @@ class QuestController extends Controller
      */
     public function index()
     {
-        $quests = Quest::with('prizes')->get();
+        // $quests = Quest::where('user_id', auth()->user()->id)->get();
+        $quests = Quest::where('user_id', auth()->id())
+            ->get();
 
         return Inertia::render('user-dashboard/quest/show-quests', [
             'quests' => $quests,
@@ -136,6 +138,7 @@ class QuestController extends Controller
         $quest = Quest::with('prizes')->findOrFail($id);
         $series = Series::all();
         $categories = QuestCategory::all();
+        $types = QuestType::all();
 
         return Inertia::render('user-dashboard/quest/edit-quest', [
             'quest' => [
@@ -152,10 +155,11 @@ class QuestController extends Controller
                 'categories_requirement' => $quest->categories_requirement,
                 'copyright_requirement' => $quest->copyright_requirement,
                 'quest_series_id' => $quest->quest_series_id,
-                'quest_type_id' => $quest->quest_series_id,
+                'quest_type_id' => $quest->quest_type_id,
             ],
             'categories' => $categories,
             'series' => $series,
+            'types' => $types,
         ]);
     }
 

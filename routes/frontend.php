@@ -3,7 +3,6 @@
 use App\Http\Controllers\DiscoverController;
 use App\Http\Controllers\FrontendController;
 
-
 // this all are get route for frontend
 Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::get('/store', [FrontendController::class, 'store'])->name('store')->middleware('auth');
@@ -22,8 +21,6 @@ Route::get('/single-faq', [FrontendController::class, 'singleFaq'])->name('singl
 Route::get('/quests/ended-single-quest/{id}', [FrontendController::class, 'endedSingleQuest'])->name('ended-single-quest')->middleware('auth');
 Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('about-us');
 Route::get('/discover', [DiscoverController::class, 'discover'])->name('discover');
-
-
 
 // this all are the functional route for handle user interaction
 Route::post('/join-quest/{id}', [FrontendController::class, 'joinQuest'])->name('join-quest')->middleware('auth');

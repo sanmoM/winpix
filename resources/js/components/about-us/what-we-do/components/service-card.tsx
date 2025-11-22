@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface ServiceCardProps {
     icon: ReactNode;
@@ -6,13 +6,22 @@ interface ServiceCardProps {
     description: string;
 }
 
-const ServiceCard = ({ icon, title, description }: ServiceCardProps) => (
+const ServiceCard = ({ item }: ServiceCardProps) => (
     <div className="rounded-lg bg-bg-primary p-8 text-center">
-        <div className="mb-6 w-fit flex items-center justify-center rounded-full bg-primary-color p-4 mx-auto">
-            {icon}
+        <div className="mx-auto mb-6 flex w-fit items-center justify-center">
+            <img
+                src={'/storage/' + item.picture}
+                alt={item.title}
+                className="h-10 w-10 rounded-full"
+            />
         </div>
-        <h3 className="mb-3 text-2xl font-semibold !text-center ">{title}</h3>
-        <p className="text-slate-400 !text-center ">{description}</p>
+        <h3 className="mb-3 !text-center text-2xl font-semibold">
+            {item?.title}
+        </h3>
+        <p
+            className="!text-center text-slate-400"
+            dangerouslySetInnerHTML={{ __html: item.content }}
+        />
     </div>
 );
 

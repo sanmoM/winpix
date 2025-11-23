@@ -12,6 +12,7 @@ use App\Models\Series;
 use App\Models\Slider;
 use App\Models\Store;
 use App\Models\Vote;
+use App\Services\RankingService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -19,17 +20,23 @@ use Inertia\Inertia;
 
 class FrontendController extends Controller
 {
+    protected $rankingService;
+
+    public function __construct()
+    {
+        $this->rankingService = new RankingService();
+    }
     // this all are get controller for frontend
     public function home()
     {
         $sliders = Slider::all();
         $new_quest = Quest::with(['category', 'user'])->where('status', 'active')->orderBy('created_at', 'desc')->take(8)->get();
         $topImages = Vote::select('image_id')
-            ->selectRaw('count(*) as total_votes')   // count votes per image
-            ->groupBy('image_id')                    // group by image
-            ->orderByDesc('total_votes')             // most votes first
-            ->take(10)                               // top 10
-            ->with(['image.user', 'image.quest'])    // eager load image, its user, and quest
+            ->selectRaw('count(*) as total_votes')
+            ->groupBy('image_id')
+            ->orderByDesc('total_votes')
+            ->take(10)
+            ->with(['image.user', 'image.quest'])
             ->get();
 
         return Inertia::render('home', [
@@ -204,7 +211,7 @@ class FrontendController extends Controller
         $questFromDb = Quest::findOrFail($id);
 
         // Deduct user's pixels only if they haven't joined before
-        $questJoin = QuestJoin::firstOrCreate(
+        QuestJoin::firstOrCreate(
             [
                 'quest_id' => $id,
                 'user_id' => $user->id,
@@ -217,6 +224,11 @@ class FrontendController extends Controller
             'user_id' => $user->id,
         ]);
 
+        $isJoinedNow = QuestJoin::where('quest_id', $id)->where('user_id', $user->id)->exists();
+        if ($isJoinedNow) {
+            $this->rankingService->joinContest($user);
+        }
+
         $user->decrement('pixel', $questFromDb->entry_coin);
 
         return redirect()->back()->with('success', 'Join Quest Successfully');
@@ -225,12 +237,16 @@ class FrontendController extends Controller
     public function vote($imageId, $questId)
     {
         $user = auth()->user();
+
+        // return response()->json(['user' => $userUnderImage->user], 200);
         Vote::firstOrCreate([
             'image_id' => $imageId,
             'user_id' => $user->id,
             'quest_id' => $questId,
         ]);
 
+        $userUnderImage = QuestImage::where('id', $imageId)->where('user_id', $user->id)->first();
+        $this->rankingService->castVote($userUnderImage->user);
         return response()->json(['success' => true]);
     }
 

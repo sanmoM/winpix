@@ -28,8 +28,8 @@ const images = [
 ]
 
 
-export default function discover({ quests, galleryImages }) {
-    console.log(quests)
+export default function discover({ quests, galleryImages, userRank, allRanks }: any) {
+    console.log(userRank, allRanks);
     const { t } = useLocales()
     return (
         <UserLayout>

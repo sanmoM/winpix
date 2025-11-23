@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Quest;
 use App\Models\QuestImage;
 use App\Models\Vote;
+use App\Services\RankingService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,6 +13,7 @@ class DiscoverController extends Controller
 {
     public function discover()
     {
+        $Ranking = new RankingService();
         $new_quest = Quest::with(["category", "user"])->where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
         $topImages = Vote::select('image_id')
             ->selectRaw('count(*) as total_votes')   // count votes per image
@@ -23,6 +25,8 @@ class DiscoverController extends Controller
         return Inertia::render('discover', [
             'quests' => $new_quest,
             'galleryImages' => $topImages,
+            "allRanks" => $Ranking->getAllRanks(),
+            "userRank" => $Ranking->getRank(auth()->user()->level),
         ]);
     }
 }

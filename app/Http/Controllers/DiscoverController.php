@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Quest;
 use App\Models\QuestImage;
+use App\Models\User;
 use App\Models\Vote;
 use App\Services\RankingService;
 use Illuminate\Http\Request;
@@ -22,11 +23,17 @@ class DiscoverController extends Controller
             ->take(10)                               // top 10
             ->with(['image.user', 'image.quest'])    // eager load image, its user, and quest
             ->get();
+        $topPlayers = User::with(['votes', 'joinedQuests', 'followers'])
+            ->orderByDesc('level')
+            ->take(9)
+            ->get();
+
         return Inertia::render('discover', [
             'quests' => $new_quest,
             'galleryImages' => $topImages,
             "allRanks" => $Ranking->getAllRanks(),
             "userRank" => $Ranking->getRank(auth()->user()->level),
+            "topPlayers" => $topPlayers
         ]);
     }
 }

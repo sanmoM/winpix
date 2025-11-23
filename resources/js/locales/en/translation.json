@@ -79,7 +79,7 @@
     },
     "discover": {
         "leaderboard": {
-            "title": "Weekly Champions",
+            "title": "Top Players",
             "points": "PTS"
         },
         "activeQuests": {

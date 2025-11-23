@@ -64,26 +64,26 @@ const getStatusBadge = (status: User["status"]): StatusBadge => {
 
 // --- Main App Component ---
 
-export default function App({ t }: any) {
+export default function App({ t, data }: any) {
     return (
         <div className="">
 
             <SectionHeading title={t('discover.leaderboard.title')} className='mb-16 lg:mb-20' />
 
             {/* --- Podium Section (Top 3) --- */}
-            <TopPositions />
+            <TopPositions topPositions={data?.slice(0, 3)} />
 
             {/* --- Leaderboard List (Ranks 4+) --- */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-                {mockData.map((user) => {
+                {data?.slice(3, 9).map((user, index) => {
                     const badge = getStatusBadge(user.status);
 
                     return (
                         <Link
                             href={"/profile/1"}
-                            key={user.rank}
+                            key={mockData[index].rank}
                             className={`rank-item grid grid-cols-[70%_28%] justify-between ${getRankStyle(
-                                user.rank
+                                mockData[index].rank
                             )} flex items-center justify-between p-4 rounded-lg border transition-all duration-300`}
                         >
                             {/* Rank & User Info */}
@@ -91,15 +91,15 @@ export default function App({ t }: any) {
                                 {/* Rank Number */}
                                 <div
                                     className={`w-10 !text-center text-lg md:text-xl font-extrabold ${getRankTextColor(
-                                        user.rank
+                                        mockData[index].rank
                                     )}`}
                                 >
-                                    {user.rank}
+                                    {mockData[index].rank}
                                 </div>
 
                                 {/* Avatar */}
                                 <img
-                                    src={user.profile}
+                                    src={user?.image ? "/storage/" + user?.image : mockData[index].profile}
                                     alt={`${user.name}'s avatar`}
                                     className={`w-10 h-10 rounded-full object-cover ring-2 ring-offset-2 ring-offset-gray-50 dark:ring-offset-gray-800 ${user.rank === 1 ? "ring-yellow-500" : "ring-gray-400 dark:ring-gray-600"
                                         }`}
@@ -111,7 +111,7 @@ export default function App({ t }: any) {
                                         {user.name}
                                     </span>
                                     <span className="text-gray-500 dark:text-gray-400 text-sm truncate">
-                                        {user.followers.toLocaleString()} {t('shared.followers')}
+                                        {user.followers?.length.toLocaleString()} {t('shared.followers')}
                                     </span>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@ export default function App({ t }: any) {
                                 </span>
                                 <div className="text-right">
                                     <span className="text-xl font-extrabold text-green-600 dark:text-green-400">
-                                        {user.score.toLocaleString() + " "}
+                                        {user.level}
                                     </span>
                                     <span className="text-xs text-gray-500 dark:text-gray-400 hidden md:inline">
                                         {t('discover.leaderboard.points')}

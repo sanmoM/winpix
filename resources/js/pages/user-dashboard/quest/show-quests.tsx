@@ -9,7 +9,7 @@ import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Quests',
+        title: 'Contests',
         href: 'user-dashboard/quest',
     },
 ];
@@ -35,11 +35,11 @@ export default function Index() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <ToastContainer />
-            <Head title="Quests" />
+            <Head title="Contests" />
 
             <div className='p-4'>
                 <div className="mb-4 flex items-center justify-between">
-                    <h1 className="text-lg font-semibold">Quest</h1>
+                    <h1 className="text-lg font-semibold">Contests</h1>
                     <Link
                         href={route('user-dashboard.quest.create')}
                     >

@@ -19,7 +19,7 @@ export const mainNavItemsEN: NavItem[] = [
       //   icon: LayoutGrid,
       // },
       {
-        title: 'Create Quest',
+        title: 'Create Contest',
         href: route('user-dashboard.quest.index'),
         icon: LayoutGrid,
       },

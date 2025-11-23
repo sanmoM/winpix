@@ -98,7 +98,7 @@ export default function Dashboard() {
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
-            title: t('dashboard.profile.heading'),
+            title: "Contest",
             href: dashboard().url,
         },
     ];

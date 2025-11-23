@@ -22,8 +22,8 @@
         "following": "Following"
     },
     "stats": {
-        "quests": "Quests",
-        "awards": "Awards",
+        "contests": "Contests",
+        "votes": "Votes",
         "level": "Level"
     },
     "root": {

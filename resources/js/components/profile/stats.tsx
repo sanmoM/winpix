@@ -6,23 +6,24 @@ import { cn } from "@/lib/utils";
 
 
 
-export default function Stats({ containerClassName, t }: { containerClassName?: string, t: any }) {
+export default function Stats({ containerClassName, t, stats }: { containerClassName?: string, t: any, stats: any }) {
+    console.log(stats)
     const statsData = [
         {
             Icon: <MdLeaderboard className="text-lg lg:text-4xl text-white" />,
-            value: "49",
+            value: stats.currentLevel,
             title: t("stats.level"),
 
         },
         {
             Icon: <FaTrophy className="text-lg lg:text-4xl text-white" />,
-            value: "349",
-            title: t("stats.quests"),
+            value: stats.totalQuests,
+            title: t("stats.contests"),
         },
         {
             Icon: <RiFolderUploadFill className="text-lg lg:text-4xl text-white" />,
-            value: "627",
-            title: t("stats.awards"),
+            value: stats.totalVotes,
+            title: t("stats.votes"),
         },
     ]
     return (

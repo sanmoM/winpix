@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,7 +24,16 @@ Route::get('auth-error', function () {
 
 Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+        $stats = [
+            'totalQuests' => auth()->user()->joinedQuests()->count(),
+            'totalVotes' => auth()->user()->votes()->count(),
+            'currentLevel' => auth()->user()->level,
+            'followers' => auth()->user()->followers()->count(),
+            'following' => auth()->user()->following()->count(),
+            'questImages' => User::findOrFail(auth()->id())->questImages,
+            'likedImages' => auth()->user()->votes()->with('image')->get()
+        ];
+        return Inertia::render('dashboard', ['stats' => $stats]);
     })->name('dashboard');
     // follow unfollow
     Route::post('/users/{user}/follow', [FollowController::class, 'follow'])->name('users.follow');
@@ -64,7 +74,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
-require __DIR__.'/frontend.php';
-require __DIR__.'/user-dashboard.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/frontend.php';
+require __DIR__ . '/user-dashboard.php';

@@ -445,8 +445,8 @@
                 }
             },
             "button": {
-                "createButton": "Create Quest",
-                "updateButton": "Update Quest",
+                "createButton": "Create Contest",
+                "updateButton": "Update Contest",
                 "saveText": "Saved"
             }
         }

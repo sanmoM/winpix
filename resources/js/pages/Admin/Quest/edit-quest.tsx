@@ -185,8 +185,7 @@ export default function EditQuest() {
     };
 
     const breadcrumbs: BreadcrumbItem[] = [
-        { title: t('dashboard.profile.heading'), href: dashboard().url },
-        { title: t('dashboard.editQuest.heading'), href: '#' },
+        { title: 'Edit Contest', href: '#' }
     ];
 
     return (

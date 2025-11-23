@@ -69,7 +69,7 @@ export function AppSidebar() {
             ],
         },
         {
-            title: 'Quest',
+            title: 'Contest',
             icon: Trophy,
             subItems: [
                 {
@@ -78,7 +78,7 @@ export function AppSidebar() {
                     icon: ServerIcon,
                 },
                 {
-                    title: 'Quest Type',
+                    title: 'Contest Type',
                     href: route('admin.questType.index'),
                     icon: ServerIcon,
                 },
@@ -88,7 +88,7 @@ export function AppSidebar() {
                     icon: ServerIcon,
                 },
                 {
-                    title: 'Quests',
+                    title: 'Contests',
                     href: route('admin.quest'),
                     icon: ServerIcon,
                 },

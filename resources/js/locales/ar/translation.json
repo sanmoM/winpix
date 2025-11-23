@@ -59,7 +59,7 @@
                 "about": "حول",
                 "help": "مساعدة"
             },
-            "copyright": "حقوق النشر ©{{year}} محفوظة | هذا القالب تم تصميمه بـ {{heart}} بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
+            "copyright": "حقوق النشر ©{{year}} محفوظة | هذا القالب تم تصميمه بـ {{heart}} بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.co</a>"
         }
     },
     "home": {

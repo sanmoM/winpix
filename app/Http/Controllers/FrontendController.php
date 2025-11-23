@@ -46,6 +46,11 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function brandMarketing()
+    {
+        return Inertia::render('brand-marketing');
+    }
+
     public function store()
     {
         $coinsPricing = Store::all();

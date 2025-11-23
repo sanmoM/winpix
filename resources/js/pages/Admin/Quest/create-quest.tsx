@@ -98,7 +98,7 @@ export default function Dashboard() {
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
-            title: t('dashboard.sidebar.links.dashboard'),
+            title: "Create Contest",
             href: dashboard().url,
         },
     ];

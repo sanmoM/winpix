@@ -23,7 +23,14 @@ Route::get('auth-error', function () {
 
 Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+        $stats = [
+            'totalQuests' => auth()->user()->joinedQuests()->count(),
+            'totalVotes' => auth()->user()->votes()->count(),
+            'currentLevel' => auth()->user()->level,
+            'followers' => auth()->user()->followers()->count(),
+            'following' => auth()->user()->following()->count(),
+        ];
+        return Inertia::render('dashboard', ['stats' => $stats]);
     })->name('dashboard');
     // follow unfollow
     Route::post('/users/{user}/follow', [FollowController::class, 'follow'])->name('users.follow');

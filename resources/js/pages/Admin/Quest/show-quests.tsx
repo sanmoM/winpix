@@ -9,7 +9,7 @@ import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Quests',
+        title: 'Contest',
         href: 'admin.quest',
     },
 ];
@@ -39,7 +39,7 @@ export default function Index() {
 
             <div className="p-4">
                 <div className="mb-4 flex items-center justify-between">
-                    <h1 className="text-lg font-semibold">Quest</h1>
+                    <h1 className="text-lg font-semibold">Contests</h1>
                     <Link href={route('admin.quest.create')}>
                         <Button text="Create" />
                     </Link>

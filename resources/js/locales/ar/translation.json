@@ -17,12 +17,12 @@
                 "fifth": "الجائزة الخامسة"
             }
         },
-        "followers": "المتابعون",
+        "followers": "متابعون",
         "follow": "متابعة",
         "following": "يتابع"
     },
     "stats": {
-        "quests": "المهام",
+        "quests": "المهمات",
         "awards": "الجوائز",
         "level": "المستوى"
     },
@@ -31,19 +31,19 @@
             "navLinks": {
                 "discover": "اكتشف",
                 "quests": {
-                    "title": "المهام",
+                    "title": "المهمات",
                     "submenu": {
-                        "activeQuests": "المهام النشطة",
-                        "questSeries": "سلسلة المهام",
-                        "enteredQuests": "المهام المشتركة",
-                        "endedQuests": "المهام المنتهية"
+                        "activeQuests": "المهمات النشطة",
+                        "questSeries": "سلسلة المهمات",
+                        "enteredQuests": "المهمات التي شاركت بها",
+                        "endedQuests": "المهمات المنتهية"
                     }
                 },
                 "store": "المتجر",
                 "redeem": "استبدال",
                 "dashboard": "لوحة التحكم",
-                "aboutUs": "معلومات عنا",
-                "help": "مساعدة"
+                "aboutUs": "من نحن",
+                "help": "المساعدة"
             },
             "buttons": {
                 "signUp": "إنشاء حساب",
@@ -52,18 +52,15 @@
             "notifications": {
                 "title": "الإشعارات"
             }
-        }
-    },
-    "footer": {
-        "navLinks": {
-            "home": "الرئيسية",
-            "agent": "الوكيل",
-            "about": "حول",
-            "listing": "القوائم",
-            "blog": "المدونة",
-            "contact": "اتصل بنا"
         },
-        "copyright": "حقوق النشر &copy;{{year}} جميع الحقوق محفوظة | تم تصميم هذا القالب بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
+        "footer": {
+            "navLinks": {
+                "home": "الرئيسية",
+                "about": "حول",
+                "help": "مساعدة"
+            },
+            "copyright": "حقوق النشر ©{{year}} محفوظة | هذا القالب تم تصميمه بـ {{heart}} بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.co</a>"
+        }
     },
     "home": {
         "banner": {
@@ -73,20 +70,20 @@
             "title": "الأحدث"
         },
         "gallery": {
-            "title": "المعرض"
+            "title": "أفضل الصور"
         },
         "getApp": {
-            "title": "حمّل التطبيق مجانًا!",
+            "title": "حمّل التطبيق مجاناً!",
             "description": "اجعل تجربة التسوق عبر الإنترنت أسهل وأسرع. اضغط على الرابط للحصول على التطبيق الآن."
         }
     },
     "discover": {
         "leaderboard": {
-            "title": "الأبطال الأسبوعيين",
-            "points": "نقاط"
+            "title": "أبطال الأسبوع",
+            "points": "نقطة"
         },
         "activeQuests": {
-            "title": "المهام النشطة"
+            "title": "المهمات النشطة"
         },
         "topPhotos": {
             "title": "أفضل الصور"
@@ -98,68 +95,69 @@
             "voteText": "صوّت"
         },
         "questSeries": {
-            "title": "المهام النشطة"
+            "title": "سلسلة المهمات"
         },
         "filter": {
-            "sortAndFilter": "ترتيب وتصنيف",
+            "sortAndFilter": "فرز وتصفية",
             "filterItems": [
                 "اكتشف",
-                "مصنف",
+                "مصنّف",
                 "مجاني",
-                "مدفوع",
-                "مجتمع"
+                "مميز",
+                "مجتمعي"
             ]
         }
     },
     "questSeries": {
-        "title": "المهام النشطة"
+        "title": "سلسلة المهمات"
     },
     "endedQuests": {
         "tab": {
-            "myQuests": "مهامي",
+            "myQuests": "مهماتي",
             "ended": "منتهية",
             "inactive": "غير نشطة"
         }
     },
     "singleEndedQuest": {
         "tab": {
-            "brief": "ملخص",
-            "entries": "المشاركات"
+            "brief": "الملخص",
+            "entries": "المدخلات"
         },
         "brief": {
-            "title": "ملخص"
+            "title": "الملخص"
         }
     },
     "enteredQuests": {
-        "title": "المهام المشتركة"
+        "title": "المهمات التي شاركت بها"
     },
     "store": {
-        "title": "عن Pixels",
-        "description": "Pixels هي بوابتك للوصول إلى محتوى حصري! استخدمها لفتح عناصر فريدة، والمشاركة في فعاليات خاصة، والحصول على ميزة في مهامك. كلما زادت Pixels، زادت قوتك!"
+        "title": "حول البيكسلز",
+        "description": "البيكسلز هي بوابتك إلى المحتوى الحصري! استخدمها لفتح عناصر فريدة، والمشاركة في الفعاليات الخاصة، والحصول على ميزة في مهماتك. المزيد من البيكسلز يعني المزيد من القوة!"
     },
     "redeem": {
-        "appPriceTitle": "أسعار التطبيق",
+        "appPriceTitle": "جوائز التطبيق",
         "grandPriceTitle": "الجوائز الكبرى"
     },
     "singleQuest": {
         "banner": {
             "voteText": "صوّت",
-            "joinNowText": "انضم الآن"
+            "joinNowText": "انضم الآن",
+            "addEntryText": "أضف مشاركة"
         },
         "tabs": {
-            "brief": "ملخص",
-            "entries": "المشاركات"
+            "brief": "الملخص",
+            "entries": "المدخلات"
         },
         "guidelines": {
-            "title": "إرشادات",
+            "title": "الإرشادات",
             "guideLines": [
                 {
-                    "title": "مستوى المهارة",
-                    "description": "المستخدمون من جميع مستويات المهارة مرحب بهم للمشاركة في هذه المهمة!"
+                    "title": "رتبة المهارة",
+                    "description": "جميع المستخدمين من جميع رتب المهارة مرحب بهم للمشاركة في هذه المهمة!"
                 },
                 {
                     "title": "حقوق النشر",
-                    "description": "يجب أن تكون المشاركات خاصة بك، ويجب ألا تكون مولدة بواسطة الذكاء الاصطناعي."
+                    "description": "يجب أن تكون المشاركات من تصويرك الخاص، ولا يجب أن تكون مولدة بواسطة الذكاء الاصطناعي."
                 }
             ]
         }
@@ -171,17 +169,17 @@
     },
     "singleQuestSeries": {
         "activeQuest": {
-            "title": "المهام النشطة"
+            "title": "المهمات النشطة"
         },
         "stats": {
-            "prizeLabel": "إجمالي جوائز المسابقة",
+            "prizeLabel": "إجمالي قيمة الجوائز",
             "entriesLabel": "المشاركات",
             "questLabel": "المهمة"
         }
     },
     "singleQuestDetails": {
         "brief": {
-            "title": "ملخص"
+            "title": "الملخص"
         },
         "status": {
             "title": "الحالة",
@@ -190,26 +188,26 @@
                 "daysLeft": "أيام متبقية"
             },
             "vote": {
-                "title": "صوّت"
+                "title": "تصويت"
             }
         }
     },
     "aboutUs": {
-        "title": "معلومات عنا",
+        "title": "من نحن",
         "whatWeDo": {
             "title": "ماذا نفعل",
             "services": [
                 {
                     "title": "مصمم لمكافأة التصوير الجيد",
-                    "description": "في winpix، نعتقد أن كل صورة تستحق فرصة عادلة. نحن ملتزمون بخلق بيئة محايدة حيث يتم الحكم على الصور بناءً على جدارتها فقط - بغض النظر عن شعبية المصور أو عدد المتابعين."
+                    "description": "في winpix نؤمن بأن كل صورة تستحق فرصة عادلة. نحن ملتزمون بخلق بيئة محايدة تُقيّم الصور بناءً على جودتها فقط—بعيداً عن شعبية المصور أو عدد متابعيه."
                 },
                 {
-                    "title": "مصمم لكل المصورين",
-                    "description": "التصوير للجميع، وwinpix كذلك. سواء كنت مبتدئًا أو محترفًا متمرسًا، منصتنا مصممة لتعزيز المنافسة الصحية والتفاعل المجتمعي."
+                    "title": "مصمم لكل مصور",
+                    "description": "التصوير للجميع، وكذلك winpix. سواء كنت مبتدئاً أو محترفاً، منصتنا تساعدك على تطوير مهاراتك وبناء مجتمعك."
                 },
                 {
-                    "title": "مصمم لتكون ممتعة",
-                    "description": "نعتقد أن التصوير يجب أن يكون ممتعًا ومجزياً. المشاركة في المسابقات، التصويت، الفوز بالجوائز، تتبع التقدم، والتواصل مع المصورين الآخرين جزء من المتعة."
+                    "title": "مصمم ليكون ممتعاً",
+                    "description": "نؤمن بأن التصوير يجب أن يكون ممتعاً ومجزياً. في winpix المشاركة في المسابقات، التصويت، الفوز، والتواصل مع المصورين الآخرين جزء من التجربة."
                 }
             ]
         }
@@ -217,23 +215,23 @@
     "help": {
         "categories": [
             "اقتصاد التطبيق",
-            "المهام",
+            "المهمات",
             "البدء",
-            "الشراءات",
+            "المشتريات",
             "إدارة الحساب",
-            "مستويات المهارة",
-            "اتصل بالدعم",
+            "رتب المهارة",
+            "الدعم الفني",
             "إرشادات المحتوى والمجتمع",
-            "استكشاف المشاكل"
+            "استكشاف الأخطاء"
         ],
         "singleCategoryHelps": {
             "paths": [
                 {
-                    "label": "جميع فئات المساعدة",
+                    "label": "كل فئات المساعدة",
                     "href": "/all-help-categories"
                 },
                 {
-                    "label": "مساعدة فئة واحدة",
+                    "label": "مقالات الفئة",
                     "href": "/single-category-helps"
                 }
             ]
@@ -241,20 +239,20 @@
         "singleFaq": {
             "paths": [
                 {
-                    "label": "جميع فئات المساعدة",
+                    "label": "كل فئات المساعدة",
                     "href": "/all-help-categories"
                 },
                 {
                     "label": "الأسئلة الشائعة"
                 }
             ],
-            "sidebarHeading": "المقالات في هذا القسم",
+            "sidebarHeading": "مقالات في هذا القسم",
             "haveMoreQuestionsLabel": {
                 "text1": "هل لديك المزيد من الأسئلة؟",
                 "text2": "اقرأ المزيد"
             },
             "relatedArticlesTitle": "مقالات ذات صلة",
-            "recentlyViewedArticleTitle": "المقالات التي شاهدتها مؤخراً"
+            "recentlyViewedArticleTitle": "شوهدت مؤخراً"
         }
     },
     "dashboard": {
@@ -266,9 +264,9 @@
         "profile": {
             "heading": "الملف الشخصي",
             "tab": {
-                "myStats": "إحصاءاتي",
+                "myStats": "إحصائياتي",
                 "myPhotos": "صوري",
-                "likedPhotos": "الصور المعجبة بها"
+                "likedPhotos": "الصور المُعجب بها"
             },
             "inputs": {
                 "name": {
@@ -283,13 +281,13 @@
         },
         "settings": {
             "heading": "الإعدادات",
-            "description": "إدارة إعدادات الملف الشخصي والحساب"
+            "description": "إدارة إعدادات حسابك وملفك الشخصي"
         },
         "editProfile": {
             "heading": "إعدادات الملف الشخصي"
         },
         "socialLinks": {
-            "heading": "روابط التواصل الاجتماعي",
+            "heading": "الروابط الاجتماعية",
             "inputs": {
                 "personalWebsite": {
                     "label": "الموقع الشخصي",
@@ -300,8 +298,8 @@
                     "placeholder": "أدخل اسم مستخدم فيسبوك"
                 },
                 "instagram": {
-                    "label": "اسم مستخدم انستغرام",
-                    "placeholder": "أدخل اسم مستخدم انستغرام"
+                    "label": "اسم مستخدم إنستغرام",
+                    "placeholder": "أدخل اسم مستخدم إنستغرام"
                 },
                 "x": {
                     "label": "اسم مستخدم X",
@@ -325,7 +323,7 @@
                 },
                 "fullAddress": {
                     "label": "العنوان الكامل",
-                    "placeholder": "أدخل عنوانك الكامل"
+                    "placeholder": "أدخل العنوان الكامل"
                 }
             }
         },
@@ -334,15 +332,15 @@
             "inputs": {
                 "currentPassword": {
                     "label": "كلمة المرور الحالية",
-                    "placeholder": "كلمة المرور الحالية"
+                    "placeholder": "أدخل كلمة المرور الحالية"
                 },
                 "password": {
                     "label": "كلمة المرور الجديدة",
-                    "placeholder": "كلمة المرور الجديدة"
+                    "placeholder": "أدخل كلمة المرور الجديدة"
                 },
                 "passwordConfirmation": {
                     "label": "تأكيد كلمة المرور",
-                    "placeholder": "تأكيد كلمة المرور"
+                    "placeholder": "أعد إدخال كلمة المرور"
                 }
             }
         },
@@ -370,6 +368,86 @@
             "footer": {
                 "setting": "الإعدادات",
                 "logout": "تسجيل الخروج"
+            }
+        },
+        "quest": {
+            "inputs": {
+                "level_requirement": {
+                    "label": "متطلب المستوى",
+                    "placeholder": "أدخل متطلب المستوى"
+                },
+                "categories_requirement": {
+                    "label": "متطلب الفئات",
+                    "placeholder": "أدخل متطلب الفئات"
+                },
+                "copyright_requirement": {
+                    "label": "متطلب حقوق النشر",
+                    "placeholder": "أدخل متطلب حقوق النشر"
+                },
+                "title": {
+                    "label": "العنوان",
+                    "placeholder": "أدخل العنوان"
+                },
+                "entryCoin": {
+                    "label": "عملة الدخول",
+                    "placeholder": "أدخل عملة الدخول"
+                },
+                "category": {
+                    "label": "الوسم",
+                    "placeholder": "اختر الوسم"
+                },
+                "series": {
+                    "label": "السلسلة",
+                    "placeholder": "اختر السلسلة"
+                },
+                "brief": {
+                    "label": "الملخص",
+                    "placeholder": "أدخل الملخص"
+                },
+                "startDate": {
+                    "label": "تاريخ البداية",
+                    "placeholder": "اختر تاريخ البداية"
+                },
+                "endDate": {
+                    "label": "تاريخ النهاية",
+                    "placeholder": "اختر تاريخ النهاية"
+                },
+                "singlePrize": {
+                    "label": "جائزة فردية",
+                    "placeholder": "أدخل الجائزة"
+                },
+                "multiplePrizes": {
+                    "buttons": {
+                        "addSinglePrize": "إضافة جائزة",
+                        "addMultiplePrizes": "إضافة عدة جوائز"
+                    },
+                    "titleInput": {
+                        "label": "عنوان الجائزة",
+                        "placeholder": "أدخل عنوان الجائزة"
+                    },
+                    "start": {
+                        "label": "البداية",
+                        "placeholder": "أدخل"
+                    },
+                    "end": {
+                        "label": "النهاية",
+                        "placeholder": "أدخل"
+                    },
+                    "numOfPrizes": {
+                        "label": "عدد الجوائز",
+                        "placeholder": "أدخل"
+                    },
+                    "amount": {
+                        "label": "قيمة الجائزة",
+                        "placeholder": "أدخل"
+                    },
+                    "title": "الجوائز"
+                }
+            },
+            "button": {
+                "createButton": "إنشاء المسابقة",
+                "updateButton": "تحديث المسابقة",
+                "saveText": "تم الحفظ"
             }
         }
     }

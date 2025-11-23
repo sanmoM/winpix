@@ -86,17 +86,18 @@ const podiumData = [
     }
 ];
 
-export default function TopPositions() {
+export default function TopPositions({ topPositions }) {
     const { t } = useLocales()
+    topPositions = [topPositions[1], topPositions[0], topPositions[2]]; // Rearranged for podium display
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-end mb-8 md:mb-16 max-w-4xl mx-auto px-8">
-            {podiumData.map((user) => (
-                <Link href={"/profile/1"} key={user.rank} className={`relative block  ${user.order}`}>
-                    <div className={`bg-bg-primary dark:bg-bg-primary rounded-xl ${user.cardPadding}  border-2 ${user.borderColor} !text-center`}>
+            {topPositions?.map((user, index) => (
+                <Link href={"/profile/1"} key={user.rank} className={`relative block  ${podiumData[index].order}`}>
+                    <div className={`bg-bg-primary dark:bg-bg-primary rounded-xl ${podiumData[index].cardPadding}  border-2 ${podiumData[index].borderColor} !text-center`}>
 
                         {/* Avatar */}
                         <img
-                            src={user.avatar}
+                            src={user?.image ? "/storage/" + user?.image : podiumData[index].avatar}
                             alt={`Rank ${user.rank} User`}
                             className={`${user.avatarSize} rounded-full mx-auto ${user.avatarMargin} border-4 border-white shadow-lg`}
                         />
@@ -111,15 +112,15 @@ export default function TopPositions() {
                             {user.name}
                         </h3>
                         <p className={`text-sm !text-center ${user.rank === 1 ? 'text-md' : ''} text-gray-400`}>
-                            {user.followers} {t('shared.followers')}
+                            {user.followers?.length} {t('shared.followers')}
                         </p>
 
                         {/* Score */}
                         <div className={`mt-4 ${user.rank === 1 ? 'mt-5' : ''} flex items-center justify-center space-x-2`}>
-                            {user.scoreIcon}
+                            {podiumData[index].scoreIcon}
 
                             <span className={`${user.scoreSize} font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-color to-secondary-color`}>
-                                {user.score}
+                                {user.level}
                             </span>
                         </div>
 

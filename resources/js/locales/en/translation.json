@@ -31,12 +31,12 @@
             "navLinks": {
                 "discover": "Discover",
                 "quests": {
-                    "title": "Quests",
+                    "title": "Contest",
                     "submenu": {
-                        "activeQuests": "Active Quests",
-                        "questSeries": "Quest Series",
-                        "enteredQuests": "Entered Quests",
-                        "endedQuests": "Ended Quests"
+                        "activeQuests": "Active Contest",
+                        "questSeries": "Contest Series",
+                        "enteredQuests": "Entered Contest",
+                        "endedQuests": "Ended Contest"
                     }
                 },
                 "store": "Store",
@@ -59,7 +59,7 @@
                 "about": "About",
                 "help": "Help"
             },
-            "copyright": "Copyright &copy;{{year}} All rights reserved | This template is made with {{heart}}  by  <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.com</a>"
+            "copyright": "Copyright &copy;{{year}} All rights reserved | This template is made with {{heart}}  by  <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.co</a>"
         }
     },
     "home": {
@@ -79,7 +79,7 @@
     },
     "discover": {
         "leaderboard": {
-            "title": "Weekly Champions",
+            "title": "Top Players",
             "points": "PTS"
         },
         "activeQuests": {
@@ -95,7 +95,7 @@
             "voteText": "Vote"
         },
         "questSeries": {
-            "title": "Quest Series"
+            "title": "Contest Series"
         },
         "filter": {
             "sortAndFilter": "Sort & Filter",
@@ -109,7 +109,7 @@
         }
     },
     "questSeries": {
-        "title": "Quest Series"
+        "title": "Contest Series"
     },
     "endedQuests": {
         "tab": {
@@ -445,8 +445,8 @@
                 }
             },
             "button": {
-                "createButton": "Create Quest",
-                "updateButton": "Update Quest",
+                "createButton": "Create Contest",
+                "updateButton": "Update Contest",
                 "saveText": "Saved"
             }
         }

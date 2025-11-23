@@ -23,7 +23,7 @@ const Footer = () => {
         {/* Logo/Title */}
         <div className="mb-5 md:mb-8">
           <span className="text-2xl md:text-5xl lg:text-3xl font-extrabold tracking-wider">
-            Winpix.com
+            Winpix.co
           </span>
         </div>
 

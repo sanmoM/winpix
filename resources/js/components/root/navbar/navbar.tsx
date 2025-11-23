@@ -92,20 +92,20 @@ export default function Navbar() {
               />
 
               {/* Desktop Navigation */}
-              <div className="hidden lg:block">
-                <div className="flex items-baseline space-x-6">
-                  {navLinks.map((link) => (
-                    <NavItem
-                      hasBackground={hasBackground}
-                      key={link.name}
-                      name={link.name}
-                      href={link.href}
-                      isDropdown={link.isDropdown}
-                      dropdownItems={link.dropdownItems}
-                      variant="desktop"
-                    />
-                  ))}
-                </div>
+            </div>
+            <div className="hidden lg:block">
+              <div className="flex items-baseline space-x-6">
+                {navLinks.map((link) => (
+                  <NavItem
+                    hasBackground={hasBackground}
+                    key={link.name}
+                    name={link.name}
+                    href={link.href}
+                    isDropdown={link.isDropdown}
+                    dropdownItems={link.dropdownItems}
+                    variant="desktop"
+                  />
+                ))}
               </div>
             </div>
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { IoIosArrowForward } from "react-icons/io";
-import { router } from '@inertiajs/react'
 
 import "./vote-modal.css";
 import axios from "axios";
@@ -35,8 +34,8 @@ const VoteModal: React.FC<ModalProps> = ({ isOpen, onClose, questImages, questId
     setLikedId(votedImageId);
 
     try {
-      await axios.post(`/vote/${votedImageId}/${questId}`, { image_id: votedImageId });
-      console.log("✅ Vote submitted successfully!");
+      const response = await axios.post(`/vote/${votedImageId}/${questId}`, { image_id: votedImageId });
+      console.log(response.data);
     } catch (error) {
       console.error("❌ Vote failed:", error);
     }

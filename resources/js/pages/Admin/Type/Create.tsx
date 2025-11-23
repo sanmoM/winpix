@@ -9,7 +9,7 @@ import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Quest Type Create',
+        title: 'Contest Type Create',
         href: 'admin/questType',
     },
 ];

@@ -14,6 +14,7 @@ export default function Gallery({ title, actionButtons, galleryImages }: { title
             <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
                 {galleryImages?.map((item, index) => (
                     <div key={index} className="break-inside-avoid rounded overflow-hidden shadow-lg">
+                        {console.log(item)}
                         <GalleryImageCart item={{
                             image: item?.image.image,
                             user: item?.image.user

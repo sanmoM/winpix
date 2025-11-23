@@ -105,4 +105,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(QuestJoin::class);
     }
+
+    public function questImages()
+    {
+        return $this->hasMany(QuestImage::class);
+    }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\UserController;
 use App\Models\User;
+use App\Services\RankingService;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -31,7 +32,8 @@ Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
             'followers' => auth()->user()->followers()->count(),
             'following' => auth()->user()->following()->count(),
             'questImages' => User::findOrFail(auth()->id())->questImages,
-            'likedImages' => auth()->user()->votes()->with('image')->get()
+            'likedImages' => auth()->user()->votes()->with('image')->get(),
+            'rank' => RankingService::getRank(auth()->user()->level),
         ];
         return Inertia::render('dashboard', ['stats' => $stats]);
     })->name('dashboard');

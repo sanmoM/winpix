@@ -24,7 +24,7 @@
     "stats": {
         "contests": "Contests",
         "votes": "Votes",
-        "level": "Level"
+        "level": "Rank"
     },
     "root": {
         "navbar": {

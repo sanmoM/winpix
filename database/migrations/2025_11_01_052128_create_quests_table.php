@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('quests', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('brief');
+            $table->longText('brief');
             $table->string('image');
             $table->enum('status', ['active', 'ended'])->default('active');
             $table->integer('entry_coin');

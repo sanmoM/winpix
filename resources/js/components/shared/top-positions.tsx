@@ -87,8 +87,8 @@ const podiumData = [
 ];
 
 export default function TopPositions({ topPositions }) {
-    console.log(topPositions)
     const { t } = useLocales()
+    topPositions = [topPositions[1], topPositions[0], topPositions[2]]; // Rearranged for podium display
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-end mb-8 md:mb-16 max-w-4xl mx-auto px-8">
             {topPositions?.map((user, index) => (

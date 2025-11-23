@@ -23,7 +23,7 @@ class DiscoverController extends Controller
             ->take(10)                               // top 10
             ->with(['image.user', 'image.quest'])    // eager load image, its user, and quest
             ->get();
-        $topPlayers = User::with(['votes', 'joinedQuests', 'followers'])
+        $topPlayers = User::with([ 'followers'])
             ->orderByDesc('level')
             ->take(9)
             ->get();

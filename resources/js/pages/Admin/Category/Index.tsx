@@ -54,7 +54,7 @@ export default function Index({
             <Head title="Quest Category" />
             <div className="p-4">
                 <div className="mb-4 flex items-center justify-between">
-                    <h1 className="text-lg font-semibold">Quest Category</h1>
+                    <h1 className="text-lg font-semibold">Contest Category</h1>
                     <Link href={route('admin.questCategory.create')}>
                         <Button text="Create" />
                     </Link>

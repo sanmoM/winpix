@@ -39,6 +39,7 @@ return new class extends Migration
             $table->text('level_requirement')->nullable();
             $table->text('categories_requirement')->nullable();
             $table->text('copyright_requirement')->nullable();
+            $table->enum('rank_tier', ['all', 'A', 'B', 'C', 'M'])->default('all');
             $table->timestamps();
         });
     }

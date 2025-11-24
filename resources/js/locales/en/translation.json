@@ -441,6 +441,14 @@
                         "placeholder": "Enter"
                     },
                     "title": "Prizes"
+                },
+                "type": {
+                    "label": "Type",
+                    "placeholder": "Select a type"
+                },
+                "rank_tier": {
+                    "label": "Minimum Rank",
+                    "placeholder": "Select a minimum rank"
                 }
             },
             "button": {

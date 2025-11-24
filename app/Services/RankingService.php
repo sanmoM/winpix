@@ -28,6 +28,29 @@ class RankingService
         ['title' => 'Judge', 'min_level' => 90, 'max_level' => 100],
     ];
 
+     public const RANK_TIERS = [
+        [
+            "tier" => "Unranked",
+            "ranks" => ["Unranked"]
+        ],
+        [
+            "tier" => "C",
+            "ranks" => ["Bronze I", "Bronze II", "Bronze III", "Silver I"]
+        ],
+        [
+            "tier" => "B",
+            "ranks" => ["Silver II", "Silver III", "Gold I", "Gold II"]
+        ],
+        [
+            "tier" => "A",
+            "ranks" => ["Gold III", "Diamond I", "Diamond II", "Diamond III"]
+        ],
+        [
+            "tier" => "M",
+            "ranks" => ["Professional Photographer", "Judge"]
+        ],
+    ];
+
     /**
      * Get all defined ranking tiers.
      */

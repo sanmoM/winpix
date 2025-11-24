@@ -25,6 +25,7 @@ class Quest extends Model
         'copyright_requirement',
         'quest_series_id',
         'quest_type_id',
+        'rank_tier',
     ];
 
     protected static function booted()

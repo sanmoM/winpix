@@ -76,7 +76,7 @@ class QuestController extends Controller
             'copyright_requirement' => 'nullable|string|max:255',
             'quest_series_id' => 'required|integer|exists:series,id',
             'quest_type_id' => 'required|integer|exists:quest_types,id',
-
+            'rank_tier' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -88,7 +88,7 @@ class QuestController extends Controller
             $input['image'] = $request->file('image')->store('uploads/quests', 'public');
         }
 
-        // Create quest
+        // // Create quest
         $quest = Quest::create([
             'title' => $input['title'],
             'brief' => $input['brief'],
@@ -104,9 +104,10 @@ class QuestController extends Controller
             'copyright_requirement' => $input['copyright_requirement'],
             'quest_series_id' => $input['quest_series_id'],
             'quest_type_id' => $input['quest_type_id'],
+            'rank_tier' => $input['rank_tier'],
         ]);
 
-        // Create prizes
+        // // Create prizes
         foreach ($input['prizes'] as $prizeData) {
             Prize::create([
                 'quest_id' => $quest->id,
@@ -118,7 +119,7 @@ class QuestController extends Controller
             ]);
         }
 
-        return redirect()->back()
+        return redirect()->route('admin.quest')
             ->with('success', 'Quest created successfully.');
     }
 
@@ -156,123 +157,13 @@ class QuestController extends Controller
                 'copyright_requirement' => $quest->copyright_requirement,
                 'quest_series_id' => $quest->quest_series_id,
                 'quest_type_id' => $quest->quest_type_id,
+                'rank_tier' => $quest->rank_tier,
             ],
             'categories' => $categories,
             'series' => $series,
             'types' => $types,
         ]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(Request $request, string $id)
-    // {
-    //     $quest = Quest::with('prizes')->findOrFail($id);
-
-    //     $input = $request->all();
-
-    //     // return $input;
-
-    //     // Validate
-    //     $validator = Validator::make($input, [
-    //         'title' => 'required|string|max:255',
-    //         'brief' => 'required|string|max:255',
-    //         'category_id' => 'required|integer|exists:quest_categories,id',
-    //         'startDate' => 'required|date',
-    //         'endDate' => 'required|date|after_or_equal:startDate',
-    //         'prizes' => 'required|array|min:1',
-    //         'prizes.*.id' => 'sometimes|integer|exists:prizes,id',
-    //         'prizes.*.min' => 'required|integer|min:0',
-    //         'prizes.*.max' => 'required|integer|gte:prizes.*.min',
-    //         'prizes.*.coin' => 'nullable|integer|min:0',
-    //         'prizes.*.title' => 'required|string|max:255',
-    //         'prizes.*.coinType' => 'required|string|max:255',
-    //         // Conditional validation for image
-    //         'image' => [
-    //             function ($attribute, $value, $fail) {
-    //                 if ($value instanceof \Illuminate\Http\UploadedFile) {
-    //                     $validator = Validator::make([$attribute => $value], [
-    //                         $attribute => 'file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //                     ]);
-    //                     if ($validator->fails()) {
-    //                         $fail($validator->errors()->first($attribute));
-    //                     }
-    //                 }
-    //             },
-    //         ],
-    //         'entry_coin' => 'required|integer|min:0',
-    //         'level_requirement' => 'nullable|string|max:255',
-    //         'categories_requirement' => 'nullable|string|max:255',
-    //         'copyright_requirement' => 'nullable|string|max:255',
-    //         'quest_series_id' => 'integer|exists:series,id',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return response()->json(['errors' => $validator->errors()], 422);
-    //     }
-
-    //     // Handle image upload only if it is a file
-    //     if ($request->hasFile('image')) {
-    //         $input['image'] = $request->file('image')->store('uploads/quests', 'public');
-    //     } else {
-    //         // Keep old image if 'image' is a string (existing path) or null
-    //         $input['image'] = $quest->image;
-    //     }
-
-    //     // Update quest
-    //     $quest->update([
-    //         'title' => $input['title'],
-    //         'brief' => $input['brief'],
-    //         'category_id' => $input['category_id'],
-    //         'start_date' => $input['startDate'],
-    //         'end_date' => $input['endDate'],
-    //         'image' => $input['image'],
-    //         'entry_coin' => $input['entry_coin'],
-    //         'level_requirement' => $input['level_requirement'],
-    //         'categories_requirement' => $input['categories_requirement'],
-    //         'copyright_requirement' => $input['copyright_requirement'],
-    //         'quest_series_id' => $input['quest_series_id'],
-
-    //     ]);
-
-    //     // Update prizes
-    //     $existingPrizeIds = $quest->prizes->pluck('id')->toArray();
-    //     $incomingPrizeIds = collect($input['prizes'])->pluck('id')->filter()->toArray();
-
-    //     // Delete removed prizes
-    //     $prizesToDelete = array_diff($existingPrizeIds, $incomingPrizeIds);
-    //     if (!empty($prizesToDelete)) {
-    //         Prize::destroy($prizesToDelete);
-    //     }
-
-    //     // Upsert prizes (update existing or create new)
-    //     foreach ($input['prizes'] as $prizeData) {
-    //         if (isset($prizeData['id']) && in_array($prizeData['id'], $existingPrizeIds)) {
-    //             $prize = Prize::find($prizeData['id']);
-    //             $prize->update([
-    //                 'min' => $prizeData['min'],
-    //                 'max' => $prizeData['max'],
-    //                 'coin' => $prizeData['coin'],
-    //                 'title' => $prizeData['title'],
-    //                 'coinType' => $prizeData['coinType'],
-    //             ]);
-    //         } else {
-    //             Prize::create([
-    //                 'quest_id' => $quest->id,
-    //                 'min' => $prizeData['min'],
-    //                 'max' => $prizeData['max'],
-    //                 'coin' => $prizeData['coin'],
-    //                 'title' => $prizeData['title'],
-    //                 'coinType' => $prizeData['coinType'],
-    //             ]);
-    //         }
-    //     }
-
-    //     return redirect()->route('user-dashboard.quest.index')
-    //         ->with('success', 'Quest updated successfully.');
-    // }
-
     public function update(Request $request, string $id)
     {
         $quest = Quest::with('prizes')->findOrFail($id);
@@ -310,6 +201,7 @@ class QuestController extends Controller
             'copyright_requirement' => 'nullable|string|max:255',
             'quest_series_id' => 'integer|exists:series,id',
             'quest_type_id' => 'integer|exists:quest_types,id',
+            'rank_tier' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -344,6 +236,7 @@ class QuestController extends Controller
             'copyright_requirement' => $input['copyright_requirement'],
             'quest_series_id' => $input['quest_series_id'],
             'quest_type_id' => $input['quest_type_id'],
+            'rank_tier' => $input['rank_tier'],
         ]);
 
         // (Prizes update logic same as before...)

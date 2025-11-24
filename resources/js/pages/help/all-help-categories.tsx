@@ -10,9 +10,6 @@ export default function AllHelpCategories({ helpCategories }: { allHelpCategorie
     const { t, direction, } = useTranslation();
     const { currentLanguage } = useLocales()
 
-    // Get categories array from translation JSON
-    const topics: string[] = t('help.categories', { returnObjects: true });
-
     const grouped = Object.values(
         helpCategories
             .filter(item => item.lang === currentLanguage) // step 1: filter by lang

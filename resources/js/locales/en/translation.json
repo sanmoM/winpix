@@ -227,12 +227,11 @@
         "singleCategoryHelps": {
             "paths": [
                 {
-                    "label": "all-help-categories",
+                    "label": "All help Categories",
                     "href": "/all-help-categories"
                 },
                 {
-                    "label": "single-category-helps",
-                    "href": "/single-category-helps"
+                    "label": "Single Category Helps"
                 }
             ]
         },

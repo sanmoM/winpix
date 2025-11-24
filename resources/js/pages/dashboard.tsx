@@ -29,7 +29,7 @@ export default function Dashboard({ stats }: { stats: any }) {
             <Head />
             <div className=''>
                 <div className='flex justify-center items-center bg-bg-primary h-[70vh] lg:h-[40vh]'>
-                    <Creator containerClassName='flex-col-reverse lg:flex-row lg:flex-row-reverse' infoContainerClassName='items-center lg:items-start' imageClassName='w-32 h-32 !border-primary-color lg:w-40 lg:h-40 border-6 p-0.5' followBtnClassName='text-sm px-6 py-1.5' nameClassName='text-3xl text-white'
+                    <Creator containerClassName='flex-col-reverse lg:flex-row lg:flex-row-reverse' infoContainerClassName='items-center lg:items-start' imageClassName='w-32 h-32 !border-primary-color lg:w-40 lg:h-40 border-6 p-0.5' followBtnClassName='text-sm px-6 py-1.5' nameClassName='text-3xl'
                         btnText='Edit'
                         onClick={() => router.get("/settings/profile")}
 

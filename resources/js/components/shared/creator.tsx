@@ -1,14 +1,16 @@
 import SocialIcon from "@/components/shared/social-icon";
 import useLocales from "@/hooks/useLocales";
 import { cn } from "@/lib/utils";
+import { usePage } from "@inertiajs/react";
 import React from "react";
 
-const Creator = ({ containerClassName, infoContainerClassName, imageClassName, followBtnClassName, children, nameClassName, imageContainerClassName, btnText, onClick, user }: { containerClassName?: string, infoContainerClassName?: string, imageClassName?: string, followBtnClassName?: string, children?: React.ReactNode, nameClassName?: string, imageContainerClassName?: string, btnText?: string, onClick?: () => void, user: any }) => {
+const Creator = ({ containerClassName, infoContainerClassName, imageClassName, followBtnClassName, children, nameClassName, imageContainerClassName, btnText, onClick }: { containerClassName?: string, infoContainerClassName?: string, imageClassName?: string, followBtnClassName?: string, children?: React.ReactNode, nameClassName?: string, imageContainerClassName?: string, btnText?: string, onClick?: () => void }) => {
     const { t } = useLocales()
+    const user = usePage().props.auth.user;
     const socialIcons = [
-        { Icon: TwitterIcon, href: '#twitter', ariaLabel: 'Twitter' },
-        { Icon: FacebookIcon, href: '#facebook', ariaLabel: 'Facebook' },
-        { Icon: InstagramIcon, href: '#instagram', ariaLabel: 'Instagram' },
+        { Icon: TwitterIcon, href: user?.instagram, ariaLabel: 'Twitter' },
+        { Icon: FacebookIcon, href: user?.facebook, ariaLabel: 'Facebook' },
+        { Icon: InstagramIcon, href: user?.x, ariaLabel: 'Instagram' },
     ];
 
     return (
@@ -16,7 +18,7 @@ const Creator = ({ containerClassName, infoContainerClassName, imageClassName, f
 
             {/* Creator Name and Social Links */}
             <div className={cn("flex flex-col lg:items-end  lg:justify-end", infoContainerClassName)}>
-                <span className={cn("text-2xl font-semibold", nameClassName)}>
+                <span className={cn("text-2xl font-semibold text-black dark:text-white", nameClassName)}>
                     {user?.name}
                 </span>
                 <div className="flex space-x-4 mt-1 md:mt-2">

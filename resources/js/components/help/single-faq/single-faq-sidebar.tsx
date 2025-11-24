@@ -1,31 +1,25 @@
+import { Link } from "@inertiajs/react";
+
 /**
  * Sidebar component for "Articles in this section".
  */
-const SingleFaqSidebar = ({ t }: { t: any }) => {
-    const articles = [
-        'What is PULSEpx?',
-        'What makes PULSEpx different from other photography contest apps?',
-        'Is there a difference between the web version and the mobile app?',
-        'When uploading and submitting photos on PULSEpx, do I maintain ownership?',
-        'Can I use PULSEpx on multiple devices with the same account?',
-        'Is PULSEpx free to use?',
-    ];
+const SingleFaqSidebar = ({ t, data }: { t: any }) => {
 
     return (
         <aside className="w-full lg:w-64 pr-4 border-r border-gray-200 lg:min-h-full">
             <h3 className="text-base font-semibold mb-4">{t('help.singleFaq.sidebarHeading')}</h3>
             <nav className="space-y-2">
-                {articles.map((article, index) => (
-                    <a
+                {data.map((article, index) => (
+                    <Link
                         key={index}
-                        href="#"
+                        href={`/single-faq/${article.group_id}/${article.section}`}
                         className={`block text-sm py-1 ${article === 'Is there a difference between the web version and the mobile app?'
                             ? 'text-primary-color font-medium' // Active link style
                             : ' hover:text-primary-color'
                             }`}
                     >
-                        {article}
-                    </a>
+                        {article?.question}
+                    </Link>
                 ))}
             </nav>
         </aside>

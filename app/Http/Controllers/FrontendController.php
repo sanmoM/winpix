@@ -178,14 +178,22 @@ class FrontendController extends Controller
         ]);
     }
 
-    public function singleCategoryHelps()
+    public function singleCategoryHelps($section)
     {
-        return Inertia::render('help/single-category-helps');
+        $helps = Help::where('section', $section)->get();
+        return Inertia::render('help/single-category-helps', [
+            'helps' => $helps,
+        ]);
     }
 
-    public function singleFaq()
+    public function singleFaq($group_id, $section)
     {
-        return Inertia::render('help/single-faq');
+        $faqs = Help::where('section', $section)->get();
+        return Inertia::render('help/single-faq', [
+            'faqs' => $faqs,
+            'section' => $section,
+            'group_id' => $group_id,
+        ]);
     }
 
     public function searchedHelps()

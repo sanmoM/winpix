@@ -4,17 +4,11 @@ import useLocales from '@/hooks/useLocales';
 import UserLayout from '@/layouts/user-layout';
 import { Link } from '@inertiajs/react';
 
-export default function SingleCategoryHelps() {
-    const questions = [
-        'What is PULSEpx?',
-        'What makes PULSEpx different from other photography contest apps?',
-        'Is there a difference between the web version and the mobile app?',
-        'When uploading and submitting photos on PULSEpx, do I maintain ownership?',
-        'Can I use PULSEpx on multiple devices with the same account?',
-        'Is PULSEpx free to use?',
-    ];
-    const { t } = useLocales();
+export default function SingleCategoryHelps({ helps }: { helps: any }) {
+    const { t, currentLanguage } = useLocales();
 
+    const questions = helps?.filter((help: any) => help.lang === currentLanguage);
+console.log(questions)
     return (
         <UserLayout>
             <Container className="space-y-6 md:space-y-8 lg:space-y-12 my-10 md:my-16 lg:my-12">
@@ -24,8 +18,8 @@ export default function SingleCategoryHelps() {
 
                     <div className="space-y-6">
                         {questions.map((question, index) => (
-                            <Link href={"/single-faq"} key={index} className="text-lg hover:text-primary-color cursor-pointer transition-colors duration-150 block">
-                                {question}
+                            <Link href={`/single-faq/${question.group_id}/${question.section}`} key={index} className="text-lg hover:text-primary-color cursor-pointer transition-colors duration-150 block">
+                                {question?.question}
                             </Link>
                         ))}
                     </div>

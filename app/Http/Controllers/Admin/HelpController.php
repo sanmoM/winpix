@@ -52,12 +52,14 @@ class HelpController extends Controller
             );
 
             // Step 2: Fallback if translation fails
-            if (! is_array($translations) || empty($translations)) {
-                $translations = [[
-                    'lang' => 'en',
-                    'question' => $validated['question'],
-                    'answer' => $validated['answer'],
-                ]];
+            if (!is_array($translations) || empty($translations)) {
+                $translations = [
+                    [
+                        'lang' => 'en',
+                        'question' => $validated['question'],
+                        'answer' => $validated['answer'],
+                    ]
+                ];
             }
 
             $groupId = Str::uuid()->toString();
@@ -77,7 +79,7 @@ class HelpController extends Controller
                 ->with('success', 'Help items created successfully 🎉');
 
         } catch (\Exception $e) {
-            Log::error('Gemini API Translation Failed: '.$e->getMessage());
+            Log::error('Gemini API Translation Failed: ' . $e->getMessage());
 
             return back()->with('error', 'Translation failed. Please try again.');
         }
@@ -90,12 +92,11 @@ class HelpController extends Controller
     {
         $apiKey = config('app.gemini_api_key');
 
-        if (! $apiKey) {
+        if (!$apiKey) {
             throw new \Exception('Gemini API key is not set');
         }
 
         $apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={$apiKey}";
-
         $prompt = <<<PROMPT
         You are a translation assistant.
         Translate the following data into **English (en)** and **Arabic (ar)**.
@@ -119,10 +120,10 @@ class HelpController extends Controller
             ],
         ];
 
-        $response = Http::post($apiUrl, $payload);
+        $response = Http::withoutVerifying()->post($apiUrl, $payload);
 
-        if (! $response->ok()) {
-            Log::error('Gemini API Error: '.$response->body());
+        if (!$response->ok()) {
+            Log::error('Gemini API Error: ' . $response->body());
 
             return null;
         }
@@ -130,8 +131,8 @@ class HelpController extends Controller
         $result = $response->json();
         $text = $result['candidates'][0]['content']['parts'][0]['text'] ?? null;
 
-        if (! $text) {
-            Log::error('Gemini Response Malformed: '.$response->body());
+        if (!$text) {
+            Log::error('Gemini Response Malformed: ' . $response->body());
 
             return null;
         }
@@ -140,8 +141,8 @@ class HelpController extends Controller
         $text = trim(str_replace(['```json', '```', "\n"], '', $text));
         $translatedArray = json_decode($text, true);
 
-        if (! is_array($translatedArray)) {
-            Log::warning('Gemini JSON Parse Failed, using fallback: '.$text);
+        if (!is_array($translatedArray)) {
+            Log::warning('Gemini JSON Parse Failed, using fallback: ' . $text);
 
             return null; // Fallback will be triggered in store()
         }

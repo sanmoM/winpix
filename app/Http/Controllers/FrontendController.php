@@ -198,7 +198,13 @@ class FrontendController extends Controller
 
     public function searchedHelps()
     {
-        return Inertia::render('help/searched-helps');
+        $searchTerm = request()->query('searchTerm');
+        $helps = Help::where('question', 'LIKE', '%' . $searchTerm . '%')
+            ->orWhere('answer', 'LIKE', '%' . $searchTerm . '%')
+            ->get();
+        return Inertia::render('help/searched-helps', [
+            'helps' => $helps,
+        ]);
     }
 
     // this all are the functional controller for handle user interaction

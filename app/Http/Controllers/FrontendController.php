@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\About;
 use App\Models\Follower;
+use App\Models\Help;
 use App\Models\Quest;
 use App\Models\QuestImage;
 use App\Models\QuestJoin;
@@ -170,7 +171,11 @@ class FrontendController extends Controller
 
     public function allHelpCategories()
     {
-        return Inertia::render('help/all-help-categories');
+        $helpCategories = Help::all();
+        // return dd($helpCategories);
+        return Inertia::render('help/all-help-categories', [
+            'helpCategories' => $helpCategories,
+        ]);
     }
 
     public function singleCategoryHelps()
@@ -259,7 +264,7 @@ class FrontendController extends Controller
     {
         $user = auth()->user();
         $isAlreadyFollowing = Follower::where('follower_id', $user->id)->where('followed_id', $request->followed_id)->exists();
-        if(auth()->user()->id === $request->followed_id){
+        if (auth()->user()->id === $request->followed_id) {
             // Prevent users from following themselves
             return;
         }

@@ -227,12 +227,11 @@
         "singleCategoryHelps": {
             "paths": [
                 {
-                    "label": "all-help-categories",
+                    "label": "All help Categories",
                     "href": "/all-help-categories"
                 },
                 {
-                    "label": "single-category-helps",
-                    "href": "/single-category-helps"
+                    "label": "Single Category Helps"
                 }
             ]
         },
@@ -442,6 +441,14 @@
                         "placeholder": "Enter"
                     },
                     "title": "Prizes"
+                },
+                "type": {
+                    "label": "Type",
+                    "placeholder": "Select a type"
+                },
+                "rank_tier": {
+                    "label": "Minimum Rank",
+                    "placeholder": "Select a minimum rank"
                 }
             },
             "button": {

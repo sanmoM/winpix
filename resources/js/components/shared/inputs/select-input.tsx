@@ -27,6 +27,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
     onChange,
     className = '',
     inputClassName = '',
+    hasOption=true
 }) => {
     return (
         <div className={cn('w-full max-w-xs', className)}>
@@ -53,7 +54,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
                             {placeholder}
                         </option>
                     )}
-                    <option value="">Select Option</option>
+                    {hasOption && <option value="">Select Option</option>}
                     {options.map((option) => (
                         <option key={option.value} value={option.value}>
                             {option.label}

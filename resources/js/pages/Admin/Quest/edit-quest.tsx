@@ -58,6 +58,7 @@ export default function EditQuest() {
         categories,
         series,
         types,
+        rank_tiers,
     }: {
         quest: Quest;
         categories: { id: number; name: string }[];
@@ -93,6 +94,7 @@ export default function EditQuest() {
         copyright_requirement: quest.copyright_requirement,
         quest_series_id: quest.quest_series_id,
         quest_type_id: quest.quest_type_id,
+        rank_tier: (quest as any).rank_tier || 'all',
     });
 
     const categoryOptions = categories.map((category) => ({
@@ -110,14 +112,16 @@ export default function EditQuest() {
         label: types.name,
     }));
 
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     put(route('user-dashboard.quest.update', data.id), {
-    //         onSuccess: () => reset(),
-    //         onError: (errors) => console.log(errors),
-    //         forceFormData: true,
-    //     });
-    // };
+    const rankTierOptions = rank_tiers.map((tier: any) => ({
+        value: tier.tier,
+        label: tier.tier,
+    }));
+
+    rankTierOptions.unshift({
+        value: 'all',
+        label: 'All',
+    });
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -155,6 +159,7 @@ export default function EditQuest() {
             formData.append(`prizes[${index}][max]`, prize.max.toString());
             formData.append(`prizes[${index}][coin]`, prize.coin.toString());
             formData.append(`prizes[${index}][title]`, prize.title);
+            formData.append('rank_tier', data.rank_tier || '');
             if ('coinType' in prize) {
                 formData.append(
                     `prizes[${index}][coinType]`,
@@ -265,7 +270,7 @@ export default function EditQuest() {
                             className="max-w-auto w-full"
                         />
                     </div>
-                    <div className="grid grid-cols-1 gap-4">
+                    <div className="grid grid-cols-2 gap-4">
                         <SelectInput
                             id="quest_type_id"
                             name="quest_type_id"
@@ -276,6 +281,20 @@ export default function EditQuest() {
                                 setData('quest_type_id', value as string)
                             }
                             className="max-w-auto w-full"
+                        />
+                        <SelectInput
+                            id="rank_tier"
+                            name="rank_tier"
+                            label={t(
+                                'dashboard.quest.inputs.rank_tier.label',
+                            )}
+                            options={rankTierOptions}
+                            value={data.rank_tier}
+                            onChange={(value) =>
+                                setData('rank_tier', value as string)
+                            }
+                            className="max-w-auto w-full"
+                            hasOption={false}
                         />
                     </div>
 

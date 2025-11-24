@@ -46,8 +46,11 @@ export default function Dashboard() {
         categories,
         series,
         types,
+        rank_tiers,
     }: { categories: { id: number; name: string }[] } = usePage<any>().props;
     const { t } = useLocales();
+
+
 
     const {
         data,
@@ -71,6 +74,7 @@ export default function Dashboard() {
         categories_requirement: '',
         copyright_requirement: '',
         quest_series_id: '',
+        rank_tier: '',
     });
 
     const categoryOptions = categories.map((category) => ({
@@ -87,6 +91,16 @@ export default function Dashboard() {
         value: types.id,
         label: types.name,
     }));
+
+    const rankTierOptions = rank_tiers.map((tier: any) => ({
+        value: tier.tier,
+        label: tier.tier,
+    }));
+
+    rankTierOptions.unshift({
+        value: 'all',
+        label: 'All',
+    });
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -174,12 +188,12 @@ export default function Dashboard() {
                         />
                     </div>
 
-                    <div className="grid gap-4">
+                    <div className="grid gap-4 grid-cols-2">
                         <SelectInput
                             id="quest_type_id"
                             name="quest_type_id"
                             label={t(
-                                'dashboard.quest.inputs.questTypeId.label',
+                                'dashboard.quest.inputs.type.label',
                             )}
                             options={typesOptions}
                             value={data.quest_type_id}
@@ -187,6 +201,20 @@ export default function Dashboard() {
                                 setData('quest_type_id', value as string)
                             }
                             className="max-w-auto w-full"
+                        />
+                        <SelectInput
+                            id="rank_tier"
+                            name="rank_tier"
+                            label={t(
+                                'dashboard.quest.inputs.rank_tier.label',
+                            )}
+                            options={rankTierOptions}
+                            value={data.rank_tier}
+                            onChange={(value) =>
+                                setData('rank_tier', value as string)
+                            }
+                            className="max-w-auto w-full"
+                            hasOption={false}
                         />
                     </div>
 

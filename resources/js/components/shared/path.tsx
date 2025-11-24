@@ -23,9 +23,9 @@ export default function Path({ paths }: PathProps) {
 
                         <Link href={path?.href || "#"} className="text-primary-color">{path.label}</Link>
                         {
-                            paths.length - 1 !== index &&
+                            paths.length - 1 !== index ?
 
-                                direction === 'left' ? <span className="mx-2">/</span> : <span className="mx-2">\</span>
+                                direction === 'left' ? <span className="mx-2">/</span> : <span className="mx-2">\</span> : ""
 
                         }
                     </>

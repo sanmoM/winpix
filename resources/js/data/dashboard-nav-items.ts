@@ -18,11 +18,11 @@ export const mainNavItemsEN: NavItem[] = [
       //   href: route('home'),
       //   icon: LayoutGrid,
       // },
-      {
-        title: 'Create Contest',
-        href: route('user-dashboard.quest.index'),
-        icon: LayoutGrid,
-      },
+      // {
+      //   title: 'Create Contest',
+      //   href: route('user-dashboard.quest.index'),
+      //   icon: LayoutGrid,
+      // },
       {
         title: 'About Us',
         href: route('about-us'),
@@ -52,11 +52,11 @@ export const mainNavItemsAR: NavItem[] = [
       //   href: route('home'),
       //   icon: LayoutGrid,
       // },
-      {
-        title: 'إنشاء مهمة',
-        href: route('user-dashboard.quest.index'),
-        icon: LayoutGrid,
-      },
+      // {
+      //   title: 'إنشاء مهمة',
+      //   href: route('user-dashboard.quest.index'),
+      //   icon: LayoutGrid,
+      // },
       {
         title: 'معلومات عنا',
         href: route('about-us'),

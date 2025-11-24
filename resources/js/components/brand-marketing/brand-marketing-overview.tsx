@@ -51,7 +51,7 @@ export default function BrandMarketingOverview() {
     return (
         <div className=' mx-auto max-w-7xl'>
             <SectionHeading title='Why Choose Winpix Contests' className='mb-3 md:mb-4 lg:mb-6' />
-            <p className='!text-center text-xs md:text-sm lg:text-lg text-gray-400 mb-4 md:mb-6 lg:mb-10 lg:w-[90%] mx-auto'>Winpix helps brands transform their marketing campaigns into engaging photography contests. Whether you’re launching a new product, hosting an event, or building brand awareness, Winpix connects you with thousands of photographers and creative talents across the GCC & worldwide to generate authentic visual content.
+            <p className='!text-center text-xs md:text-sm lg:text-lg text-gray-600 mb-4 md:mb-6 lg:mb-12 lg:w-[70%] mx-auto'>Winpix turns marketing campaigns into photography contests, connecting brands with thousands of creators across the GCC and worldwide to produce authentic visual content.
             </p>
 
             <div className="flex justify-center gap-8 flex-wrap">

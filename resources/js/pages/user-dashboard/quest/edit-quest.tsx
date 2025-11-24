@@ -177,7 +177,7 @@ export default function EditQuest() {
             forceFormData: true, // ensures multipart/form-data encoding
             preserveScroll: true, // keeps scroll position after submit
             onSuccess: () => {
-                console.log('Quest updated successfully');
+                // console.log('Quest updated successfully');
             },
             onError: (errors) => {
                 console.error('Validation errors:', errors);

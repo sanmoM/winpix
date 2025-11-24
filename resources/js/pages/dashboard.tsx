@@ -23,7 +23,6 @@ export default function Dashboard({ stats }: { stats: any }) {
         },
     ];
 
-    console.log(stats?.likedImages)
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

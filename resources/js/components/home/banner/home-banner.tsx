@@ -6,8 +6,6 @@ import './banner.css';
 
 export default function ({ t, sliders }: any) {
     const { currentLanguage } = useLocales();
-    console.log(currentLanguage);
-    console.log(sliders);
     return (
         <CustomSlider mobileView={1} tabletView={1} desktopView={1}>
             {sliders

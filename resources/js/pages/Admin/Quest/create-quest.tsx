@@ -92,7 +92,7 @@ export default function Dashboard() {
         e.preventDefault();
         post(route('user-dashboard.quest.store'), {
             onSuccess: () => reset(),
-            onError: (errors) => console.log(errors),
+            // onError: (errors) => console.log(errors),
         });
     };
 

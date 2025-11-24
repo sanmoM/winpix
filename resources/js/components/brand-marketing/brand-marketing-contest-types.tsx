@@ -30,7 +30,7 @@ export default function BrandMarketingContestTypes() {
         <div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <SectionHeading title='Contest Types' className='mb-3 md:mb-4 lg:mb-6' />
-                <p className="!text-center text-xs md:text-sm lg:text-lg text-gray-400 mb-4 md:mb-6 lg:mb-10 lg:w-[90%] mx-auto">
+                <p className="!text-center text-xs md:text-sm lg:text-lg text-gray-600 mb-4 md:mb-6 lg:mb-12 lg:w-[90%] mx-auto">
                     Tailored campaign formats designed to meet your specific marketing objectives.
                 </p>
 

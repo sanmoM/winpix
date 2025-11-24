@@ -44,7 +44,6 @@ export default function Card({ item, isSeries = false }: any) {
                                 {
                                     isSeries ? item?.quests?.reduce((acc, current) => {
                                         acc += current?.entry_coin
-                                        console.log(acc)
                                         return acc
                                     }, 0) : item?.entry_coin
                                 } USD</span>

@@ -6,7 +6,6 @@ import { RiFolderUploadFill } from "react-icons/ri";
 
 
 export default function Stats({ containerClassName, t, stats }: { containerClassName?: string, t: any, stats: any }) {
-    console.log(stats)
     const statsData = [
         {
             Icon: <MdLeaderboard className="text-lg lg:text-4xl text-white" />,

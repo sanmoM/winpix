@@ -6,7 +6,6 @@ import UserLayout from '@/layouts/user-layout';
 
 export default function SingleQuestSeries({ series }: { series: any }) {
     const { t } = useLocales();
-    console.log(series)
     return (
         <UserLayout>
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 mb-10 md:mb-16 lg:mb-20">

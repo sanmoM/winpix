@@ -11,8 +11,8 @@ export default function BrandMarketing() {
     <UserLayout>
       <Container className="my-10 space-y-14 md:my-16 md:space-y-20 lg:my-12 lg:space-y-28">
         <BrandMarketingBanner />
-        <BrandMarketingContestTypes />
         <BrandMarketingOverview />
+        <BrandMarketingContestTypes />
       </Container>
     </UserLayout>
   )

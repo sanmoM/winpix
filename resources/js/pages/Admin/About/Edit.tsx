@@ -42,7 +42,7 @@ export default function Edit({ item }: EditProps) {
         post(route('admin.about.update', item.id), {
             data: formData,
             forceFormData: true,
-            onSuccess: () => console.log('Updated successfully'),
+            // onSuccess: () => console.log('Updated successfully'),
         });
     };
 

@@ -8,7 +8,6 @@ import GreatPrice from "@/components/redeem/great-price";
 
 export default function redeem() {
   const { prizes } = usePage().props;
-  console.log(prizes)
   const appPrice = prizes.filter(prize => prize.prize_type === 'app_prize');
   const grandPrice = prizes.filter(prize => prize.prize_type === 'grand_prize');
   const greatPrice = prizes.filter(prize => prize.prize_type === 'great_prize');

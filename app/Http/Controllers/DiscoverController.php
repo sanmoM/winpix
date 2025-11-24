@@ -32,7 +32,7 @@ class DiscoverController extends Controller
             'quests' => $new_quest,
             'galleryImages' => $topImages,
             "allRanks" => $Ranking->getAllRanks(),
-            "userRank" => $Ranking->getRank(auth()->user()->level),
+            // "userRank" => $Ranking->getRank(auth()->user()->level),
             "topPlayers" => $topPlayers
         ]);
     }

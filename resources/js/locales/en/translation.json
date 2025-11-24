@@ -135,7 +135,8 @@
         "description": "Pixels are your gateway to exclusive content! Use them to unlock unique items, participate in special events, and gain an edge in your quests. More pixels, more power!"
     },
     "redeem": {
-        "appPriceTitle": "App Prizes",
+        "appPriceTitle": "In App Prizes",
+        "greatPriceTitle": "Great Prizes",
         "grandPriceTitle": "Grand Prizes"
     },
     "singleQuest": {

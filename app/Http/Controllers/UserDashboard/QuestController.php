@@ -241,7 +241,7 @@ class QuestController extends Controller
 
         // (Prizes update logic same as before...)
 
-        return redirect()->back()
+        return redirect()->route('admin.quest')
             ->with('success', 'Quest updated successfully.');
     }
 

@@ -92,40 +92,45 @@ export default function TopPositions({ topPositions }) {
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-end mb-8 md:mb-16 max-w-4xl mx-auto px-8">
             {topPositions?.map((user, index) => (
-                <Link href={"/profile/1"} key={user.rank} className={`relative block  ${podiumData[index].order}`}>
-                    <div className={`bg-bg-primary dark:bg-bg-primary rounded-xl ${podiumData[index].cardPadding}  border-2 ${podiumData[index].borderColor} !text-center`}>
+                <>
+                    {
+                        user && (
+                            <Link href={"/profile/1"} key={user.rank} className={`relative block  ${podiumData[index].order}`}>
+                                <div className={`bg-bg-primary dark:bg-bg-primary rounded-xl ${podiumData[index].cardPadding}  border-2 ${podiumData[index].borderColor} !text-center`}>
+                                    {/* Avatar */}
+                                    <img
+                                        src={user?.image ? "/storage/" + user?.image : podiumData[index].avatar}
+                                        alt={`Rank ${user.rank} User`}
+                                        className={`${user.avatarSize} rounded-full mx-auto ${user.avatarMargin} border-4 border-white shadow-lg`}
+                                    />
 
-                        {/* Avatar */}
-                        <img
-                            src={user?.image ? "/storage/" + user?.image : podiumData[index].avatar}
-                            alt={`Rank ${user.rank} User`}
-                            className={`${user.avatarSize} rounded-full mx-auto ${user.avatarMargin} border-4 border-white shadow-lg`}
-                        />
-
-                        {/* Medal */}
-                        {/* <div className={`absolute ${user.medalPos} ${user.medalSize} ${user.medalBg} rounded-full flex items-center justify-center ${user.medalText} font-bold ${user.medalColor} shadow-inner border-2 ${user.medalBorder}`}>
+                                    {/* Medal */}
+                                    {/* <div className={`absolute ${user.medalPos} ${user.medalSize} ${user.medalBg} rounded-full flex items-center justify-center ${user.medalText} font-bold ${user.medalColor} shadow-inner border-2 ${user.medalBorder}`}>
                                 {user.rank}
                             </div> */}
 
-                        {/* User Info */}
-                        <h3 className={`text-xl !text-center font-semibold mt-4 ${user.rank === 1 ? 'text-2xl text-yellow-600' : ''}`}>
-                            {user.name}
-                        </h3>
-                        <p className={`text-sm !text-center ${user.rank === 1 ? 'text-md' : ''} text-gray-400`}>
-                            {user.followers?.length} {t('shared.followers')}
-                        </p>
+                                    {/* User Info */}
+                                    <h3 className={`text-xl !text-center font-semibold mt-4 ${user.rank === 1 ? 'text-2xl text-yellow-600' : ''}`}>
+                                        {user.name}
+                                    </h3>
+                                    <p className={`text-sm !text-center ${user.rank === 1 ? 'text-md' : ''} text-gray-400`}>
+                                        {user.followers?.length} {t('shared.followers')}
+                                    </p>
 
-                        {/* Score */}
-                        <div className={`mt-4 ${user.rank === 1 ? 'mt-5' : ''} flex items-center justify-center space-x-2`}>
-                            {podiumData[index].scoreIcon}
+                                    {/* Score */}
+                                    <div className={`mt-4 ${user.rank === 1 ? 'mt-5' : ''} flex items-center justify-center space-x-2`}>
+                                        {podiumData[index].scoreIcon}
 
-                            <span className={`${user.scoreSize} font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-color to-secondary-color`}>
-                                {user.level}
-                            </span>
-                        </div>
+                                        <span className={`${user.scoreSize} font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-color to-secondary-color`}>
+                                            {user.level}
+                                        </span>
+                                    </div>
 
-                    </div>
-                </Link>
+                                </div>
+                            </Link>
+                        )
+                    }
+                </>
             ))}
         </div>
     )

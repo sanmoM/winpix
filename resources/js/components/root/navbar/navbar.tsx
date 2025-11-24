@@ -106,6 +106,9 @@ export default function Navbar() {
                     variant="desktop"
                   />
                 ))}
+                <Link href="/brand-marketing">
+                  <BorderButton className="px-8 w-full" text={"Promote Your Brand"} />
+                </Link>
               </div>
             </div>
 

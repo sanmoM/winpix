@@ -1,8 +1,7 @@
+import { cn } from "@/lib/utils";
 import { FaTrophy } from "react-icons/fa";
 import { MdLeaderboard } from "react-icons/md";
 import { RiFolderUploadFill } from "react-icons/ri";
-import Container from "../shared/container";
-import { cn } from "@/lib/utils";
 
 
 

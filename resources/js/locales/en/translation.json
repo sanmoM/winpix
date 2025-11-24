@@ -22,9 +22,9 @@
         "following": "Following"
     },
     "stats": {
-        "quests": "Quests",
-        "awards": "Awards",
-        "level": "Level"
+        "contests": "Contests",
+        "votes": "Votes",
+        "level": "Rank"
     },
     "root": {
         "navbar": {

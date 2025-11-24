@@ -8,11 +8,12 @@ import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head, router } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 
-export default function Dashboard() {
+export default function Dashboard({ stats }: { stats: any }) {
+    const user = usePage().props.auth.user;
     const { t } = useLocales();
     const [activeTab, setActiveTab] = useState("my-stats");
     const breadcrumbs: BreadcrumbItem[] = [
@@ -21,6 +22,9 @@ export default function Dashboard() {
             href: dashboard().url,
         },
     ];
+
+    console.log(stats?.likedImages)
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head />
@@ -34,11 +38,11 @@ export default function Dashboard() {
                         <div className='mt-4 flex gap-3 items-center'>
                             <div>
                                 <h6 className='text-sm text-gray-400'>{t("shared.followers")}</h6>
-                                <p className='font-semibold text-white'>12,345</p>
+                                <p className='font-semibold dark:text-white'>{stats.followers}</p>
                             </div>
                             <div>
                                 <h6 className='text-sm text-gray-400'>{t("shared.following")}</h6>
-                                <p className='font-semibold text-white'>12,345</p>
+                                <p className='font-semibold dark:text-white'>{stats.following}</p>
                             </div>
                         </div>
                     </Creator>
@@ -55,13 +59,23 @@ export default function Dashboard() {
                         />
                     </div>
                     {
-                        activeTab === "my-stats" && <Stats containerClassName='translate-y-0 mb-0 md:mb-0 lg:mb-0' t={t} />
+                        activeTab === "my-stats" && <Stats containerClassName='translate-y-0 mb-0 md:mb-0 lg:mb-0' t={t} stats={stats} />
                     }
                     {
-                        activeTab === "my-photos" && <Gallery />
+                        activeTab === "my-photos" && <Gallery galleryImages={stats?.questImages?.map(item => ({
+                            image: {
+                                image: item?.image,
+                                user
+                            }
+                        }))} />
                     }
                     {
-                        activeTab === "liked-photos" && <Gallery />
+                        activeTab === "liked-photos" && <Gallery galleryImages={stats?.likedImages?.map(item => ({
+                            image: {
+                                image: item?.image?.image,
+                                user
+                            }
+                        }))} />
                     }
                 </Container>
             </div>

@@ -30,7 +30,6 @@ const images = [
 
 export default function discover({ quests, galleryImages, topPlayers }: any) {
     const { t } = useLocales()
-    console.log(topPlayers)
     return (
         <UserLayout>
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">

@@ -29,7 +29,6 @@ export default function AIGeneratedImageDetector() {
     if (!file) return;
     // const isAI = await isAIGenerated(file);
     // if (isAI) {
-    //   console.log(isAI)
     //   return;
     //   setImageFile(file);
     //   // Create a temporary URL for the image preview
@@ -61,7 +60,6 @@ export default function AIGeneratedImageDetector() {
       });
 
 
-      console.log(metadata)
 
       const aiKeywords = [
         "dall-e",
@@ -192,7 +190,6 @@ export default function AIGeneratedImageDetector() {
       }
 
       const result = await response.json();
-      console.log(result)
 
       // 6. Process the response
       const text = result.candidates?.[0]?.content?.parts?.[0]?.text;

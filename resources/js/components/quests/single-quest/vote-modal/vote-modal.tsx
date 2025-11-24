@@ -35,7 +35,6 @@ const VoteModal: React.FC<ModalProps> = ({ isOpen, onClose, questImages, questId
 
     try {
       const response = await axios.post(`/vote/${votedImageId}/${questId}`, { image_id: votedImageId });
-      console.log(response.data);
     } catch (error) {
       console.error("❌ Vote failed:", error);
     }

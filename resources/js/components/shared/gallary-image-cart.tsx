@@ -7,7 +7,6 @@ import useLocales from "@/hooks/useLocales";
 export default function GalleryImageCart({ item, aspect, className, actionButtons = (< ImageActionButtons />) }: { src: string, aspect?: string, className?: string, actionButtons?: JSX.Element }) {
     const [isOpen, setIsOpen] = useState(false);
     const { direction } = useLocales()
-    console.log(item)
     return (
         <div
             className={cn(`relative group cursor-pointer overflow-hidden rounded-lg `, className, aspect)}

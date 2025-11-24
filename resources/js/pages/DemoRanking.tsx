@@ -47,7 +47,7 @@ export default function DemoRanking() {
             {},
             {
                 preserveScroll: true,
-                onSuccess: () => console.log(`${routeName} success`),
+                // onSuccess: () => console.log(`${routeName} success`),
             },
         );
     };

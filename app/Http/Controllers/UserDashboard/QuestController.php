@@ -59,7 +59,7 @@ class QuestController extends Controller
         // Validate request
         $validator = Validator::make($input, [
             'title' => 'required|string|max:255',
-            'brief' => 'required|string|max:255',
+            'brief' => 'required',
             'category_id' => 'required|integer|exists:quest_categories,id',
             'startDate' => 'required|string|max:255',
             'endDate' => 'required|string|max:255',
@@ -281,7 +281,7 @@ class QuestController extends Controller
         // Validation (same as before)
         $validator = Validator::make($input, [
             'title' => 'required|string|max:255',
-            'brief' => 'required|string|max:255',
+            'brief' => 'required',
             'category_id' => 'required|integer|exists:quest_categories,id',
             'startDate' => 'required|date',
             'endDate' => 'required|date|after_or_equal:startDate',

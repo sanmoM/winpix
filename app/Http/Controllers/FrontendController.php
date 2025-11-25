@@ -209,6 +209,11 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function contactUs()
+    {
+        return Inertia::render('contact-us');
+    }
+
     // this all are the functional controller for handle user interaction
     public function joinQuest(Request $request, $id)
     {

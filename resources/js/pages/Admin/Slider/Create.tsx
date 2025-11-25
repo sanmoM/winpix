@@ -10,16 +10,16 @@ import { useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'All Slider',
-        href: route('admin.slider.index'),
-    },
-    {
-        title: 'Create',
-        href: '',
-    },
-];
+// const breadcrumbs: BreadcrumbItem[] = [
+//     {
+//         title: 'All Slider',
+//         href: route('admin.slider.index'),
+//     },
+//     {
+//         title: 'Create',
+//         href: '',
+//     },
+// ];
 
 interface FlashProps {
     success?: string;
@@ -67,6 +67,10 @@ export default function Create({ flash }: Props) {
             },
         });
     };
+
+    const breadcrumbs: BreadcrumbItem[] = t('dashboard.slider.create.breadcrumbs', {
+        returnObjects: true,
+    })
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

@@ -297,10 +297,30 @@
                 }
             },
             "create": {
-                "title": "Create Slider"
+                "title": "Create Slider",
+                "breadcrumbs": [
+                    {
+                        "title": "All Slider",
+                        "href": "/admin/slider"
+                    },
+                    {
+                        "title": "Create Slider",
+                        "href": ""
+                    }
+                ]
             },
             "edit": {
-                "title": "Edit Slider"
+                "title": "Edit Slider",
+                "breadcrumbs": [
+                    {
+                        "title": "All Slider",
+                        "href": "/admin/slider"
+                    },
+                    {
+                        "title": "Edit Slider",
+                        "href": ""
+                    }
+                ]
             },
             "view": {
                 "title": "View Slider"

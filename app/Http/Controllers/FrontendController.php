@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\Contact;
 use App\Models\Follower;
 use App\Models\Help;
 use App\Models\Quest;
@@ -74,7 +75,7 @@ class FrontendController extends Controller
     {
         $series = Series::with('quests.user', 'quests.category', 'user')->get();
         $quests = Quest::with(['category', 'user'])->where('status', 'active')->orderBy('created_at', 'desc')->take(5)->get();
-        
+
 
         return Inertia::render('quests/active-quests', [
             'series' => $series,
@@ -209,6 +210,11 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function contactUs()
+    {
+        return Inertia::render('contact-us');
+    }
+
     // this all are the functional controller for handle user interaction
     public function joinQuest(Request $request, $id)
     {
@@ -292,5 +298,26 @@ class FrontendController extends Controller
                 'followed_id' => $request->followed_id,
             ]);
         }
+    }
+
+    public function createContact(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required',
+        ]);
+
+        $contact = new Contact([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'message' => $request->message,
+        ]);
+
+        $contact->save();
+
+        return redirect()->back()->with('success', 'Contact form submitted successfully!');
     }
 }

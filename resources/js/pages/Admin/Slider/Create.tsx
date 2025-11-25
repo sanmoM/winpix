@@ -1,10 +1,11 @@
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import ImageInput from '@/components/shared/inputs/image-input';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import TextAreaInput from '@/components/shared/inputs/text-area-input';
+import TextInput from '@/components/shared/inputs/text-input';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
@@ -30,6 +31,7 @@ interface Props {
 }
 
 export default function Create({ flash }: Props) {
+    const { t } = useLocales();
     const { data, setData, post, processing, reset, errors } = useForm<{
         title: string;
         content: string;
@@ -77,73 +79,41 @@ export default function Create({ flash }: Props) {
                 encType="multipart/form-data"
             >
                 {/* Background Image */}
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="bg_image" className="font-semibold">
-                        Background Image <span className="text-red-600">*</span>
-                    </Label>
-                    <ImageInput
-                        image={data.bg_image}
-                        setImage={(value) => setData('bg_image', value)}
-                        wrapperClassName="w-full aspect-[2/1]"
-                        iconClassName="w-[20%]"
-                    />
 
-                    {errors.bg_image && (
-                        <p className="text-sm text-red-600">
-                            {errors.bg_image}
-                        </p>
-                    )}
-                </div>
+                <ImageInput
+                    image={data.bg_image}
+                    setImage={(value) => setData('bg_image', value)}
+                    wrapperClassName="w-full aspect-[2/1]"
+                    iconClassName="w-[20%]"
+                    error={errors.bg_image}
+                    label={t('dashboard.slider.inputs.bg_image.label')}
+                    required={true}
+                />
 
                 {/* Title */}
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="title" className="font-semibold">
-                        Title <span className="text-red-600">*</span>
-                    </Label>
-                    <Input
-                        id="title"
-                        type="text"
-                        value={data.title}
-                        onChange={(e) => setData('title', e.target.value)}
-                        placeholder="Enter title"
-                    />
-                    {errors.title && (
-                        <p className="text-sm text-red-600">{errors.title}</p>
-                    )}
-                </div>
+                <TextInput
+                    id="title"
+                    value={data.title}
+                    setValue={(value) => setData('title', value)}
+                    label={t('dashboard.slider.inputs.title.label')}
+                    placeholder={t('dashboard.slider.inputs.title.placeholder')}
+                    error={errors.title}
+                    required={true}
+                />
 
                 {/* Content */}
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="content" className="font-semibold">
-                        Sub Title <span className="text-red-600">*</span>
-                    </Label>
-                    <Textarea
-                        id="content"
-                        value={data.content}
-                        onChange={(e) => setData('content', e.target.value)}
-                        placeholder="Enter sub title"
-                    />
-                    {errors.content && (
-                        <p className="text-sm text-red-600">{errors.content}</p>
-                    )}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex items-center justify-end space-x-4 pt-4">
-                    <Link
-                        href={route('admin.slider.index')}
-                        className="w-28 rounded-lg border border-gray-300 px-6 py-2 !text-center font-semibold text-gray-700 hover:bg-gray-100"
-                    >
-                        Back
-                    </Link>
-                    <button
-                        type="submit"
-                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white disabled:opacity-70"
-                        disabled={processing}
-                    >
-                        {processing ? 'Saving...' : 'Save'}
-                    </button>
-                </div>
+                <TextAreaInput
+                    id="content"
+                    value={data.content}
+                    onChange={(e) => setData('content', e.target.value)}
+                    label={t('dashboard.slider.inputs.content.label')}
+                    placeholder={t('dashboard.slider.inputs.content.placeholder')}
+                    required={true}
+                />
+                {errors.content && (
+                    <p className="text-sm text-red-600">{errors.content}</p>
+                )}
+                <SaveAndBackButtons processing={processing} href={route('admin.slider.index')} />
             </form>
         </AppLayout>
     );

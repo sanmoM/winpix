@@ -22,6 +22,7 @@ Route::get('/quests/ended-single-quest/{id}', [FrontendController::class, 'ended
 Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('about-us');
 Route::get('/discover', [DiscoverController::class, 'discover'])->name('discover');
 Route::get('/brand-marketing', [FrontendController::class, 'brandMarketing'])->name('brand-marketing');
+Route::get('/contact-us', [FrontendController::class, 'contactUs'])->name('contact-us');
 
 // this all are the functional route for handle user interaction
 Route::post('/join-quest/{id}', [FrontendController::class, 'joinQuest'])->name('join-quest')->middleware('auth');
@@ -29,3 +30,4 @@ Route::post('/join-quest/{id}', [FrontendController::class, 'joinQuest'])->name(
 Route::post('/vote/{imageId}/{questId}', [FrontendController::class, 'vote'])->name('vote')->withoutMiddleware(\App\Http\Middleware\HandleInertiaRequests::class);
 
 Route::post('/follow-user', [FrontendController::class, 'followUser'])->name('follow-user');
+Route::post('/contact-us', [FrontendController::class, 'createContact'])->name('create-contact');

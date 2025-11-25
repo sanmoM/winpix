@@ -125,11 +125,10 @@ class SliderController extends Controller
         PROMPT;
 
         $payload = ['contents' => [['role' => 'user', 'parts' => [['text' => $prompt]]]]];
-        $response = Http::post($apiUrl, $payload);
+        $response = Http::withoutVerifying()->post($apiUrl, $payload);
 
         if (! $response->ok()) {
             Log::error('Gemini API Error: '.$response->body());
-
             return null;
         }
 

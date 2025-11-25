@@ -9,6 +9,9 @@ import React from 'react'
 export default function active({ series, quests }: any) {
 
     const { t, direction } = useLocales()
+    const [filter, setFilter] = React.useState({
+        
+    })
     return (
         <UserLayout>
             <ActiveQuestsBanner direction={direction} t={t} quests={quests} />

@@ -43,20 +43,20 @@ class SeriesController extends Controller
         ]);
 
 
-       $series =new Series();
-       $series->title = $request->title;
-       $series->description = $request->description;
+        $series = new Series();
+        $series->title = $request->title;
+        $series->description = $request->description;
 
-       if ($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $file = $request->file('image')->store('uploads/series', 'public');
             $series->image = $file;
             $series->user_id = $user->id;
-       }
+        }
 
 
-       $series->save();
+        $series->save();
 
-       return redirect()->back()->with('success', 'Series saved successfully 🎉');
+        return redirect()->route('admin.series.index')->with('success', 'Series saved successfully 🎉');
     }
 
     /**
@@ -73,10 +73,10 @@ class SeriesController extends Controller
 
     public function edit(string $id)
     {
-       $series = Series::find($id);
-       return Inertia::render('Admin/Series/Edit',[
+        $series = Series::find($id);
+        return Inertia::render('Admin/Series/Edit', [
             'series' => $series
-       ]);
+        ]);
     }
 
     /**
@@ -85,19 +85,19 @@ class SeriesController extends Controller
 
     public function update(Request $request, string $id)
     {
-       $validated = $request->validate([
+        $validated = $request->validate([
             'title' => 'required',
             'description' => 'required',
             'image' => 'nullable|image|max:2048',
             'status' => 'required',
         ]);
 
-       $series = Series::find($id);
-       $series->title = $request->title;
-       $series->description = $request->description;
-       $series->status = $request->status;
+        $series = Series::find($id);
+        $series->title = $request->title;
+        $series->description = $request->description;
+        $series->status = $request->status;
 
-       if ($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             // Delete old image
             if ($series->image && Storage::disk('public')->exists($series->image)) {
                 Storage::disk('public')->delete($series->image);
@@ -105,11 +105,11 @@ class SeriesController extends Controller
             // Series new image
             $file = $request->file('image')->store('uploads/series', 'public');
             $series->image = $file;
-       }
+        }
 
-       $series->update();
+        $series->update();
 
-       return redirect()->route('admin.series.index')->with('success', 'Series updated successfully 🎉');
+        return redirect()->route('admin.series.index')->with('success', 'Series updated successfully 🎉');
     }
 
     /**

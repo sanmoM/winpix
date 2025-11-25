@@ -9,19 +9,14 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { mainNavItemsAR, mainNavItemsEN } from '@/data/dashboard-nav-items';
+import { adminNavItemsAR, adminNavItemsEN, userNavItemsAR, userNavItemsEN } from '@/data/dashboard-nav-items';
 import useBackground from '@/hooks/useBackground';
 import useLocales from '@/hooks/useLocales';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
     LayoutGrid,
-    Scale,
-    ServerIcon,
-    Store,
-    Trophy,
-    UserPlus,
-    WashingMachine,
+    Scale
 } from 'lucide-react';
 import { route } from 'ziggy-js';
 import Logo from './shared/logo';
@@ -33,90 +28,9 @@ export function AppSidebar() {
     const { currentLanguage } = useLocales();
 
     const mainNavItems: NavItem[] =
-        currentLanguage === 'ar' ? mainNavItemsAR : mainNavItemsEN;
+        currentLanguage === 'ar' ? userNavItemsAR : userNavItemsEN;
 
-    const adminNavItems: NavItem[] = [
-        {
-            title: 'Home',
-            href: route('admin.dashboard'),
-            icon: LayoutGrid,
-            subItems: [
-                {
-                    title: 'Dashboard',
-                    href: route('admin.dashboard'),
-                    icon: LayoutGrid,
-                },
-                {
-                    title: 'About',
-                    href: route('admin.about.index'),
-                    icon: UserPlus,
-                },
-                {
-                    title: 'Slider',
-                    href: route('admin.slider.index'),
-                    icon: UserPlus,
-                },
-                {
-                    title: 'Store',
-                    href: route('admin.store.index'),
-                    icon: Store,
-                },
-                {
-                    title: 'Redeem',
-                    href: route('admin.redeem.index'),
-                    icon: Store,
-                },
-            ],
-        },
-        {
-            title: 'Contest',
-            icon: Trophy,
-            subItems: [
-                {
-                    title: 'Series',
-                    href: route('admin.series.index'),
-                    icon: ServerIcon,
-                },
-                {
-                    title: 'Contest Type',
-                    href: route('admin.questType.index'),
-                    icon: ServerIcon,
-                },
-                {
-                    title: 'Category',
-                    href: route('admin.questCategory.index'),
-                    icon: ServerIcon,
-                },
-                {
-                    title: 'Contests',
-                    href: route('admin.quest'),
-                    icon: ServerIcon,
-                },
-            ],
-        },
-        {
-            title: 'User',
-            icon: UserPlus,
-            subItems: [
-                {
-                    title: 'All Users',
-                    href: route('admin.allUsers'),
-                    icon: ServerIcon,
-                },
-            ],
-        },
-        {
-            title: 'Others',
-            icon: WashingMachine,
-            subItems: [
-                {
-                    title: 'Help Center',
-                    href: route('admin.help.index'),
-                    icon: ServerIcon,
-                },
-            ],
-        },
-    ];
+    const adminNavItems: NavItem[] = currentLanguage === 'ar' ? adminNavItemsAR : adminNavItemsEN
 
     const juryNavItems: NavItem[] = [
         {
@@ -145,8 +59,8 @@ export function AppSidebar() {
         userRole === 'admin'
             ? 'admin/dashboard'
             : userRole === 'jury'
-              ? 'jury/dashboard'
-              : '/dashboard';
+                ? 'jury/dashboard'
+                : '/dashboard';
 
     return (
         <Sidebar collapsible="icon" variant="inset">

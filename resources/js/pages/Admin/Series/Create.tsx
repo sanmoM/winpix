@@ -1,4 +1,5 @@
 import ImageInput from '@/components/shared/inputs/image-input';
+import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -99,14 +100,14 @@ export default function Create({ flash }: Props) {
 
                 {/* Content */}
                 <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="description" className="font-semibold">
-                        Description <span className="text-red-600">*</span>
-                    </Label>
-                    <Textarea
+                    <TextAreaInput 
                         id="description"
                         value={data.description}
                         onChange={(e) => setData('description', e.target.value)}
                         placeholder="Enter Description"
+                        label={"Description"}
+                        required={true}
+
                     />
                     {errors.description && (
                         <p className="text-sm text-red-600">
@@ -119,7 +120,7 @@ export default function Create({ flash }: Props) {
                 <div className="flex items-center justify-end space-x-4 pt-4">
                     <Link
                         href={route('admin.series.index')}
-                        className="w-28 rounded-lg border border-gray-300 px-6 py-2 text-center font-semibold text-gray-700 hover:bg-gray-100"
+                        className="w-28 rounded-lg border border-gray-300 px-6 py-2 text-center font-semibold text-gray-700 dark:text-gray-300"
                     >
                         Back
                     </Link>

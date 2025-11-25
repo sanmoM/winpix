@@ -1,4 +1,6 @@
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import ImageInput from '@/components/shared/inputs/image-input';
+import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -114,7 +116,7 @@ export default function Create({ flash }: Props) {
 
                 {/* Content */}
                 <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="content" className="font-semibold">
+                    {/* <Label htmlFor="content" className="font-semibold">
                         Sub Title <span className="text-red-600">*</span>
                     </Label>
                     <Textarea
@@ -122,28 +124,20 @@ export default function Create({ flash }: Props) {
                         value={data.content}
                         onChange={(e) => setData('content', e.target.value)}
                         placeholder="Enter sub title"
+                    /> */}
+                    <TextAreaInput
+                        id="content"
+                        value={data.content}
+                        onChange={(e) => setData('content', e.target.value)}
+                        placeholder="Enter sub title"
+                        label={"Sub Title"}
+                        required={true}
                     />
                     {errors.content && (
                         <p className="text-sm text-red-600">{errors.content}</p>
                     )}
                 </div>
-
-                {/* Action Buttons */}
-                <div className="flex items-center justify-end space-x-4 pt-4">
-                    <Link
-                        href={route('admin.slider.index')}
-                        className="w-28 rounded-lg border border-gray-300 px-6 py-2 !text-center font-semibold text-gray-700 hover:bg-gray-100"
-                    >
-                        Back
-                    </Link>
-                    <button
-                        type="submit"
-                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white disabled:opacity-70"
-                        disabled={processing}
-                    >
-                        {processing ? 'Saving...' : 'Save'}
-                    </button>
-                </div>
+                <SaveAndBackButtons processing={processing} href={route('admin.slider.index')} />
             </form>
         </AppLayout>
     );

@@ -47,7 +47,8 @@
             },
             "buttons": {
                 "signUp": "Sign up",
-                "logIn": "Log in"
+                "logIn": "Log in",
+                "promote": "Promote Your Brand"
             },
             "notifications": {
                 "title": "Notifications"
@@ -259,7 +260,28 @@
         "shared": {
             "save": "Save",
             "saved": "Saved",
-            "link": "Link"
+            "link": "Link",
+            "create": "Create"
+        },
+        "slider": {
+            "create": {
+                "title": "Create Slider"
+            },
+            "edit": {
+                "title": "Edit Slider"
+            },
+            "view": {
+                "title": "View Slider"
+            },
+            "index": {
+                "heading": "Sliders",
+                "breadcrumbs": [
+                    {
+                        "title": "All Slider",
+                        "href": "/admin/slider"
+                    }
+                ]
+            }
         },
         "profile": {
             "heading": "Profile",

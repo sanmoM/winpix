@@ -47,7 +47,7 @@ export default function BrandMarketingBanner() {
                             </div>
                         </div>
                         <Link href="/contact-us">
-                            <Button text='Launch Now' className='px-7 py-3' />
+                            <Button text='Contact Us' className='px-7 py-3' />
                         </Link>
                     </div>
 

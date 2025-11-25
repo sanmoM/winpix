@@ -107,7 +107,7 @@ export default function Navbar() {
                   />
                 ))}
                 <Link href="/brand-marketing">
-                  <BorderButton className="px-8 w-full" text={"Promote Your Brand"} />
+                  <BorderButton className="px-8 w-full" text={t("root.navbar.buttons.promote")} />
                 </Link>
               </div>
             </div>

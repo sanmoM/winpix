@@ -1,3 +1,4 @@
+import useLocales from '@/hooks/useLocales';
 import { cn } from '@/lib/utils';
 import React from 'react';
 
@@ -7,14 +8,17 @@ interface Option {
 }
 
 interface SelectInputProps {
-    id: string;
+    id?: string;
     name?: string;
     label?: string;
     options: Option[];
-    value?: string | number;
+    value: string | number;
     placeholder?: string;
-    onChange?: (value: string | number) => void;
+    onChange: (value: string | number) => void;
     className?: string;
+    inputClassName?: string;
+    hasOption?: boolean;
+    required?: boolean;
 }
 
 const SelectInput: React.FC<SelectInputProps> = ({
@@ -27,20 +31,24 @@ const SelectInput: React.FC<SelectInputProps> = ({
     onChange,
     className = '',
     inputClassName = '',
-    hasOption=true
+    hasOption = true,
+    required = false,
 }) => {
+    const { currentLanguage } = useLocales()
     return (
         <div className={cn('w-full max-w-xs', className)}>
             {label && (
-                <label htmlFor={id} className="mb-2 block text-sm font-medium">
-                    {label}
+                <label
+                    {...{ id }}
+                    className="block text-sm font-semibold text-gray-600 dark:text-white mb-2">
+                    {label} {required && <span className="text-red-500">*</span>}
                 </label>
             )}
 
             <div className="relative">
                 {/* The Select Element */}
                 <select
-                    id={id}
+                    {...{ id }}
                     name={name || id}
                     value={value}
                     onChange={(e) => onChange?.(e.target.value)}
@@ -54,7 +62,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
                             {placeholder}
                         </option>
                     )}
-                    {hasOption && <option value="">Select Option</option>}
+                    {hasOption && <option value="">{currentLanguage === 'ar' ? 'اختر خيارات' : 'Select Option'}</option>}
                     {options.map((option) => (
                         <option key={option.value} value={option.value}>
                             {option.label}

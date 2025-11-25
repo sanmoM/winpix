@@ -261,9 +261,41 @@
             "save": "Save",
             "saved": "Saved",
             "link": "Link",
-            "create": "Create"
+            "create": "Create",
+            "delete": "Delete",
+            "edit": "Edit",
+            "view": "View",
+            "back": "Back"
         },
         "slider": {
+            "inputs": {
+                "title": {
+                    "label": "Title",
+                    "placeholder": "Enter title"
+                },
+                "content": {
+                    "label": "Sub Title",
+                    "placeholder": "Enter sub title"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status",
+                    "options": [
+                        {
+                            "label": "Active",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "Inactive",
+                            "value": "Inactive"
+                        }
+                    ]
+                },
+                "bg_image": {
+                    "label": "Background Image",
+                    "placeholder": "Select a background image"
+                }
+            },
             "create": {
                 "title": "Create Slider"
             },
@@ -274,13 +306,23 @@
                 "title": "View Slider"
             },
             "index": {
-                "heading": "Sliders",
+                "title": "Sliders",
                 "breadcrumbs": [
                     {
                         "title": "All Slider",
                         "href": "/admin/slider"
                     }
-                ]
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Image",
+                        "Title",
+                        "Sub Title",
+                        "Status",
+                        "Actions"
+                    ]
+                }
             }
         },
         "profile": {

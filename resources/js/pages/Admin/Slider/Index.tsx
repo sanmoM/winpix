@@ -58,13 +58,13 @@ export default function Index({
     });
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
             <Head title="Slider" />
             <TableContainer>
-                <TableTopSection href={route('admin.slider.create')} title="Sliders" />
+                <TableTopSection href={route('admin.slider.create')} title={t('dashboard.slider.index.title')} />
                 <Table
-                    headingItems={['#', 'Image', 'Title', 'Sub Title', 'Status', 'Actions']}
+                    headingItems={t('dashboard.slider.index.table.headings', { returnObjects: true })}
                 >
                     {sliders?.length > 0 ? (
                         sliders?.map((item, index) => (

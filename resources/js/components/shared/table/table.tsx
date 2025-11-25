@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Table({ children, headingItems }: { children: React.ReactNode, headingItems?: string[] }) {
+export default function Table({ children, headingItems }: { children: React.ReactNode, headingItems?: any }) {
     return (
         <div className="overflow-x-auto rounded-lg border border-gray-200 bg-bg-primary shadow-sm">
             <table className="min-w-full border-collapse text-left text-sm text-gray-700">

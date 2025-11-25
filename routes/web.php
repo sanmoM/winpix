@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FollowController;
 use App\Http\Controllers\Admin\HelpController;
 use App\Http\Controllers\Admin\OthersController;
@@ -73,6 +74,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::resource('type', QuestTypeController::class)->names('admin.questType');
     Route::resource('category', QuestCategoryController::class)->names('admin.questCategory');
     Route::get('others', [OthersController::class, 'index'])->name('admin.others');
+    Route::resource('contacts', ContactController::class)->names('admin.contacts');
 
 });
 

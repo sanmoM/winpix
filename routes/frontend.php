@@ -30,3 +30,4 @@ Route::post('/join-quest/{id}', [FrontendController::class, 'joinQuest'])->name(
 Route::post('/vote/{imageId}/{questId}', [FrontendController::class, 'vote'])->name('vote')->withoutMiddleware(\App\Http\Middleware\HandleInertiaRequests::class);
 
 Route::post('/follow-user', [FrontendController::class, 'followUser'])->name('follow-user');
+Route::post('/contact-us', [FrontendController::class, 'createContact'])->name('create-contact');

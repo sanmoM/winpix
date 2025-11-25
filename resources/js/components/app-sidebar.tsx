@@ -114,6 +114,11 @@ export function AppSidebar() {
                     href: route('admin.help.index'),
                     icon: ServerIcon,
                 },
+                {
+                    title: 'Contact',
+                    href: route('admin.contacts.index'),
+                    icon: ServerIcon,
+                },
             ],
         },
     ];

@@ -4,26 +4,37 @@ import UserLayout from '@/layouts/user-layout';
 import TextInput from '@/components/shared/inputs/text-input';
 import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import Button from '@/components/shared/buttons/button';
+import { useForm } from '@inertiajs/react';
+import toast from 'react-hot-toast';
 
 export default function ContactUs() {
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+    const { data, setData, post } = useForm({
         email: '',
+        first_name: '',
+        last_name: '',
         message: ''
-    });
+    })
     const [submitted, setSubmitted] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Simulate submission
-        setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 3000);
+        post('/contact-us', {
+            onSuccess: () => {
+                toast.success('Contact form submitted successfully!');
+                setData({
+                    first_name: '',
+                    last_name: '',
+                    email: '',
+                    message: ''
+                })
+            }
+        });
+
     };
 
     return (
@@ -52,7 +63,7 @@ export default function ContactUs() {
                                     name="firstName"
                                     placeholder="First Name"
                                     required
-                                    value={formData.firstName}
+                                    value={data.firstName}
                                     onChange={handleChange}
                                     className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                                 />
@@ -62,8 +73,8 @@ export default function ContactUs() {
                                 name="firstName"
                                 placeholder="First Name"
                                 required
-                                value={formData.firstName}
-                                setValue={(value) => setFormData(prev => ({ ...prev, firstName: value }))}
+                                value={data.first_name}
+                                setValue={(value) => setData(prev => ({ ...prev, first_name: value }))}
                                 className="w-full"
                             />
                             <TextInput
@@ -71,8 +82,8 @@ export default function ContactUs() {
                                 name="lastName"
                                 placeholder="Last Name"
                                 required
-                                value={formData.lastName}
-                                setValue={(value) => setFormData(prev => ({ ...prev, lastName: value }))}
+                                value={data.last_name}
+                                setValue={(value) => setData(prev => ({ ...prev, last_name: value }))}
                                 className="w-full"
                             />
                         </div>
@@ -82,8 +93,8 @@ export default function ContactUs() {
                             name="email"
                             placeholder="Email"
                             required
-                            value={formData.email}
-                            setValue={(value) => setFormData(prev => ({ ...prev, email: value }))}
+                            value={data.email}
+                            setValue={(value) => setData(prev => ({ ...prev, email: value }))}
                             className="w-full"
                         />
 
@@ -93,8 +104,8 @@ export default function ContactUs() {
                             name="message"
                             placeholder="Your Message"
                             required
-                            value={formData.message}
-                            setValue={(value) => setFormData(prev => ({ ...prev, message: value }))}
+                            value={data.message}
+                            onChange={handleChange}
                             inputClassName={"w-full"}
                         />
 

@@ -160,16 +160,16 @@ import { useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'All Slider',
-        href: route('admin.slider.index'),
-    },
-    {
-        title: 'Edit',
-        href: '',
-    },
-];
+// const breadcrumbs: BreadcrumbItem[] = [
+//     {
+//         title: 'All Slider',
+//         href: route('admin.slider.index'),
+//     },
+//     {
+//         title: 'Edit',
+//         href: '',
+//     },
+// ];
 
 interface FlashProps {
     success?: string;
@@ -196,6 +196,10 @@ export default function Edit({ slider, flash }: EditProps) {
         status: slider.status,
         bg_image: null as File | null,
     });
+
+    const breadcrumbs: BreadcrumbItem[] = t('dashboard.slider.edit.breadcrumbs', {
+        returnObjects: true,
+    }) as BreadcrumbItem[];
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 

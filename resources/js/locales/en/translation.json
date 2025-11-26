@@ -1096,6 +1096,171 @@
             "view": {
                 "title": "View Contest Category"
             }
+        },
+        "users": {
+            "index": {
+                "title": "Users",
+                "breadcrumbs": [
+                    {
+                        "title": "All Users",
+                        "href": "/admin/users"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Email",
+                        "Status",
+                        "Actions"
+                    ]
+                }
+            }
+        },
+        "help": {
+            "inputs": {
+                "question": {
+                    "label": "Question",
+                    "placeholder": "Enter a question"
+                },
+                "answer": {
+                    "label": "Answer",
+                    "placeholder": "Enter an answer"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status",
+                    "options": [
+                        {
+                            "label": "Active",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "Inactive",
+                            "value": "Inactive"
+                        }
+                    ]
+                },
+                "questionType": {
+                    "label": "Question Type",
+                    "placeholder": "Select a question type",
+                    "options": [
+                        {
+                            "label": "Getting Start",
+                            "value": "Getting_Start"
+                        },
+                        {
+                            "label": "Quests",
+                            "value": "Quests"
+                        },
+                        {
+                            "label": "App Economy",
+                            "value": "App_Economy"
+                        },
+                        {
+                            "label": "Skill Ranks",
+                            "value": "Skill_Ranks"
+                        },
+                        {
+                            "label": "Account Management",
+                            "value": "Account_Management"
+                        },
+                        {
+                            "label": "Purchase",
+                            "value": "Purchase"
+                        },
+                        {
+                            "label": "Troubleshooting",
+                            "value": "Troubleshooting"
+                        },
+                        {
+                            "label": "Content & Community Guidelines",
+                            "value": "Content_Community_Guidelines"
+                        },
+                        {
+                            "label": "Contact Support",
+                            "value": "Contact_Support"
+                        }
+                    ]
+                }
+            },
+            "index": {
+                "title": "Helps",
+                "breadcrumbs": [
+                    {
+                        "title": "Helps",
+                        "href": "/admin/help"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Question Type",
+                        "Question",
+                        "Answer",
+                        "Status",
+                        "Actions"
+                    ]
+                }
+            },
+            "create": {
+                "title": "Create Help",
+                "breadcrumbs": [
+                    {
+                        "title": "Helps",
+                        "href": "/admin/help"
+                    },
+                    {
+                        "title": "Create Help",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "Edit Help",
+                "breadcrumbs": [
+                    {
+                        "title": "Helps",
+                        "href": "/admin/help"
+                    },
+                    {
+                        "title": "Edit Help",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "View Help"
+            }
+        },
+        "contacts": {
+            "view": {
+                "title": "View Contact",
+                "breadcrumbs": [
+                    {
+                        "title": "Contact",
+                        "href": "/admin/contact"
+                    }
+                ]
+            },
+            "index": {
+                "title": "Contact",
+                "breadcrumbs": [
+                    {
+                        "title": "Contact",
+                        "href": "/admin/contact"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Email",
+                        "Message",
+                        "Actions"
+                    ]
+                }
+            }
         }
     }
 }

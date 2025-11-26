@@ -1,5 +1,3 @@
-import useLocales from '@/hooks/useLocales'
-import React from 'react'
 
 export default function TextInput({ value, setValue, name, placeholder, required, inputClassName, label, error, id, type='text', ...props }: { value: string, setValue: any, name?: string, placeholder: string, required?: boolean, inputClassName?: string, label: string, error?: string, id?: string, type?: string, props?: any }) {
     return (

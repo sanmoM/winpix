@@ -1,3 +1,4 @@
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { Head, usePage } from '@inertiajs/react';
 import {
@@ -22,21 +23,23 @@ ChartJS.register(
     Legend,
 );
 
-const breadcrumbs = [
-    {
-        title: 'Admin Dashboard',
-        href: 'admin/dashboard',
-    },
-];
+// const breadcrumbs = [
+//     {
+//         title: 'Admin Dashboard',
+//         href: 'admin/dashboard',
+//     },
+// ];
 
 export default function Dashboard() {
     const { stats, visitorChart } = usePage().props;
 
+    const { t } = useLocales()
+
     const barData = {
-        labels: ['Users', 'Quests'],
+        labels: [t('dashboard.analytics.users'), t('dashboard.analytics.quests')],
         datasets: [
             {
-                label: 'Counts',
+                label: t('dashboard.analytics.counts'),
                 data: [stats.users, stats.quests],
                 backgroundColor: ['rgba(54, 162, 235, 0.6)'],
             },
@@ -47,7 +50,7 @@ export default function Dashboard() {
         labels: visitorChart.labels,
         datasets: [
             {
-                label: 'Monthly Visitors',
+                label: t('dashboard.analytics.monthlyVisitors'),
                 data: visitorChart.data,
                 borderWidth: 2,
                 fill: false,
@@ -56,18 +59,19 @@ export default function Dashboard() {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={t('dashboard.analytics.breadcrumbs', {
+            returnObjects: true,
+        })}>
             <Head title="Admin Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 {/* Top 4 cards */}
                 <div className="grid gap-3 md:grid-cols-4">
                     <div className="relative aspect-video rounded-xl border p-4">
-                        <h2 className="text-lg font-semibold">Total Users</h2>
+                        <h2 className="text-lg font-semibold">{t('dashboard.analytics.totalUsers')}</h2>
                         <p className="mt-3 text-3xl font-bold">{stats.users}</p>
                     </div>
-
                     <div className="relative aspect-video rounded-xl border p-4">
-                        <h2 className="text-lg font-semibold">Total Quests</h2>
+                        <h2 className="text-lg font-semibold">{t('dashboard.analytics.totalQuests')}</h2>
                         <p className="mt-3 text-3xl font-bold">
                             {stats.quests}
                         </p>
@@ -85,7 +89,7 @@ export default function Dashboard() {
                 {/* Main big chart area */}
                 <div className="relative min-h-[400px] rounded-xl border p-6">
                     <h2 className="mb-4 text-xl font-semibold">
-                        Visitors Overview
+                        {t('dashboard.analytics.visitorsOverview')}
                     </h2>
                     <Line data={visitorData} height={100} />
                 </div>

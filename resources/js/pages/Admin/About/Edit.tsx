@@ -1,132 +1,139 @@
-import RichTextEditor from '@/components/RichTextEditor';
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import ImageInput from '@/components/shared/inputs/image-input';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import TextInput from '@/components/shared/inputs/text-input';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
-import React from 'react';
+import { useEffect, useRef } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
+import RichTextEditor from '@/components/RichTextEditor';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: route('admin.dashboard') },
-    { title: 'About', href: route('admin.about.index') },
-    { title: 'Edit', href: '' },
-];
+interface FlashProps {
+    success?: string;
+    error?: string;
+}
 
 interface EditProps {
     item: {
         id: number;
         title: string;
         content: string;
-        picture: File | string | null;
+        picture: string | null;
     };
+    flash?: FlashProps;
 }
 
-export default function Edit({ item }: EditProps) {
-    const { data, setData, post, processing, progress, errors } = useForm({
+export default function Edit({ item, flash }: EditProps) {
+    const { t } = useLocales();
+
+    const { data, setData, post, processing, errors } = useForm({
         _method: 'PUT',
         title: item.title,
         content: item.content,
         picture: null as File | null,
     });
 
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (flash?.success) toast.success(flash.success);
+        if (flash?.error) toast.error(flash.error);
+    }, [flash]);
+
+    const breadcrumbs: BreadcrumbItem[] = t(
+        'dashboard.about.edit.breadcrumbs',
+        { returnObjects: true }
+    );
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         const formData = new FormData();
+
         formData.append('_method', 'PUT');
         formData.append('title', data.title);
         formData.append('content', data.content);
 
+        if (data.picture) {
+            formData.append('picture', data.picture);
+        }
+
         post(route('admin.about.update', item.id), {
             data: formData,
             forceFormData: true,
-            // onSuccess: () => console.log('Updated successfully'),
+            onSuccess: () => {
+                if (fileInputRef.current) fileInputRef.current.value = '';
+            },
         });
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Edit About" />
-            <div className="px-4 py-6">
-                <form
-                    onSubmit={handleSubmit}
-                    className="max-w-6xl space-y-6 px-4"
-                >
-                    {/* IMAGE UPLOAD */}
-                    <div>
-                        <ImageInput
-                            image={
-                                data.picture
-                                    ? data.picture instanceof File
-                                        ? URL.createObjectURL(data.picture)
-                                        : `/storage/${data.picture}`
-                                    : item.picture
-                                      ? `/storage/${item.picture}`
-                                      : null
-                            }
-                            setImage={(value) => setData('picture', value)}
-                            wrapperClassName="w-full aspect-[2/1]"
-                            iconClassName="w-[20%]"
-                        />
+            <Head title={t('dashboard.about.edit.title')} />
+            <ToastContainer />
 
-                        {progress && (
-                            <p className="mt-1 text-xs text-gray-500">
-                                Uploading: {progress.percentage}%
-                            </p>
-                        )}
-                        {errors.picture && (
-                            <p className="text-sm text-red-600">
-                                {errors.picture}
-                            </p>
-                        )}
-                    </div>
+            <form
+                onSubmit={handleSubmit}
+                className="max-w-6xl space-y-6 p-4"
+                encType="multipart/form-data"
+            >
+                {/* IMAGE UPLOAD */}
+                <ImageInput
+                    image={
+                        data.picture
+                            ? data.picture
+                            : item.picture
+                                ? `/storage/${item.picture}`
+                                : null
+                    }
+                    setImage={(value) => setData('picture', value)}
+                    wrapperClassName="w-full aspect-[2/1]"
+                    iconClassName="w-[20%]"
+                    error={errors.picture}
+                    label={t('dashboard.about.inputs.image.label')}
+                    required={false}
+                    ref={fileInputRef}
+                />
 
-                    {/* TITLE */}
-                    <div>
-                        <Label htmlFor="title">Title</Label>
-                        <Input
-                            id="title"
-                            value={data.title}
-                            onChange={(e) => setData('title', e.target.value)}
-                            placeholder="Enter title"
-                        />
-                        {errors.title && (
-                            <p className="text-sm text-red-600">
-                                {errors.title}
-                            </p>
-                        )}
-                    </div>
+                {/* TITLE */}
+                <TextInput
+                    id="title"
+                    value={data.title}
+                    setValue={(value) => setData('title', value)}
+                    placeholder={t(
+                        'dashboard.about.inputs.title.placeholder'
+                    )}
+                    error={errors.title}
+                    label={t('dashboard.about.inputs.title.label')}
+                    required={true}
+                />
 
-                    {/* CONTENT */}
-                    <div>
-                        <Label htmlFor="content">Content</Label>
-                        <RichTextEditor
-                            modelValue={data.content}
-                            onChange={(val) => setData('content', val)}
-                        />
-                        {errors.content && (
-                            <p className="text-sm text-red-600">
-                                {errors.content}
-                            </p>
-                        )}
-                    </div>
+                {/* CONTENT */}
+                <div>
+                    <label className="block text-sm font-medium mb-1">
+                        {t('dashboard.about.inputs.content.label')}
+                    </label>
 
-                    {/* SUBMIT BUTTON */}
-                    <div className="pt-4">
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className={`rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white shadow ${
-                                processing && 'cursor-not-allowed opacity-60'
-                            }`}
-                        >
-                            {processing ? 'Updating...' : 'Update'}
-                        </button>
-                    </div>
-                </form>
-            </div>
+                    <RichTextEditor
+                        modelValue={data.content}
+                        onChange={(val) => setData('content', val)}
+                    />
+
+                    {errors.content && (
+                        <p className="text-sm text-red-600 mt-1">
+                            {errors.content}
+                        </p>
+                    )}
+                </div>
+
+                {/* SAVE + BACK */}
+                <SaveAndBackButtons
+                    processing={processing}
+                    href={route('admin.about.index')}
+                />
+            </form>
         </AppLayout>
     );
 }

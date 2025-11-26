@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import React from 'react'
 
 export default function Table({ children, headingItems }: { children: React.ReactNode, headingItems?: any }) {
@@ -6,12 +7,29 @@ export default function Table({ children, headingItems }: { children: React.Reac
             <table className="min-w-full border-collapse text-left text-sm text-gray-700">
                 <thead className="bg-primary-color text-white ">
                     <tr>
-                        {headingItems && headingItems.map((item, index) => (
-                            <th key={index} className="px-4 py-3 first:!text-left last:!text-right">
-                                {item}
-                            </th>
-                        ))}
+                        {headingItems && headingItems.map((item, index) => {
+                            const isRTL =
+                                typeof document !== "undefined" && document.dir === "rtl"
+
+                            return (
+                                <th
+                                    key={index}
+                                    className={cn(
+                                        "px-4 py-3",
+
+                                        // LTR (default)
+                                        !isRTL && "first:!text-left last:!text-right",
+
+                                        // RTL (reverse)
+                                        isRTL && "first:!text-right last:!text-left"
+                                    )}
+                                >
+                                    {item}
+                                </th>
+                            )
+                        })}
                     </tr>
+
                 </thead>
                 <tbody>
                     {children}

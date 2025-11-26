@@ -30,6 +30,7 @@ export default function language() {
                     options={languageOptions}
                     value={currentLanguage}
                     onChange={(value) => changeLanguage(value)}
+                    className="max-w-auto w-full"
                 />
             </SettingsLayout>
         </AppLayout>

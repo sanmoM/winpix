@@ -725,6 +725,9 @@
         },
         "quest": {
             "inputs": {
+                "image": {
+                    "label": "Image"
+                },
                 "level_requirement": {
                     "label": "Level Requirement",
                     "placeholder": "Enter a level requirement"
@@ -803,12 +806,295 @@
                 "rank_tier": {
                     "label": "Minimum Rank",
                     "placeholder": "Select a minimum rank"
+                },
+                "prizes": {
+                    "singlePosition": "Single Position",
+                    "rangePrize": "Range Prize",
+                    "serialNumber": "Position (Serial Number)",
+                    "minPosition": "Min Position",
+                    "maxPosition": "Max Position",
+                    "coin": "Prize Coins",
+                    "allocatePrizes": "Allocate Prizes",
+                    "addPrize": "Add Prize",
+                    "noPrizes": "No prizes allocated yet. Start adding from position 1.",
+                    "coinTypes": [
+                        {
+                            "label": "Coin",
+                            "value": "coin"
+                        },
+                        {
+                            "label": "Pixel",
+                            "value": "pixel"
+                        }
+                    ]
                 }
             },
-            "button": {
-                "createButton": "Create Contest",
-                "updateButton": "Update Contest",
-                "saveText": "Saved"
+            "create": {
+                "title": "CreateContest Contest",
+                "breadcrumbs": [
+                    {
+                        "title": "AllContestContests",
+                        "href": "/admin/quest"
+                    },
+                    {
+                        "title": "Create Contest",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "Edit Contest",
+                "breadcrumbs": [
+                    {
+                        "title": "All Contest",
+                        "href": "/admin/quest"
+                    },
+                    {
+                        "title": "Edit Contest",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "View Contest"
+            },
+            "index": {
+                "title": "Contest",
+                "breadcrumbs": [
+                    {
+                        "title": "All Contest",
+                        "href": "/admin/quest"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Image",
+                        "Name",
+                        "Creator",
+                        "Status",
+                        "Actions"
+                    ]
+                }
+            }
+        },
+        "series": {
+            "inputs": {
+                "image": {
+                    "label": "Image",
+                    "placeholder": "Select an image"
+                },
+                "title": {
+                    "label": "Title",
+                    "placeholder": "Enter a title"
+                },
+                "description": {
+                    "label": "Description",
+                    "placeholder": "Enter a description"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status",
+                    "options": [
+                        {
+                            "label": "Active",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "Inactive",
+                            "value": "Inactive"
+                        }
+                    ]
+                }
+            },
+            "index": {
+                "title": "Series",
+                "breadcrumbs": [
+                    {
+                        "title": "All Series",
+                        "href": "/admin/series"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Image",
+                        "Title",
+                        "Description",
+                        "Status",
+                        "Actions"
+                    ]
+                },
+                "confirm_delete": "Are you sure you want to delete this series?"
+            },
+            "create": {
+                "title": "Create Series",
+                "breadcrumbs": [
+                    {
+                        "title": "All Series",
+                        "href": "/admin/series"
+                    },
+                    {
+                        "title": "Create Series",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "Edit Series",
+                "breadcrumbs": [
+                    {
+                        "title": "All Series",
+                        "href": "/admin/series"
+                    },
+                    {
+                        "title": "Edit Series",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "View Series"
+            }
+        },
+        "questType": {
+            "inputs": {
+                "name": {
+                    "label": "Name",
+                    "placeholder": "Enter a name"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status",
+                    "options": [
+                        {
+                            "label": "Active",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "Inactive",
+                            "value": "Inactive"
+                        }
+                    ]
+                }
+            },
+            "index": {
+                "title": "Quest Type",
+                "breadcrumbs": [
+                    {
+                        "title": "All Quest Type",
+                        "href": "/admin/quest-type"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Status",
+                        "Actions"
+                    ]
+                }
+            },
+            "create": {
+                "title": "Create Quest Type",
+                "breadcrumbs": [
+                    {
+                        "title": "All Quest Type",
+                        "href": "/admin/quest-type"
+                    },
+                    {
+                        "title": "Create Quest Type",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "Edit Quest Type",
+                "breadcrumbs": [
+                    {
+                        "title": "All Quest Type",
+                        "href": "/admin/quest-type"
+                    },
+                    {
+                        "title": "Edit Quest Type",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "View Quest Type"
+            }
+        },
+        "questCategory": {
+            "inputs": {
+                "name": {
+                    "label": "Name",
+                    "placeholder": "Enter a name"
+                },
+                "description": {
+                    "label": "Description",
+                    "placeholder": "Enter a description"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status",
+                    "options": [
+                        {
+                            "label": "Active",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "Inactive",
+                            "value": "Inactive"
+                        }
+                    ]
+                }
+            },
+            "index": {
+                "title": "Contest Category",
+                "breadcrumbs": [
+                    {
+                        "title": "All Contest Category",
+                        "href": "/admin/quest-category"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Status",
+                        "Actions"
+                    ]
+                }
+            },
+            "create": {
+                "title": "Create Contest Category",
+                "breadcrumbs": [
+                    {
+                        "title": "All Contest Category",
+                        "href": "/admin/category"
+                    },
+                    {
+                        "title": "Create Contest Category",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "Edit Contest Category",
+                "breadcrumbs": [
+                    {
+                        "title": "All Contest Category",
+                        "href": "/admin/quest-category"
+                    },
+                    {
+                        "title": "Edit Contest Category",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "View Contest Category"
             }
         }
     }

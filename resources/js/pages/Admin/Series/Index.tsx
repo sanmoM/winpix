@@ -1,22 +1,22 @@
-import Button from '@/components/shared/buttons/button';
+import DeleteButton from '@/components/shared/table/components/delete-button';
+import EditButton from '@/components/shared/table/components/edit-button';
+import NoTableItems from '@/components/shared/table/components/no-table-items';
+import TableCell from '@/components/shared/table/components/table-cell';
+import TableRow from '@/components/shared/table/components/table-row';
+import TableTopSection from '@/components/shared/table/components/table-top-section/table-top-section';
+import { default as Table } from '@/components/shared/table/table';
+import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head, Link, router } from '@inertiajs/react';
-import { useEffect } from 'react';
+import { Head, router } from '@inertiajs/react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'All Series',
-        href: 'admin/series',
-    },
-];
+import { useEffect } from 'react';
 
 interface SeriesItem {
     id: number;
-    image: string;
+    image: string | null;
     title: string;
     description: string;
     status: string;
@@ -27,131 +27,98 @@ interface FlashProps {
     error?: string;
 }
 
-export default function Index({
+export default function SeriesIndex({
     series,
     flash,
 }: {
     series: SeriesItem[];
     flash: FlashProps;
 }) {
-    useEffect(() => {
-        if (flash?.success) {
-            toast.success(flash?.success);
-        }
+    const { t } = useLocales();
 
-        if (flash?.error) {
-            toast.error(flash.error);
-        }
+    const breadcrumbs = [
+        {
+            title: t('dashboard.series.index.title'),
+            href: route('admin.series.index'),
+        },
+    ];
+
+    useEffect(() => {
+        if (flash?.success) toast.success(flash.success);
+        if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
     const handleDelete = (id: number) => {
         if (!confirm('Are you sure you want to delete this item?')) return;
-
         router.delete(route('admin.series.destroy', id));
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <ToastContainer />
-            <Head title="All Series" />
-            <div className="p-4">
-                <div className="mb-4 flex items-center justify-between">
-                    <h1 className="text-lg font-semibold">Series Items</h1>
-                    <Link href={route('admin.series.create')}>
-                        <Button text="Create" />
-                    </Link>
-                </div>
-                <div className="overflow-x-auto rounded-lg border border-gray-200 bg-bg-primary shadow-sm">
-                    <table className="min-w-full border-collapse text-left text-sm text-gray-700">
-                        <thead className="bg-primary-color text-white">
-                            <tr>
-                                <th className="px-4 py-3">#</th>
-                                <th className="px-4 py-3">Image</th>
-                                <th className="px-4 py-3">Title</th>
-                                <th className="px-4 py-3">Description</th>
-                                <th className="px-4 py-3">Status</th>
-                                <th className="px-4 py-3 !text-right">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {series?.length > 0 ? (
-                                series?.map((item, index) => (
-                                    <tr
-                                        key={item?.id}
-                                        className="border-t transition hover:bg-amber-50"
-                                    >
-                                        <td className="px-4 py-3 font-medium">
-                                            {index + 1}
-                                        </td>
-                                        <td className="px-4 py-3">
-                                            {item?.image ? (
-                                                <img
-                                                    src={`/storage/${item.image}`}
-                                                    alt="icon image"
-                                                    className="h-10 w-10 rounded object-cover"
-                                                />
-                                            ) : (
-                                                <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
-                                                    —
-                                                </div>
-                                            )}
-                                        </td>
-                                        <td className="px-4 py-3">
-                                            {item?.title}
-                                        </td>
-                                        <td className="px-4 py-3">
-                                            {item?.description}
-                                        </td>
-                                        <td className="px-4 py-3">
-                                            <Badge
-                                                className={
-                                                    item?.status === 'Active'
-                                                        ? 'bg-green-400'
-                                                        : 'bg-red-400'
-                                                }
-                                            >
-                                                {item?.status}
-                                            </Badge>
-                                        </td>
-                                        <td className="space-x-3 px-4 py-3 !text-right">
-                                            <Link
-                                                href={route(
-                                                    'admin.series.edit',
-                                                    item?.id,
-                                                )}
-                                                className="bg-dark cursor-pointer rounded-md bg-slate-800 px-3 py-2 font-medium text-white"
-                                            >
-                                                Edit
-                                            </Link>
+            <Head title={t('dashboard.series.index.title')} />
 
-                                            <button
-                                                type="button"
-                                                onClick={() =>
-                                                    handleDelete(item?.id)
-                                                }
-                                                className="cursor-pointer rounded-md bg-red-500 p-2 font-medium text-white"
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td
-                                        colSpan={5}
-                                        className="px-4 py-6 text-center text-gray-500"
+            <TableContainer>
+                <TableTopSection
+                    href={route('admin.series.create')}
+                    title={t('dashboard.series.index.title')}
+                />
+
+                <Table
+                    headingItems={t('dashboard.series.index.table.headings', {
+                        returnObjects: true,
+                    })}
+                >
+                    {series?.length > 0 ? (
+                        series.map((item, index) => (
+                            <TableRow key={item.id}>
+                                <TableCell>{index + 1}</TableCell>
+
+                                <TableCell>
+                                    {item.image ? (
+                                        <img
+                                            src={`/storage/${item.image}`}
+                                            alt={item.title}
+                                            className="h-10 w-10 rounded object-cover"
+                                        />
+                                    ) : (
+                                        <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
+                                            —
+                                        </div>
+                                    )}
+                                </TableCell>
+
+                                <TableCell>{item.title}</TableCell>
+
+                                <TableCell>{item.description}</TableCell>
+
+                                <TableCell>
+                                    <Badge
+                                        className={
+                                            item.status === 'Active'
+                                                ? 'bg-green-400'
+                                                : 'bg-red-400'
+                                        }
                                     >
-                                        No items found
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                                        {item.status}
+                                    </Badge>
+                                </TableCell>
+
+                                <TableCell className="space-x-2">
+                                    <EditButton
+                                        route={route('admin.series.edit', item.id)}
+                                    />
+                                    <DeleteButton
+                                        handleDelete={() => handleDelete(item.id)}
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    ) : (
+                        <NoTableItems />
+                    )}
+                </Table>
+            </TableContainer>
         </AppLayout>
     );
 }

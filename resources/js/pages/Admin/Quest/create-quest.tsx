@@ -1,8 +1,10 @@
 import InputError from '@/components/input-error';
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import DateInput from '@/components/shared/inputs/date-input';
 import ImageInput from '@/components/shared/inputs/image-input';
 import SelectInput from '@/components/shared/inputs/select-input';
 import TextAreaInput from '@/components/shared/inputs/text-area-input';
+import TextInput from '@/components/shared/inputs/text-input';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -133,36 +135,25 @@ export default function Dashboard() {
                         iconClassName="w-[20%]"
                     />
 
-                    {/* Title */}
-                    <div className="grid gap-2">
-                        <Label htmlFor="title">
-                            {t('dashboard.quest.inputs.title.label')}
-                        </Label>
-                        <Input
-                            id="title"
-                            name="title"
-                            value={data.title}
-                            onChange={(e) => setData('title', e.target.value)}
-                            placeholder={t(
-                                'dashboard.quest.inputs.title.placeholder',
-                            )}
-                        />
-                        <InputError message={errors.title} />
-                    </div>
 
-                    <div className="grid gap-2">
-                        <Label htmlFor="title">
-                            {t('dashboard.quest.inputs.brief.label')}
-                        </Label>
-                        <TextAreaInput
-                            value={data.brief}
-                            onChange={(e) => setData('brief', e.target.value)}
-                            placeholder={t(
-                                'dashboard.quest.inputs.brief.placeholder',
-                            )}
-                        />
-                        <InputError message={errors.brief} />
-                    </div>
+                    <TextInput
+                        id="title"
+                        value={data.title}
+                        setValue={(value) => setData('title', value)}
+                        label={t('dashboard.quest.inputs.title.label')}
+                        placeholder={t('dashboard.quest.inputs.title.placeholder')}
+                        error={errors.title}
+                        required={true}
+                    />
+                    <TextAreaInput
+                        id="brief"
+                        value={data.brief}
+                        onChange={(e) => setData('brief', e.target.value)}
+                        label={t('dashboard.quest.inputs.brief.label')}
+                        placeholder={t('dashboard.quest.inputs.brief.placeholder')}
+                        error={errors.brief}
+                        required={true}
+                    />
                     <div className="grid grid-cols-2 gap-4">
                         <SelectInput
                             id="tag"
@@ -217,96 +208,44 @@ export default function Dashboard() {
                             hasOption={false}
                         />
                     </div>
-
-                    <div className="grid gap-2">
-                        <Label htmlFor="title">
-                            {t('dashboard.quest.inputs.entryCoin.label')}
-                        </Label>
-                        <Input
-                            type="number"
-                            id="start"
-                            name="start"
-                            value={data.entry_coin}
-                            onChange={(e) => {
-                                setData('entry_coin', e.target.value);
-                            }}
-                            placeholder={t(
-                                'dashboard.quest.inputs.entryCoin.placeholder',
-                            )}
-                        />
-                        <InputError message={errors.entry_coin} />
-                    </div>
+                    <TextInput
+                        id="entry_coin"
+                        type='number'
+                        value={data.entry_coin}
+                        setValue={(value) => setData('entry_coin', value)}
+                        label={t('dashboard.quest.inputs.entryCoin.label')}
+                        placeholder={t('dashboard.quest.inputs.entryCoin.placeholder')}
+                        error={errors.entry_coin}
+                        required={true}
+                    />
                     <div className="grid grid-cols-3 gap-4">
-                        <div className="grid gap-2">
-                            <Label htmlFor="title">
-                                {t(
-                                    'dashboard.quest.inputs.level_requirement.label',
-                                )}
-                            </Label>
-                            <Input
-                                id="level_require"
-                                name="level_require"
-                                value={data.level_requirement}
-                                onChange={(e) => {
-                                    setData(
-                                        'level_requirement',
-                                        e.target.value,
-                                    );
-                                }}
-                                placeholder={t(
-                                    'dashboard.quest.inputs.level_requirement.placeholder',
-                                )}
-                            />
-                            <InputError message={errors.level_requirement} />
-                        </div>
-                        <div className="grid gap-2">
-                            <Label htmlFor="title">
-                                {t(
-                                    'dashboard.quest.inputs.categories_requirement.label',
-                                )}
-                            </Label>
-                            <Input
-                                id="categories_require"
-                                name="categories_require"
-                                value={data.categories_requirement}
-                                onChange={(e) => {
-                                    setData(
-                                        'categories_requirement',
-                                        e.target.value,
-                                    );
-                                }}
-                                placeholder={t(
-                                    'dashboard.quest.inputs.categories_requirement.placeholder',
-                                )}
-                            />
-                            <InputError
-                                message={errors.categories_requirement}
-                            />
-                        </div>
-                        <div className="grid gap-2">
-                            <Label htmlFor="title">
-                                {t(
-                                    'dashboard.quest.inputs.copyright_requirement.label',
-                                )}
-                            </Label>
-                            <Input
-                                id="copyright_require"
-                                name="copyright_require"
-                                value={data.copyright_requirement}
-                                onChange={(e) => {
-                                    setData(
-                                        'copyright_requirement',
-                                        e.target.value,
-                                    );
-                                }}
-                                placeholder={t(
-                                    'dashboard.quest.inputs.copyright_requirement.placeholder',
-                                )}
-                            />
-                            <InputError
-                                message={errors.copyright_requirement}
-                            />
-                        </div>
+                        <TextInput
+                            id="copyright_require"
+                            value={data.copyright_requirement}
+                            setValue={(value) => setData('copyright_requirement', value)}
+                            label={t('dashboard.quest.inputs.copyright_requirement.label')}
+                            placeholder={t('dashboard.quest.inputs.copyright_requirement.placeholder')}
+                            error={errors.copyright_requirement}
+                            required={true}
+                        />
+                        <TextInput
+                            id="level_require"
+                            value={data.level_requirement}
+                            setValue={(value) => setData('level_requirement', value)}
+                            label={t('dashboard.quest.inputs.level_requirement.label')}
+                            placeholder={t('dashboard.quest.inputs.level_requirement.placeholder')}
+                            error={errors.level_requirement}
+                            required={true}
+                        />
+                        <TextInput
+                            id="categories_require"
+                            value={data.categories_requirement}
+                            setValue={(value) => setData('categories_requirement', value)}
+                            label={t('dashboard.quest.inputs.categories_requirement.label')}
+                            placeholder={t('dashboard.quest.inputs.categories_requirement.placeholder')}
+                            error={errors.categories_requirement}
+                            required={true}
+                        />
                     </div>
 
                     {/* Start Date & End Date Row */}
@@ -341,46 +280,9 @@ export default function Dashboard() {
                         prizes={data.prizes}
                         setPrizes={(value) => setData('prizes', value)}
                     />
-
-                    {/* Submit Button */}
-                    <div className="flex items-center gap-4">
-                        <Button disabled={processing}>
-                            {' '}
-                            {t('dashboard.quest.button.createButton')}
-                        </Button>
-
-                        <Transition
-                            show={recentlySuccessful}
-                            enter="transition ease-in-out"
-                            enterFrom="opacity-0"
-                            leave="transition ease-in-out"
-                            leaveTo="opacity-0"
-                        >
-                            <p className="text-sm text-neutral-600">
-                                {t('dashboard.quest.button.saveText')}
-                            </p>
-                        </Transition>
-                    </div>
+                    {/* <SaveAndBackButtons processing={processing} href={route('admin.quest.index')} /> */}
                 </form>
             </div>
         </AppLayout>
     );
 }
-
-// Minus Icon
-const MinusIcon = () => (
-    <svg
-        className="h-5 w-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M18 12H6"
-        ></path>
-    </svg>
-);

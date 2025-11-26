@@ -8,6 +8,7 @@ use App\Models\Quest;
 use App\Models\QuestCategory;
 use App\Models\QuestType;
 use App\Models\Series;
+use App\Services\RankingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -42,6 +43,7 @@ class QuestController extends Controller
             'categories' => $categories,
             'series' => $series,
             'types' => $types,
+            'rank_tiers' => RankingService::RANK_TIERS,
         ]);
     }
 

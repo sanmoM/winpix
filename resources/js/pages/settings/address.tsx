@@ -75,6 +75,7 @@ const Address = ({ user, countries }: PageProps) => {
                                 onChange={(value) =>
                                     setData('country_id', value)
                                 }
+                                className="max-w-auto w-full"
                             />
                             <InputError message={errors.country_id} />
 

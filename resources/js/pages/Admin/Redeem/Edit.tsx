@@ -1,21 +1,14 @@
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import ImageInput from '@/components/shared/inputs/image-input';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import Select from '@/components/shared/inputs/select';
+import SelectInput from '@/components/shared/inputs/select-input';
+import TextInput from '@/components/shared/inputs/text-input';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
+import { useRef } from 'react';
 import { route } from 'ziggy-js';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Redeem',
-        href: route('admin.redeem.index'),
-    },
-    {
-        title: 'Edit',
-        href: '',
-    },
-];
 
 interface EditProps {
     redeem: {
@@ -29,159 +22,86 @@ interface EditProps {
 }
 
 export default function Edit({ redeem }: EditProps) {
-    const { data, setData, post, processing, progress, errors, reset } =
-        useForm({
-            _method: 'PUT',
-            number_of_coin: redeem.number_of_coin,
-            price: redeem.price,
-            status: redeem.status,
-            prize_type: redeem.prize_type,
-            icon_image: null as File | null,
-        });
+    const { t } = useLocales();
+    const { data, setData, post, processing, errors, reset } = useForm({
+        _method: 'PUT',
+        number_of_coin: redeem.number_of_coin,
+        price: redeem.price,
+        prize_type: redeem.prize_type,
+        icon_image: null as File | null,
+        status: redeem.status,
+    });
+
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         post(route('admin.redeem.update', redeem.id), {
             forceFormData: true,
-            onSuccess: () => {
-                reset();
-            },
+            onSuccess: () => reset(),
         });
     };
 
+    const breadcrumbs: BreadcrumbItem[] = t('dashboard.redeem.edit.breadcrumbs', { returnObjects: true });
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Edit Redeem Package" />
+            <Head title={t('dashboard.redeem.edit.title')} />
 
-            <form
-                onSubmit={handleSubmit}
-                className="flex max-w-6xl flex-col space-y-6 p-6"
-                encType="multipart/form-data"
-            >
-                {/* Image Upload */}
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="bg_image">Icon Image</Label>
-                    <ImageInput
-                        image={
-                            data.icon_image
-                                ? data.icon_image instanceof File
-                                    ? URL.createObjectURL(data.icon_image)
-                                    : `/storage/${data.icon_image}`
-                                : redeem.icon_image
-                                  ? `/storage/${redeem.icon_image}`
-                                  : null
-                        }
-                        setImage={(value) => setData('icon_image', value)}
-                        wrapperClassName="w-full aspect-[2/1]"
-                        iconClassName="w-[20%]"
-                    />
-                    {progress && (
-                        <p className="mt-1 text-xs text-gray-500">
-                            Uploading: {progress.percentage}%
-                        </p>
-                    )}
-                    {errors.icon_image && (
-                        <p className="text-sm text-red-600">
-                            {errors.icon_image}
-                        </p>
-                    )}
-                </div>
-                {/* Title */}
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="number_of_coin" className="font-semibold">
-                        Number Of Coin <span className="text-red-600">*</span>
-                    </Label>
-                    <Input
-                        id="number_of_coin"
-                        type="number"
-                        value={data.number_of_coin}
-                        onChange={(e) =>
-                            setData('number_of_coin', e.target.value)
-                        }
-                        placeholder="Enter number of coin"
-                    />
-                    {errors.number_of_coin && (
-                        <p className="text-sm text-red-600">
-                            {errors.number_of_coin}
-                        </p>
-                    )}
-                </div>
+            <form onSubmit={handleSubmit} className="max-w-6xl space-y-6 p-4" encType="multipart/form-data">
+                <ImageInput
+                    image={data.icon_image ? URL.createObjectURL(data.icon_image as File) : redeem.icon_image ? `/storage/${redeem.icon_image}` : null}
+                    setImage={(value) => setData('icon_image', value)}
+                    wrapperClassName="w-full aspect-[2/1]"
+                    iconClassName="w-[20%]"
+                    error={errors.icon_image}
+                    label={t('dashboard.redeem.inputs.icon_image.label')}
+                    ref={fileInputRef}
+                />
 
-                {/* Content */}
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="price" className="font-semibold">
-                        Price <span className="text-red-600">*</span>
-                    </Label>
-                    <Input
-                        id="price"
-                        type="number"
-                        value={data.price}
-                        onChange={(e) => setData('price', e.target.value)}
-                        placeholder="Enter price"
-                    />
-                    {errors.price && (
-                        <p className="text-sm text-red-600">{errors.price}</p>
-                    )}
-                </div>
+                <TextInput
+                    id="number_of_coin"
+                    value={data.number_of_coin}
+                    setValue={(value) => setData('number_of_coin', value)}
+                    label={t('dashboard.redeem.inputs.number_of_coin.label')}
+                    placeholder={t('dashboard.redeem.inputs.number_of_coin.placeholder')}
+                    error={errors.number_of_coin}
+                    required
+                />
 
-                {/* prize_type */}
-                <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="prize_type" className="font-semibold">
-                        Prize Type <span className="text-red-600">*</span>
-                    </Label>
-                    <select
-                        id="prize_type"
-                        value={data.prize_type}
-                        onChange={(e) => setData('prize_type', e.target.value)}
-                        className="rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-amber-600 focus:outline-none"
-                    >
-                        <option value="app_prize">In-app Prize</option>
-                        <option value="great_prize">Great Prize</option>
-                        <option value="grand_prize">Grand Prize</option>
-                    </select>
-                    {errors.prize_type && (
-                        <p className="text-sm text-red-600">
-                            {errors.prize_type}
-                        </p>
-                    )}
-                </div>
+                <TextInput
+                    id="price"
+                    value={data.price}
+                    setValue={(value) => setData('price', value)}
+                    label={t('dashboard.redeem.inputs.price.label')}
+                    placeholder={t('dashboard.redeem.inputs.price.placeholder')}
+                    error={errors.price}
+                    required
+                />
 
-                {/* Status */}
-                <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="status" className="font-semibold">
-                        Status <span className="text-red-600">*</span>
-                    </Label>
-                    <select
-                        id="status"
-                        value={data.status}
-                        onChange={(e) => setData('status', e.target.value)}
-                        className="rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-amber-600 focus:outline-none"
-                    >
-                        <option value="Active">Active</option>
-                        <option value="InActive">InActive</option>
-                    </select>
-                    {errors.status && (
-                        <p className="text-sm text-red-600">{errors.status}</p>
-                    )}
-                </div>
+                <SelectInput
+                    id="prize_type"
+                    value={data.prize_type}
+                    setValue={(value) => setData('prize_type', value)}
+                    label={t('dashboard.redeem.inputs.prize_type.label')}
+                    options={t('dashboard.redeem.inputs.prize_type.options', { returnObjects: true })}
+                    error={errors.prize_type}
+                    required
+                    className="max-w-auto w-full"
+                />
 
-                {/* Action Buttons */}
-                <div className="flex items-center justify-end space-x-4 pt-4">
-                    <Link
-                        href={route('admin.redeem.index')}
-                        className="w-28 rounded-lg border border-gray-300 px-6 py-2 text-center font-semibold text-gray-700 hover:bg-gray-100"
-                    >
-                        Back
-                    </Link>
+                <SelectInput
+                    id="status"
+                    value={data.status}
+                    setValue={(value) => setData('status', value)}
+                    label={t('dashboard.redeem.inputs.status.label')}
+                    options={t('dashboard.redeem.inputs.status.options', { returnObjects: true })}
+                    error={errors.status}
+                    required
+                    className="max-w-auto w-full"
+                />
 
-                    <button
-                        type="submit"
-                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white disabled:opacity-70"
-                        disabled={processing}
-                    >
-                        {processing ? 'Updating...' : 'Update'}
-                    </button>
-                </div>
+                <SaveAndBackButtons processing={processing} href={route('admin.redeem.index')} />
             </form>
         </AppLayout>
     );

@@ -345,6 +345,275 @@
                 }
             }
         },
+        "store": {
+            "inputs": {
+                "number_of_coin": {
+                    "label": "Number Of Coin",
+                    "placeholder": "Enter number of coin"
+                },
+                "price": {
+                    "label": "Price",
+                    "placeholder": "Enter price"
+                },
+                "icon_image": {
+                    "label": "Icon Image",
+                    "placeholder": "Select an icon image"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status",
+                    "options": [
+                        {
+                            "label": "Active",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "Inactive",
+                            "value": "Inactive"
+                        }
+                    ]
+                }
+            },
+            "create": {
+                "title": "Create Store Package",
+                "breadcrumbs": [
+                    {
+                        "title": "All Store Package",
+                        "href": "/admin/store"
+                    },
+                    {
+                        "title": "Create Store Package",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "Edit Store Package",
+                "breadcrumbs": [
+                    {
+                        "title": "All Store Package",
+                        "href": "/admin/store"
+                    },
+                    {
+                        "title": "Edit Store Package",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "View Store Package"
+            },
+            "index": {
+                "title": "Store Packages",
+                "breadcrumbs": [
+                    {
+                        "title": "All Store Package",
+                        "href": "/admin/store"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Icon",
+                        "Number Of Coin",
+                        "Price",
+                        "Status",
+                        "Actions"
+                    ]
+                },
+                "confirm_delete": "Are you sure you want to delete this store package?"
+            }
+        },
+        "redeem": {
+            "inputs": {
+                "number_of_coin": {
+                    "label": "Number Of Coin",
+                    "placeholder": "Enter number of coin"
+                },
+                "price": {
+                    "label": "Price",
+                    "placeholder": "Enter price"
+                },
+                "icon_image": {
+                    "label": "Icon Image",
+                    "placeholder": "Select an icon image"
+                },
+                "prize_type": {
+                    "label": "Prize Type",
+                    "placeholder": "Select a prize type",
+                    "options": [
+                        {
+                            "label": "In-app Prize",
+                            "value": "app_prize"
+                        },
+                        {
+                            "label": "Great Prize",
+                            "value": "great_prize"
+                        },
+                        {
+                            "label": "Grand Prize",
+                            "value": "grand_prize"
+                        }
+                    ]
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status",
+                    "options": [
+                        {
+                            "label": "Active",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "Inactive",
+                            "value": "InActive"
+                        }
+                    ]
+                }
+            },
+            "create": {
+                "title": "Create Redeem Package",
+                "breadcrumbs": [
+                    {
+                        "title": "All Redeem Package",
+                        "href": "/admin/redeem"
+                    },
+                    {
+                        "title": "Create Redeem Package",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "Edit Redeem Package",
+                "breadcrumbs": [
+                    {
+                        "title": "All Redeem Package",
+                        "href": "/admin/redeem"
+                    },
+                    {
+                        "title": "Edit Redeem Package",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "View Redeem Package"
+            },
+            "index": {
+                "title": "Redeem Packages",
+                "breadcrumbs": [
+                    {
+                        "title": "All Redeem Package",
+                        "href": "/admin/redeem"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Icon",
+                        "Number Of Coin",
+                        "Price",
+                        "Prize Type",
+                        "Status",
+                        "Actions"
+                    ]
+                },
+                "confirm_delete": "Are you sure you want to delete this redeem package?"
+            }
+        },
+        "analytics": {
+            "breadcrumbs": [
+                {
+                    "title": "Analytics",
+                    "href": "/admin/dashboard"
+                }
+            ],
+            "totalUsers": "Total Users",
+            "totalQuests": "Total Quests",
+            "visitorsOverview": "Visitors Overview",
+            "counts": "Counts",
+            "monthlyVisitors": "Monthly Visitors",
+            "users": "Users",
+            "quests": "Quests"
+        },
+        "about": {
+            "inputs": {
+                "title": {
+                    "label": "Title",
+                    "placeholder": "Enter title"
+                },
+                "content": {
+                    "label": "Sub Title",
+                    "placeholder": "Enter sub title"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status",
+                    "options": [
+                        {
+                            "label": "Active",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "Inactive",
+                            "value": "Inactive"
+                        }
+                    ]
+                },
+                "image": {
+                    "label": "Background Image",
+                    "placeholder": "Select a background image"
+                }
+            },
+            "create": {
+                "title": "Create About",
+                "breadcrumbs": [
+                    {
+                        "title": "All About",
+                        "href": "/admin/about"
+                    },
+                    {
+                        "title": "Create About",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "About"
+            },
+            "index": {
+                "title": "About",
+                "breadcrumbs": [
+                    {
+                        "title": "About Us",
+                        "href": "/admin/about"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Image",
+                        "Title",
+                        "Status",
+                        "Actions"
+                    ]
+                }
+            },
+            "edit": {
+                "title": "Edit About",
+                "breadcrumbs": [
+                    {
+                        "title": "All About",
+                        "href": "/admin/about"
+                    },
+                    {
+                        "title": "Edit About",
+                        "href": ""
+                    }
+                ]
+            }
+        },
         "profile": {
             "heading": "Profile",
             "tab": {

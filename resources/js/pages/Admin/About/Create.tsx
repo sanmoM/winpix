@@ -1,20 +1,27 @@
-import RichTextEditor from '@/components/RichTextEditor';
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import ImageInput from '@/components/shared/inputs/image-input';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import TextInput from '@/components/shared/inputs/text-input';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
-import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
+import { useEffect, useRef } from 'react';
+import RichTextEditor from '@/components/RichTextEditor';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: route('admin.dashboard') },
-    { title: 'About', href: route('admin.about.index') },
-    { title: 'Create', href: '' },
-];
+interface FlashProps {
+    success?: string;
+    error?: string;
+}
 
-export default function Create() {
+interface Props {
+    flash?: FlashProps;
+}
+
+export default function Create({ flash }: Props) {
+    const { t } = useLocales();
+
     const { data, setData, post, processing, progress, errors, reset } =
         useForm<{
             title: string;
@@ -25,6 +32,13 @@ export default function Create() {
             content: '',
             picture: null,
         });
+
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (flash?.success) toast.success(flash.success);
+        if (flash?.error) toast.error(flash.error);
+    }, [flash]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -37,84 +51,80 @@ export default function Create() {
         post(route('admin.about.store'), {
             data: formData,
             forceFormData: true,
-            onSuccess: () => reset(),
+            onSuccess: () => {
+                reset();
+                if (fileInputRef.current) fileInputRef.current.value = '';
+            },
         });
     };
 
+    const breadcrumbs: BreadcrumbItem[] = t(
+        'dashboard.about.create.breadcrumbs',
+        { returnObjects: true }
+    );
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Create About" />
-            <div className="px-4 py-6">
-                <form
-                    onSubmit={handleSubmit}
-                    className="max-w-6xl space-y-6 px-4"
-                >
-                    {/* IMAGE UPLOAD */}
-                    <div>
-                        <ImageInput
-                            image={data.picture}
-                            setImage={(value) => setData('picture', value)}
-                            wrapperClassName="w-full aspect-[2/1]"
-                            iconClassName="w-[20%]"
-                        />
-                        {progress && (
-                            <p className="mt-1 text-xs text-gray-500">
-                                Uploading: {progress.percentage}%
-                            </p>
-                        )}
-                        {errors.picture && (
-                            <p className="text-sm text-red-600">
-                                {errors.picture}
-                            </p>
-                        )}
-                    </div>
+            <Head title={t('dashboard.about.create.title')} />
+            <ToastContainer />
 
-                    {/* TITLE */}
-                    <div>
-                        <Label htmlFor="title">Title (Default Language)</Label>
-                        <Input
-                            id="title"
-                            value={data.title}
-                            onChange={(e) => setData('title', e.target.value)}
-                            placeholder="Enter title"
-                        />
-                        {errors.title && (
-                            <p className="text-sm text-red-600">
-                                {errors.title}
-                            </p>
-                        )}
-                    </div>
+            <form
+                onSubmit={handleSubmit}
+                className="max-w-6xl space-y-6 p-4"
+                encType="multipart/form-data"
+            >
+                {/* IMAGE UPLOAD */}
+                <ImageInput
+                    image={data.picture}
+                    setImage={(value) => setData('picture', value)}
+                    wrapperClassName="w-full aspect-[2/1]"
+                    iconClassName="w-[20%]"
+                    error={errors.picture}
+                    label={t('dashboard.about.inputs.image.label')}
+                    required={true}
+                    ref={fileInputRef}
+                />
 
-                    {/* CONTENT */}
-                    <div>
-                        <Label htmlFor="content">
-                            Content (Default Language)
-                        </Label>
-                        <RichTextEditor
-                            modelValue={data.content}
-                            onChange={(val) => setData('content', val)}
-                        />
-                        {errors.content && (
-                            <p className="text-sm text-red-600">
-                                {errors.content}
-                            </p>
-                        )}
-                    </div>
+                {progress && (
+                    <p className="mt-1 text-xs text-gray-500">
+                        Uploading: {progress.percentage}%
+                    </p>
+                )}
 
-                    {/* SUBMIT */}
-                    <div className="flex justify-end pt-4">
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className={`cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white shadow transition ease-in-out hover:bg-amber-700 ${
-                                processing && 'cursor-not-allowed opacity-60'
-                            }`}
-                        >
-                            {processing ? 'Saving...' : 'Save'}
-                        </button>
-                    </div>
-                </form>
-            </div>
+                {/* TITLE */}
+                <TextInput
+                    id="title"
+                    value={data.title}
+                    setValue={(value) => setData('title', value)}
+                    label={t('dashboard.about.inputs.title.label')}
+                    placeholder={t('dashboard.about.inputs.title.placeholder')}
+                    error={errors.title}
+                    required={true}
+                />
+
+                {/* CONTENT (Rich Text) */}
+                <div>
+                    <label className="mb-1 block text-sm font-medium">
+                        {t('dashboard.about.inputs.content.label')}
+                    </label>
+
+                    <RichTextEditor
+                        modelValue={data.content}
+                        onChange={(val) => setData('content', val)}
+                    />
+
+                    {errors.content && (
+                        <p className="text-sm text-red-600">
+                            {errors.content}
+                        </p>
+                    )}
+                </div>
+
+                <SaveAndBackButtons
+                    processing={processing}
+                    href={route('admin.about.index')}
+                />
+            </form>
         </AppLayout>
     );
 }

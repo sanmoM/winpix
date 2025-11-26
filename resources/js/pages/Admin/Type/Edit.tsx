@@ -1,20 +1,18 @@
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
+import SelectInput from '@/components/shared/inputs/select-input';
+import TextInput from '@/components/shared/inputs/text-input';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Contest Type Edit',
-        href: 'admin/quest-type',
-    },
-    {
-        title: 'Edit',
-        href: '',
-    },
-];
+interface FlashProps {
+    success?: string;
+    error?: string;
+}
 
 interface EditProps {
     item: {
@@ -22,13 +20,26 @@ interface EditProps {
         name: string;
         status: string;
     };
+    flash?: FlashProps;
 }
 
-export default function Edit({ item }: EditProps) {
-    const { data, setData, put, errors, processing } = useForm({
+export default function Edit({ item, flash }: EditProps) {
+    const { t } = useLocales();
+
+    const { data, setData, put, processing, errors } = useForm({
         name: item.name,
         status: item.status,
     });
+
+    useEffect(() => {
+        if (flash?.success) toast.success(flash.success);
+        if (flash?.error) toast.error(flash.error);
+    }, [flash]);
+
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: t('dashboard.questType.index.title'), href: route('admin.questType.index') },
+        { title: t('dashboard.questType.edit.title'), href: '' },
+    ];
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -37,57 +48,38 @@ export default function Edit({ item }: EditProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Edit Quest Type" />
+            <Head title={t('dashboard.questType.edit.title')} />
+            <ToastContainer />
 
             <form
                 onSubmit={handleSubmit}
-                className="flex max-w-6xl flex-col space-y-4 p-6"
+                className="max-w-6xl space-y-6 p-4"
             >
-                <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="name" className="font-semibold">
-                        Name <span className="text-red-600">*</span>
-                    </Label>
-                    <Input
-                        id="name"
-                        type="text"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
-                        placeholder="Enter Name"
-                    />
-                    {errors.name && (
-                        <p className="text-sm text-red-600">{errors.name}</p>
-                    )}
-                </div>
+                {/* NAME */}
+                <TextInput
+                    id="name"
+                    value={data.name}
+                    setValue={(value) => setData('name', value)}
+                    label={t('dashboard.questType.inputs.name.label')}
+                    placeholder={t('dashboard.questType.inputs.name.placeholder')}
+                    error={errors.name}
+                    required={true}
+                />
+                <SelectInput
+                    id="status"
+                    name="status"
+                    label={t('dashboard.questType.inputs.status.label')}
+                    options={t('dashboard.questType.inputs.status.options', { returnObjects: true }) as any}
+                    value={data.status}
+                    onChange={(value) => setData('status', value)}
+                    className="max-w-auto w-full"
+                />
 
-                {/* Status */}
-                <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="status" className="font-semibold">
-                        Status <span className="text-red-600">*</span>
-                    </Label>
-                    <select
-                        id="status"
-                        value={data.status}
-                        onChange={(e) => setData('status', e.target.value)}
-                        className="rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-amber-600 focus:outline-none"
-                    >
-                        <option value="Active">Active</option>
-                        <option value="InActive">InActive</option>
-                    </select>
-                    {errors.status && (
-                        <p className="text-sm text-red-600">{errors.status}</p>
-                    )}
-                </div>
-
-                {/* Submit */}
-                <div className="flex justify-end">
-                    <button
-                        type="submit"
-                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white disabled:opacity-70"
-                        disabled={processing}
-                    >
-                        {processing ? 'Updating...' : 'Update'}
-                    </button>
-                </div>
+                {/* Save & Back Buttons */}
+                <SaveAndBackButtons
+                    processing={processing}
+                    href={route('admin.questType.index')}
+                />
             </form>
         </AppLayout>
     );

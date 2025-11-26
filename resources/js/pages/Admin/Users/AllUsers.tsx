@@ -1,7 +1,17 @@
+
+import DeleteButton from '@/components/shared/table/components/delete-button';
+import EditButton from '@/components/shared/table/components/edit-button';
+import NoTableItems from '@/components/shared/table/components/no-table-items';
+import TableCell from '@/components/shared/table/components/table-cell';
+import TableRow from '@/components/shared/table/components/table-row';
+import { default as Table } from '@/components/shared/table/table';
+import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
 
 interface User {
@@ -12,108 +22,68 @@ interface User {
     status: string;
 }
 
-interface DashboardProps {
-    users: User[];
+interface FlashProps {
+    success?: string;
+    error?: string;
 }
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Admin Dashboard',
-        href: 'admin/dashboard',
-    },
-];
 
-export default function Dashboard({ users }: DashboardProps) {
+export default function UsersIndex({
+    users,
+    flash,
+}: {
+    users: User[];
+    flash: FlashProps;
+}) {
+    const { t } = useLocales();
+
+    const breadcrumbs = t('dashboard.users.index.breadcrumbs', { returnObjects: true });
+
+    useEffect(() => {
+        if (flash?.success) toast.success(flash.success);
+        if (flash?.error) toast.error(flash.error);
+    }, [flash]);
+
+    const handleDelete = (id: number) => {
+        if (!confirm('Are you sure you want to delete this user?')) return;
+        router.delete(route('admin.users.destroy', id));
+    };
+
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="About" />
-            <div className="p-4">
-                <div className="mb-4 flex items-center justify-between">
-                    <h1 className="text-lg font-semibold">All Users</h1>
-                    {/* <Link href={route('admin.help.create')}>
-                        <Button text="Create" />
-                    </Link> */}
-                </div>
-                <div className="overflow-x-auto rounded-lg border border-gray-200 bg-bg-primary shadow-sm">
-                    <table className="min-w-full border-collapse text-left text-sm text-gray-700">
-                        <thead className="bg-primary-color text-white">
-                            <tr>
-                                <th className="px-4 py-3">#</th>
-                                <th className="px-4 py-3">Name</th>
-                                <th className="px-4 py-3">Email</th>
-                                <th className="px-4 py-3">Level</th>
-                                <th className="px-4 py-3">Status</th>
-                                <th className="px-4 py-3 !text-right">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users?.length > 0 ? (
-                                users?.map((user, index) => (
-                                    <tr
-                                        key={user.id}
-                                        className="border-t transition hover:bg-amber-50"
-                                    >
-                                        <td className="px-4 py-3 font-medium">
-                                            {index + 1}
-                                        </td>
-                                        <td className="px-4 py-3">
-                                            {user?.name}
-                                        </td>
-                                        <td className="px-4 py-3">
-                                            {user?.email}
-                                        </td>
-                                        <td className="px-4 py-3">
-                                            {user?.level}
-                                        </td>
-                                        <td className="px-4 py-3">
-                                            <Badge
-                                                className={
-                                                    user?.status === 'active'
-                                                        ? 'bg-green-400'
-                                                        : 'bg-red-400'
-                                                }
-                                            >
-                                                {user?.status}
-                                            </Badge>
-                                        </td>
-                                        <td className="space-x-3 px-4 py-3 !text-right">
-                                            <Link
-                                                href={route(
-                                                    'admin.editUsers',
-                                                    user.id,
-                                                )}
-                                                className="bg-dark cursor-pointer rounded-md bg-slate-800 px-3 py-2 font-medium text-white"
-                                            >
-                                                Edit
-                                            </Link>
+        <AppLayout breadcrumbs={breadcrumbs as any}>
+            <ToastContainer />
+            <Head title="Users" />
 
-                                            {/* <button
-                                                type="button"
-                                                onClick={() =>
-                                                    handleDelete(user.id)
-                                                }
-                                                className="cursor-pointer rounded-md bg-red-500 p-2 font-medium text-white"
-                                            >
-                                                Delete
-                                            </button> */}
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td
-                                        colSpan={5}
-                                        className="px-4 py-6 !text-center text-gray-500"
+            <TableContainer>
+                <h1 className="text-lg font-semibold mb-3">{t('dashboard.users.index.title')}</h1>
+
+                <Table
+                    headingItems={t('dashboard.users.index.table.headings', { returnObjects: true })}
+                >
+                    {users?.length > 0 ? (
+                        users.map((user, index) => (
+                            <TableRow key={user.id}>
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{user.name}</TableCell>
+                                <TableCell>{user.email}</TableCell>
+                                <TableCell>{user.level}</TableCell>
+                                <TableCell>
+                                    <Badge
+                                        className={user.status === 'active' ? 'bg-green-400' : 'bg-red-400'}
                                     >
-                                        No items found
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                                        {user.status}
+                                    </Badge>
+                                </TableCell>
+                                <TableCell className="space-x-2">
+                                    <EditButton route={route('admin.users.edit', user.id)} />
+                                    <DeleteButton handleDelete={() => handleDelete(user.id)} />
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    ) : (
+                        <NoTableItems />
+                    )}
+                </Table>
+            </TableContainer>
         </AppLayout>
     );
 }

@@ -1,18 +1,13 @@
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
+import TextInput from '@/components/shared/inputs/text-input';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { useEffect } from 'react';
+import { Head, useForm } from '@inertiajs/react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
+import { useEffect } from 'react';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Contest Type Create',
-        href: 'admin/questType',
-    },
-];
 interface FlashProps {
     success?: string;
     error?: string;
@@ -23,65 +18,54 @@ interface Props {
 }
 
 export default function Create({ flash }: Props) {
-    const { data, setData, post, errors, reset, processing } = useForm({
+    const { t } = useLocales();
+
+    const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
     });
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        post(route('admin.questType.store'), {
-            onSuccess: () => {
-                reset();
-            },
-        });
-    };
 
     useEffect(() => {
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        post(route('admin.questType.store'), {
+            onSuccess: () => reset(),
+        });
+    };
+
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: t('dashboard.questType.index.title'), href: route('admin.questType.index') },
+        { title: t('dashboard.questType.create.title'), href: '' },
+    ];
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Help" />
+            <Head title={t('dashboard.questType.create.title')} />
             <ToastContainer />
+
             <form
                 onSubmit={handleSubmit}
-                className="flex max-w-6xl flex-col space-y-4 p-6"
+                className="max-w-6xl space-y-6 p-4"
             >
-                <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="name" className="font-semibold">
-                        Name <span className="text-red-600">*</span>
-                    </Label>
-                    <Input
-                        id="name"
-                        type="text"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
-                        placeholder="Enter Name"
-                    />
-                    {errors.name && (
-                        <p className="text-sm text-red-600">{errors.name}</p>
-                    )}
-                </div>
+                {/* NAME */}
+                <TextInput
+                    id="name"
+                    value={data.name}
+                    setValue={(value) => setData('name', value)}
+                    label={t('dashboard.questType.inputs.name.label')}
+                    placeholder={t('dashboard.questType.inputs.name.placeholder')}
+                    error={errors.name}
+                    required={true}
+                />
 
-                {/* Action Buttons */}
-                <div className="flex items-center justify-end space-x-4 pt-4">
-                    <Link
-                        href={route('admin.questType.index')}
-                        className="w-28 rounded-lg border border-gray-300 px-6 py-2 text-center font-semibold text-gray-700 hover:bg-gray-100"
-                    >
-                        Back
-                    </Link>
-
-                    <button
-                        type="submit"
-                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white disabled:opacity-70"
-                        disabled={processing}
-                    >
-                        {processing ? 'Saving...' : 'Save'}
-                    </button>
-                </div>
+                {/* Save & Back Buttons */}
+                <SaveAndBackButtons
+                    processing={processing}
+                    href={route('admin.questType.index')}
+                />
             </form>
         </AppLayout>
     );

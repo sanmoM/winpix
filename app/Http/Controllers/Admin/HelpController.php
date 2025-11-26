@@ -176,7 +176,7 @@ class HelpController extends Controller
     public function update(Request $request, string $id)
     {
         $item = Help::findOrFail($id);
-
+        // return dd($request->all());
         $validated = $request->validate([
             'section' => 'required|string|max:255',
             'question' => 'required|string',
@@ -184,9 +184,10 @@ class HelpController extends Controller
             'lang' => 'required',
         ]);
 
+
         if ($item->group_id) {
-            Help::where('group_id', $item->group_id)
-                ->update(['section' => $validated['section']]);
+            Help::where('group_id', $item->group_id)->where('lang', $validated['lang'])
+                ->update(['section' => $validated['section'], 'question' => $validated['question'], 'answer' => $validated['answer']]);
         } else {
             $item->update(['section' => $validated['section']]);
         }

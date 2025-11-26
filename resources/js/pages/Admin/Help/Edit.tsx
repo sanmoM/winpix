@@ -1,21 +1,13 @@
 import RichTextEditor from '@/components/RichTextEditor';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
+import SelectInput from '@/components/shared/inputs/select-input';
+import TextInput from '@/components/shared/inputs/text-input';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
+import toast from 'react-hot-toast';
 import { route } from 'ziggy-js';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Help',
-        href: 'admin/help',
-    },
-    {
-        title: 'Edit',
-        href: '',
-    },
-];
 
 interface EditProps {
     item: {
@@ -28,6 +20,9 @@ interface EditProps {
 }
 
 export default function Edit({ item }: EditProps) {
+    const { t } = useLocales();
+    const breadcrumbs: BreadcrumbItem[] = t('dashboard.help.edit.breadcrumbs', { returnObjects: true });
+
     const { data, setData, put, errors, processing } = useForm({
         section: item.section,
         question: item.question,
@@ -35,71 +30,73 @@ export default function Edit({ item }: EditProps) {
         lang: item.lang,
     });
 
+    // const handleSubmit = (e: React.FormEvent) => {
+    //     e.preventDefault();
+
+    //     const formData = new FormData();
+    //     formData.append('section', data.section);
+    //     formData.append('question', data.question);
+    //     formData.append('answer', data.answer);
+
+    //     put(route('admin.help.update', item.id), {
+    //         data: formData,
+    //         forceFormData: true,
+    //     });
+    // };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(route('admin.help.update', item.id)); // your route should match the update route
+        const formData = new FormData();
+        formData.append('section', data.section);
+        formData.append('question', data.question);
+        formData.append('answer', data.answer);
+
+        put(route('admin.help.update', item.id));
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Edit Help" />
+            <Head title={t('dashboard.help.edit.title')} />
 
-            <form
-                onSubmit={handleSubmit}
-                className="flex flex-col space-y-4 p-6"
-            >
+            <form onSubmit={handleSubmit} className="max-w-6xl space-y-6 p-4">
                 {/* Section */}
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="section">Section</Label>
-                    <select
-                        id="section"
-                        value={data.section}
-                        onChange={(e) => setData('section', e.target.value)}
-                        className="w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-                    >
-                        <option value="Getting_Start">Getting Start</option>
-                        <option value="Quests">Quests</option>
-                        <option value="App_Economy">App Economy</option>
-                        <option value="Skill_Ranks">Skill Ranks</option>
-                        <option value="Account_Management">
-                            Account Management
-                        </option>
-                        <option value="Purchase">Purchase</option>
-                        <option value="Troubleshooting">Troubleshooting</option>
-                        <option value="Content_Community_Guidelines">
-                            Content and Community Guidelines
-                        </option>
-                        <option value="Contact_Support">Contact Support</option>
-                    </select>
-                </div>
+                <SelectInput
+                    id="section"
+                    name="section"
+                    label={t('dashboard.help.inputs.questionType.label')}
+                    options={t('dashboard.help.inputs.questionType.options', { returnObjects: true }) as any}
+                    value={data.section}
+                    onChange={(value) => setData('section', value)}
+                    className="max-w-auto w-full"
+                />
 
                 {/* Question */}
-                <Label htmlFor="question">Question</Label>
-                <Input
+                <TextInput
                     id="question"
-                    type="text"
                     value={data.question}
-                    onChange={(e) => setData('question', e.target.value)}
-                    placeholder="Enter question"
+                    setValue={(value) => setData('question', value)}
+                    label={t('dashboard.help.inputs.question.label')}
+                    placeholder={t('dashboard.help.inputs.question.placeholder')}
+                    error={errors.question}
                 />
 
                 {/* Answer */}
-                <Label htmlFor="answer">Answer</Label>
-                <RichTextEditor
-                    modelValue={data.answer}
-                    onChange={(val) => setData('answer', val)}
-                />
-                <div className="flex justify-end">
-                    <button
-                        type="submit"
-                        disabled={processing}
-                        className={`cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white shadow transition ease-in-out hover:bg-amber-700 ${
-                            processing && 'cursor-not-allowed opacity-60'
-                        }`}
-                    >
-                        {processing ? 'Updating...' : 'Update'}
-                    </button>
+                <div className="grid w-full items-center gap-3">
+                    <label className="block text-sm font-medium mb-1">{t('dashboard.help.inputs.answer.label')}</label>
+                    <RichTextEditor
+                        modelValue={data.answer}
+                        onChange={(val) => setData('answer', val)}
+                    />
+                    {errors.answer && (
+                        <p className="text-sm text-red-600">{errors.answer}</p>
+                    )}
                 </div>
+
+                {/* Save & Back Buttons */}
+                <SaveAndBackButtons
+                    processing={processing}
+                    href={route('admin.help.index')}
+                />
             </form>
         </AppLayout>
     );

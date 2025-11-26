@@ -1,24 +1,39 @@
 import RichTextEditor from '@/components/RichTextEditor';
-import { Input } from '@/components/ui/input';
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
+import SelectInput from '@/components/shared/inputs/select-input';
+import TextInput from '@/components/shared/inputs/text-input';
 import { Label } from '@/components/ui/label';
+import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/react';
+import type { BreadcrumbItem } from '@/types';
+import { Head, useForm } from '@inertiajs/react';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Help',
-        href: 'admin/Help',
-    },
-];
+interface FlashProps {
+    success?: string;
+    error?: string;
+}
 
-export default function Create() {
-    const { data, setData, post, reset, processing, errors } = useForm({
+interface Props {
+    flash?: FlashProps;
+}
+
+export default function Create({ flash }: Props) {
+    const { t } = useLocales();
+    const breadcrumbs: BreadcrumbItem[] = t('dashboard.help.create.breadcrumbs', { returnObjects: true });
+
+    const { data, setData, post, processing, reset, errors } = useForm({
         section: 'Getting_Start',
         question: '',
         answer: '',
     });
+
+    useEffect(() => {
+        if (flash?.success) toast.success(flash.success);
+        if (flash?.error) toast.error(flash.error);
+    }, [flash]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -33,65 +48,33 @@ export default function Create() {
             forceFormData: true,
             onSuccess: () => reset(),
         });
-
-        // post(route('admin.help.store'), {
-        //     onSuccess: () => {
-        //         reset();
-        //     },
-        // });
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Help" />
-            <form
-                onSubmit={handleSubmit}
-                className="flex max-w-6xl flex-col space-y-4 p-6"
-            >
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="section">Question Type</Label>
-                    <select
-                        id="section"
-                        value={data.section}
-                        onChange={(e) => setData('section', e.target.value)}
-                        className="w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-                    >
-                        <option value="Getting_Start">Getting Start</option>
-                        <option value="Quests">Quests</option>
-                        <option value="App_Economy">App Economy</option>
-                        <option value="Skill_Ranks">Skill Ranks</option>
-                        <option value="Account_Management">
-                            Account Management
-                        </option>
-                        <option value="Purchase">Purchase</option>
-                        <option value="Troubleshooting">Troubleshooting</option>
-                        <option value="Content_Community_Guidelines">
-                            Content and Community Guidelines
-                        </option>
-                        <option value="Contact_Support">Contact Support</option>
-                    </select>
+            <ToastContainer />
+            <Head title="Create Help Item" />
 
-                    {errors.section && (
-                        <p className="text-sm text-red-600">{errors.section}</p>
-                    )}
-                </div>
+            <form onSubmit={handleSubmit} className="max-w-6xl space-y-6 p-4">
+                <SelectInput
+                    id="section"
+                    name="section"
+                    label={t('dashboard.help.inputs.questionType.label')}
+                    options={t('dashboard.help.inputs.questionType.options', { returnObjects: true }) as any}
+                    value={data.section}
+                    onChange={(value) => setData('section', value)}
+                    className="max-w-auto w-full"
+                />
+                <TextInput
+                    id="question"
+                    value={data.question}
+                    setValue={(value) => setData('question', value)}
+                    label={t('dashboard.help.inputs.question.label')}
+                    placeholder={t('dashboard.help.inputs.question.placeholder')}
+                    error={errors.question}
+                    required={true}
+                />
 
-                {/* Question */}
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="question">Question</Label>
-                    <Input
-                        id="question"
-                        type="text"
-                        value={data.question}
-                        onChange={(e) => setData('question', e.target.value)}
-                        placeholder="Enter question"
-                    />
-                    {errors.question && (
-                        <p className="text-sm text-red-600">
-                            {errors.question}
-                        </p>
-                    )}
-                </div>
                 {/* Answer */}
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="answer">Answer</Label>
@@ -103,25 +86,12 @@ export default function Create() {
                         <p className="text-sm text-red-600">{errors.answer}</p>
                     )}
                 </div>
-                {/* Action Buttons */}
-                <div className="flex items-center justify-end space-x-4 pt-4">
-                    <Link
-                        href={route('admin.help.index')}
-                        className="w-28 rounded-lg border border-gray-300 px-6 py-2 text-center font-semibold text-gray-700 hover:bg-gray-100"
-                    >
-                        Back
-                    </Link>
 
-                    <button
-                        type="submit"
-                        disabled={processing}
-                        className={`cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white shadow transition ease-in-out hover:bg-amber-700 ${
-                            processing && 'cursor-not-allowed opacity-60'
-                        }`}
-                    >
-                        {processing ? 'Saving...' : 'Save'}
-                    </button>
-                </div>
+                {/* Save & Back Buttons */}
+                <SaveAndBackButtons
+                    processing={processing}
+                    href={route('admin.help.index')}
+                />
             </form>
         </AppLayout>
     );

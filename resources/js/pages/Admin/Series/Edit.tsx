@@ -1,22 +1,20 @@
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import ImageInput from '@/components/shared/inputs/image-input';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import TextInput from '@/components/shared/inputs/text-input';
+import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/react';
+import useLocales from '@/hooks/useLocales';
+import { Head, useForm } from '@inertiajs/react';
+import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
+import { useEffect, useRef } from 'react';
+import type { BreadcrumbItem } from '@/types';
+import SelectInput from '@/components/shared/inputs/select-input';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Series',
-        href: route('admin.series.index'),
-    },
-    {
-        title: 'Edit',
-        href: '',
-    },
-];
+interface FlashProps {
+    success?: string;
+    error?: string;
+}
 
 interface EditProps {
     series: {
@@ -26,129 +24,122 @@ interface EditProps {
         image: string;
         status: string;
     };
+    flash?: FlashProps;
 }
 
-export default function Edit({ series }: EditProps) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+export default function EditSeries({ series, flash }: EditProps) {
+    const { t } = useLocales();
+
+    const { data, setData, post, processing, errors, reset } = useForm<{
+        title: string;
+        description: string;
+        image: File | null;
+        status: string;
+        _method: 'PUT';
+    }>({
         _method: 'PUT',
         title: series.title,
         description: series.description,
+        image: null,
         status: series.status,
-        image: null as File | null,
     });
+
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (flash?.success) toast.success(flash.success);
+        if (flash?.error) toast.error(flash.error);
+    }, [flash]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('_method', 'PUT');
+        formData.append('title', data.title);
+        formData.append('description', data.description);
+        formData.append('status', data.status);
+        if (data.image) formData.append('image', data.image);
+
         post(route('admin.series.update', series.id), {
+            data: formData,
             forceFormData: true,
             onSuccess: () => {
                 reset();
+                if (fileInputRef.current) fileInputRef.current.value = '';
             },
         });
     };
 
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: t('dashboard.series.index.title'), href: route('admin.series.index') },
+        { title: t('dashboard.series.edit.title') },
+    ];
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Edit Series " />
+            <Head title={t('dashboard.series.edit.title')} />
+            <ToastContainer />
 
             <form
                 onSubmit={handleSubmit}
-                className="flex max-w-6xl flex-col space-y-6 p-6"
+                className="max-w-6xl space-y-6 p-6"
                 encType="multipart/form-data"
             >
-                {/* Image Upload */}
+                {/* IMAGE UPLOAD */}
                 <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="image">
-                        Series Image <span className="text-red-600">*</span>
-                    </Label>
                     <ImageInput
                         image={
                             data.image
-                                ? data.image instanceof File
-                                    ? URL.createObjectURL(data.image)
-                                    : `/storage/${data.image}`
+                                ? URL.createObjectURL(data.image)
                                 : series.image
-                                  ? `/storage/${series.image}`
-                                  : null
+                                    ? `/storage/${series.image}`
+                                    : null
                         }
                         setImage={(value) => setData('image', value)}
                         wrapperClassName="w-full aspect-[2/1]"
                         iconClassName="w-[20%]"
+                        error={errors.image}
+                        label={t('dashboard.series.inputs.image.label')}
+                        ref={fileInputRef}
                     />
-                    {errors.image && (
-                        <p className="text-sm text-red-600">{errors.image}</p>
-                    )}
-                </div>
-                {/* Title */}
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="title" className="font-semibold">
-                        Title <span className="text-red-600">*</span>
-                    </Label>
-                    <Input
-                        id="title"
-                        type="text"
-                        value={data.title}
-                        onChange={(e) => setData('title', e.target.value)}
-                        placeholder="Enter title"
-                    />
-                    {errors.title && (
-                        <p className="text-sm text-red-600">{errors.title}</p>
-                    )}
-                </div>
-                {/* Content */}
-                <div className="grid w-full items-center gap-3">
-                    <Label htmlFor="description" className="font-semibold">
-                        Description <span className="text-red-600">*</span>
-                    </Label>
-                    <Textarea
-                        id="description"
-                        value={data.description}
-                        onChange={(e) => setData('description', e.target.value)}
-                        placeholder="Enter Description"
-                    />
-                    {errors.description && (
-                        <p className="text-sm text-red-600">
-                            {errors.description}
-                        </p>
-                    )}
                 </div>
 
-                {/* Status */}
-                <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="status" className="font-semibold">
-                        Status <span className="text-red-600">*</span>
-                    </Label>
-                    <select
-                        id="status"
-                        value={data.status}
-                        onChange={(e) => setData('status', e.target.value)}
-                        className="rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-amber-600 focus:outline-none"
-                    >
-                        <option value="Active">Active</option>
-                        <option value="InActive">InActive</option>
-                    </select>
-                    {errors.status && (
-                        <p className="text-sm text-red-600">{errors.status}</p>
-                    )}
-                </div>
+                {/* TITLE */}
+                <TextInput
+                    id="title"
+                    value={data.title}
+                    setValue={(value) => setData('title', value)}
+                    label={t('dashboard.series.inputs.title.label')}
+                    placeholder={t('dashboard.series.inputs.title.placeholder')}
+                    error={errors.title}
+                    required
+                />
 
-                {/* Action Buttons */}
-                <div className="flex items-center justify-end space-x-4 pt-4">
-                    <Link
-                        href={route('admin.series.index')}
-                        className="w-28 rounded-lg border border-gray-300 px-6 py-2 text-center font-semibold text-gray-700 hover:bg-gray-100"
-                    >
-                        Back
-                    </Link>
+                {/* DESCRIPTION */}
+                <TextAreaInput
+                    id="description"
+                    value={data.description}
+                    onChange={(e) => setData('description', e.target.value)}
+                    label={t('dashboard.series.inputs.description.label')}
+                    placeholder={t('dashboard.series.inputs.description.placeholder')}
+                    error={errors.description}
+                    required
+                />
+                <SelectInput
+                    id="status"
+                    name="status"
+                    label={t('dashboard.series.inputs.status.label')}
+                    options={t('dashboard.series.inputs.status.options', { returnObjects: true }) as any}
+                    value={data.status}
+                    onChange={(value) => setData('status', value)}
+                    className="max-w-auto w-full"
+                />
 
-                    <button
-                        type="submit"
-                        className="w-28 cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white disabled:opacity-70"
-                        disabled={processing}
-                    >
-                        {processing ? 'Updating...' : 'Update'}
-                    </button>
-                </div>
+                <SaveAndBackButtons
+                    processing={processing}
+                    href={route('admin.series.index')}
+                />
             </form>
         </AppLayout>
     );

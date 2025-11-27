@@ -11,7 +11,7 @@ type CheckboxItemProps = {
  */
 const CheckboxItem: React.FC<CheckboxItemProps> = ({ label, checked, onChange }) => (
     <label className="flex items-center space-x-3 cursor-pointer group">
-        <CheckBox label={label} />
+        <CheckBox label={label} checked={checked} onChange={onChange} />
     </label>
 );
 

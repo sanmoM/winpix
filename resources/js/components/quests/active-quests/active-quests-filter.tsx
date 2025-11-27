@@ -58,19 +58,26 @@ const SlidersIcon = () => (
 );
 
 // --- Data for the filter buttons ---
-const filters = [
-    { id: 'discover', label: 'Discover', icon: <CompassIcon />, path: "/quests/active-quests?filter=discover" },
-    { id: 'ranked', label: 'Ranked', icon: <BarChartIcon />, path: "/quests/active-quests?filter=ranked" },
-    { id: 'free', label: 'Free', icon: <DollarIcon />, path: "/quests/active-quests?filter=free" },
-    { id: 'premium', label: 'Premium', icon: <CrownIcon />, path: "/quests/active-quests?filter=premium" },
-    { id: 'community', label: 'Community', icon: <UsersIcon />, path: "/quests/active-quests?filter=community" }
-];
 
 // --- Main App Component ---
-export default function ActiveQuestsFilter({ t, handleFilter, filter, setFilter, categories }: any) {
+export default function ActiveQuestsFilter({ t, handleFilter, filter, setFilter, categories, questTypes, resetFilter }: any) {
     const queryParams = new URLSearchParams(window.location.search);
     const [activeFilter, setActiveFilter] = useState(queryParams.get("filter") || 'discover');
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+
+
+    const filters = [
+        { id: 'discover', label: 'Discover', icon: <CompassIcon /> },
+        { id: 'ranked', label: 'Ranked', icon: <BarChartIcon /> },
+        { id: 'free', label: 'Free', icon: <DollarIcon /> },
+        { id: 'premium', label: 'Premium', icon: <CrownIcon /> },
+        { id: 'community', label: 'Community', icon: <UsersIcon /> },
+    ].map(filterItem => {
+        const params = new URLSearchParams(queryParams.toString()); // clone current query params
+        params.set('filter', filterItem.id); // update filter param
+        const path = `/quests/active-quests${params.toString() ? '?' + params.toString() : ''}`;
+        return { ...filterItem, path };
+    });
 
     return (
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 md:gap-10">
@@ -113,7 +120,7 @@ export default function ActiveQuestsFilter({ t, handleFilter, filter, setFilter,
             />
 
             <Modal isOpen={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)} title="Filter">
-                <ActiveQuestFilterModalContents handleFilter={handleFilter} filter={filter} setFilter={setFilter} categories={categories} />
+                <ActiveQuestFilterModalContents handleFilter={handleFilter} filter={filter} setFilter={setFilter} categories={categories} questTypes={questTypes} resetFilter={resetFilter} />
             </Modal>
         </div>
     );

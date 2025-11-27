@@ -6,36 +6,66 @@ import Container from '@/components/shared/container'
 import SectionHeading from '@/components/shared/SectionHeading'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
-import React from 'react'
+import { router } from '@inertiajs/react'
+import { useEffect, useState } from 'react'
 
-export default function active({ series, quests, categories }: any) {
+export default function active({ series, quests, categories, questTypes }: any) {
     // const params = new URLSearchParams();
     const { t, direction } = useLocales()
-    const [filter, setFilter] = React.useState({
-        rank: null,
-        category : null,
+    const [filter, setFilter] = useState({
+        rank: "All",
+        category: null,
+        questType: null,
+        isFree: null,
     })
+
+    const addFilter = (Key, Value) => {
+        setFilter(prev => ({ ...prev, [Key]: Value }));
+    }
 
     const handleFilter = () => {
         const queryParams = new URLSearchParams(window.location.search);
 
-        // Loop through all keys in filter state
         Object.entries(filter).forEach(([key, value]) => {
             if (value !== null && value !== '') {
                 queryParams.set(key, value.toString());
+            } else {
+                queryParams.delete(key);
             }
         });
 
-        // const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
-        // window.history.replaceState(null, '', newUrl);
-    }
+        const queryString = queryParams.toString();
+        const url = `/quests/active-quests${queryString ? '?' + queryString : ''}`;
+        router.get(url);
+    };
+
+    const resetFilter = () => {
+        setFilter({
+            rank: "All",
+            category: null,
+            questType: null,
+            isFree: null,
+        });
+        router.get('/quests/active-quests');
+    };
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search);
+        setFilter({
+            rank: queryParams.get('rank') || null,
+            category: parseInt(queryParams.get('category')) || null,
+            questType: parseInt(queryParams.get('questType')) || null,
+            isFree: queryParams.get('isFree') === "true" ? true : queryParams.get('isFree') === "false" ? false : null,
+        });
+    }, []);
+
 
 
     return (
         <UserLayout>
             <ActiveQuestsBanner direction={direction} t={t} quests={quests} />
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
-                <ActiveQuestsFilter t={t} handleFilter={handleFilter} filter={filter} setFilter={setFilter} categories={categories} />
+                <ActiveQuestsFilter t={t} handleFilter={handleFilter} filter={filter} setFilter={addFilter} categories={categories} questTypes={questTypes} resetFilter={resetFilter} />
                 {
                     series?.length > 0 && (
                         <QuestsSeries title={t("activeQuests.questSeries.title")} series={series} />

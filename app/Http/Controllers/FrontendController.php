@@ -11,6 +11,7 @@ use App\Models\Quest;
 use App\Models\QuestCategory;
 use App\Models\QuestImage;
 use App\Models\QuestJoin;
+use App\Models\QuestType;
 use App\Models\Redeem;
 use App\Models\Series;
 use App\Models\Slider;
@@ -78,18 +79,49 @@ class FrontendController extends Controller
         $queryParams = request()->query();
 
         $filter = $queryParams['filter'] ?? 'discover';
+        $questType = $queryParams['questType'] ?? null;
+        $category = $queryParams['category'] ?? null;
+        $isFree = $queryParams['isFree'] ?? null;
+        $rank = $queryParams['rank'] ?? null;
 
         $series = Series::with('quests.user', 'quests.category', 'user')->get();
         $categories = QuestCategory::all();
-        // $quests = Quest::with(['category', 'user', 'quest_type', 'questSeries'])->where('status', 'active')->orderBy('created_at', 'desc')->get();
-        $quests = QuestFilter::getQuestModelByFilter($filter)->orderBy('created_at', 'desc')->get();
+        $questTypes = QuestType::all();
+        $quests = QuestFilter::getQuestModelByFilter($filter);
+
+        if ($category) {
+            $quests->where('category_id', $category);
+        }
+
+        if ($questType) {
+            $quests->where('quest_type_id', $questType);
+        }
+
+        if ($isFree) {
+            if ($isFree === 'true') {
+                $quests->where('entry_coin', 0);
+            } else {
+                $quests->where('entry_coin', '>', 0);
+            }
+        }
+
+        if ($rank) {
+            if ($rank !== 'All') {
+                $quests->where('rank_tier', $rank);
+            }
+        }
+
+        $quests = $quests->orderBy('created_at', 'desc')->get();
 
         return Inertia::render('quests/active-quests', [
             'series' => $filter == 'discover' ? $series : [],
             'quests' => $quests,
             'categories' => $categories,
+            'questTypes' => $questTypes,
         ]);
     }
+
+    // 
 
     public function singleQuest($id)
     {

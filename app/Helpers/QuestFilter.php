@@ -9,7 +9,7 @@ class QuestFilter
     public static function getQuestModelByFilter($filter)
     {
         $query = match ($filter) {
-            'discover', 'free' =>
+            'free' =>
             self::baseQuery()->where('entry_coin', 0),
 
             'ranked' => self::baseQuery()

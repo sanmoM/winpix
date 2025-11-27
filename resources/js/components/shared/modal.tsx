@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, contain
       {/* Modal Dialog Box */}
       <div
         onClick={handleModalClick} // prevent closing when clicking inside modal
-        className={cn("bg-background rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all duration-300 sm:my-8 sm:align-middle", containerClassName)}
+        className={cn("bg-background rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all duration-300 sm:my-8 sm:align-middle relative", containerClassName)}
       >
         {/* Modal Header */}
         <div className="flex items-center justify-between px-8 py-6 border-gray-200 dark:border-gray-700">
@@ -46,7 +46,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, contain
         </div>
 
         {/* Modal Body */}
-        <div className="px-6 pb-6 text-gray-700 dark:text-gray-300 max-h-[60vh] overflow-y-auto">{children}</div>
+        <div className="px-6 pb-6 text-gray-700 dark:text-gray-300 max-h-[60vh] overflow-y-auto ">{children}</div>
       </div>
     </div>
   );

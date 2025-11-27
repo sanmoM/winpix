@@ -51,7 +51,12 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
 
     // Sort filter state
     const [activeSort, setActiveSort] = useState<string>('Rising');
-    const sortOptions: string[] = ['Rising', 'Ending Soon', 'Newest', 'Oldest'];
+    const sortOptions = [
+        { label: 'Rising', value: 'rising' },
+        { label: 'Ending Soon', value: 'endingSoon' },
+        { label: 'Newest', value: 'newest' },
+        { label: 'Oldest', value: 'oldest' },
+    ];
 
     // Skill Rank filter state
     const [skillRank, setSkillRank] = useState<ISkillRank>({
@@ -71,31 +76,6 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
         vote: false,
         finalizing: false,
     });
-
-    // Category filter state
-    const [category, setCategory] = useState<ICategory>({
-        all: false,
-        landscape: false,
-        stillLife: true,
-        people: false,
-        animals: false,
-        urban: false,
-        minimalism: false,
-        fineArt: false,
-        documentary: false,
-    });
-
-    // Quest Type filter state
-    const [questType, setQuestType] = useState<IQuestType>({
-        casual: false,
-        weekly: false,
-        monthly: true,
-        quarterly: false,
-        yearly: false,
-        promotional: false,
-        community: false,
-    });
-
     // --- State Handler Functions ---
 
     const handleCheckboxChange = <
@@ -108,7 +88,6 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
     };
 
     console.log(filter)
-
     return (
         <>
             <div className="mx-auto font-sans pb-16">
@@ -116,11 +95,11 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                 <div className="flex flex-wrap gap-3">
                     {sortOptions.map(option => (
                         <PillButton
-                            key={option}
-                            label={option}
-                            isActive={activeSort === option}
+                            key={option?.value}
+                            label={option?.label}
+                            isActive={filter.sort === option?.value}
                             className={"py-2 px-5 "}
-                            onClick={() => setActiveSort(option)}
+                            onClick={() => setFilter('sort', option?.value)}
                         />
                     ))}
                 </div>

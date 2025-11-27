@@ -30,6 +30,28 @@ class QuestFilter
         return $query;
     }
 
+    public static function getQuestModelBySort($filter)
+    {
+        $query = match ($filter) {
+            'endingSoon' =>
+            self::baseQuery()
+                ->whereDate('end_date', today()),
+
+            'rising' => self::baseQuery()
+                ->withCount('votes')
+                ->orderBy('votes_count', 'desc'),
+
+            'newest' => self::baseQuery()->orderBy('created_at', 'desc'),
+
+            'oldest' => self::baseQuery()->orderBy('created_at', 'asc'),
+
+            default =>
+            self::baseQuery(),
+        };
+
+        return $query;
+    }
+
     private static function baseQuery()
     {
         return Quest::with(['category', 'user', 'quest_type', 'questSeries'])

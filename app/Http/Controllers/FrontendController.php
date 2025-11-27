@@ -83,11 +83,15 @@ class FrontendController extends Controller
         $category = $queryParams['category'] ?? null;
         $isFree = $queryParams['isFree'] ?? null;
         $rank = $queryParams['rank'] ?? null;
+        $sort = $queryParams['sort'] ?? null;
 
         $series = Series::with('quests.user', 'quests.category', 'user')->get();
         $categories = QuestCategory::all();
         $questTypes = QuestType::all();
         $quests = QuestFilter::getQuestModelByFilter($filter);
+        $quests = QuestFilter::getQuestModelBySort($sort);
+
+        // return dd($quests->get());
 
         if ($category) {
             $quests->where('category_id', $category);
@@ -111,7 +115,7 @@ class FrontendController extends Controller
             }
         }
 
-        $quests = $quests->orderBy('created_at', 'desc')->get();
+        $quests = $quests->get();
 
         return Inertia::render('quests/active-quests', [
             'series' => $filter == 'discover' ? $series : [],

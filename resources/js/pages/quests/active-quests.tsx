@@ -17,6 +17,7 @@ export default function active({ series, quests, categories, questTypes }: any) 
         category: null,
         questType: null,
         isFree: null,
+        sort: null,
     })
 
     const addFilter = (Key, Value) => {
@@ -45,6 +46,7 @@ export default function active({ series, quests, categories, questTypes }: any) 
             category: null,
             questType: null,
             isFree: null,
+            sort: null,
         });
         router.get('/quests/active-quests');
     };
@@ -56,6 +58,7 @@ export default function active({ series, quests, categories, questTypes }: any) 
             category: parseInt(queryParams.get('category')) || null,
             questType: parseInt(queryParams.get('questType')) || null,
             isFree: queryParams.get('isFree') === "true" ? true : queryParams.get('isFree') === "false" ? false : null,
+            sort: queryParams.get('sort') || null,
         });
     }, []);
 

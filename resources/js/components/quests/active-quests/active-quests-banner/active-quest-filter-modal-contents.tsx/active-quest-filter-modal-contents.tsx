@@ -236,7 +236,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                     ))}
                 </FilterSection>
             </div>
-            <div className='absolute bottom-6 right-10 grid grid-cols-2 gap-4'>
+            <div className='absolute bottom-6 right-10 grid grid-cols-2'>
                 <BorderButton text='Reset Filter' onClick={() => {
                     resetFilter();
                 }} className="w-fit" />

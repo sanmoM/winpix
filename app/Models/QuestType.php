@@ -10,4 +10,9 @@ class QuestType extends Model
         'name',
         'status'
     ];
+
+    public function quests()
+    {
+        return $this->hasMany(Quest::class);
+    }
 }

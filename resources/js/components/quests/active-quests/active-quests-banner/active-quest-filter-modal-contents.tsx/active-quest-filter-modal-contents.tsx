@@ -44,7 +44,7 @@ interface IQuestType {
     community: boolean;
 }
 
-export default function ActiveQuestFilterModalContents(): JSX.Element {
+export default function ActiveQuestFilterModalContents({ handleFilter, filter, setFilter, categories }: any) {
     // --- State Hooks ---
 
     // Sort filter state
@@ -105,6 +105,8 @@ export default function ActiveQuestFilterModalContents(): JSX.Element {
     ) => {
         setState(prev => ({ ...prev, [key]: !prev[key] }));
     };
+
+    console.log(categories)
 
     return (
         <div className="mx-auto font-sans">

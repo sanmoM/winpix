@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\QuestFilter;
 use App\Models\About;
 use App\Models\Contact;
 use App\Models\Follower;
 use App\Models\Help;
 use App\Models\Quest;
+use App\Models\QuestCategory;
 use App\Models\QuestImage;
 use App\Models\QuestJoin;
 use App\Models\Redeem;
@@ -73,14 +75,19 @@ class FrontendController extends Controller
 
     public function activeQuests()
     {
-        $series = Series::with('quests.user', 'quests.category', 'user')->get();
-        $quests = Quest::with(['category', 'user'])->where('status', 'active')->orderBy('created_at', 'desc')->take(5)->get();
+        $queryParams = request()->query();
 
+        $filter = $queryParams['filter'] ?? 'discover';
+
+        $series = Series::with('quests.user', 'quests.category', 'user')->get();
+        $categories = QuestCategory::all();
+        // $quests = Quest::with(['category', 'user', 'quest_type', 'questSeries'])->where('status', 'active')->orderBy('created_at', 'desc')->get();
+        $quests = QuestFilter::getQuestModelByFilter($filter)->orderBy('created_at', 'desc')->get();
 
         return Inertia::render('quests/active-quests', [
-            'series' => $series,
+            'series' => $filter == 'discover' ? $series : [],
             'quests' => $quests,
-
+            'categories' => $categories,
         ]);
     }
 

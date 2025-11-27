@@ -1,5 +1,6 @@
 import PillButton from '@/components/shared/buttons/pill-button';
 import Modal from '@/components/shared/modal';
+import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import ActiveQuestFilterModalContents from './active-quests-banner/active-quest-filter-modal-contents.tsx/active-quest-filter-modal-contents';
 
@@ -58,16 +59,17 @@ const SlidersIcon = () => (
 
 // --- Data for the filter buttons ---
 const filters = [
-    { id: 'discover', label: 'Discover', icon: <CompassIcon /> },
-    { id: 'ranked', label: 'Ranked', icon: <BarChartIcon /> },
-    { id: 'free', label: 'Free', icon: <DollarIcon /> },
-    { id: 'premium', label: 'Premium', icon: <CrownIcon /> },
-    { id: 'community', label: 'Community', icon: <UsersIcon /> }
+    { id: 'discover', label: 'Discover', icon: <CompassIcon />, path: "/quests/active-quests?filter=discover" },
+    { id: 'ranked', label: 'Ranked', icon: <BarChartIcon />, path: "/quests/active-quests?filter=ranked" },
+    { id: 'free', label: 'Free', icon: <DollarIcon />, path: "/quests/active-quests?filter=free" },
+    { id: 'premium', label: 'Premium', icon: <CrownIcon />, path: "/quests/active-quests?filter=premium" },
+    { id: 'community', label: 'Community', icon: <UsersIcon />, path: "/quests/active-quests?filter=community" }
 ];
 
 // --- Main App Component ---
-export default function ActiveQuestsFilter({ t }: any) {
-    const [activeFilter, setActiveFilter] = useState('discover');
+export default function ActiveQuestsFilter({ t, handleFilter, filter, setFilter, categories }: any) {
+    const queryParams = new URLSearchParams(window.location.search);
+    const [activeFilter, setActiveFilter] = useState(queryParams.get("filter") || 'discover');
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
     return (
@@ -85,6 +87,8 @@ export default function ActiveQuestsFilter({ t }: any) {
                             isActive={activeFilter === filter.id}
                             onClick={() => {
                                 setActiveFilter(filter.id);
+                                // console.log(filter?.path)
+                                router.get(filter?.path)
                             }}
                             icon={filter.icon}
                         />
@@ -109,7 +113,7 @@ export default function ActiveQuestsFilter({ t }: any) {
             />
 
             <Modal isOpen={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)} title="Filter">
-                <ActiveQuestFilterModalContents />
+                <ActiveQuestFilterModalContents handleFilter={handleFilter} filter={filter} setFilter={setFilter} categories={categories} />
             </Modal>
         </div>
     );

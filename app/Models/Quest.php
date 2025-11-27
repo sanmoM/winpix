@@ -45,6 +45,17 @@ class Quest extends Model
         });
     }
 
+    public function category()
+    {
+        return $this->belongsTo(QuestCategory::class);
+    }
+
+    public function quest_type()
+    {
+        return $this->belongsTo(QuestType::class);
+    }
+
+
     // Define the relation to prizes
     public function prizes()
     {
@@ -61,11 +72,6 @@ class Quest extends Model
         return $this->belongsTo(Series::class, 'quest_series_id');
     }
 
-    public function category()
-    {
-        return $this->belongsTo(QuestCategory::class);
-    }
-
     public function quest_join()
     {
         return $this->hasMany(QuestJoin::class);
@@ -74,6 +80,11 @@ class Quest extends Model
     public function images()
     {
         return $this->hasMany(QuestImage::class);
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
     }
 
     protected $casts = [

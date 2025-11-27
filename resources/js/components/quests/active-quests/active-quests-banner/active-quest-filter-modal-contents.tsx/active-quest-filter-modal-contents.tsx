@@ -51,7 +51,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
 
     // Sort filter state
     const [activeSort, setActiveSort] = useState<string>('Rising');
-    const sortOptions: string[] = ['Hot', 'Rising', 'Ending Soon', 'Newest', 'Oldest'];
+    const sortOptions: string[] = ['Rising', 'Ending Soon', 'Newest', 'Oldest'];
 
     // Skill Rank filter state
     const [skillRank, setSkillRank] = useState<ISkillRank>({
@@ -69,7 +69,6 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
     const [questStatus, setQuestStatus] = useState<IQuestStatus>({
         submit: false,
         vote: false,
-        lateEntry: true,
         finalizing: false,
     });
 
@@ -191,11 +190,6 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                         label="Vote"
                         checked={questStatus.vote}
                         onChange={() => handleCheckboxChange(setQuestStatus, 'vote')}
-                    />
-                    <CheckboxItem
-                        label="Late Entry"
-                        checked={questStatus.lateEntry}
-                        onChange={() => handleCheckboxChange(setQuestStatus, 'lateEntry')}
                     />
                     <CheckboxItem
                         label="Finalizing"

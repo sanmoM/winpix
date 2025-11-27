@@ -1,4 +1,4 @@
-import Card from '@/components/home/newest/components/Card'
+import QuestCard from '@/components/shared/QuestCard'
 import Container from '@/components/shared/container'
 import SectionHeading from '@/components/shared/SectionHeading'
 import useLocales from '@/hooks/useLocales'
@@ -17,7 +17,7 @@ export default function QuestsSeries({ series }: any) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {series?.map((singleSeries: any) => (
                         <Link href={`/quests/single-quest-series/${singleSeries?.id}`} className='block'>
-                            <Card key={singleSeries.id} item={singleSeries} isSeries={true} />
+                            <QuestCard key={singleSeries.id} item={singleSeries} isSeries={true} />
                         </Link>
                     ))}
                 </div>

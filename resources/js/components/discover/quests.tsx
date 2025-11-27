@@ -1,7 +1,6 @@
 import SectionHeading from '@/components/shared/SectionHeading'
-import QuestSubmitCard from '../shared/quest-card'
 import { Link } from '@inertiajs/react'
-import Card from '../home/newest/components/Card'
+import Card from '../shared/card'
 
 const questsData = [
     {

@@ -98,6 +98,9 @@
         "questSeries": {
             "title": "Contest Series"
         },
+        "quests": {
+            "title": "Contests"
+        },
         "filter": {
             "sortAndFilter": "Sort & Filter",
             "filterItems": [
@@ -591,7 +594,13 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Image", "Title", "Status", "Actions"]
+                    "headings": [
+                        "#",
+                        "Image",
+                        "Title",
+                        "Status",
+                        "Actions"
+                    ]
                 }
             },
             "edit": {
@@ -981,7 +990,12 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Name", "Status", "Actions"]
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Status",
+                        "Actions"
+                    ]
                 }
             },
             "create": {
@@ -1048,7 +1062,12 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Name", "Status", "Actions"]
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Status",
+                        "Actions"
+                    ]
                 }
             },
             "create": {
@@ -1237,7 +1256,13 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Name", "Email", "Message", "Actions"]
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Email",
+                        "Message",
+                        "Actions"
+                    ]
                 }
             }
         }

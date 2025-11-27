@@ -1,4 +1,4 @@
-import Card from '@/components/home/newest/components/Card'
+import QuestCard from '@/components/shared/QuestCard'
 import Container from '@/components/shared/container'
 import NoData from '@/components/shared/no-data'
 import QuestSubmitCard from '@/components/shared/quest-card'
@@ -72,7 +72,7 @@ export default function QuestsSeries({ enteredQuests }: any) {
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                 {enteredQuests.map((joinedQuest) => (
                                     <Link href={`/quests/single-quest/${joinedQuest?.quest?.id}`} className='block'>
-                                        <Card key={joinedQuest.id}
+                                        <QuestCard key={joinedQuest.id}
                                             item={
                                                 {
                                                     title: joinedQuest?.quest?.title,

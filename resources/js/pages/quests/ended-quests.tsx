@@ -1,4 +1,4 @@
-import Card from '@/components/home/newest/components/Card';
+import QuestCard from '@/components/shared/QuestCard';
 import Container from '@/components/shared/container';
 import QuestSubmitCard from '@/components/shared/quest-card';
 import Tab from '@/components/shared/tab';
@@ -82,7 +82,7 @@ export default function EndedQuests({ myQuests, recentlyEnded, inactiveSeries }:
                             {myQuests.map((quest) => (
 
                                 <Link href={`/quests/single-quest/${quest.id}`} className='block'>
-                                    <Card key={quest.id} item={quest} />
+                                    <QuestCard key={quest.id} item={quest} />
                                 </Link>
                             ))}
                         </div>
@@ -93,7 +93,7 @@ export default function EndedQuests({ myQuests, recentlyEnded, inactiveSeries }:
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {recentlyEnded.map((quest) => (
                                 <Link href={`/quests/single-quest/${quest.id}`} className='block'>
-                                    <Card key={quest.id} item={quest} />
+                                    <QuestCard key={quest.id} item={quest} />
                                 </Link>
                             ))}
                         </div>
@@ -104,7 +104,7 @@ export default function EndedQuests({ myQuests, recentlyEnded, inactiveSeries }:
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {inactiveSeries.map((quest) => (
                                 <Link href={`/quests/single-quest-series/${quest.id}`} className='block'>
-                                    <Card key={quest.id} item={quest} isSeries={true} />
+                                    <QuestCard key={quest.id} item={quest} isSeries={true} />
                                 </Link>
                             ))}
                         </div>

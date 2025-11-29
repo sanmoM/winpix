@@ -103,13 +103,7 @@
         },
         "filter": {
             "sortAndFilter": "Sort & Filter",
-            "filterItems": [
-                "All",
-                "Ranked",
-                "Free",
-                "Premium",
-                "Community"
-            ]
+            "filterItems": ["All", "Ranked", "Free", "Premium", "Community"]
         }
     },
     "questSeries": {
@@ -595,13 +589,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Image",
-                        "Title",
-                        "Status",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Image", "Title", "Status", "Actions"]
                 }
             },
             "edit": {
@@ -991,12 +979,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Name",
-                        "Status",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Name", "Status", "Actions"]
                 }
             },
             "create": {
@@ -1063,12 +1046,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Name",
-                        "Status",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Name", "Status", "Actions"]
                 }
             },
             "create": {
@@ -1257,13 +1235,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Name",
-                        "Email",
-                        "Message",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Name", "Email", "Message", "Actions"]
                 }
             }
         }

@@ -103,7 +103,13 @@
         },
         "filter": {
             "sortAndFilter": "Sort & Filter",
-            "filterItems": ["All", "Ranked", "Free", "Premium", "Community"]
+            "filterItems": [
+                "All",
+                "Ranked",
+                "Free",
+                "Premium",
+                "Community"
+            ]
         }
     },
     "questSeries": {
@@ -589,7 +595,13 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Image", "Title", "Status", "Actions"]
+                    "headings": [
+                        "#",
+                        "Image",
+                        "Title",
+                        "Status",
+                        "Actions"
+                    ]
                 }
             },
             "edit": {
@@ -979,7 +991,12 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Name", "Status", "Actions"]
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Status",
+                        "Actions"
+                    ]
                 }
             },
             "create": {
@@ -1046,7 +1063,12 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Name", "Status", "Actions"]
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Status",
+                        "Actions"
+                    ]
                 }
             },
             "create": {
@@ -1235,7 +1257,13 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Name", "Email", "Message", "Actions"]
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Email",
+                        "Message",
+                        "Actions"
+                    ]
                 }
             }
         },
@@ -1243,9 +1271,52 @@
             "label": "Select Option",
             "placeholder": "Select a Contest Type",
             "options": [
-                { "value": "why_choose", "label": "Why Choose" },
-                { "value": "contest_types", "label": "Contest Types" }
+                {
+                    "value": "why_choose",
+                    "label": "Why Choose"
+                },
+                {
+                    "value": "contest_types",
+                    "label": "Contest Types"
+                }
             ]
+        },
+        "brandMarketingBanner": {
+            "edit": {
+                "title": "Edit Brand Marketing Banner",
+                "breadcrumbs": [
+                    {
+                        "title": "All Brand Marketing Banner",
+                        "href": "/admin/brand-marketing"
+                    },
+                    {
+                        "title": "Edit Brand Marketing Banner",
+                        "href": ""
+                    }
+                ],
+                "inputs": {
+                    "title_en": {
+                        "label": "Title",
+                        "placeholder": "Enter title"
+                    },
+                    "subtitle_en": {
+                        "label": "Sub Title",
+                        "placeholder": "Enter sub title"
+                    },
+                    "title_ar": {
+                        "label": "Title (Arabic)",
+                        "placeholder": "Enter title (Arabic)"
+                    },
+                    "subtitle_ar": {
+                        "label": "Sub Title (Arabic)",
+                        "placeholder": "Enter sub title (Arabic)"
+                    },
+                    "bg_image": {
+                        "label": "Background Image",
+                        "placeholder": "Select a background image"
+                    }
+                }
+            }
         }
     }
 }

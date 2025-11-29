@@ -7,6 +7,7 @@ use App\Models\About;
 use App\Models\Contact;
 use App\Models\Follower;
 use App\Models\Help;
+use App\Models\MarketingBanner;
 use App\Models\Quest;
 use App\Models\QuestCategory;
 use App\Models\QuestImage;
@@ -54,7 +55,10 @@ class FrontendController extends Controller
 
     public function brandMarketing()
     {
-        return Inertia::render('brand-marketing');
+        $banner = MarketingBanner::first();
+        return Inertia::render('brand-marketing', [
+            'banner' => $banner,
+        ]);
     }
 
     public function store()

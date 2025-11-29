@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 import Button from '../../shared/buttons/button';
+import useLocales from '@/hooks/useLocales';
 
 // --- Mock Data ---
 
@@ -13,8 +14,10 @@ const featuredBrand = {
     website: "www.luminalens.com",
     category: "Premium Partner"
 };
-export default function BrandMarketingBanner() {
+export default function BrandMarketingBanner({ banner }) {
+    console.log(banner)
     const [isHovered, setIsHovered] = useState(false);
+    const { currentLanguage } = useLocales()
 
     return (
         <div
@@ -25,7 +28,7 @@ export default function BrandMarketingBanner() {
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src={featuredBrand.coverImage}
+                    src={"/storage/" + banner?.bg_image}
                     alt="Brand Cover"
                     className={`w-full h-full object-cover transition-transform duration-1000 ${isHovered ? 'scale-105' : 'scale-100'}`}
                 />
@@ -41,8 +44,8 @@ export default function BrandMarketingBanner() {
                         <div className="flex items-center gap-5">
                             <div>
                                 {/* <div className="inline-block px-2 py-0.5 bg-indigo-600 rounded text-[10px] font-bold text-white uppercase tracking-wider mb-1">Featured</div> */}
-                                <h4 className="text-3xl md:text-5xl font-bold text-white leading-tight !text-center">Launch Your Brand Contest with Winpix</h4>
-                                <p className='text-gray-200 mt-4 !text-center w-[90%] mx-auto text-lg'>Turn your marketing campaign into an interactive photo contest.
+                                <h4 className="text-3xl md:text-5xl font-bold text-white leading-tight !text-center">{currentLanguage === "ar" ? banner?.title_ar : banner?.title_en}</h4>
+                                <p className='text-gray-200 mt-4 !text-center w-[90%] mx-auto text-lg'>{currentLanguage === "ar" ? banner?.subtitle_ar : banner?.subtitle_en}
                                 </p>
                             </div>
                         </div>

@@ -19,8 +19,8 @@ export default function StoreModalContents() {
                    border-indigo-200 dark:border-primary-color"
                     >
                         {/* <IoLayersSharp className="w-8 h-8 mt-0.5 sm:mt-0 mr-0 sm:mr-3 text-indigo-500 dark:text-indigo-300" /> */}
-                        <img src="https://cdn.pulsepx.com/product-assets/1000002/icon?v=4"
-                            alt="" className="w-20 hidden md:block" />
+                        <img src="/images/coin.png"
+                            alt="" className="w-16 mr-4 hidden md:block" />
                         <div className="mt-2 sm:mt-0 !text-center md:text-left">
                             <h4 className="text-lg sm:text-xl font-bold mb-1 text-gray-900 dark:text-white">
                                 {t('store.title')}
@@ -35,6 +35,7 @@ export default function StoreModalContents() {
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
                         {storeItems?.map((item, index) => (
                             <StoreItem
+                                coinId={item.id}
                                 key={index}
                                 image={item.icon_image}
                                 quantity={item.number_of_coin}

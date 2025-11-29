@@ -31,3 +31,4 @@ Route::post('/vote/{imageId}/{questId}', [FrontendController::class, 'vote'])->n
 
 Route::post('/follow-user', [FrontendController::class, 'followUser'])->name('follow-user');
 Route::post('/contact-us', [FrontendController::class, 'createContact'])->name('create-contact');
+Route::post('/handle-payment', [FrontendController::class, 'handlePayment'])->name('handle-payment');

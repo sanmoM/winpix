@@ -34,11 +34,11 @@ export default function Edit({ banner, flash }: EditProps) {
     // Initialize form with new database fields
     const { data, setData, post, reset, processing, errors } = useForm({
         _method: 'PUT',
-        title_en: banner.title_en || '',
-        subtitle_en: banner.subtitle_en || '',
+        title_en: banner?.title_en || '',
+        subtitle_en: banner?.subtitle_en || '',
 
-        title_ar: banner.title_ar || '',
-        subtitle_ar: banner.subtitle_ar || '',
+        title_ar: banner?.title_ar || '',
+        subtitle_ar: banner?.subtitle_ar || '',
 
         bg_image: null as File | null,
     });
@@ -63,15 +63,15 @@ export default function Edit({ banner, flash }: EditProps) {
         formData.append('_method', 'PUT');
 
         // Append all text fields
-        formData.append('title_en', data.title_en);
-        formData.append('subtitle_en', data.subtitle_en);
+        formData.append('title_en', data?.title_en);
+        formData.append('subtitle_en', data?.subtitle_en);
 
-        formData.append('title_ar', data.title_ar);
-        formData.append('subtitle_ar', data.subtitle_ar);
+        formData.append('title_ar', data?.title_ar);
+        formData.append('subtitle_ar', data?.subtitle_ar);
 
         // Handle Background Image
         if (data.bg_image) {
-            formData.append('bg_image', data.bg_image);
+            formData.append('bg_image', data?.bg_image);
         }
 
         // Make sure route name matches your web.php (e.g., banner.update)
@@ -85,8 +85,8 @@ export default function Edit({ banner, flash }: EditProps) {
     };
 
     return (
-        // <AppLayout breadcrumbs={breadcrumbs}>
-        <AppLayout>
+        <AppLayout breadcrumbs={t('dashboard.brandMarketingBanner.edit.breadcrumbs', { returnObjects: true })}>
+        {/* <AppLayout> */}
             <Head title="Edit Banner" />
             <ToastContainer />
 
@@ -100,17 +100,17 @@ export default function Edit({ banner, flash }: EditProps) {
                     <div className="col-span-1">
                         <ImageInput
                             image={
-                                data.bg_image
-                                    ? data.bg_image
-                                    : banner.bg_image
-                                      ? `/storage/${banner.bg_image}`
-                                      : null
+                                data?.bg_image
+                                    ? data?.bg_image
+                                    : banner?.bg_image
+                                        ? `/storage/${banner?.bg_image}`
+                                        : null
                             }
                             setImage={(value) => setData('bg_image', value)}
                             wrapperClassName="w-full aspect-[16/9]"
                             iconClassName="w-[20%]"
-                            error={errors.bg_image}
-                            label={t('dashboard.banner.inputs.image.label')}
+                            error={errors?.bg_image}
+                            label={t('dashboard.brandMarketingBanner.edit.inputs.bg_image.label')}
                             required={false}
                         />
                     </div>
@@ -121,30 +121,30 @@ export default function Edit({ banner, flash }: EditProps) {
                 {/* --- Content Section: Split English / Arabic --- */}
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                     {/* English Column */}
-                    <div className="space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+                    <div className="space-y-4 rounded-lg border border-gray-200 bg-bg-primary p-4">
                         <h3 className="flex items-center gap-2 text-lg font-bold text-blue-600">
                             <span>🇬🇧</span> English Content
                         </h3>
 
                         <TextInput
                             id="title_en"
-                            value={data.title_en}
+                            value={data?.title_en}
                             setValue={(value) => setData('title_en', value)}
                             placeholder="Enter English Title"
-                            error={errors.title_en}
-                            label={t('dashboard.banner.inputs.title_en.label')}
+                            error={errors?.title_en}
+                            label={t('dashboard.brandMarketingBanner.edit.inputs.title_en.label')}
                             required={true}
                         />
 
                         <TextAreaInput
                             id="subtitle_en"
-                            value={data.subtitle_en}
+                            value={data?.subtitle_en}
                             onChange={(e) =>
                                 setData('subtitle_en', e.target.value)
                             }
                             placeholder="Enter English Subtitle"
                             label={t(
-                                'dashboard.banner.inputs.subtitle_en.label',
+                                'dashboard.brandMarketingBanner.edit.inputs.subtitle_en.label',
                             )}
                             required={false}
                             error={errors.subtitle_en}
@@ -152,7 +152,7 @@ export default function Edit({ banner, flash }: EditProps) {
                     </div>
 
                     <div
-                        className="space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4"
+                        className="space-y-4 rounded-lg border border-gray-200 bg-bg-primary p-4"
                         dir="rtl"
                     >
                         <h3 className="flex items-center gap-2 text-lg font-bold text-green-600">
@@ -161,26 +161,26 @@ export default function Edit({ banner, flash }: EditProps) {
 
                         <TextInput
                             id="title_ar"
-                            value={data.title_ar}
+                            value={data?.title_ar}
                             setValue={(value) => setData('title_ar', value)}
                             placeholder="أدخل العنوان بالعربية"
                             error={errors.title_ar}
-                            label={t('dashboard.banner.inputs.title_ar.label')}
+                            label={t('dashboard.brandMarketingBanner.edit.inputs.title_ar.label')}
                             required={true}
                         />
 
                         <TextAreaInput
                             id="subtitle_ar"
-                            value={data.subtitle_ar}
+                            value={data?.subtitle_ar}
                             onChange={(e) =>
                                 setData('subtitle_ar', e.target.value)
                             }
                             placeholder="أدخل الوصف الفرعي بالعربية"
                             label={t(
-                                'dashboard.banner.inputs.subtitle_ar.label',
+                                'dashboard.brandMarketingBanner.edit.inputs.subtitle_ar.label',
                             )}
                             required={false}
-                            error={errors.subtitle_ar}
+                            error={errors?.subtitle_ar}
                         />
                     </div>
                 </div>

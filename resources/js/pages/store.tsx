@@ -7,7 +7,6 @@ import { usePage } from "@inertiajs/react";
 export default function StoreModalContents() {
     const { coinsPricing: storeItems } = usePage().props;
     const { t } = useLocales()
-    console.log(storeItems)
     return (
         <UserLayout>
             <Container className="my-10">

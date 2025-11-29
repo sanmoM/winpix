@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -32,6 +31,7 @@ return new class extends Migration
             $table->unsignedInteger('votes_cast')->default(0);
             $table->bigInteger('coin')->default(0);
             $table->bigInteger('pixel')->default(0);
+            $table->boolean('isRedeemed')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

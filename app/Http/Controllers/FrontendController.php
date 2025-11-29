@@ -378,4 +378,19 @@ class FrontendController extends Controller
 
         return redirect()->back()->with('success', 'Contact form submitted successfully!');
     }
+
+    public function claim(Request $request)
+    {
+
+        $userId = auth()->user()->id;
+        $user = User::findOrFail($userId);
+
+        $user->increment('pixel', 15);
+
+        $user->update([
+            'isRedeemed' => 1
+        ]);
+
+        return redirect()->back()->with('success', 'Contact form submitted successfully!');
+    }
 }

@@ -41,6 +41,7 @@ export default function Index() {
         router.delete(route('user-dashboard.quest.destroy', id));
     };
 
+
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
@@ -63,9 +64,9 @@ export default function Index() {
                                 <TableCell>{index + 1}</TableCell>
 
                                 <TableCell>
-                                    {item.picture ? (
+                                    {item.image ? (
                                         <img
-                                            src={`/storage/${item.picture}`}
+                                            src={`/storage/${item.image}`}
                                             alt={item.title}
                                             className="h-10 w-10 rounded object-cover"
                                         />

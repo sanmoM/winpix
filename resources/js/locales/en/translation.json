@@ -1238,6 +1238,14 @@
                     "headings": ["#", "Name", "Email", "Message", "Actions"]
                 }
             }
+        },
+        "brand_marketing_type": {
+            "label": "Select Option",
+            "placeholder": "Select a Contest Type",
+            "options": [
+                { "value": "why_choose", "label": "Why Choose" },
+                { "value": "contest_types", "label": "Contest Types" }
+            ]
         }
     }
 }

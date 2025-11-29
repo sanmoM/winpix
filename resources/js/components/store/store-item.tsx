@@ -11,6 +11,7 @@ interface StoreItemProps {
     price: string;
     isBestValue?: boolean;
     iconColorClass?: string;
+    image: string;
 }
 
 const StoreItem: React.FC<StoreItemProps> = ({
@@ -18,8 +19,10 @@ const StoreItem: React.FC<StoreItemProps> = ({
     price,
     isBestValue = false,
     iconColorClass = "text-indigo-400",
+    image
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    console.log(image)
     return (
         <div
             className={`relative flex flex-col items-center justify-center p-4 sm:p-6 rounded-lg shadow-lg border-2 transition-all duration-200 cursor-pointer
@@ -33,7 +36,8 @@ const StoreItem: React.FC<StoreItemProps> = ({
 
             <div className={`mb-3 sm:mb-4 ${iconColorClass}`}>
                 {/* <IoLayersSharp className="w-10 sm:w-12 h-10 sm:h-12" /> */}
-                <img src="https://cdn.pulsepx.com/product-assets/1000005/icon?v=3" alt="" className="w-28 md:w-40" />
+                <img src={"storage/" + image}
+                    alt="" className="w-28 md:w-40" />
             </div>
 
             <p className="text-xl md:text-2xl font-extrabold text-gray-900 dark:text-white mb-1 sm:mb-2">

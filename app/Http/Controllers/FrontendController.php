@@ -16,6 +16,7 @@ use App\Models\Redeem;
 use App\Models\Series;
 use App\Models\Slider;
 use App\Models\Store;
+use App\Models\User;
 use App\Models\Vote;
 use App\Services\RankingService;
 use Carbon\Carbon;
@@ -182,10 +183,9 @@ class FrontendController extends Controller
             ->where('end_date', '<', Carbon::now())
             ->orderBy('created_at', 'desc')
             ->get();
-        $recentlyEnded = Quest::with(['category', 'user'])
-            ->where('end_date', '<', Carbon::now())
+        $recentlyEnded = $recentlyEnded = Quest::with(['category', 'user'])
+            ->whereDate('end_date', Carbon::yesterday())
             ->orderBy('end_date', 'desc')
-            ->take(10)
             ->get();
         $inactiveSeries = Series::with('quests.user', 'quests.category', 'user')->get();
 
@@ -360,6 +360,21 @@ class FrontendController extends Controller
         ]);
 
         $contact->save();
+
+        return redirect()->back()->with('success', 'Contact form submitted successfully!');
+    }
+
+    public function handlePayment(Request $request)
+    {
+        $request->validate([
+            'coin_id' => 'required',
+        ]);
+
+        $userId = auth()->user()->id;
+
+        $storeItem = Store::findOrFail($request->coin_id);
+
+        User::findOrFail($userId)->increment('pixel', $storeItem->number_of_coin);
 
         return redirect()->back()->with('success', 'Contact form submitted successfully!');
     }

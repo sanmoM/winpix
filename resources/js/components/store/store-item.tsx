@@ -2,6 +2,9 @@ import { IoLayersSharp } from "react-icons/io5";
 import Button from "../shared/buttons/button";
 import Modal from "../shared/modal";
 import { useState } from "react";
+import { router } from "@inertiajs/react";
+import { route } from "ziggy-js";
+import toast from "react-hot-toast";
 
 <IoLayersSharp className="w-8 h-8 mt-0.5 sm:mt-0 mr-0 sm:mr-3 text-indigo-500 dark:text-indigo-300" />
 
@@ -12,6 +15,7 @@ interface StoreItemProps {
     isBestValue?: boolean;
     iconColorClass?: string;
     image: string;
+    coinId: number;
 }
 
 const StoreItem: React.FC<StoreItemProps> = ({
@@ -19,10 +23,21 @@ const StoreItem: React.FC<StoreItemProps> = ({
     price,
     isBestValue = false,
     iconColorClass = "text-indigo-400",
-    image
+    image,
+    coinId
 }) => {
     const [isOpen, setIsOpen] = useState(false);
-    console.log(image)
+
+    const handlePayment = () => {
+        const fromData = new FormData();
+        fromData.append('coin_id', coinId);
+        router.post(route('handle-payment'), fromData, {
+            onSuccess: () => {
+                toast.success('Payment Successfully!');
+                setIsOpen(false);
+            }
+        });
+    }
     return (
         <div
             className={`relative flex flex-col items-center justify-center p-4 sm:p-6 rounded-lg shadow-lg border-2 transition-all duration-200 cursor-pointer
@@ -62,6 +77,7 @@ const StoreItem: React.FC<StoreItemProps> = ({
                 <div className="grid grid-cols-2 gap-6">
                     {/* Button 1: PayPal */}
                     <button
+                        onClick={handlePayment}
                         className="bg-[#ffc439] hover:bg-[#f7b620] py-3 px-12 rounded-full transition-colors duration-300 shadow-md w-full sm:w-auto flex justify-center items-center cursor-pointer"
                         aria-label="Pay with PayPal"
                     >
@@ -70,6 +86,7 @@ const StoreItem: React.FC<StoreItemProps> = ({
 
                     {/* Button 2: Pay Later */}
                     <button
+                        onClick={handlePayment}
                         className="bg-[#ffc439] hover:bg-[#f7b620] text-[#003087] py-3 px-12 rounded-full transition-colors duration-300 shadow-md w-full sm:w-auto flex items-center justify-center space-x-2 cursor-pointer"
                         aria-label="Pay Later with PayPal"
                     >

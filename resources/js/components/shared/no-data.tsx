@@ -11,7 +11,7 @@ export default function NoData({ text, containerClassName }: { text: string, con
                 width={320}
                 height={320}
             />
-            <h3 className="text-lg md:text-2xl font-medium text-gray-900 mb-2">{text}</h3>
+            <h3 className="text-lg md:text-2xl font-medium text-gray-900 dark:text-white mb-2">{text}</h3>
         </div>
     )
 }

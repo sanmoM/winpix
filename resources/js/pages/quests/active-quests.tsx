@@ -6,7 +6,7 @@ import Container from '@/components/shared/container'
 import SectionHeading from '@/components/shared/SectionHeading'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
-import { router } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 import { useEffect, useState } from 'react'
 
 export default function active({ series, quests, categories, questTypes }: any) {
@@ -81,7 +81,9 @@ export default function active({ series, quests, categories, questTypes }: any) 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                 {
                                     quests?.map((item: any) => (
-                                        <Card key={item.id} item={item} />
+                                        <Link href={`/quests/single-quest/${item.id}`} className='block'>
+                                            <Card key={item.id} item={item} />
+                                        </Link>
                                     ))
                                 }
                             </div>

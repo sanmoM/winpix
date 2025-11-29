@@ -82,7 +82,7 @@ export default function Edit({ redeem }: EditProps) {
                 <SelectInput
                     id="prize_type"
                     value={data.prize_type}
-                    setValue={(value) => setData('prize_type', value)}
+                    onChange={(value) => setData('prize_type', value)}
                     label={t('dashboard.redeem.inputs.prize_type.label')}
                     options={t('dashboard.redeem.inputs.prize_type.options', { returnObjects: true })}
                     error={errors.prize_type}
@@ -93,12 +93,13 @@ export default function Edit({ redeem }: EditProps) {
                 <SelectInput
                     id="status"
                     value={data.status}
-                    setValue={(value) => setData('status', value)}
+                    onChange={(value) => setData('status', value)}
                     label={t('dashboard.redeem.inputs.status.label')}
                     options={t('dashboard.redeem.inputs.status.options', { returnObjects: true })}
                     error={errors.status}
                     required
                     className="max-w-auto w-full"
+                    hasOption={false}
                 />
 
                 <SaveAndBackButtons processing={processing} href={route('admin.redeem.index')} />

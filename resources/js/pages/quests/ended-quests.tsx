@@ -1,6 +1,5 @@
-import QuestCard from '@/components/shared/QuestCard';
+import Card from '@/components/shared/card';
 import Container from '@/components/shared/container';
-import QuestSubmitCard from '@/components/shared/quest-card';
 import Tab from '@/components/shared/tab';
 import useLocales from '@/hooks/useLocales';
 import UserLayout from '@/layouts/user-layout';
@@ -82,7 +81,7 @@ export default function EndedQuests({ myQuests, recentlyEnded, inactiveSeries }:
                             {myQuests.map((quest) => (
 
                                 <Link href={`/quests/single-quest/${quest.id}`} className='block'>
-                                    <QuestCard key={quest.id} item={quest} />
+                                    <Card key={quest.id} item={quest} />
                                 </Link>
                             ))}
                         </div>
@@ -93,7 +92,7 @@ export default function EndedQuests({ myQuests, recentlyEnded, inactiveSeries }:
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {recentlyEnded.map((quest) => (
                                 <Link href={`/quests/single-quest/${quest.id}`} className='block'>
-                                    <QuestCard key={quest.id} item={quest} />
+                                    <Card key={quest.id} item={quest} />
                                 </Link>
                             ))}
                         </div>
@@ -104,7 +103,7 @@ export default function EndedQuests({ myQuests, recentlyEnded, inactiveSeries }:
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {inactiveSeries.map((quest) => (
                                 <Link href={`/quests/single-quest-series/${quest.id}`} className='block'>
-                                    <QuestCard key={quest.id} item={quest} isSeries={true} />
+                                    <Card key={quest.id} item={quest} isSeries={true} />
                                 </Link>
                             ))}
                         </div>

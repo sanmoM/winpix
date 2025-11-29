@@ -43,6 +43,7 @@ class BrandMarketingController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
+            'brand_marketing_type' => 'required',
             'bg_image' => 'nullable|image|max:2048',
         ]);
 
@@ -72,6 +73,7 @@ class BrandMarketingController extends Controller
                     'lang' => $t['lang'],
                     'title' => $t['title'],
                     'content' => $t['content'],
+                    'brand_marketing_type' => $validated['brand_marketing_type'],
                     'bg_image' => $path,
                     'group_id' => $groupId,
                 ]);
@@ -186,6 +188,7 @@ class BrandMarketingController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
+            'brand_marketing_type' => 'required',
             'bg_image' => 'nullable|image|max:2048',
             'status' => 'required',
         ]);

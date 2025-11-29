@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('brand_marketings', function (Blueprint $table) {
             $table->id();
             $table->uuid('group_id')->nullable();
+            $table->string('brand_marketing_type');
             $table->string('bg_image');
             $table->text('title');
             $table->longText('content');

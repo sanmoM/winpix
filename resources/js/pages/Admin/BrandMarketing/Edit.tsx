@@ -23,6 +23,7 @@ interface EditProps {
         content: string;
         status: string;
         bg_image: string | null;
+        brand_marketing_type: string;
     };
     flash?: FlashProps;
 }
@@ -35,6 +36,7 @@ export default function Edit({ brand_marketing, flash }: EditProps) {
         content: brand_marketing.content,
         status: brand_marketing.status,
         bg_image: null as File | null,
+        brand_marketing_type: brand_marketing.brand_marketing_type,
     });
 
     const breadcrumbs: BreadcrumbItem[] = t(
@@ -59,6 +61,7 @@ export default function Edit({ brand_marketing, flash }: EditProps) {
         formData.append('title', data.title);
         formData.append('content', data.content);
         formData.append('status', data.status);
+        formData.append('brand_marketing_type', data.brand_marketing_type);
 
         if (data.bg_image) {
             formData.append('bg_image', data.bg_image);
@@ -102,6 +105,21 @@ export default function Edit({ brand_marketing, flash }: EditProps) {
                     label={t('dashboard.slider.inputs.bg_image.label')}
                     required={false}
                     ref={fileInputRef}
+                />
+
+                <SelectInput
+                    label={t('dashboard.brand_marketing_type.label')}
+                    placeholder={t(
+                        'dashboard.brand_marketing_type.placeholder',
+                    )}
+                    className="max-w-full"
+                    value={data?.status}
+                    options={
+                        t('dashboard.brand_marketing_type.options', {
+                            returnObjects: true,
+                        }) as any
+                    }
+                    onChange={(value) => setData('brand_marketing_type', value)}
                 />
 
                 {/* Title */}

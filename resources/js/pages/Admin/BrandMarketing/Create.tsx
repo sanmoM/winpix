@@ -1,5 +1,6 @@
 import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import ImageInput from '@/components/shared/inputs/image-input';
+import SelectInput from '@/components/shared/inputs/select-input';
 import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import TextInput from '@/components/shared/inputs/text-input';
 import useLocales from '@/hooks/useLocales';
@@ -24,10 +25,12 @@ export default function Create({ flash }: Props) {
     const { data, setData, post, processing, reset, errors } = useForm<{
         title: string;
         content: string;
+        brand_marketing_type: string;
         bg_image: File | null;
     }>({
         title: '',
         content: '',
+        brand_marketing_type: 'why_choose',
         bg_image: null as File | null,
     });
 
@@ -85,7 +88,19 @@ export default function Create({ flash }: Props) {
                     label={t('dashboard.slider.inputs.bg_image.label')}
                     required={true}
                 />
-
+                <SelectInput
+                    id="brand_marketing_type"
+                    value={data.brand_marketing_type}
+                    onChange={(value) => setData('brand_marketing_type', value)}
+                    label={t('dashboard.brand_marketing_type.label')}
+                    options={t('dashboard.brand_marketing_type.options', {
+                        returnObjects: true,
+                    })}
+                    error={errors.brand_marketing_type}
+                    required
+                    className="max-w-auto w-full"
+                    hasOption={false}
+                />
                 {/* Title */}
                 <TextInput
                     id="title"

@@ -74,7 +74,7 @@ export default function App({ t, data }: any) {
             <TopPositions topPositions={data?.slice(0, 3)} />
 
             {/* --- Leaderboard List (Ranks 4+) --- */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+            {/* <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
                 {data?.slice(3, 9).map((user, index) => {
                     const badge = getStatusBadge(user.status);
 
@@ -86,9 +86,7 @@ export default function App({ t, data }: any) {
                                 mockData[index].rank
                             )} flex items-center justify-between p-4 rounded-lg border transition-all duration-300`}
                         >
-                            {/* Rank & User Info */}
                             <div className="grid grid-cols-[auto_auto_1fr] items-center gap-4 min-w-0">
-                                {/* Rank Number */}
                                 <div
                                     className={`w-10 !text-center text-lg md:text-xl font-extrabold ${getRankTextColor(
                                         mockData[index].rank
@@ -97,7 +95,6 @@ export default function App({ t, data }: any) {
                                     {mockData[index].rank}
                                 </div>
 
-                                {/* Avatar */}
                                 <img
                                     src={user?.image ? "/storage/" + user?.image : mockData[index].profile}
                                     alt={`${user.name}'s avatar`}
@@ -105,7 +102,6 @@ export default function App({ t, data }: any) {
                                         }`}
                                 />
 
-                                {/* Name + Followers */}
                                 <div className="flex flex-col md:flex-row md:items-center md:space-x-3 truncate">
                                     <span className="text-gray-900 dark:text-white font-semibold truncate">
                                         {user.name}
@@ -116,7 +112,6 @@ export default function App({ t, data }: any) {
                                 </div>
                             </div>
 
-                            {/* Score + Status */}
                             <div className="flex items-center justify-between flex-shrink-0">
                                 <span
                                     className={`hidden md:inline-block px-2 py-0.5 text-xs font-semibold rounded-full ${badge.color}`}
@@ -135,7 +130,7 @@ export default function App({ t, data }: any) {
                         </Link>
                     );
                 })}
-            </div >
+            </div > */}
 
         </div >
     );

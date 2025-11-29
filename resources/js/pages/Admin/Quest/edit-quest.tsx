@@ -395,6 +395,7 @@ export default function EditQuest() {
                                 {t('dashboard.quest.inputs.startDate.label')}
                             </Label>
                             <DateInput
+                                min={new Date().toISOString().slice(0, 10)}
                                 value={data.startDate}
                                 onChange={(value) =>
                                     setData('startDate', value)
@@ -407,6 +408,7 @@ export default function EditQuest() {
                                 {t('dashboard.quest.inputs.endDate.label')}
                             </Label>
                             <DateInput
+                                min={data.startDate}
                                 value={data.endDate}
                                 onChange={(value) => setData('endDate', value)}
                             />
@@ -421,7 +423,7 @@ export default function EditQuest() {
                     {/* Submit */}
                     <div className="flex items-center gap-4">
                         <Button disabled={processing}>
-                            {t('dashboard.quest.button.updateButton')}
+                            {t('dashboard.shared.update')}
                         </Button>
                         <Transition
                             show={recentlySuccessful}
@@ -431,7 +433,7 @@ export default function EditQuest() {
                             leaveTo="opacity-0"
                         >
                             <p className="text-sm text-neutral-600">
-                                {t('dashboard.quest.button.saveText')}
+                                {t('dashboard.shared.update')}
                             </p>
                         </Transition>
                     </div>

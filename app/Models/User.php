@@ -35,7 +35,10 @@ class User extends Authenticatable
         'password',
         'status',
         'level',
-        'votes_cast'
+        'votes_cast',
+        'coins',
+        'pixel',
+        'isRedeemed'
     ];
 
     /**

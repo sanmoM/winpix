@@ -111,9 +111,9 @@
     },
     "endedQuests": {
         "tab": {
-            "myQuests": "My Quests",
-            "ended": "Ended",
-            "inactive": "Inactive"
+            "myQuests": "My Contests",
+            "ended": "Ended contests",
+            "inactive": "Inactive series"
         }
     },
     "singleEndedQuest": {
@@ -262,7 +262,8 @@
             "delete": "Delete",
             "edit": "Edit",
             "view": "View",
-            "back": "Back"
+            "back": "Back",
+            "update": "Update"
         },
         "slider": {
             "inputs": {

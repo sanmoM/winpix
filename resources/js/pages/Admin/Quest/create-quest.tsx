@@ -256,10 +256,9 @@ export default function Dashboard() {
                                 {t('dashboard.quest.inputs.startDate.label')}
                             </Label>
                             <DateInput
+                                min={new Date()}
                                 value={data.startDate}
-                                onChange={(value) =>
-                                    setData('startDate', value)
-                                }
+                                onChange={(value) => setData("startDate", value)}
                             />
                             <InputError message={errors.startDate} />
                         </div>
@@ -270,6 +269,7 @@ export default function Dashboard() {
                                 {t('dashboard.quest.inputs.endDate.label')}
                             </Label>
                             <DateInput
+                                min={data.startDate}
                                 value={data.endDate}
                                 onChange={(value) => setData('endDate', value)}
                             />

@@ -89,12 +89,13 @@ export default function Create({ flash }: Props) {
                 <SelectInput
                     id="prize_type"
                     value={data.prize_type}
-                    setValue={(value) => setData('prize_type', value)}
+                    onChange={(value) => setData('prize_type', value)}
                     label={t('dashboard.redeem.inputs.prize_type.label')}
                     options={t('dashboard.redeem.inputs.prize_type.options', { returnObjects: true })}
                     error={errors.prize_type}
                     required
                     className="max-w-auto w-full"
+                    hasOption={false}
                 />
 
                 <SaveAndBackButtons processing={processing} href={route('admin.redeem.index')} />

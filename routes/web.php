@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BrandMarketingController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FollowController;
 use App\Http\Controllers\Admin\HelpController;
@@ -36,6 +38,7 @@ Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
             'likedImages' => auth()->user()->votes()->with('image')->get(),
             'rank' => RankingService::getRank(auth()->user()->level),
         ];
+
         return Inertia::render('dashboard', ['stats' => $stats]);
     })->name('dashboard');
     // follow unfollow
@@ -75,10 +78,13 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::resource('category', QuestCategoryController::class)->names('admin.questCategory');
     Route::get('others', [OthersController::class, 'index'])->name('admin.others');
     Route::resource('contacts', ContactController::class)->names('admin.contacts');
+    Route::get('marketing-banner', [BannerController::class, 'index'])->name('marketing.banner');
+    Route::put('marketing-banner/update', [BannerController::class, 'update'])->name('banner.update');
+    Route::resource('brand-marketing', BrandMarketingController::class)->names('admin.brand_marketing');
 
 });
 
-require __DIR__ . '/settings.php';
-require __DIR__ . '/auth.php';
-require __DIR__ . '/frontend.php';
-require __DIR__ . '/user-dashboard.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/frontend.php';
+require __DIR__.'/user-dashboard.php';

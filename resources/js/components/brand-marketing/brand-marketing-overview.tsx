@@ -7,14 +7,22 @@ import { BarChart3, Camera, Rocket } from 'lucide-react';
 import SectionHeading from '../shared/SectionHeading';
 
 const FeatureCard = ({ icon: Icon, title, description, color }) => (
-    <div className="group p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-slate-200 transition-all duration-300 w-full md:w-[45%] lg:w-[30%]">
+    <div className="group p-6 bg-bg-primary rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-slate-200 transition-all duration-300 w-full md:w-[45%] lg:w-[30%]">
         <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
             <Icon className="w-6 h-6 text-white" />
         </div>
-        <h3 className="text-xl font-bold text-slate-900 mb-2">{title}</h3>
-        <p className="text-slate-600 leading-relaxed">{description}</p>
+        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <p className="text-gray-500 dark:text-gray-400 leading-relaxed">{description}</p>
     </div>
 )
+
+const colors = [
+    "bg-pink-500",
+    "bg-indigo-500",
+    "bg-blue-500",
+    "bg-violet-500",
+    "bg-emerald-500",
+]
 export default function BrandMarketingOverview() {
     const features = [
         {
@@ -51,7 +59,7 @@ export default function BrandMarketingOverview() {
     return (
         <div className=' mx-auto max-w-7xl'>
             <SectionHeading title='Why Choose Winpix Contests' className='mb-3 md:mb-4 lg:mb-6' />
-            <p className='!text-center text-xs md:text-sm lg:text-lg text-gray-600 mb-4 md:mb-6 lg:mb-12 lg:w-[70%] mx-auto'>Winpix turns marketing campaigns into photography contests, connecting brands with thousands of creators across the GCC and worldwide to produce authentic visual content.
+            <p className='!text-center text-xs md:text-sm lg:text-lg text-gray-600 dark:text-gray-300 mb-4 md:mb-6 lg:mb-12 lg:w-[70%] mx-auto'>Winpix turns marketing campaigns into photography contests, connecting brands with thousands of creators across the GCC and worldwide to produce authentic visual content.
             </p>
 
             <div className="flex justify-center gap-8 flex-wrap">
@@ -59,6 +67,7 @@ export default function BrandMarketingOverview() {
                     <FeatureCard
                         key={index}
                         {...feature}
+                        color={colors[index % colors.length]}
                     />
                 ))}
             </div>

@@ -6,7 +6,8 @@ import UserLayout from '@/layouts/user-layout';
 
 
 
-export default function BrandMarketing({banner}: any) {
+export default function BrandMarketing({ banner, bannerMarketing }: any) {
+  
   return (
     <UserLayout>
       <Container className="my-10 space-y-14 md:my-16 md:space-y-20 lg:my-12 lg:space-y-28">

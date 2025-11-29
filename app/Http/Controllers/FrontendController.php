@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\QuestFilter;
 use App\Models\About;
+use App\Models\BrandMarketing;
 use App\Models\Contact;
 use App\Models\Follower;
 use App\Models\Help;
@@ -56,8 +57,10 @@ class FrontendController extends Controller
     public function brandMarketing()
     {
         $banner = MarketingBanner::first();
+        $features = BrandMarketing::all();
         return Inertia::render('brand-marketing', [
             'banner' => $banner,
+            'features' => $features,
         ]);
     }
 

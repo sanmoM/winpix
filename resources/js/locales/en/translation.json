@@ -268,7 +268,8 @@
             "delete": "Delete",
             "edit": "Edit",
             "view": "View",
-            "back": "Back"
+            "back": "Back",
+            "update": "Update"
         },
         "slider": {
             "inputs": {

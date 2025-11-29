@@ -407,7 +407,7 @@ export default function EditQuest() {
                     {/* Submit */}
                     <div className="flex items-center gap-4">
                         <Button disabled={processing}>
-                            {t('dashboard.quest.button.updateButton')}
+                            {t('dashboard.shared.update')}
                         </Button>
                         <Transition
                             show={recentlySuccessful}

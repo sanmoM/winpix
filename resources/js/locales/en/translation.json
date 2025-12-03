@@ -155,6 +155,10 @@
                     "description": "Users of all Skill Ranks are welcome to submit to this Quest!"
                 },
                 {
+                    "title": "Category",
+                    "description": "Users of all Skill Ranks are welcome to submit to this Quest!"
+                },
+                {
                     "title": "Copyright",
                     "description": "Submissions must be your own, submissions must not be AI generated."
                 }

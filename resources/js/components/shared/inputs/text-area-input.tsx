@@ -9,6 +9,7 @@ export default function TextAreaInput({
     name,
     id,
     error,
+    ...props
 }: {
     value: string;
     onChange: any;
@@ -22,7 +23,7 @@ export default function TextAreaInput({
     error?: string;
 }) {
     return (
-        <div>
+        <div dir={dir}>
             {label && (
                 <label
                     {...{ id }}
@@ -41,6 +42,7 @@ export default function TextAreaInput({
                 dir={dir}
                 className={`h-32 w-full resize-none rounded-sm border bg-bg-primary p-4 focus:outline-0 ${inputClassName}`}
                 required={required}
+                {...props}
             />
             {error && <p className="text-sm text-red-600">{error}</p>}
         </div>

@@ -26,6 +26,7 @@
         "votes": "Votes",
         "level": "Rank"
     },
+    
     "root": {
         "navbar": {
             "navLinks": {
@@ -168,6 +169,10 @@
     "profile": {
         "gallery": {
             "title": "Photo Library"
+        },
+        "tabs": {
+            "stats": "Stats",
+            "photos": "Photos"
         }
     },
     "singleQuestSeries": {

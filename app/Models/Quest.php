@@ -11,8 +11,11 @@ class Quest extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'brief',
+
+        'title_en',
+        'brief_en',
+        'title_ar',
+        'brief_ar',
         'start_date',
         'end_date',
         'image',
@@ -20,9 +23,12 @@ class Quest extends Model
         'category_id',
         'user_id',
         'entry_coin',
-        'level_requirement',
-        'categories_requirement',
-        'copyright_requirement',
+        'level_requirement_en',
+        'categories_requirement_en',
+        'copyright_requirement_en',
+        'level_requirement_ar',
+        'categories_requirement_ar',
+        'copyright_requirement_ar',
         'quest_series_id',
         'quest_type_id',
         'rank_tier',
@@ -31,9 +37,9 @@ class Quest extends Model
     protected static function booted()
     {
         static::deleting(function ($quest) {
-            // Delete all joins (this triggers QuestJoin deleting → QuestImages deleted)
-            $quest->quest_join->each->delete(); // <-- remove parentheses
-            $quest->images->each->delete(); // <-- remove parentheses
+            // Delete all joins
+            $quest->quest_join->each->delete();
+            $quest->images->each->delete();
 
             // Delete all prizes
             $quest->prizes()->delete();
@@ -54,7 +60,6 @@ class Quest extends Model
     {
         return $this->belongsTo(QuestType::class);
     }
-
 
     // Define the relation to prizes
     public function prizes()

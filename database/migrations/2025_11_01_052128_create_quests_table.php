@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('quests', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->longText('brief');
+            $table->string('title_en');
+            $table->longText('brief_en');
+            $table->string('title_ar');
+            $table->longText('brief_ar');
             $table->string('image');
             $table->enum('status', ['active', 'ended'])->default('active');
             $table->integer('entry_coin');
-
-            // ✅ Foreign key to quest_categories
             $table->foreignId('category_id')
                 ->constrained('quest_categories')
                 ->onDelete('cascade');
@@ -29,16 +29,17 @@ return new class extends Migration
             $table->foreignId('quest_type_id')
                 ->constrained('quest_types')
                 ->onDelete('cascade');
-
-            // ✅ Foreign key to users table (User model)
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
             $table->date('start_date');
             $table->date('end_date');
-            $table->text('level_requirement')->nullable();
-            $table->text('categories_requirement')->nullable();
-            $table->text('copyright_requirement')->nullable();
+            $table->text('level_requirement_en')->nullable();
+            $table->text('categories_requirement_en')->nullable();
+            $table->text('copyright_requirement_en')->nullable();
+            $table->text('level_requirement_ar')->nullable();
+            $table->text('categories_requirement_ar')->nullable();
+            $table->text('copyright_requirement_ar')->nullable();
             $table->enum('rank_tier', ['all', 'A', 'B', 'C', 'M'])->default('all');
             $table->timestamps();
         });

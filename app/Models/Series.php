@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Series extends Model
 {
     protected $fillable = [
+
         'image',
-        'title',
-        'description',
+        'title_en',
+        'description_en',
+        'title_ar',
+        'description_ar',
         'status',
-        'user_id'
+        'user_id',
+
     ];
 
     public function quests()

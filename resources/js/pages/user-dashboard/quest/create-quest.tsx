@@ -359,7 +359,6 @@
 //     </svg>
 // );
 
-
 import InputError from '@/components/input-error';
 import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import DateInput from '@/components/shared/inputs/date-input';
@@ -410,8 +409,6 @@ export default function Dashboard() {
         rank_tiers,
     }: { categories: { id: number; name: string }[] } = usePage<any>().props;
     const { t } = useLocales();
-
-
 
     const {
         data,
@@ -473,7 +470,7 @@ export default function Dashboard() {
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
-            title: "Create Contest",
+            title: 'Create Contest',
             href: dashboard().url,
         },
     ];
@@ -496,13 +493,14 @@ export default function Dashboard() {
                         iconClassName="w-[20%]"
                     />
 
-
                     <TextInput
                         id="title"
                         value={data.title}
                         setValue={(value) => setData('title', value)}
                         label={t('dashboard.quest.inputs.title.label')}
-                        placeholder={t('dashboard.quest.inputs.title.placeholder')}
+                        placeholder={t(
+                            'dashboard.quest.inputs.title.placeholder',
+                        )}
                         error={errors.title}
                         required={true}
                     />
@@ -511,7 +509,9 @@ export default function Dashboard() {
                         value={data.brief}
                         onChange={(e) => setData('brief', e.target.value)}
                         label={t('dashboard.quest.inputs.brief.label')}
-                        placeholder={t('dashboard.quest.inputs.brief.placeholder')}
+                        placeholder={t(
+                            'dashboard.quest.inputs.brief.placeholder',
+                        )}
                         error={errors.brief}
                         required={true}
                     />
@@ -540,13 +540,11 @@ export default function Dashboard() {
                         />
                     </div>
 
-                    <div className="grid gap-4 grid-cols-2">
+                    <div className="grid grid-cols-2 gap-4">
                         <SelectInput
                             id="quest_type_id"
                             name="quest_type_id"
-                            label={t(
-                                'dashboard.quest.inputs.type.label',
-                            )}
+                            label={t('dashboard.quest.inputs.type.label')}
                             options={typesOptions}
                             value={data.quest_type_id}
                             onChange={(value) =>
@@ -557,9 +555,7 @@ export default function Dashboard() {
                         <SelectInput
                             id="rank_tier"
                             name="rank_tier"
-                            label={t(
-                                'dashboard.quest.inputs.rank_tier.label',
-                            )}
+                            label={t('dashboard.quest.inputs.rank_tier.label')}
                             options={rankTierOptions}
                             value={data.rank_tier}
                             onChange={(value) =>
@@ -571,11 +567,13 @@ export default function Dashboard() {
                     </div>
                     <TextInput
                         id="entry_coin"
-                        type='number'
+                        type="number"
                         value={data.entry_coin}
                         setValue={(value) => setData('entry_coin', value)}
                         label={t('dashboard.quest.inputs.entryCoin.label')}
-                        placeholder={t('dashboard.quest.inputs.entryCoin.placeholder')}
+                        placeholder={t(
+                            'dashboard.quest.inputs.entryCoin.placeholder',
+                        )}
                         error={errors.entry_coin}
                         required={true}
                     />
@@ -583,27 +581,45 @@ export default function Dashboard() {
                         <TextInput
                             id="copyright_require"
                             value={data.copyright_requirement}
-                            setValue={(value) => setData('copyright_requirement', value)}
-                            label={t('dashboard.quest.inputs.copyright_requirement.label')}
-                            placeholder={t('dashboard.quest.inputs.copyright_requirement.placeholder')}
+                            setValue={(value) =>
+                                setData('copyright_requirement', value)
+                            }
+                            label={t(
+                                'dashboard.quest.inputs.copyright_requirement.label',
+                            )}
+                            placeholder={t(
+                                'dashboard.quest.inputs.copyright_requirement.placeholder',
+                            )}
                             error={errors.copyright_requirement}
                             required={true}
                         />
                         <TextInput
                             id="level_require"
                             value={data.level_requirement}
-                            setValue={(value) => setData('level_requirement', value)}
-                            label={t('dashboard.quest.inputs.level_requirement.label')}
-                            placeholder={t('dashboard.quest.inputs.level_requirement.placeholder')}
+                            setValue={(value) =>
+                                setData('level_requirement', value)
+                            }
+                            label={t(
+                                'dashboard.quest.inputs.level_requirement.label',
+                            )}
+                            placeholder={t(
+                                'dashboard.quest.inputs.level_requirement.placeholder',
+                            )}
                             error={errors.level_requirement}
                             required={true}
                         />
                         <TextInput
                             id="categories_require"
                             value={data.categories_requirement}
-                            setValue={(value) => setData('categories_requirement', value)}
-                            label={t('dashboard.quest.inputs.categories_requirement.label')}
-                            placeholder={t('dashboard.quest.inputs.categories_requirement.placeholder')}
+                            setValue={(value) =>
+                                setData('categories_requirement', value)
+                            }
+                            label={t(
+                                'dashboard.quest.inputs.categories_requirement.label',
+                            )}
+                            placeholder={t(
+                                'dashboard.quest.inputs.categories_requirement.placeholder',
+                            )}
                             error={errors.categories_requirement}
                             required={true}
                         />
@@ -617,7 +633,7 @@ export default function Dashboard() {
                                 {t('dashboard.quest.inputs.startDate.label')}
                             </Label>
                             <DateInput
-                               min={new Date().toISOString().slice(0, 10)}
+                                min={new Date().toISOString().slice(0, 10)}
                                 value={data.startDate}
                                 onChange={(value) =>
                                     setData('startDate', value)
@@ -643,7 +659,10 @@ export default function Dashboard() {
                         prizes={data.prizes}
                         setPrizes={(value) => setData('prizes', value)}
                     />
-                    <SaveAndBackButtons processing={processing} href={"/admin/quest"} />
+                    <SaveAndBackButtons
+                        processing={processing}
+                        href={'/admin/quest'}
+                    />
                 </form>
             </div>
         </AppLayout>

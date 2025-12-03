@@ -1,124 +1,184 @@
 import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import ImageInput from '@/components/shared/inputs/image-input';
-import TextInput from '@/components/shared/inputs/text-input';
 import TextAreaInput from '@/components/shared/inputs/text-area-input';
-import AppLayout from '@/layouts/app-layout';
+import TextInput from '@/components/shared/inputs/text-input';
 import useLocales from '@/hooks/useLocales';
+import AppLayout from '@/layouts/app-layout';
+import type { BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
+import { useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
-import { useEffect, useRef } from 'react';
-import type { BreadcrumbItem } from '@/types';
 
 interface FlashProps {
-  success?: string;
-  error?: string;
+    success?: string;
+    error?: string;
 }
 
 interface Props {
-  flash?: FlashProps;
+    flash?: FlashProps;
 }
 
 export default function CreateSeries({ flash }: Props) {
-  const { t } = useLocales();
+    const { t } = useLocales();
 
-  const { data, setData, post, processing, progress, errors, reset } =
-    useForm<{
-      title: string;
-      description: string;
-      image: File | null;
-    }>({
-      title: '',
-      description: '',
-      image: null,
-    });
+    const { data, setData, post, processing, progress, errors, reset } =
+        useForm<{
+            title_en: string;
+            description_en: string;
+            title_ar: string;
+            description_ar: string;
+            image: File | null;
+        }>({
+            title_en: '',
+            description_en: '',
+            title_ar: '',
+            description_ar: '',
+            image: null,
+        });
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (flash?.success) toast.success(flash.success);
-    if (flash?.error) toast.error(flash.error);
-  }, [flash]);
+    useEffect(() => {
+        if (flash?.success) toast.success(flash.success);
+        if (flash?.error) toast.error(flash.error);
+    }, [flash]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('title', data.title);
-    formData.append('description', data.description);
-    if (data.image) formData.append('image', data.image);
+        const formData = new FormData();
+        formData.append('title_en', data.title_en);
+        formData.append('description_en', data.description_en);
+        formData.append('title_ar', data.title_ar);
+        formData.append('description_ar', data.description_ar);
+        if (data.image) formData.append('image', data.image);
 
-    post(route('admin.series.store'), {
-      data: formData,
-      forceFormData: true,
-      onSuccess: () => {
-        reset();
-        if (fileInputRef.current) fileInputRef.current.value = '';
-      },
-    });
-  };
+        post(route('admin.series.store'), {
+            data: formData,
+            forceFormData: true,
+            onSuccess: () => {
+                reset();
+                if (fileInputRef.current) fileInputRef.current.value = '';
+            },
+        });
+    };
 
-  const breadcrumbs: BreadcrumbItem[] = [
-    { title: t('dashboard.series.index.title'), href: route('admin.series.index') },
-    { title: t('dashboard.series.create.title') },
-  ];
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: t('dashboard.series.index.title'),
+            href: route('admin.series.index'),
+        },
+        { title: t('dashboard.series.create.title') },
+    ];
 
-  return (
-    <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title={t('dashboard.series.create.title')} />
-      <ToastContainer />
+    return (
+        <AppLayout breadcrumbs={breadcrumbs}>
+            <Head title={t('dashboard.series.create.title')} />
+            <ToastContainer />
 
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-6xl space-y-6 p-6"
-        encType="multipart/form-data"
-      >
-        {/* IMAGE UPLOAD */}
-        <div className="grid w-full items-center gap-3">
-          <ImageInput
-            image={data.image}
-            setImage={(value) => setData('image', value)}
-            wrapperClassName="w-full aspect-[2/1]"
-            iconClassName="w-[20%]"
-            error={errors.image}
-            label={t('dashboard.series.inputs.image.label')}
-            required={true}
-            ref={fileInputRef}
-          />
-          {progress && (
-            <p className="mt-1 text-xs text-gray-500">
-              Uploading: {progress.percentage}%
-            </p>
-          )}
-        </div>
+            <form
+                onSubmit={handleSubmit}
+                className="max-w-6xl space-y-6 p-6"
+                encType="multipart/form-data"
+            >
+                {/* IMAGE UPLOAD */}
+                <div className="grid w-full items-center gap-3">
+                    <ImageInput
+                        image={data.image}
+                        setImage={(value) => setData('image', value)}
+                        wrapperClassName="w-full aspect-[2/1]"
+                        iconClassName="w-[20%]"
+                        error={errors.image}
+                        label={t('dashboard.series.inputs.image.label')}
+                        required={true}
+                        ref={fileInputRef}
+                    />
+                    {progress && (
+                        <p className="mt-1 text-xs text-gray-500">
+                            Uploading: {progress.percentage}%
+                        </p>
+                    )}
+                </div>
 
-        {/* TITLE */}
-        <TextInput
-          id="title"
-          value={data.title}
-          setValue={(value) => setData('title', value)}
-          label={t('dashboard.series.inputs.title.label')}
-          placeholder={t('dashboard.series.inputs.title.placeholder')}
-          error={errors.title}
-          required={true}
-        />
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                    {/* English Column */}
+                    <div className="space-y-4 rounded-lg border border-gray-200 bg-bg-primary p-4">
+                        <h3 className="flex items-center gap-2 text-lg font-bold text-blue-600">
+                            <span>🇬🇧</span> English Content
+                        </h3>
 
-        {/* DESCRIPTION */}
-        <TextAreaInput
-          id="description"
-          value={data.description}
-          onChange={(e) => setData('description', e.target.value)}
-          label={t('dashboard.series.inputs.description.label')}
-          placeholder={t('dashboard.series.inputs.description.placeholder')}
-          error={errors.description}
-          required={true}
-        />
+                        {/* TITLE */}
+                        <TextInput
+                            id="title"
+                            value={data.title_en}
+                            setValue={(value) => setData('title_en', value)}
+                            label={t('dashboard.series.inputs.title.label')}
+                            placeholder={t(
+                                'dashboard.series.inputs.title.placeholder',
+                            )}
+                            error={errors.title_en}
+                            required={true}
+                        />
 
-        <SaveAndBackButtons
-          processing={processing}
-          href={route('admin.series.index')}
-        />
-      </form>
-    </AppLayout>
-  );
+                        {/* DESCRIPTION */}
+                        <TextAreaInput
+                            id="description"
+                            value={data.description_en}
+                            onChange={(e) =>
+                                setData('description_en', e.target.value)
+                            }
+                            label={t(
+                                'dashboard.series.inputs.description.label',
+                            )}
+                            placeholder={t(
+                                'dashboard.series.inputs.description.placeholder',
+                            )}
+                            error={errors.description_en}
+                            required={true}
+                        />
+                    </div>
+
+                    <div
+                        className="space-y-4 rounded-lg border border-gray-200 bg-bg-primary p-4"
+                        dir="rtl"
+                    >
+                        <h3 className="flex items-center gap-2 text-lg font-bold text-green-600">
+                            <span>🇸🇦</span> المحتوى العربي
+                        </h3>
+
+                        <TextInput
+                            id="title_ar"
+                            value={data?.title_ar}
+                            setValue={(value) => setData('title_ar', value)}
+                            placeholder="العنوان"
+                            error={errors.title_ar}
+                            label={t(
+                                'dashboard.brandMarketingBanner.edit.inputs.title_ar.label',
+                            )}
+                            required={true}
+                        />
+
+                        <TextAreaInput
+                            id="description_ar"
+                            value={data?.description_ar}
+                            onChange={(e) =>
+                                setData('description_ar', e.target.value)
+                            }
+                            placeholder="الوصف"
+                            label="Description (Arabic)"
+                            required={false}
+                            dir="rtl"
+                            error={errors?.description_ar}
+                        />
+                    </div>
+                </div>
+
+                <SaveAndBackButtons
+                    processing={processing}
+                    href={route('admin.series.index')}
+                />
+            </form>
+        </AppLayout>
+    );
 }

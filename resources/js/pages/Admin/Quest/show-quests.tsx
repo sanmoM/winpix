@@ -17,14 +17,14 @@ import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Quest',
+        title: 'All Contest',
         href: 'admin.quest',
     },
 ];
 
 export default function Index() {
     const { quests: items, flash } = usePage<any>().props;
-    const { t } = useLocales()
+    const { t } = useLocales();
     useEffect(() => {
         if (flash?.success) {
             toast.success(flash?.success);
@@ -41,7 +41,6 @@ export default function Index() {
         router.delete(route('user-dashboard.quest.destroy', id));
     };
 
-
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
@@ -49,7 +48,7 @@ export default function Index() {
 
             <TableContainer>
                 <TableTopSection
-                    href={"/quest/create"}
+                    href={'/admin/contest/create'}
                     title={t('dashboard.quest.index.title')}
                 />
 
@@ -67,7 +66,7 @@ export default function Index() {
                                     {item.image ? (
                                         <img
                                             src={`/storage/${item.image}`}
-                                            alt={item.title}
+                                            alt={item.title_en}
                                             className="h-10 w-10 rounded object-cover"
                                         />
                                     ) : (
@@ -77,7 +76,8 @@ export default function Index() {
                                     )}
                                 </TableCell>
 
-                                <TableCell>{item.title}</TableCell>
+                                <TableCell>{item.title_en}</TableCell>
+                                <TableCell>{item.user.name}</TableCell>
 
                                 <TableCell>
                                     <Badge
@@ -92,8 +92,17 @@ export default function Index() {
                                 </TableCell>
 
                                 <TableCell className="space-x-2">
-                                    <EditButton route={route('admin.quest.edit', item.id)} />
-                                    <DeleteButton handleDelete={() => handleDelete(item.id)} />
+                                    <EditButton
+                                        route={route(
+                                            'admin.quest.edit',
+                                            item.id,
+                                        )}
+                                    />
+                                    <DeleteButton
+                                        handleDelete={() =>
+                                            handleDelete(item.id)
+                                        }
+                                    />
                                 </TableCell>
                             </TableRow>
                         ))

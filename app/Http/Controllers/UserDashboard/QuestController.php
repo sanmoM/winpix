@@ -55,13 +55,14 @@ class QuestController extends Controller
         // Get authenticated user
         $user = auth()->user();
         $userId = $user->id;
-
         $input = $request->all();
 
         // Validate request
         $validator = Validator::make($input, [
-            'title' => 'required|string|max:255',
-            'brief' => 'required',
+            'title_en' => 'required|string|max:255',
+            'brief_en' => 'required',
+            'title_ar' => 'required|string|max:255',
+            'brief_ar' => 'required',
             'category_id' => 'required|integer|exists:quest_categories,id',
             'startDate' => 'required|string|max:255',
             'endDate' => 'required|string|max:255',
@@ -76,6 +77,11 @@ class QuestController extends Controller
             'level_requirement' => 'nullable|string|max:255',
             'categories_requirement' => 'nullable|string|max:255',
             'copyright_requirement' => 'nullable|string|max:255',
+
+            'level_requirement_ar' => 'nullable|string|max:255',
+            'categories_requirement_ar' => 'nullable|string|max:255',
+            'copyright_requirement_ar' => 'nullable|string|max:255',
+
             'quest_series_id' => 'required|integer|exists:series,id',
             'quest_type_id' => 'required|integer|exists:quest_types,id',
             'rank_tier' => 'required',
@@ -92,8 +98,10 @@ class QuestController extends Controller
 
         // // Create quest
         $quest = Quest::create([
-            'title' => $input['title'],
-            'brief' => $input['brief'],
+            'title_en' => $input['title_en'],
+            'brief_en' => $input['brief_en'],
+            'title_ar' => $input['title_ar'],
+            'brief_ar' => $input['brief_ar'],
             'category_id' => $input['category_id'],
             'start_date' => $input['startDate'],
             'end_date' => $input['endDate'],
@@ -101,15 +109,20 @@ class QuestController extends Controller
             'status' => 'active',
             'user_id' => $userId,
             'entry_coin' => $input['entry_coin'],
-            'level_requirement' => $input['level_requirement'],
-            'categories_requirement' => $input['categories_requirement'],
-            'copyright_requirement' => $input['copyright_requirement'],
+            'level_requirement_en' => $input['level_requirement_en'],
+            'categories_requirement_en' => $input['categories_requirement_en'],
+            'copyright_requirement_en' => $input['copyright_requirement_en'],
+
+            'level_requirement_ar' => $input['level_requirement_ar'],
+            'categories_requirement_ar' => $input['categories_requirement_ar'],
+            'copyright_requirement_ar' => $input['copyright_requirement_ar'],
+
             'quest_series_id' => $input['quest_series_id'],
             'quest_type_id' => $input['quest_type_id'],
             'rank_tier' => $input['rank_tier'],
         ]);
 
-        // // Create prizes
+        // Create prizes
         foreach ($input['prizes'] as $prizeData) {
             Prize::create([
                 'quest_id' => $quest->id,
@@ -146,17 +159,24 @@ class QuestController extends Controller
         return Inertia::render('user-dashboard/quest/edit-quest', [
             'quest' => [
                 'id' => $quest->id,
-                'title' => $quest->title,
-                'brief' => $quest->brief,
+                'title_en' => $quest->title_en,
+                'brief_en' => $quest->brief_en,
+                'title_ar' => $quest->title_ar,
+                'brief_ar' => $quest->brief_ar,
                 'category_id' => (string) $quest->category_id,
                 'startDate' => $quest->start_date, // already string thanks to casting
                 'endDate' => $quest->end_date,
                 'prizes' => $quest->prizes,
                 'image' => $quest->image,
                 'entry_coin' => $quest->entry_coin,
-                'level_requirement' => $quest->level_requirement,
-                'categories_requirement' => $quest->categories_requirement,
-                'copyright_requirement' => $quest->copyright_requirement,
+                'level_requirement_en' => $quest->level_requirement_en,
+                'categories_requirement_en' => $quest->categories_requirement_en,
+                'copyright_requirement_en' => $quest->copyright_requirement_en,
+
+                'level_requirement_ar' => $quest->level_requirement_ar,
+                'categories_requirement_ar' => $quest->categories_requirement_ar,
+                'copyright_requirement_ar' => $quest->copyright_requirement_ar,
+
                 'quest_series_id' => $quest->quest_series_id,
                 'quest_type_id' => $quest->quest_type_id,
                 'rank_tier' => $quest->rank_tier,
@@ -166,6 +186,7 @@ class QuestController extends Controller
             'types' => $types,
         ]);
     }
+
     public function update(Request $request, string $id)
     {
         $quest = Quest::with('prizes')->findOrFail($id);
@@ -173,8 +194,10 @@ class QuestController extends Controller
 
         // Validation (same as before)
         $validator = Validator::make($input, [
-            'title' => 'required|string|max:255',
-            'brief' => 'required',
+            'title_en' => 'required|string|max:255',
+            'brief_en' => 'required',
+            'title_ar' => 'required|string|max:255',
+            'brief_ar' => 'required',
             'category_id' => 'required|integer|exists:quest_categories,id',
             'startDate' => 'required|date',
             'endDate' => 'required|date|after_or_equal:startDate',
@@ -201,6 +224,11 @@ class QuestController extends Controller
             'level_requirement' => 'nullable|string|max:255',
             'categories_requirement' => 'nullable|string|max:255',
             'copyright_requirement' => 'nullable|string|max:255',
+
+            'level_requirement_ar' => 'nullable|string|max:255',
+            'categories_requirement_ar' => 'nullable|string|max:255',
+            'copyright_requirement_ar' => 'nullable|string|max:255',
+
             'quest_series_id' => 'integer|exists:series,id',
             'quest_type_id' => 'integer|exists:quest_types,id',
             'rank_tier' => 'nullable|string|max:255',
@@ -226,16 +254,25 @@ class QuestController extends Controller
 
         // Update quest
         $quest->update([
-            'title' => $input['title'],
-            'brief' => $input['brief'],
+
+            'title_en' => $input['title_en'],
+            'brief_en' => $input['brief_en'],
+            'title_ar' => $input['title_ar'],
+            'brief_ar' => $input['brief_ar'],
             'category_id' => $input['category_id'],
             'start_date' => $input['startDate'],
             'end_date' => $input['endDate'],
             'image' => $input['image'],
             'entry_coin' => $input['entry_coin'],
-            'level_requirement' => $input['level_requirement'],
-            'categories_requirement' => $input['categories_requirement'],
-            'copyright_requirement' => $input['copyright_requirement'],
+
+            'level_requirement_en' => $input['level_requirement_en'],
+            'categories_requirement_en' => $input['categories_requirement_en'],
+            'copyright_requirement_en' => $input['copyright_requirement_en'],
+
+            'level_requirement_ar' => $input['level_requirement_ar'],
+            'categories_requirement_ar' => $input['categories_requirement_ar'],
+            'copyright_requirement_ar' => $input['copyright_requirement_ar'],
+
             'quest_series_id' => $input['quest_series_id'],
             'quest_type_id' => $input['quest_type_id'],
             'rank_tier' => $input['rank_tier'],

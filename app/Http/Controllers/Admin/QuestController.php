@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Prize;
 use App\Models\Quest;
 use App\Models\QuestCategory;
 use App\Models\QuestType;
 use App\Models\Series;
 use App\Services\RankingService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
 class QuestController extends Controller
@@ -44,6 +40,7 @@ class QuestController extends Controller
             'rank_tiers' => RankingService::RANK_TIERS,
         ]);
     }
+
     public function show(string $id)
     {
         //
@@ -62,17 +59,24 @@ class QuestController extends Controller
         return Inertia::render('Admin/Quest/edit-quest', [
             'quest' => [
                 'id' => $quest->id,
-                'title' => $quest->title,
-                'brief' => $quest->brief,
+                'title_en' => $quest->title_en,
+                'brief_en' => $quest->brief_en,
+                'title_ar' => $quest->title_ar,
+                'brief_ar' => $quest->brief_ar,
                 'category_id' => (string) $quest->category_id,
                 'startDate' => $quest->start_date, // already string thanks to casting
                 'endDate' => $quest->end_date,
                 'prizes' => $quest->prizes,
                 'image' => $quest->image,
                 'entry_coin' => $quest->entry_coin,
-                'level_requirement' => $quest->level_requirement,
-                'categories_requirement' => $quest->categories_requirement,
-                'copyright_requirement' => $quest->copyright_requirement,
+                'level_requirement_en' => $quest->level_requirement_en,
+                'categories_requirement_en' => $quest->categories_requirement_en,
+                'copyright_requirement_en' => $quest->copyright_requirement_en,
+
+                'level_requirement_ar' => $quest->level_requirement_ar,
+                'categories_requirement_ar' => $quest->categories_requirement_ar,
+                'copyright_requirement_ar' => $quest->copyright_requirement_ar,
+
                 'quest_series_id' => $quest->quest_series_id,
                 'quest_type_id' => $quest->quest_type_id,
                 'rank_tier' => $quest->rank_tier,
@@ -81,8 +85,8 @@ class QuestController extends Controller
             'series' => $series,
             'types' => $types,
             'rank_tiers' => RankingService::RANK_TIERS,
-
         ]);
+
     }
 
     public function destroy(string $id)

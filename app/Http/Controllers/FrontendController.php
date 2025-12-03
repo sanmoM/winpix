@@ -97,45 +97,47 @@ class FrontendController extends Controller
         $rank = $queryParams['rank'] ?? null;
         $sort = $queryParams['sort'] ?? null;
 
+        // Static data
         $series = Series::with('quests.user', 'quests.category', 'user')->get();
         $categories = QuestCategory::all();
         $questTypes = QuestType::all();
-        $quests = QuestFilter::getQuestModelByFilter($filter);
-        $quests = QuestFilter::getQuestModelBySort($sort);
 
-        // return dd($quests->get());
+        // Initialize base query
+        QuestFilter::init()
+            ->filter($filter)
+            ->sort($sort);
 
+        // Dynamic filters
         if ($category) {
-            $quests->where('category_id', $category);
+            QuestFilter::query()->where('category_id', $category);
         }
 
         if ($questType) {
-            $quests->where('quest_type_id', $questType);
+            QuestFilter::query()->where('quest_type_id', $questType);
         }
 
         if ($isFree) {
-            if ($isFree === 'true') {
-                $quests->where('entry_coin', 0);
-            } else {
-                $quests->where('entry_coin', '>', 0);
-            }
+            QuestFilter::query()->where(
+                'entry_coin',
+                $isFree === 'true' ? 0 : '>'
+            );
         }
 
-        if ($rank) {
-            if ($rank !== 'All') {
-                $quests->where('rank_tier', $rank);
-            }
+        if ($rank && $rank !== 'All') {
+            QuestFilter::query()->where('rank_tier', $rank);
         }
 
-        $quests = $quests->get();
+        // Fetch finally
+        $quests = QuestFilter::query()->get();
 
         return Inertia::render('quests/active-quests', [
-            'series' => $filter == 'discover' ? $series : [],
+            'series' => $filter === 'discover' ? $series : [],
             'quests' => $quests,
             'categories' => $categories,
             'questTypes' => $questTypes,
         ]);
     }
+
 
     // 
 

@@ -3,6 +3,7 @@ import ActiveQuestsFilter from '@/components/quests/active-quests/active-quests-
 import QuestsSeries from '@/components/quests/active-quests/quests-series'
 import Card from '@/components/shared/card'
 import Container from '@/components/shared/container'
+import NoData from '@/components/shared/no-data'
 import SectionHeading from '@/components/shared/SectionHeading'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
@@ -75,7 +76,7 @@ export default function active({ series, quests, categories, questTypes }: any) 
                     )
                 }
                 {
-                    quests?.length > 0 && (
+                    quests?.length > 0 ? (
                         <div>
                             <SectionHeading title={t('activeQuests.quests.title')} />
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -88,6 +89,8 @@ export default function active({ series, quests, categories, questTypes }: any) 
                                 }
                             </div>
                         </div>
+                    ) : (
+                        <NoData text='No contest found' />
                     )
                 }
             </Container>

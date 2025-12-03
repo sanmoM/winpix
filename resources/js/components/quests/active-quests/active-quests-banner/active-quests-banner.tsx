@@ -33,7 +33,7 @@ function dateDiff(date1Str, date2Str) {
     return { years, months, days };
 }
 
-export default function ActiveQuestsBanner({ direction, quests, t }: any) {
+export default function ActiveQuestsBanner({ direction, quests, t, currentLanguage }: any) {
     return (
         <CustomSlider mobileView={1} tabletView={1} desktopView={1}>
             {
@@ -43,7 +43,7 @@ export default function ActiveQuestsBanner({ direction, quests, t }: any) {
                             <div className="relative z-10 p-8 md:p-12 flex flex-col gap-3 md:gap-4 text-white">
 
                                 {/* Header Title */}
-                                <h1 className="text-3xl md:text-5xl font-bold title !text-right">{slide.title}</h1>
+                                <h1 className="text-3xl md:text-5xl font-bold title !text-right">{currentLanguage === 'en' ? slide?.title_en : slide?.title_ar}</h1>
 
                                 {/* Info Bar */}
                                 <div className="flex justify-center md:justify-end flex-wrap items-center gap-x-6 gap-y-3 text-sm md:text-lg info w-fit ml-auto">
@@ -60,7 +60,7 @@ export default function ActiveQuestsBanner({ direction, quests, t }: any) {
 
                                 {/* Description Text */}
                                 <p className="text-xs md:text-base text-gray-200 max-w-3xl leading-relaxed description !text-right">
-                                    {slide?.brief}
+                                    {currentLanguage === 'en' ? slide?.brief_en : slide?.brief_ar}
                                 </p>
 
                                 {/* Prize Pool Details */}

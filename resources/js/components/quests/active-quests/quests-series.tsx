@@ -68,6 +68,7 @@ export default function QuestsSeries({ title, series }: { title: string, series:
                             category: singleSeries.category,
                             image: singleSeries.image,
                             user: singleSeries.user,
+                            quests: singleSeries.quests,
                         }}
                             isSeries
                         />

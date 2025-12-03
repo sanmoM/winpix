@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react'
 
 export default function active({ series, quests, categories, questTypes }: any) {
     // const params = new URLSearchParams();
-    const { t, direction } = useLocales()
+    const { t, direction, currentLanguage } = useLocales()
     const [filter, setFilter] = useState({
         rank: "All",
         category: null,
@@ -24,6 +24,8 @@ export default function active({ series, quests, categories, questTypes }: any) 
     const addFilter = (Key, Value) => {
         setFilter(prev => ({ ...prev, [Key]: Value }));
     }
+
+    console.log(series)
 
     const handleFilter = () => {
         const queryParams = new URLSearchParams(window.location.search);
@@ -67,7 +69,7 @@ export default function active({ series, quests, categories, questTypes }: any) 
 
     return (
         <UserLayout>
-            <ActiveQuestsBanner direction={direction} t={t} quests={quests} />
+            <ActiveQuestsBanner direction={direction} t={t} quests={quests} currentLanguage={currentLanguage} />
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
                 <ActiveQuestsFilter t={t} handleFilter={handleFilter} filter={filter} setFilter={addFilter} categories={categories} questTypes={questTypes} resetFilter={resetFilter} />
                 {

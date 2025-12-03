@@ -44,6 +44,7 @@ export const settingsNavItemsEN: NavItem[] = [
         title: 'Language',
         href: '/settings/language',
         icon: null,
+        access: "user",
     },
 ];
 
@@ -87,5 +88,6 @@ export const settingsNavItemsAR: NavItem[] = [
         title: 'اللغة',
         href: '/settings/language',
         icon: null,
+        access: "user",
     },
 ];

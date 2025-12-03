@@ -4,7 +4,7 @@ import { Separator } from '@/components/ui/separator';
 import { settingsNavItemsAR, settingsNavItemsEN } from '@/data/settings-nav-items';
 import useLocales from '@/hooks/useLocales';
 import { cn } from '@/lib/utils';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { type PropsWithChildren } from 'react';
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
@@ -14,6 +14,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     if (typeof window === 'undefined') {
         return null;
     }
+    const user = usePage().props.auth.user;
 
     const currentPath = window.location.pathname;
 
@@ -28,7 +29,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                 <aside className="w-full max-w-xl lg:w-48">
                     <nav className="flex flex-col space-y-1 space-x-0">
                         {sidebarNavItems.map((item, index) => (
-                            <Button
+                            ((item.access === user?.role) || (!item?.access)) && (<Button
                                 key={`${typeof item.href === 'string' ? item.href : item.href.url}-${index}`}
                                 size="sm"
                                 variant="ghost"
@@ -42,12 +43,13 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                                 })}
                             >
                                 <Link href={item.href}>
+                                    {console.log(item.access, user?.role)}
                                     {item.icon && (
                                         <item.icon className="h-4 w-4" />
                                     )}
                                     {item.title}
                                 </Link>
-                            </Button>
+                            </Button>)
                         ))}
                     </nav>
                 </aside>

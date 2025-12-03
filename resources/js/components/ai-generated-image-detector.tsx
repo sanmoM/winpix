@@ -1,12 +1,11 @@
 import * as exifr from 'exifr';
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
 /**
  * Main application component for the AI Image Analyzer.
  * Allows users to upload an image and get an analysis from the Gemini API
  * on whether the image is likely AI-generated.
  */
-export default function AIGeneratedImageDetector() {
+export default async function AIGeneratedImageDetector() {
   // State to hold the uploaded image file object
   const [imageFile, setImageFile] = useState(null);
   // State to hold the URL for the image preview
@@ -130,7 +129,7 @@ export default function AIGeneratedImageDetector() {
    * Converts the image to base64, constructs the API request,
    * and fetches the analysis from the Gemini API.
    */
-  const handleAnalyzeClick = async () => {
+  const handleAnalyzeClick = async (imageFile) => {
     if (!imageFile) {
       setError('Please upload an image first.');
       return;

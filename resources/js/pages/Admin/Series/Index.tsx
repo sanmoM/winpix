@@ -10,15 +10,14 @@ import { Badge } from '@/components/ui/badge';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { Head, router } from '@inertiajs/react';
+import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
-import { useEffect } from 'react';
 
 interface SeriesItem {
     id: number;
     image: string | null;
-    title: string;
-    description: string;
+    title_en: string;
     status: string;
 }
 
@@ -78,7 +77,7 @@ export default function SeriesIndex({
                                     {item.image ? (
                                         <img
                                             src={`/storage/${item.image}`}
-                                            alt={item.title}
+                                            alt={item.title_en}
                                             className="h-10 w-10 rounded object-cover"
                                         />
                                     ) : (
@@ -88,9 +87,7 @@ export default function SeriesIndex({
                                     )}
                                 </TableCell>
 
-                                <TableCell>{item.title}</TableCell>
-
-                                <TableCell>{item.description}</TableCell>
+                                <TableCell>{item.title_en}</TableCell>
 
                                 <TableCell>
                                     <Badge
@@ -106,10 +103,15 @@ export default function SeriesIndex({
 
                                 <TableCell className="space-x-2">
                                     <EditButton
-                                        route={route('admin.series.edit', item.id)}
+                                        route={route(
+                                            'admin.series.edit',
+                                            item.id,
+                                        )}
                                     />
                                     <DeleteButton
-                                        handleDelete={() => handleDelete(item.id)}
+                                        handleDelete={() =>
+                                            handleDelete(item.id)
+                                        }
                                     />
                                 </TableCell>
                             </TableRow>

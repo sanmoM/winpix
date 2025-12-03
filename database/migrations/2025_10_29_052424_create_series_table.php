@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('series', function (Blueprint $table) {
             $table->id();
             $table->string('image');
-            $table->string('title');
-            $table->text('description')->nullable();
+            $table->string('title_en');
+            $table->text('description_en')->nullable();
+            $table->string('title_ar');
+            $table->text('description_ar')->nullable();
             $table->string('status')->default('Active');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();

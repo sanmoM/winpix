@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Series;
-use Inertia\Inertia;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class SeriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-
     public function index()
     {
         $series = Series::orderBy('id', 'DESC')->get();
+
         return Inertia::render('Admin/Series/Index', [
-            'series' => $series
+            'series' => $series,
         ]);
     }
 
@@ -37,22 +37,24 @@ class SeriesController extends Controller
     {
         $user = $request->user();
         $validated = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'image' => 'required|image|max:2048'
+            'title_en' => 'required',
+            'description_en' => 'required',
+            'title_ar' => 'required',
+            'description_ar' => 'required',
+            'image' => 'required|image|max:2048',
         ]);
 
-
-        $series = new Series();
-        $series->title = $request->title;
-        $series->description = $request->description;
+        $series = new Series;
+        $series->title_en = $request->title_en;
+        $series->description_en = $request->description_en;
+        $series->title_ar = $request->title_ar;
+        $series->description_ar = $request->description_ar;
 
         if ($request->hasFile('image')) {
             $file = $request->file('image')->store('uploads/series', 'public');
             $series->image = $file;
             $series->user_id = $user->id;
         }
-
 
         $series->save();
 
@@ -62,39 +64,39 @@ class SeriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
      */
-
     public function edit(string $id)
     {
         $series = Series::find($id);
+
         return Inertia::render('Admin/Series/Edit', [
-            'series' => $series
+            'series' => $series,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
+            'title_en' => 'required',
+            'description_en' => 'required',
+            'title_ar' => 'required',
+            'description_ar' => 'required',
             'image' => 'nullable|image|max:2048',
             'status' => 'required',
         ]);
 
         $series = Series::find($id);
-        $series->title = $request->title;
-        $series->description = $request->description;
+        $series->title_en = $request->title_en;
+        $series->description_en = $request->description_en;
+        $series->title_ar = $request->title_ar;
+        $series->description_ar = $request->description_ar;
         $series->status = $request->status;
 
         if ($request->hasFile('image')) {

@@ -19,10 +19,9 @@ use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\UserController;
 use App\Models\User;
 use App\Services\RankingService;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Artisan;
-
 
 Route::get('/cache-clear', function () {
     Artisan::call('cache:clear');
@@ -30,9 +29,9 @@ Route::get('/cache-clear', function () {
     Artisan::call('route:clear');
     Artisan::call('view:clear');
     Artisan::call('storage:link');
-    return "Cache cleared successfully!";
-});
 
+    return 'Cache cleared successfully!';
+});
 
 Route::get('auth-error', function () {
     return view('error');
@@ -77,9 +76,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('/users', [UserController::class, 'allUsers'])->name('admin.allUsers');
     Route::get('/users/edit/{id}', [UserController::class, 'EditUsers'])->name('admin.editUsers');
     Route::put('/users/update/{id}', [UserController::class, 'updateUsers'])->name('admin.updateUsers');
-    Route::get('/quest', [QuestController::class, 'index'])->name('admin.quest');
-    Route::get('/quest/create', [QuestController::class, 'create'])->name('admin.quest.create');
-    Route::get('/quest/edit/{id}', [QuestController::class, 'edit'])->name('admin.quest.edit');
+    Route::get('/contest', [QuestController::class, 'index'])->name('admin.quest');
+    Route::get('/contest/create', [QuestController::class, 'create'])->name('admin.quest.create');
+    Route::get('/contest/edit/{id}', [QuestController::class, 'edit'])->name('admin.quest.edit');
     Route::resource('about', AboutController::class)->names('admin.about');
     Route::resource('slider', SliderController::class)->names('admin.slider');
     Route::resource('store', StoreController::class)->names('admin.store');

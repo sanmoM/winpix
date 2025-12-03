@@ -85,8 +85,12 @@ export default function Edit({ banner, flash }: EditProps) {
     };
 
     return (
-        <AppLayout breadcrumbs={t('dashboard.brandMarketingBanner.edit.breadcrumbs', { returnObjects: true })}>
-        {/* <AppLayout> */}
+        <AppLayout
+            breadcrumbs={t('dashboard.brandMarketingBanner.edit.breadcrumbs', {
+                returnObjects: true,
+            })}
+        >
+            {/* <AppLayout> */}
             <Head title="Edit Banner" />
             <ToastContainer />
 
@@ -103,14 +107,16 @@ export default function Edit({ banner, flash }: EditProps) {
                                 data?.bg_image
                                     ? data?.bg_image
                                     : banner?.bg_image
-                                        ? `/storage/${banner?.bg_image}`
-                                        : null
+                                      ? `/storage/${banner?.bg_image}`
+                                      : null
                             }
                             setImage={(value) => setData('bg_image', value)}
                             wrapperClassName="w-full aspect-[16/9]"
                             iconClassName="w-[20%]"
                             error={errors?.bg_image}
-                            label={t('dashboard.brandMarketingBanner.edit.inputs.bg_image.label')}
+                            label={t(
+                                'dashboard.brandMarketingBanner.edit.inputs.bg_image.label',
+                            )}
                             required={false}
                         />
                     </div>
@@ -132,7 +138,9 @@ export default function Edit({ banner, flash }: EditProps) {
                             setValue={(value) => setData('title_en', value)}
                             placeholder="Enter English Title"
                             error={errors?.title_en}
-                            label={t('dashboard.brandMarketingBanner.edit.inputs.title_en.label')}
+                            label={t(
+                                'dashboard.brandMarketingBanner.edit.inputs.title_en.label',
+                            )}
                             required={true}
                         />
 
@@ -165,7 +173,10 @@ export default function Edit({ banner, flash }: EditProps) {
                             setValue={(value) => setData('title_ar', value)}
                             placeholder="أدخل العنوان بالعربية"
                             error={errors.title_ar}
-                            label={t('dashboard.brandMarketingBanner.edit.inputs.title_ar.label')}
+                            dir="rtl"
+                            label={t(
+                                'dashboard.brandMarketingBanner.edit.inputs.title_ar.label',
+                            )}
                             required={true}
                         />
 
@@ -179,6 +190,7 @@ export default function Edit({ banner, flash }: EditProps) {
                             label={t(
                                 'dashboard.brandMarketingBanner.edit.inputs.subtitle_ar.label',
                             )}
+                            dir="rtl"
                             required={false}
                             error={errors?.subtitle_ar}
                         />

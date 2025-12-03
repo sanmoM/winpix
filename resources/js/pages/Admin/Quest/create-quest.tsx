@@ -5,15 +5,12 @@ import ImageInput from '@/components/shared/inputs/image-input';
 import SelectInput from '@/components/shared/inputs/select-input';
 import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import TextInput from '@/components/shared/inputs/text-input';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import PrizesInput from '@/components/user-dashboard/quest/create-quest/prizes-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Transition } from '@headlessui/react';
 import { Head, useForm, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 
@@ -28,8 +25,10 @@ interface Prize {
 }
 
 interface Quest {
-    title: string;
-    brief: string;
+    title_en: string;
+    brief_en: string;
+    title_ar: string;
+    brief_ar: string;
     category_id: string;
     quest_type_id: string;
     startDate: string;
@@ -37,9 +36,12 @@ interface Quest {
     prizes: Prize[];
     image: File | null | string;
     entry_coin: string;
-    level_requirement: string;
-    categories_requirement: string;
-    copyright_requirement: string;
+    level_requirement_en: string;
+    categories_requirement_en: string;
+    copyright_requirement_en: string;
+    level_requirement_ar: string;
+    categories_requirement_ar: string;
+    copyright_requirement_ar: string;
     quest_series_id: string;
 }
 
@@ -52,8 +54,6 @@ export default function Dashboard() {
     }: { categories: { id: number; name: string }[] } = usePage<any>().props;
     const { t } = useLocales();
 
-
-
     const {
         data,
         setData,
@@ -63,8 +63,10 @@ export default function Dashboard() {
         recentlySuccessful,
         reset,
     } = useForm<Quest>({
-        title: '',
-        brief: '',
+        title_en: '',
+        brief_en: '',
+        title_ar: '',
+        brief_ar: '',
         category_id: '',
         quest_type_id: '',
         startDate: '',
@@ -72,9 +74,12 @@ export default function Dashboard() {
         prizes: [],
         image: null,
         entry_coin: '',
-        level_requirement: '',
-        categories_requirement: '',
-        copyright_requirement: '',
+        level_requirement_en: '',
+        categories_requirement_en: '',
+        copyright_requirement_en: '',
+        level_requirement_ar: '',
+        categories_requirement_ar: '',
+        copyright_requirement_ar: '',
         quest_series_id: '',
         rank_tier: '',
     });
@@ -86,7 +91,7 @@ export default function Dashboard() {
 
     const seriesOptions = series.map((series) => ({
         value: series.id,
-        label: series.title,
+        label: series.title_en,
     }));
 
     const typesOptions = types.map((types) => ({
@@ -108,13 +113,12 @@ export default function Dashboard() {
         e.preventDefault();
         post(route('user-dashboard.quest.store'), {
             onSuccess: () => reset(),
-            // onError: (errors) => console.log(errors),
         });
     };
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
-            title: "Create Contest",
+            title: 'Create Contest',
             href: dashboard().url,
         },
     ];
@@ -134,26 +138,58 @@ export default function Dashboard() {
                         wrapperClassName="w-full aspect-[2/1]"
                         iconClassName="w-[20%]"
                     />
-
-
-                    <TextInput
-                        id="title"
-                        value={data.title}
-                        setValue={(value) => setData('title', value)}
-                        label={t('dashboard.quest.inputs.title.label')}
-                        placeholder={t('dashboard.quest.inputs.title.placeholder')}
-                        error={errors.title}
-                        required={true}
-                    />
-                    <TextAreaInput
-                        id="brief"
-                        value={data.brief}
-                        onChange={(e) => setData('brief', e.target.value)}
-                        label={t('dashboard.quest.inputs.brief.label')}
-                        placeholder={t('dashboard.quest.inputs.brief.placeholder')}
-                        error={errors.brief}
-                        required={true}
-                    />
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <TextInput
+                                id="title_en"
+                                value={data.title_en}
+                                setValue={(value) => setData('title_en', value)}
+                                label={t('dashboard.quest.inputs.title.label')}
+                                placeholder={t(
+                                    'dashboard.quest.inputs.title.placeholder',
+                                )}
+                                error={errors.title_en}
+                                required={true}
+                            />
+                            <TextAreaInput
+                                id="brief_en"
+                                value={data.brief_en}
+                                onChange={(e) =>
+                                    setData('brief_en', e.target.value)
+                                }
+                                label={t('dashboard.quest.inputs.brief.label')}
+                                placeholder={t(
+                                    'dashboard.quest.inputs.brief.placeholder',
+                                )}
+                                error={errors.brief_en}
+                                required={true}
+                            />
+                        </div>
+                        <div>
+                            <TextInput
+                                id="title_ar"
+                                value={data.title_ar}
+                                setValue={(value) => setData('title_ar', value)}
+                                label="ملخص"
+                                placeholder="ملخص"
+                                error={errors.title_ar}
+                                required={true}
+                                dir="rtl"
+                            />
+                            <TextAreaInput
+                                id="brief_ar"
+                                value={data.brief_ar}
+                                onChange={(e) =>
+                                    setData('brief_ar', e.target.value)
+                                }
+                                label="وصف"
+                                placeholder="وصف"
+                                dir="rtl"
+                                error={errors.brief_ar}
+                                required={true}
+                            />
+                        </div>
+                    </div>
                     <div className="grid grid-cols-2 gap-4">
                         <SelectInput
                             id="tag"
@@ -179,13 +215,11 @@ export default function Dashboard() {
                         />
                     </div>
 
-                    <div className="grid gap-4 grid-cols-2">
+                    <div className="grid grid-cols-2 gap-4">
                         <SelectInput
                             id="quest_type_id"
                             name="quest_type_id"
-                            label={t(
-                                'dashboard.quest.inputs.type.label',
-                            )}
+                            label={t('dashboard.quest.inputs.type.label')}
                             options={typesOptions}
                             value={data.quest_type_id}
                             onChange={(value) =>
@@ -196,9 +230,7 @@ export default function Dashboard() {
                         <SelectInput
                             id="rank_tier"
                             name="rank_tier"
-                            label={t(
-                                'dashboard.quest.inputs.rank_tier.label',
-                            )}
+                            label={t('dashboard.quest.inputs.rank_tier.label')}
                             options={rankTierOptions}
                             value={data.rank_tier}
                             onChange={(value) =>
@@ -210,40 +242,98 @@ export default function Dashboard() {
                     </div>
                     <TextInput
                         id="entry_coin"
-                        type='number'
+                        type="number"
                         value={data.entry_coin}
                         setValue={(value) => setData('entry_coin', value)}
                         label={t('dashboard.quest.inputs.entryCoin.label')}
-                        placeholder={t('dashboard.quest.inputs.entryCoin.placeholder')}
+                        placeholder={t(
+                            'dashboard.quest.inputs.entryCoin.placeholder',
+                        )}
                         error={errors.entry_coin}
                         required={true}
                     />
                     <div className="grid grid-cols-3 gap-4">
                         <TextInput
-                            id="copyright_require"
-                            value={data.copyright_requirement}
-                            setValue={(value) => setData('copyright_requirement', value)}
-                            label={t('dashboard.quest.inputs.copyright_requirement.label')}
-                            placeholder={t('dashboard.quest.inputs.copyright_requirement.placeholder')}
-                            error={errors.copyright_requirement}
+                            id="copyright_requirement_en"
+                            value={data.copyright_requirement_en}
+                            setValue={(value) =>
+                                setData('copyright_requirement_en', value)
+                            }
+                            label={t(
+                                'dashboard.quest.inputs.copyright_requirement.label',
+                            )}
+                            placeholder={t(
+                                'dashboard.quest.inputs.copyright_requirement.placeholder',
+                            )}
+                            error={errors.copyright_requirement_en}
                             required={true}
                         />
                         <TextInput
-                            id="level_require"
-                            value={data.level_requirement}
-                            setValue={(value) => setData('level_requirement', value)}
-                            label={t('dashboard.quest.inputs.level_requirement.label')}
-                            placeholder={t('dashboard.quest.inputs.level_requirement.placeholder')}
-                            error={errors.level_requirement}
+                            id="level_requirement_en"
+                            value={data.level_requirement_en}
+                            setValue={(value) =>
+                                setData('level_requirement_en', value)
+                            }
+                            label={t(
+                                'dashboard.quest.inputs.level_requirement.label',
+                            )}
+                            placeholder={t(
+                                'dashboard.quest.inputs.level_requirement.placeholder',
+                            )}
+                            error={errors.level_requirement_en}
                             required={true}
                         />
                         <TextInput
-                            id="categories_require"
-                            value={data.categories_requirement}
-                            setValue={(value) => setData('categories_requirement', value)}
-                            label={t('dashboard.quest.inputs.categories_requirement.label')}
-                            placeholder={t('dashboard.quest.inputs.categories_requirement.placeholder')}
-                            error={errors.categories_requirement}
+                            id="categories_requirement_en"
+                            value={data.categories_requirement_en}
+                            setValue={(value) =>
+                                setData('categories_requirement_en', value)
+                            }
+                            label={t(
+                                'dashboard.quest.inputs.categories_requirement.label',
+                            )}
+                            placeholder={t(
+                                'dashboard.quest.inputs.categories_requirement.placeholder',
+                            )}
+                            error={errors.categories_requirement_en}
+                            required={true}
+                        />
+                    </div>
+                    <div className="grid grid-cols-3 gap-4">
+                        <TextInput
+                            id="copyright_requirement_ar"
+                            value={data.copyright_requirement_ar}
+                            setValue={(value) =>
+                                setData('copyright_requirement_ar', value)
+                            }
+                            label="متطلبات حقوق النشر"
+                            placeholder="أدخل متطلبات حقوق النشر"
+                            error={errors.copyright_requirement_ar}
+                            dir="rtl"
+                            required={true}
+                        />
+                        <TextInput
+                            id="level_requirement_ar"
+                            value={data.level_requirement_ar}
+                            setValue={(value) =>
+                                setData('level_requirement_ar', value)
+                            }
+                            label="متطلبات المستوى"
+                            placeholder="أدخل متطلبات المستوى"
+                            error={errors.level_requirement_ar}
+                            required={true}
+                            dir="rtl"
+                        />
+                        <TextInput
+                            id="categories_requirement_ar"
+                            value={data.categories_requirement_ar}
+                            setValue={(value) =>
+                                setData('categories_requirement_ar', value)
+                            }
+                            label="متطلبات الفئات"
+                            placeholder="أدخل متطلبات الفئات"
+                            error={errors.categories_requirement_ar}
+                            dir="rtl"
                             required={true}
                         />
                     </div>
@@ -258,7 +348,9 @@ export default function Dashboard() {
                             <DateInput
                                 min={new Date()}
                                 value={data.startDate}
-                                onChange={(value) => setData("startDate", value)}
+                                onChange={(value) =>
+                                    setData('startDate', value)
+                                }
                             />
                             <InputError message={errors.startDate} />
                         </div>
@@ -280,7 +372,10 @@ export default function Dashboard() {
                         prizes={data.prizes}
                         setPrizes={(value) => setData('prizes', value)}
                     />
-                    {/* <SaveAndBackButtons processing={processing} href={route('admin.quest.index')} /> */}
+                    <SaveAndBackButtons
+                        processing={processing}
+                        href={'/admin/contest'}
+                    />
                 </form>
             </div>
         </AppLayout>

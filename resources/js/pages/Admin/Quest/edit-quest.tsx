@@ -3,13 +3,13 @@ import DateInput from '@/components/shared/inputs/date-input';
 import ImageInput from '@/components/shared/inputs/image-input';
 import SelectInput from '@/components/shared/inputs/select-input';
 import TextAreaInput from '@/components/shared/inputs/text-area-input';
+import TextInput from '@/components/shared/inputs/text-input';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import PrizesInput from '@/components/user-dashboard/quest/create-quest/prizes-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
@@ -24,19 +24,25 @@ interface Prize {
 
 interface Quest {
     id: number;
-    title: string;
-    brief: string;
+    title_en: string;
+    brief_en: string;
+    title_ar: string;
+    brief_ar: string;
     category_id: string;
     startDate: string;
     endDate: string;
     prizes: Prize[];
     image: File | null | string;
     entry_coin: string;
-    level_requirement: string;
-    categories_requirement: string;
-    copyright_requirement: string;
+    level_requirement_en: string;
+    categories_requirement_en: string;
+    copyright_requirement_en: string;
+    level_requirement_ar: string;
+    categories_requirement_ar: string;
+    copyright_requirement_ar: string;
     quest_series_id: string;
     quest_type_id: string;
+    rank_tier: string;
 }
 
 // Utility to format ISO date string to YYYY-MM-DD
@@ -62,7 +68,7 @@ export default function EditQuest() {
     }: {
         quest: Quest;
         categories: { id: number; name: string }[];
-        series: { id: number; title: string }[];
+        series: { id: number; title_en: string }[];
         types: { id: number; name: string }[];
     } = usePage().props;
 
@@ -78,8 +84,10 @@ export default function EditQuest() {
         reset,
     } = useForm<Quest>({
         id: quest.id,
-        title: quest.title,
-        brief: quest.brief,
+        title_en: quest.title_en,
+        brief_en: quest.brief_en,
+        title_ar: quest.title_ar,
+        brief_ar: quest.brief_ar,
         category_id: quest.category_id.toString(),
         startDate: formatDate(quest.startDate),
         endDate: formatDate(quest.endDate),
@@ -89,9 +97,12 @@ export default function EditQuest() {
         })),
         image: quest.image || null,
         entry_coin: quest.entry_coin,
-        level_requirement: quest.level_requirement,
-        categories_requirement: quest.categories_requirement,
-        copyright_requirement: quest.copyright_requirement,
+        level_requirement_en: quest.level_requirement_en,
+        categories_requirement_en: quest.categories_requirement_en,
+        copyright_requirement_en: quest.copyright_requirement_en,
+        level_requirement_ar: quest.level_requirement_ar,
+        categories_requirement_ar: quest.categories_requirement_ar,
+        copyright_requirement_ar: quest.copyright_requirement_ar,
         quest_series_id: quest.quest_series_id,
         quest_type_id: quest.quest_type_id,
         rank_tier: (quest as any).rank_tier || 'all',
@@ -104,7 +115,7 @@ export default function EditQuest() {
 
     const seriesOptions = series.map((series) => ({
         value: series.id,
-        label: series.title,
+        label: series.title_en,
     }));
 
     const questTypeOptions = types.map((types) => ({
@@ -133,21 +144,40 @@ export default function EditQuest() {
         formData.append('_method', 'PUT');
 
         // Append all quest fields
-        formData.append('title', data.title);
-        formData.append('brief', data.brief);
+        formData.append('title_en', data.title_en);
+        formData.append('brief_en', data.brief_en);
+        formData.append('title_ar', data.title_ar);
+        formData.append('brief_ar', data.brief_ar);
         formData.append('category_id', data.category_id);
         formData.append('startDate', data.startDate);
         formData.append('endDate', data.endDate);
         formData.append('entry_coin', data.entry_coin);
-        formData.append('level_requirement', data.level_requirement || '');
         formData.append(
-            'categories_requirement',
-            data.categories_requirement || '',
+            'level_requirement_en',
+            data.level_requirement_en || '',
         );
         formData.append(
-            'copyright_requirement',
-            data.copyright_requirement || '',
+            'categories_requirement_en',
+            data.categories_requirement_en || '',
         );
+        formData.append(
+            'copyright_requirement_en',
+            data.copyright_requirement_en || '',
+        );
+
+        formData.append(
+            'level_requirement_ar',
+            data.level_requirement_ar || '',
+        );
+        formData.append(
+            'categories_requirement_ar',
+            data.categories_requirement_ar || '',
+        );
+        formData.append(
+            'copyright_requirement_ar',
+            data.copyright_requirement_ar || '',
+        );
+
         formData.append('quest_series_id', data.quest_series_id);
         formData.append('quest_type_id', data.quest_type_id);
         // Append prizes (array of objects)
@@ -190,7 +220,7 @@ export default function EditQuest() {
     };
 
     const breadcrumbs: BreadcrumbItem[] = [
-        { title: 'Edit Contest', href: '#' }
+        { title: 'Edit Contest', href: '#' },
     ];
 
     return (
@@ -214,35 +244,57 @@ export default function EditQuest() {
                     />
 
                     {/* Title */}
-                    <div className="grid gap-2">
-                        <Label htmlFor="title">
-                            {t('dashboard.quest.inputs.title.label')}
-                        </Label>
-                        <Input
-                            id="title"
-                            name="title"
-                            value={data.title}
-                            onChange={(e) => setData('title', e.target.value)}
-                            placeholder={t(
-                                'dashboard.quest.inputs.title.placeholder',
-                            )}
-                        />
-                        <InputError message={errors.title} />
-                    </div>
-
-                    {/* Brief */}
-                    <div className="grid gap-2">
-                        <Label htmlFor="brief">
-                            {t('dashboard.quest.inputs.brief.label')}
-                        </Label>
-                        <TextAreaInput
-                            value={data.brief}
-                            onChange={(e) => setData('brief', e.target.value)}
-                            placeholder={t(
-                                'dashboard.quest.inputs.brief.placeholder',
-                            )}
-                        />
-                        <InputError message={errors.brief} />
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <TextInput
+                                id="title_en"
+                                value={data.title_en}
+                                setValue={(value) => setData('title_en', value)}
+                                label={t('dashboard.quest.inputs.title.label')}
+                                placeholder={t(
+                                    'dashboard.quest.inputs.title.placeholder',
+                                )}
+                                error={errors.title_en}
+                                required={true}
+                            />
+                            <TextAreaInput
+                                id="brief_en"
+                                value={data.brief_en}
+                                onChange={(e) =>
+                                    setData('brief_en', e.target.value)
+                                }
+                                label={t('dashboard.quest.inputs.brief.label')}
+                                placeholder={t(
+                                    'dashboard.quest.inputs.brief.placeholder',
+                                )}
+                                error={errors.brief_en}
+                                required={true}
+                            />
+                        </div>
+                        <div>
+                            <TextInput
+                                id="title_ar"
+                                value={data.title_ar}
+                                setValue={(value) => setData('title_ar', value)}
+                                label="ملخص"
+                                placeholder="ملخص"
+                                error={errors.title_ar}
+                                required={true}
+                                dir="rtl"
+                            />
+                            <TextAreaInput
+                                id="brief_ar"
+                                value={data.brief_ar}
+                                onChange={(e) =>
+                                    setData('brief_ar', e.target.value)
+                                }
+                                label="وصف"
+                                placeholder="وصف"
+                                dir="rtl"
+                                error={errors.brief_ar}
+                                required={true}
+                            />
+                        </div>
                     </div>
 
                     {/* Category */}
@@ -285,9 +337,7 @@ export default function EditQuest() {
                         <SelectInput
                             id="rank_tier"
                             name="rank_tier"
-                            label={t(
-                                'dashboard.quest.inputs.rank_tier.label',
-                            )}
+                            label={t('dashboard.quest.inputs.rank_tier.label')}
                             options={rankTierOptions}
                             value={data.rank_tier}
                             onChange={(value) =>
@@ -324,12 +374,12 @@ export default function EditQuest() {
                                 )}
                             </Label>
                             <Input
-                                id="level_require"
-                                name="level_require"
-                                value={data.level_requirement}
+                                id="level_requirement_en"
+                                name="level_requirement_en"
+                                value={data.level_requirement_en}
                                 onChange={(e) => {
                                     setData(
-                                        'level_requirement',
+                                        'level_requirement_en',
                                         e.target.value,
                                     );
                                 }}
@@ -337,7 +387,7 @@ export default function EditQuest() {
                                     'dashboard.quest.inputs.level_requirement.placeholder',
                                 )}
                             />
-                            <InputError message={errors.level_requirement} />
+                            <InputError message={errors.level_requirement_en} />
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="title">
@@ -346,12 +396,12 @@ export default function EditQuest() {
                                 )}
                             </Label>
                             <Input
-                                id="categories_require"
-                                name="categories_require"
-                                value={data.categories_requirement}
+                                id="categories_requirement_en"
+                                name="categories_requirement_en"
+                                value={data.categories_requirement_en}
                                 onChange={(e) => {
                                     setData(
-                                        'categories_requirement',
+                                        'categories_requirement_en',
                                         e.target.value,
                                     );
                                 }}
@@ -360,7 +410,7 @@ export default function EditQuest() {
                                 )}
                             />
                             <InputError
-                                message={errors.categories_requirement}
+                                message={errors.categories_requirement_en}
                             />
                         </div>
                         <div className="grid gap-2">
@@ -370,12 +420,12 @@ export default function EditQuest() {
                                 )}
                             </Label>
                             <Input
-                                id="copyright_require"
-                                name="copyright_require"
-                                value={data.copyright_requirement}
+                                id="copyright_requirement_en"
+                                name="copyright_requirement_en"
+                                value={data.copyright_requirement_en}
                                 onChange={(e) => {
                                     setData(
-                                        'copyright_requirement',
+                                        'copyright_requirement_en',
                                         e.target.value,
                                     );
                                 }}
@@ -384,10 +434,50 @@ export default function EditQuest() {
                                 )}
                             />
                             <InputError
-                                message={errors.copyright_requirement}
+                                message={errors.copyright_requirement_en}
                             />
                         </div>
                     </div>
+
+                    <div className="grid grid-cols-3 gap-4">
+                        <TextInput
+                            id="copyright_requirement_ar"
+                            value={data.copyright_requirement_ar}
+                            setValue={(value) =>
+                                setData('copyright_requirement_ar', value)
+                            }
+                            label="متطلبات حقوق النشر"
+                            placeholder="أدخل متطلبات حقوق النشر"
+                            error={errors.copyright_requirement_ar}
+                            dir="rtl"
+                            required={true}
+                        />
+                        <TextInput
+                            id="level_requirement_ar"
+                            value={data.level_requirement_ar}
+                            setValue={(value) =>
+                                setData('level_requirement_ar', value)
+                            }
+                            label="متطلبات المستوى"
+                            placeholder="أدخل متطلبات المستوى"
+                            error={errors.level_requirement_ar}
+                            required={true}
+                            dir="rtl"
+                        />
+                        <TextInput
+                            id="categories_requirement_ar"
+                            value={data.categories_requirement_ar}
+                            setValue={(value) =>
+                                setData('categories_requirement_ar', value)
+                            }
+                            label="متطلبات الفئات"
+                            placeholder="أدخل متطلبات الفئات"
+                            error={errors.categories_requirement_ar}
+                            dir="rtl"
+                            required={true}
+                        />
+                    </div>
+
                     {/* Dates */}
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div className="grid gap-2">

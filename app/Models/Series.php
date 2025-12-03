@@ -27,4 +27,22 @@ class Series extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getTotalQuestsAttribute()
+    {
+        return $this->quests()->count();
+    }
+
+    public function getTotalCoinsAttribute()
+    {
+        return $this->quests()->sum('entry_coin');
+    }
+
+    public function getTotalImagesAttribute()
+    {
+        return QuestImage::whereIn(
+            'quest_id',
+            $this->quests()->pluck('id')
+        )->count();
+    }
 }

@@ -163,14 +163,38 @@ class FrontendController extends Controller
         ]);
     }
 
-    public function singleQuestSeries($id)
-    {
-        $series = Series::with('quests.user', 'quests.category')->findOrFail($id);
+    // public function singleQuestSeries($id)
+    // {
+    //     $series = Series::with('quests.user', 'quests.category')->findOrFail($id);
 
-        return Inertia::render('quests/single-quest-series', [
-            'series' => $series,
-        ]);
-    }
+    //     return Inertia::render('quests/single-quest-series', [
+    //         'series' => $series,
+    //     ]);
+    // }
+
+public function singleQuestSeries($id)
+{
+    $series = Series::with([
+        'user',
+        'quests.user',
+        'quests.category',
+        'quests.images.user',
+    ])
+    ->findOrFail($id);   // get only ONE series
+
+    // Add totals
+    $series = [
+        ...$series->toArray(),
+        'total_quests' => $series->total_quests,
+        'total_images' => $series->total_images,
+        'total_coins'  => $series->total_coins,
+    ];
+
+    return Inertia::render('quests/single-quest-series', [
+        'series' => $series,
+    ]);
+}
+
 
     public function enteredQuests()
     {

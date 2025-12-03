@@ -3,6 +3,7 @@ import Button from '@/components/shared/buttons/button';
 import useLocales from '@/hooks/useLocales';
 import CustomSlider from '../../shared/custom-slider/CustomSlider';
 import './banner.css';
+import { Link } from '@inertiajs/react';
 
 export default function ({ t, sliders }: any) {
     const { currentLanguage } = useLocales();
@@ -20,10 +21,12 @@ export default function ({ t, sliders }: any) {
                                 <p className="subtitle mt-2 mb-3 !text-center text-sm text-gray-200 md:mt-3 md:mb-4 md:text-lg lg:mt-4 lg:mb-6 lg:text-xl">
                                     {slide.content}
                                 </p>
-                                <Button
-                                    text={t('home.banner.btnText')}
-                                    className="btn px-10 py-2 md:py-3"
-                                />
+                                <Link href={"/login"}>
+                                    <Button
+                                        text={t('home.banner.btnText')}
+                                        className="btn px-10 py-2 md:py-3"
+                                    />
+                                </Link>
                             </div>
                         </div>
                     </Banner>

@@ -31,7 +31,7 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnT
             {/* Body Content */}
             <div className="">
                 {/* Submission Rules Text */}
-                <p className="text-gray-700 mb-6 text-sm">
+                <p className="text-gray-700 dark:text-gray-300 mb-6 text-sm">
                     Submissions must be <strong>photography</strong>, submissions must be <strong>your own</strong>, and submissions must not be <strong>AI generated</strong>.
                 </p>
 
@@ -44,7 +44,7 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnT
                         className="flex-1 flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg shadow-sm hover:border-indigo-500 transition duration-150 ease-in-out cursor-pointer"
                     >
                         <FiUploadCloud className="text-4xl mb-1" />
-                        <span className="text-sm font-medium text-gray-800">
+                        <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
                             Upload from Device
                         </span>
                     </button>
@@ -68,7 +68,7 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnT
                         className="flex-1 flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg shadow-sm hover:border-indigo-500 transition duration-150 ease-in-out cursor-pointer"
                     >
                         <svg
-                            className="w-10 h-10 mb-2 text-gray-600"
+                            className="w-10 h-10 mb-2 "
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -81,7 +81,8 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnT
                                 d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                             />
                         </svg>
-                        <span className="text-sm font-medium text-gray-800">Quest Library</span>
+                        <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                            Quest Library</span>
                     </button>
                 </div>
 

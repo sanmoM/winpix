@@ -20,11 +20,17 @@ const Guidelines = ({ t, level_requirement, categories_requirement, copyright_re
                     // description={t('singleQuest.guidelines.guideLines.0.description')}
                     description={level_requirement}
                 />
+                <GuidelineItem
+                    icon={<IoShieldOutline className="text-primary-color size-8" />}
+                    title={t('singleQuest.guidelines.guideLines.1.title')}
+                    // description={t('singleQuest.guidelines.guideLines.0.description')}
+                    description={categories_requirement}
+                />
 
                 {/* Guideline Card 2: Copyright */}
                 <GuidelineItem
                     icon={<PiCopyright className="text-primary-color size-8" />}
-                    title={t('singleQuest.guidelines.guideLines.1.title')}
+                    title={t('singleQuest.guidelines.guideLines.2.title')}
                     // description={t('singleQuest.guidelines.guideLines.1.description')}
                     description={copyright_requirement}
                 />

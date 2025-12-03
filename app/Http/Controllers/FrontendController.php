@@ -141,7 +141,9 @@ class FrontendController extends Controller
         $joinedQuests = QuestJoin::with(['user'])->where('user_id', $userId)->get();
         $quest = Quest::with(['category', 'user', 'prizes', 'images'])->findOrFail($id);
         $votes = Vote::where('user_id', $userId)->get();
-        $allItems = QuestImage::with(['user', 'quest.category', 'quest.user'])->get();
+        $questImages = QuestImage::with(['user', 'quest.category', 'quest.user'])
+            ->where('quest_id', $id)  // filter only for this quest
+            ->get();
         $isFollowing = Follower::where('follower_id', auth()->user()->id)->where('followed_id', $quest->user->id)->exists();
 
         return Inertia::render('quests/single-quest', [
@@ -149,7 +151,7 @@ class FrontendController extends Controller
             'quest' => $quest,
             'joinedQuests' => $joinedQuests,
             'votes' => $votes,
-            'questImages' => $allItems,
+            'questImages' => $questImages,
             'isFollowing' => $isFollowing,
         ]);
     }
@@ -172,28 +174,28 @@ class FrontendController extends Controller
     //     ]);
     // }
 
-public function singleQuestSeries($id)
-{
-    $series = Series::with([
-        'user',
-        'quests.user',
-        'quests.category',
-        'quests.images.user',
-    ])
-    ->findOrFail($id);   // get only ONE series
+    public function singleQuestSeries($id)
+    {
+        $series = Series::with([
+            'user',
+            'quests.user',
+            'quests.category',
+            'quests.images.user',
+        ])
+            ->findOrFail($id);   // get only ONE series
 
-    // Add totals
-    $series = [
-        ...$series->toArray(),
-        'total_quests' => $series->total_quests,
-        'total_images' => $series->total_images,
-        'total_coins'  => $series->total_coins,
-    ];
+        // Add totals
+        $series = [
+            ...$series->toArray(),
+            'total_quests' => $series->total_quests,
+            'total_images' => $series->total_images,
+            'total_coins' => $series->total_coins,
+        ];
 
-    return Inertia::render('quests/single-quest-series', [
-        'series' => $series,
-    ]);
-}
+        return Inertia::render('quests/single-quest-series', [
+            'series' => $series,
+        ]);
+    }
 
 
     public function enteredQuests()
@@ -337,7 +339,7 @@ public function singleQuestSeries($id)
 
         $user->decrement('pixel', $questFromDb->entry_coin);
 
-        return redirect()->back()->with('success', 'Join Quest Successfully');
+        return redirect()->back();
     }
 
     public function vote($imageId, $questId)

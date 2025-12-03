@@ -17,7 +17,6 @@ export default function Profile({ user, stats, isFollowing }: any) {
   // const user = usePage().props.auth.user;
   const { t } = useLocales();
   const [activeTab, setActiveTab] = useState("my-stats");
-console.log(stats)
   const handleFollow = () => {
     router.post(route('follow-user'), {
       followed_id: user?.id

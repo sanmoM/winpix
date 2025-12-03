@@ -99,7 +99,9 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                             label={option?.label}
                             isActive={filter.sort === option?.value}
                             className={"py-2 px-5 "}
-                            onClick={() => setFilter('sort', option?.value)}
+                            onClick={() => {
+                                filter.sort === option?.value ? setFilter('sort', null) : setFilter('sort', option?.value)
+                            }}
                         />
                     ))}
                 </div>
@@ -109,36 +111,36 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                     <CheckboxItem
                         label="All"
                         checked={filter.rank === 'All'}
-                        onChange={() => setFilter('rank', 'All')}
+                        onChange={() => filter.rank === 'All' ? setFilter('rank', null) : setFilter('rank', 'All')}
                     />
                     <BadgeCheckboxItem
                         label="A"
                         color="bg-red-500"
                         checked={filter.rank === 'A'}
-                        onChange={() => setFilter('rank', 'A')}
+                        onChange={() => filter.rank === 'A' ? setFilter('rank', null) : setFilter('rank', 'A')}
                     />
                     <BadgeCheckboxItem
                         label="B"
                         color="bg-purple-600"
                         checked={filter.rank === 'B'}
-                        onChange={() => setFilter('rank', 'B')}
+                        onChange={() => filter.rank === 'B' ? setFilter('rank', null) : setFilter('rank', 'B')}
                     />
                     <BadgeCheckboxItem
                         label="C"
                         color="bg-blue-500"
                         checked={filter.rank === 'C'}
-                        onChange={() => setFilter('rank', 'C')}
+                        onChange={() => filter.rank === 'C' ? setFilter('rank', null) : setFilter('rank', 'C')}
                     />
                     <BadgeCheckboxItem
                         label="M"
                         color="bg-green-500"
                         checked={filter.rank === 'M'}
-                        onChange={() => setFilter('rank', 'M')}
+                        onChange={() => filter.rank === 'M' ? setFilter('rank', null) : setFilter('rank', 'M')}
                     />
                     <CheckboxItem
                         label="Unranked"
                         checked={filter.rank === 'Unranked'}
-                        onChange={() => setFilter('rank', 'Unranked')}
+                        onChange={() => filter.rank === 'Unranked' ? setFilter('rank', null) : setFilter('rank', 'Unranked')}
                     />
                 </FilterSection>
 
@@ -147,13 +149,13 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                     <PillButton
                         label="Yes"
                         isActive={filter.isFree}
-                        onClick={() => setFilter('isFree', true)}
+                        onClick={() => filter.isFree === true ? setFilter('isFree', null) : setFilter('isFree', true)}
                         className={"py-2 px-5 "}
                     />
                     <PillButton
                         label="No"
                         isActive={filter.isFree === false}
-                        onClick={() => setFilter('isFree', false)}
+                        onClick={() => filter.isFree === false ? setFilter('isFree', null) : setFilter('isFree', false)}
                         className={"py-2 px-5 "}
                     />
                 </FilterSection>
@@ -184,7 +186,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                             key={category?.id}
                             label={category?.name}
                             checked={filter.category === category?.id}
-                            onChange={() => setFilter('category', category?.id)}
+                            onChange={() => filter.category === category?.id ? setFilter('category', null) : setFilter('category', category?.id)}
                         />
                     ))}
                 </FilterSection>
@@ -204,7 +206,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                             key={questType.id}
                             label={questType.name}
                             checked={filter.questType === questType.id}
-                            onChange={() => setFilter('questType', questType.id)}
+                            onChange={() => filter.questType === questType.id ? setFilter('questType', null) : setFilter('questType', questType.id)}
                         />
                     ))}
                 </FilterSection>

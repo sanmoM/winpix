@@ -6,55 +6,90 @@ use App\Models\Quest;
 
 class QuestFilter
 {
-    public static function getQuestModelByFilter($filter)
-    {
-        $query = match ($filter) {
-            'free' =>
-            self::baseQuery()->where('entry_coin', 0),
+    /** @var \Illuminate\Database\Eloquent\Builder */
+    private static $query;
 
-            'ranked' => self::baseQuery()
-                ->withCount('votes')
-                ->orderBy('votes_count', 'desc'),
+    /**
+     * Initialize static base query
+     */
+    public static function init()
+    {
+        self::$query = Quest::query()
+            ->with(['category', 'user', 'quest_type', 'questSeries'])
+            ->where('status', 'active');
+
+        return new static;
+    }
+
+    /**
+     * Return current query
+     */
+    public static function query()
+    {
+        return self::$query;
+    }
+
+    /**
+     * Apply filter
+     */
+    public static function filter($filter)
+    {
+        $query = self::$query;
+
+        match ($filter) {
+            'free' =>
+                $query->where('entry_coin', 0),
+
+            'ranked' =>
+                $query->withCount('votes')
+                      ->orderBy('votes_count', 'desc'),
 
             'premium' =>
-            self::baseQuery()->where('entry_coin', '>', 0),
+                $query->where('entry_coin', '>', 0),
 
-            'community' => self::baseQuery()->whereHas('quest_type', function ($q) {
-                    $q->where('name', 'community'); // replace 'name' with the actual column in quest_types table
-                }),
+            'community' =>
+                $query->whereHas('quest_type', fn ($q) =>
+                    $q->where('name', 'community')
+                ),
 
-            default =>
-            self::baseQuery(),
+            default => null
         };
 
-        return $query;
+        return new static;
     }
 
-    public static function getQuestModelBySort($filter)
+    /**
+     * Apply sort conditions
+     */
+    public static function sort($sort)
     {
-        $query = match ($filter) {
+        $query = self::$query;
+
+        match ($sort) {
             'endingSoon' =>
-            self::baseQuery()
-                ->whereDate('end_date', today()),
+                $query->whereDate('end_date', today()),
 
-            'rising' => self::baseQuery()
-                ->withCount('votes')
-                ->orderBy('votes_count', 'desc'),
+            'rising' =>
+                $query->withCount('votes')
+                      ->orderBy('votes_count', 'desc'),
 
-            'newest' => self::baseQuery()->orderBy('created_at', 'desc'),
+            'newest' =>
+                $query->orderBy('created_at', 'desc'),
 
-            'oldest' => self::baseQuery()->orderBy('created_at', 'asc'),
+            'oldest' =>
+                $query->orderBy('created_at', 'asc'),
 
-            default =>
-            self::baseQuery(),
+            default => null
         };
 
-        return $query;
+        return new static;
     }
 
-    private static function baseQuery()
+    /**
+     * Final result
+     */
+    public function get()
     {
-        return Quest::with(['category', 'user', 'quest_type', 'questSeries'])
-            ->where('status', 'active');
+        return self::$query->get();
     }
 }

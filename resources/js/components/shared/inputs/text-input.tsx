@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 export default function TextInput({
     value,
     setValue,
@@ -26,9 +28,9 @@ export default function TextInput({
     props?: any;
 }) {
     return (
-        <div className="w-full">
+        <div className="w-full" dir={dir}>
             {label && (
-                <label className="mb-2 block text-sm font-semibold text-gray-600 dark:text-white">
+                <label className={cn("mb-2 block text-sm font-semibold text-gray-600 dark:text-white", dir === 'rtl' && 'text-right')}>
                     {label}{' '}
                     {required && <span className="text-red-500">*</span>}
                 </label>

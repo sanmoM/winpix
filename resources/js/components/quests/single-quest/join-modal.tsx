@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 
 const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnText, setJoinModalOpen }: any) => {
+    const [isLoading, setIsLoading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     // const imageUrl = image && URL.createObjectURL(image?.file);
     const [imageUrl, setImageUrl] = useState<any>(null);
@@ -25,6 +26,7 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnT
         setImage(file);
         setImageUrl(URL.createObjectURL(file));
     };
+
 
     return (
         <div>
@@ -52,7 +54,7 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnT
                     {/* Hidden file input */}
                     <input
                         type="file"
-                        accept="image/*"
+                        accept="image/jpeg, image/png, image/webp"
                         ref={fileInputRef}
                         onChange={handleFileChange}
                         className="hidden"
@@ -108,7 +110,16 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnT
                 )}
                 {
                     image && <div>
-                        <Button text={btnText} onClick={handleJoinQuest} className='mt-4 px-6 lg:px-14 text-lg' />
+                        <Button text={btnText}
+                            onClick={async () => {
+                                setIsLoading(true)
+                                await handleJoinQuest()
+                                setIsLoading(false)
+                            }}
+                            className='mt-4 px-6 lg:px-14 text-lg'
+                            loading={isLoading}
+                            disabled={isLoading}
+                        />
                     </div>
                 }
             </div>

@@ -158,6 +158,11 @@
     text-align: var(--text-align);
 }
 
+* {
+    text-align: inherit;
+}
+
+
 button:hover {
     /* transform: scale(105%); */
     scale: 105%;

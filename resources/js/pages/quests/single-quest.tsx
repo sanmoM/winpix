@@ -21,6 +21,7 @@ import { router, useForm, usePage } from '@inertiajs/react'
 import { useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { route } from 'ziggy-js'
+import { AIImageDetector } from '@/utils/detector'
 
 export default function SingleQuest() {
     const { quest, auth, joinedQuests, questImages, votes, isFollowing } = usePage<any>().props;
@@ -66,15 +67,16 @@ export default function SingleQuest() {
         setData('image', image)
     }
 
-    const galleryImage = quest?.quest_join?.map((joinedQuest: any) => joinedQuest?.quest_images?.map(item => {
-        return { image: item?.image, user: joinedQuest?.user }
-    }))?.flat()
-
 
     const [activeTab, setActiveTab] = useState("brief");
     const { t, direction, currentLanguage } = useLocales()
 
     const handleJoinQuest = async (e) => {
+        const isGenerated = await AIImageDetector(data?.image);
+        if (isGenerated) {
+            toast.error('This image is AI-generated, SVG, or edited. Please upload a valid image.');
+            return;
+        }
         if (quest?.entry_coin < auth?.user?.pixel) {
             post(route('join-quest', quest.id), {
                 onSuccess: () => {
@@ -114,7 +116,7 @@ export default function SingleQuest() {
                             text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white disabled:bg-gray-500"
                             onClick={() => setVoteModalOpen(true)}
                         />
-                        <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm' type='button' onClick={() => setJoinModalOpen(true)} />
+                        <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm disabled:!bg-gray-600' type='button' onClick={() => setJoinModalOpen(true)} />
                     </div>
                 </div>
             </Banner>
@@ -133,10 +135,10 @@ export default function SingleQuest() {
                     <Brief title={t('singleQuestDetails.brief.title')} text={quest?.brief} />
                     <Prizes t={t} prizes={quest?.prizes} />
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
-                        <Guidelines t={t} 
-                        level_requirement={currentLanguage === 'en' ? quest?.level_requirement_en : quest?.level_requirement_ar}
-                        categories_requirement={currentLanguage === 'en' ? quest?.categories_requirement_en : quest?.categories_requirement_ar}
-                        copyright_requirement={currentLanguage === 'en' ? quest?.copyright_requirement_en : quest?.copyright_requirement_ar}
+                        <Guidelines t={t}
+                            level_requirement={currentLanguage === 'en' ? quest?.level_requirement_en : quest?.level_requirement_ar}
+                            categories_requirement={currentLanguage === 'en' ? quest?.categories_requirement_en : quest?.categories_requirement_ar}
+                            copyright_requirement={currentLanguage === 'en' ? quest?.copyright_requirement_en : quest?.copyright_requirement_ar}
                         />
                         <div className='className="w-fit lg:w-full md:max-w-md mt-auto mx-auto lg:mx-0'>
                             <Creator user={quest?.user} onClick={handleFollow} btnText={isFollowing ? "Unfollow" : "Follow"} />

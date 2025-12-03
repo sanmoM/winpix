@@ -37,6 +37,7 @@ class FrontendController extends Controller
     // this all are get controller for frontend
     public function home()
     {
+        $user = auth()->user();
         $sliders = Slider::all();
         $new_quest = Quest::with(['category', 'user'])->where('status', 'active')->orderBy('created_at', 'desc')->take(8)->get();
         $topImages = Vote::select('image_id')
@@ -46,6 +47,9 @@ class FrontendController extends Controller
             ->take(10)
             ->with(['image.user', 'image.quest'])
             ->get();
+        if ($user) {
+            return redirect("/discover");
+        }
 
         return Inertia::render('home', [
             'sliders' => $sliders,
@@ -229,9 +233,28 @@ class FrontendController extends Controller
         ]);
     }
 
-    public function profile()
+    public function profile($id)
     {
-        return Inertia::render('profile');
+        $isFollowing = Follower::where('follower_id', auth()->user()->id)->where('followed_id', $id)->exists();
+
+        $user = User::with(['questImages', 'votes.image', 'followers', 'following'])->findOrFail($id);
+
+        $stats = [
+            'totalQuests' => $user->joinedQuests()->count(),
+            'totalVotes' => $user->votes()->count(),
+            'currentLevel' => $user->level,
+            'followers' => $user->followers()->count(),
+            'following' => $user->following()->count(),
+            'questImages' => $user->questImages,
+            'likedImages' => $user->votes->pluck('image'),
+            'rank' => RankingService::getRank($user->level),
+        ];
+
+        return Inertia::render('profile', [
+            'user' => $user,
+            'stats' => $stats,
+            'isFollowing' => $isFollowing,
+        ]);
     }
 
     public function aboutUs()

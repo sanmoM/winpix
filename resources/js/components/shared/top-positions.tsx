@@ -95,7 +95,7 @@ export default function TopPositions({ topPositions }) {
                 <>
                     {
                         user && (
-                            <Link href={"/profile/1"} key={user.rank} className={`relative block  ${podiumData[index].order}`}>
+                            <Link href={`/profile/${user?.id}`} key={user.rank} className={`relative block  ${podiumData[index].order}`}>
                                 <div className={`bg-bg-primary dark:bg-bg-primary rounded-xl ${podiumData[index].cardPadding}  border-2 ${podiumData[index].borderColor} !text-center`}>
                                     {/* Avatar */}
                                     <img

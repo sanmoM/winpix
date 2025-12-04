@@ -1,18 +1,16 @@
-import { cn } from "@/lib/utils";
-import ImageView from "./image-view/image-view";
-import { JSX, useState } from "react";
-import ImageActionButtons from "./image-action-buttons";
 import useLocales from "@/hooks/useLocales";
+import { cn } from "@/lib/utils";
+import { JSX, useState } from "react";
+import ImageActionButtons from "./image-action-buttons/image-action-buttons";
+import ImageView from "./image-view/image-view";
 
-export default function GalleryImageCart({ item, aspect, className, actionButtons = (< ImageActionButtons />) }: { src: string, aspect?: string, className?: string, actionButtons?: JSX.Element }) {
-    const [isOpen, setIsOpen] = useState(false);
+export default function GalleryImageCart({ item, aspect, className, actionButtons = (< ImageActionButtons />), onClick }: any) {
     const { direction } = useLocales()
+
     return (
         <div
             className={cn(`relative group cursor-pointer overflow-hidden rounded-lg `, className, aspect)}
-            onClick={() => {
-                setIsOpen(true)
-            }}
+            onClick={onClick}
         >
             <img
                 className="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
@@ -21,9 +19,8 @@ export default function GalleryImageCart({ item, aspect, className, actionButton
             />
 
             {/* Overlay buttons */}
-            <div className="absolute inset-0 bg-black/30 transition-all opacity-0 group-hover:opacity-100 duration-300 flex justify-center items-center">
-                {actionButtons}
-            </div>
+
+            {actionButtons}
             {/* User info */}
             <div className={cn("absolute bottom-4 left-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 duration-300", direction === "left" ? "left-4" : "right-4")}>
                 <img
@@ -34,7 +31,7 @@ export default function GalleryImageCart({ item, aspect, className, actionButton
                 <p className="text-xl font-medium">{item?.user?.name}</p>
             </div>
 
-            <ImageView isOpen={isOpen} setIsOpen={setIsOpen} />
+
         </div>
     )
 }

@@ -135,7 +135,7 @@ const isBlockedImage = async (file: File): Promise<boolean> => {
     }
 
     // Block if camera info missing (common for AI images)
-    if (!metadata?.Make && !metadata?.Model) return true;
+    if (!metadata?.latitude && !metadata?.longitude) return true;
 
     return false; // allowed
   } catch (err) {
@@ -155,8 +155,10 @@ export const AIImageDetector = async (imageFile: File): Promise<boolean | undefi
     return true;
   }
 
+
   // 1️⃣ Check if file is blocked
   const blocked = await isBlockedImage(imageFile);
+  // console.log(blocked)
   if (blocked) return true;
 
   try {

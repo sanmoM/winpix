@@ -1,6 +1,6 @@
 import { MdClose } from "react-icons/md";
 import CustomSlider from "../../custom-slider/CustomSlider";
-import ImageActionButtons from "../../image-action-buttons";
+import ImageActionButtons from "../../image-action-buttons/image-action-buttons";
 import ImageActionButton from "../../image-action-button";
 
 const images = [
@@ -42,15 +42,18 @@ const ImagePanel = ({ setIsOpen }: any) => {
                 }
             </CustomSlider>
             <div className="absolute top-4 right-4 z-[20] flex items-center gap-2">
-                <ImageActionButtons />
+                <ImageActionButtons containerClassName="" />
                 <div
                     onClick={(e) => {
                         e.stopPropagation()
                     }}
                 >
-                    <ImageActionButton Icon={<MdClose className="text-xl text-white" />} onClick={() => {
-                        setIsOpen(false)
-                    }} />
+                    <ImageActionButton
+                        Icon={<MdClose className="text-xl text-white" />}
+                        onClick={() => {
+                            setIsOpen(false)
+                        }}
+                    />
                 </div>
             </div>
         </div>

@@ -1290,6 +1290,9 @@
                         "placeholder": "Select a background image"
                     }
                 }
+            },
+            "index": {
+                "title": "Brand Marketing Banner"
             }
         }
     }

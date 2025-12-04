@@ -66,7 +66,7 @@ export default function HelpIndex({ items, flash }: { items: HelpItem[]; flash: 
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>{item.section}</TableCell>
                                 <TableCell>{item.question}</TableCell>
-                                <TableCell>{item.answer}</TableCell>
+                                {/* <TableCell>{item.answer}</TableCell> */}
                                 <TableCell>
                                     <Badge className={item.status === 'Active' ? 'bg-green-400' : 'bg-red-400'}>
                                         {item.status}

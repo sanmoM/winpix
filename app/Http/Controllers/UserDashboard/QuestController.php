@@ -72,7 +72,7 @@ class QuestController extends Controller
             'prizes.*.coin' => 'required|integer|min:0',
             'prizes.*.title' => 'required|string|max:255',
             'prizes.*.coinType' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'entry_coin' => 'required|integer|min:0',
             'level_requirement' => 'nullable|string|max:255',
             'categories_requirement' => 'nullable|string|max:255',
@@ -212,7 +212,7 @@ class QuestController extends Controller
                 function ($attribute, $value, $fail) {
                     if ($value instanceof \Illuminate\Http\UploadedFile) {
                         $validator = Validator::make([$attribute => $value], [
-                            $attribute => 'file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                            $attribute => 'file|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
                         ]);
                         if ($validator->fails()) {
                             $fail($validator->errors()->first($attribute));

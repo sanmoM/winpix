@@ -63,7 +63,7 @@ export default function Index({
             <TableContainer>
                 <TableTopSection
                     href={route('admin.brand_marketing.create')}
-                    title={t('dashboard.brandMarketing.index.title')}
+                    title={t('dashboard.brandMarketingBanner.index.title')}
                 />
                 <Table
                 // headingItems={t(
@@ -89,7 +89,7 @@ export default function Index({
                                     )}
                                 </TableCell>
                                 <TableCell>{item?.title}</TableCell>
-                                <TableCell>{item?.content}</TableCell>
+                                {/* <TableCell>{item?.content}</TableCell> */}
                                 <TableCell>
                                     <Badge
                                         className={
@@ -101,7 +101,7 @@ export default function Index({
                                         {item?.status}
                                     </Badge>
                                 </TableCell>
-                                <TableCell className="space-x-2">
+                                <TableCell className="space-x-2 ">
                                     <EditButton
                                         route={route(
                                             'admin.brand_marketing.edit',

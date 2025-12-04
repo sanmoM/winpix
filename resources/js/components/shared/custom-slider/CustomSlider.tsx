@@ -36,7 +36,6 @@ export default function CustomSlider({
         swiperRef.current?.slideNext();
     };
 
-    console.log(index)
 
     return (
         <div className="relative w-full">

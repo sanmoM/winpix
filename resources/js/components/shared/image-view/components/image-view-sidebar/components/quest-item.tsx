@@ -11,13 +11,13 @@ const QuestItem = ({ rank, title, date }: QuestItemProps) => (
             <span className="w-10 flex-shrink-0 text-left font-medium text-gray-400">
                 {rank}
             </span>
-            <a
+            {/* <a
                 href="#"
                 className="flex items-center gap-1.5  transition-colors hover:text-primary-color"
-            >
-                {title}
-                <ArrowUpRightIcon className="h-4 w-4" />
-            </a>
+            > */}
+            {title}
+            {/* <ArrowUpRightIcon className="h-4 w-4" /> */}
+            {/* </a> */}
         </div>
         <span className="text-gray-500">{date}</span>
     </li>

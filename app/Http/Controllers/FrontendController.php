@@ -143,13 +143,45 @@ class FrontendController extends Controller
 
     public function imageHistory($id)
     {
-        $activeQuest = Quest::whereHas('images', function ($query) use ($id) {
-            $query->where('quest_id', $id);
-        })->get();
-        return response()->json([
-            'activeQuest' => $activeQuest,
-        ]);
+        $questImage = QuestImage::findOrFail($id);
+
+        $imagePath = $questImage->image;
+
+        // Active quests
+        $activeQuest = Quest::where('id', $questImage->quest_id)
+            ->where('start_date', '<=', today())
+            ->where('end_date', '>=', today())
+            ->get();
+
+        // Ended quests (can be 1 or many)
+        $endedQuests = Quest::where('id', $questImage->quest_id)
+            ->where('end_date', '<=', today())
+            ->get();
+
+        // Add position for each ended quest
+        $endedQuests->transform(function ($quest) use ($questImage) {
+
+            // Get all images of THIS quest sorted by votes
+            $images = QuestImage::where('quest_id', $quest->id)
+                ->orderBy('vote_count', 'DESC')
+                ->get();
+
+            // Calculate position of THIS image inside THIS quest
+            $position = $images->pluck('id')->search($questImage->id) + 1;
+
+            // Dynamically add position
+            $quest->position = $position;
+
+            return $quest;
+        });
+
+        return [
+            'image_path' => $imagePath,
+            'active_quest' => $activeQuest,
+            'ended_quest' => $endedQuests,
+        ];
     }
+
 
     // 
 
@@ -185,15 +217,6 @@ class FrontendController extends Controller
             'series' => $series,
         ]);
     }
-
-    // public function singleQuestSeries($id)
-    // {
-    //     $series = Series::with('quests.user', 'quests.category')->findOrFail($id);
-
-    //     return Inertia::render('quests/single-quest-series', [
-    //         'series' => $series,
-    //     ]);
-    // }
 
     public function singleQuestSeries($id)
     {

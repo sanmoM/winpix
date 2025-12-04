@@ -41,7 +41,9 @@ export default function Gallery({ title, galleryImages }: any) {
                 ))}
             </div>
 
-            <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} />
+            {
+                isImageViewOpen && <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} data={galleryImages?.map((item) => ({ image: item?.image.image, user: item?.image.user, id: item?.image.id }))} index={imageIndex} />
+            }
         </div>
     );
 }

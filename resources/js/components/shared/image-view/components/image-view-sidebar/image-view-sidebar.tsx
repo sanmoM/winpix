@@ -2,70 +2,60 @@ import Button from "@/components/shared/buttons/button";
 import QuestItem from "./components/quest-item";
 import { FaTrophy } from "react-icons/fa";
 
-const ImageViewSidebar = () => (
-    <aside className="w-full lg:h-full bg-bg-primary p-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-                <img
-                    src="https://placehold.co/40x40/334155/e2e8f0?text=A"
-                    alt="User Avatar"
-                    className="h-10 w-10 rounded-full"
-                />
-                <div>
-                    <h1 className="font-semibold">Old Crane in Gdansk</h1>
-                    <span className="text-sm text-gray-400">preb.es</span>
+const ImageViewSidebar = ({ data }: any) => {
+
+    return (
+        <aside className="w-full lg:h-full bg-bg-primary p-6">
+            {/* Header */}
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <img
+                        src={data?.user?.image ? "/storage/" + data?.user?.image : "/images/user-avatar.png"}
+                        alt="User Avatar"
+                        className="h-10 w-10 rounded-full"
+                    />
+                    <div>
+                        <h1 className="font-semibold">{data?.user?.name}</h1>
+                        <span className="text-sm text-gray-400">{data?.user?.level}</span>
+                    </div>
+                </div>
+                {/* <Button text="Follow" className="px-6 py-1.5 mx-0" /> */}
+            </div>
+
+            {/* Award */}
+            <div className="mb-8 rounded-lg border p-4 mt-4">
+                <div className="flex items-center gap-3">
+                    <div className="p-3 bg-primary-color rounded-full">
+                        <FaTrophy className="text-white text-3xl" />
+                    </div>
+                    <div>
+                        <h2 className="text-lg font-bold">NO. 1</h2>
+                        <span className="text-sm text-gray-400">+1</span>
+                    </div>
                 </div>
             </div>
-            <Button text="Follow" className="px-6 py-1.5 mx-0"/>
-        </div>
 
-        {/* Top Icons */}
-        <div className="my-6 flex items-center justify-end gap-4 text-gray-400">
-            <button className="transition-colors hover:text-primary-color">
-                <HeartIcon className="h-5 w-5" />
-            </button>
-            <button className="transition-colors hover:text-primary-color">
-                <ShareIcon className="h-5 w-5" />
-            </button>
-            <button className="transition-colors hover:text-primary-color">
-                <MoreHorizontalIcon className="h-5 w-5" />
-            </button>
-        </div>
-
-        {/* Award */}
-        <div className="mb-8 rounded-lg border p-4">
-            <div className="flex items-center gap-3">
-                <div className="p-3 bg-primary-color rounded-full">
-                    <FaTrophy className="text-white text-3xl" />
-                </div>
-                <div>
-                    <h2 className="text-lg font-bold">NO. 1</h2>
-                    <span className="text-sm text-gray-400">+1</span>
-                </div>
+            {/* Quest History */}
+            <div>
+                <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-500">
+                    Quest History
+                </h3>
+                <ul className="space-y-3">
+                    <QuestItem
+                        rank="NO.1"
+                        title="'Urban' Wednesday"
+                        date="Oct 27"
+                    />
+                    <QuestItem
+                        rank="NO.14"
+                        title="Night City Vibe"
+                        date="Oct 23"
+                    />
+                </ul>
             </div>
-        </div>
-
-        {/* Quest History */}
-        <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-500">
-                Quest History
-            </h3>
-            <ul className="space-y-3">
-                <QuestItem
-                    rank="NO.1"
-                    title="'Urban' Wednesday"
-                    date="Oct 27"
-                />
-                <QuestItem
-                    rank="NO.14"
-                    title="Night City Vibe"
-                    date="Oct 23"
-                />
-            </ul>
-        </div>
-    </aside>
-);
+        </aside>
+    )
+};
 
 
 export default ImageViewSidebar;

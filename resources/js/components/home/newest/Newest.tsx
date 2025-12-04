@@ -2,7 +2,7 @@ import { Quest } from "@/types/quest";
 import SectionHeading from "../../shared/SectionHeading";
 import Card from "../../shared/card";
 import { Link } from "@inertiajs/react";
-export default function Newest({ t, newQuest }: { t: any, newQuest: Quest[] }) {
+export default function Newest({ t, newQuest }: any) {
     return (
         <div>
             <SectionHeading title={t("home.newest.title")} className=" !text-center" />

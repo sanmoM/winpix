@@ -2,10 +2,10 @@
 
 
 import { useState } from "react";
-import SectionHeading from "../shared/SectionHeading";
-import GalleryImageCart from "../shared/gallary-image-cart";
-import ImageActionButtons from "../shared/image-action-buttons/image-action-buttons";
-import ImageView from "../shared/image-view/image-view";
+import SectionHeading from "./SectionHeading";
+import GalleryImageCart from "./gallary-image-cart";
+import ImageActionButtons from "./image-action-buttons/image-action-buttons";
+import ImageView from "./image-view/image-view";
 
 export default function Gallery({ title, galleryImages }: any) {
     const [isImageViewOpen, setIsImageViewOpen] = useState(false);

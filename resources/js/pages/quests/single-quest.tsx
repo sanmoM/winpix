@@ -24,7 +24,9 @@ import { route } from 'ziggy-js'
 import { AIImageDetector } from '@/utils/detector'
 
 export default function SingleQuest() {
-    const { quest, auth, joinedQuests, questImages, votes, isFollowing } = usePage<any>().props;
+    const { quest, auth, joinedQuests, questImages, votes, isFollowing, userUploadedImages } = usePage<any>().props;
+
+
     const [joinModalOpen, setJoinModalOpen] = useState(false);
     const [libraryModalOpen, setLibraryModalOpen] = useState(false);
     const [voteModalOpen, setVoteModalOpen] = useState(false)
@@ -44,18 +46,12 @@ export default function SingleQuest() {
         image: null
     })
 
-
-    // get all items which is not in currentQuestImage
-    const currentQuestImageItems = questImages?.filter((item: any) => item?.quest_id === quest.id)
-
-    // get all images in which is not in currentQuestImage
-    const currentQuestImage = currentQuestImageItems?.map((item: any) => item?.image)
-
-    // get all images which is not belong to currentQuestImage
-    const images = questImages?.filter((item: any) => (item?.quest_id !== quest.id) && !currentQuestImage?.includes(item?.image))
+    // get quest images array
+    const currentQuestImage = questImages?.map((item: any) => item?.image)
 
     // get all images for library modal
-    const libraryImages = images?.map((item: any) => item?.image)
+    const libraryImages = userUploadedImages?.filter((item: any) => item?.quest_id !== quest.id).filter((item: any) => !currentQuestImage?.includes(item?.image))?.map((item: any) => item?.image)
+
 
     // Voting items logic starts
     const allItems = questImages
@@ -101,23 +97,30 @@ export default function SingleQuest() {
     }
     return (
         <UserLayout>
-            <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]' hasOverlay={false}>
+            <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]'>
                 <div className='w-full h-full flex flex-col justify-center items-center'>
-                    <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold text-white'>{quest?.title}</h1>
+                    <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold text-white'>{currentLanguage === 'en' ? quest?.title_en : quest?.title_ar}</h1>
                     <p className='text-gray-400 mt-4 mb-4'>#{quest?.category?.name}</p>
                     <div className="flex items-center gap-2 mb-5 text-xl">
                         <img src="/images/coin.png" alt="" className="w-6 h-6" />
                         <p>{quest?.entry_coin}</p>
                     </div>
-                    <div className='grid gap-4 grid-cols-2'
-                    >
-                        <SecondaryButton
-                            disabled={isDisabled}
-                            text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white disabled:bg-gray-500"
-                            onClick={() => setVoteModalOpen(true)}
-                        />
-                        <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm disabled:!bg-gray-600' type='button' onClick={() => setJoinModalOpen(true)} />
-                    </div>
+                    {
+                        quest?.start_date <= Date.now() ? quest?.end_date >= Date.now() && (
+
+                            <div className='grid gap-4 grid-cols-2'
+                            >
+                                <SecondaryButton
+                                    disabled={isDisabled}
+                                    text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white disabled:bg-gray-500"
+                                    onClick={() => setVoteModalOpen(true)}
+                                />
+                                <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm disabled:!bg-gray-600' type='button' onClick={() => setJoinModalOpen(true)} />
+                            </div>
+                        ) : (
+                            <p>Quest is closed</p>
+                        )
+                    }
                 </div>
             </Banner>
             <Container className="space-y-14 md:space-y-20 lg:space-y-10 my-10 md:my-16 lg:mb-28 lg:mt-8">

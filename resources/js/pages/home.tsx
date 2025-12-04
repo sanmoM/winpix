@@ -4,7 +4,7 @@ import useLocales from '@/hooks/useLocales';
 import UserLayout from '@/layouts/user-layout';
 import { usePage } from '@inertiajs/react';
 import Banner from '../components/home/banner/home-banner';
-import Gallery from '../components/home/Gallery';
+import Gallery from '../components/shared/Gallery';
 import GetApp from '../components/home/get-app';
 import Newest from '../components/home/newest/Newest';
 import { useState } from 'react';

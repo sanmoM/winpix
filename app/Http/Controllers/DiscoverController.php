@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Quest;
@@ -15,7 +14,8 @@ class DiscoverController extends Controller
     public function discover()
     {
         $Ranking = new RankingService();
-        $new_quest = Quest::with(["category", "user"])->where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
+        $new_quest = Quest::with(["category", "user"])->where('start_date', '<=', today())
+            ->where('end_date', '>=', today())->where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
         $topImages = Vote::select('image_id')
             ->selectRaw('count(*) as total_votes')   // count votes per image
             ->groupBy('image_id')                    // group by image

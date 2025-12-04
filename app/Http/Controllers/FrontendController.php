@@ -39,7 +39,10 @@ class FrontendController extends Controller
     {
         $user = auth()->user();
         $sliders = Slider::all();
-        $new_quest = Quest::with(['category', 'user'])->where('status', 'active')->orderBy('created_at', 'desc')->take(8)->get();
+        $new_quest = Quest::with(['category', 'user'])
+            ->where('start_date', '<=', today())
+            ->where('end_date', '>=', today())
+            ->where('status', 'active')->orderBy('created_at', 'desc')->take(8)->get();
         $topImages = Vote::select('image_id')
             ->selectRaw('count(*) as total_votes')
             ->groupBy('image_id')
@@ -138,6 +141,15 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function imageHistory($id)
+    {
+        $activeQuest = Quest::whereHas('images', function ($query) use ($id) {
+            $query->where('quest_id', $id);
+        })->get();
+        return response()->json([
+            'activeQuest' => $activeQuest,
+        ]);
+    }
 
     // 
 
@@ -152,6 +164,8 @@ class FrontendController extends Controller
             ->get();
         $isFollowing = Follower::where('follower_id', auth()->user()->id)->where('followed_id', $quest->user->id)->exists();
 
+        $userUploadedImages = QuestImage::where('user_id', $userId)->get();
+
         return Inertia::render('quests/single-quest', [
             'id' => $id,
             'quest' => $quest,
@@ -159,6 +173,7 @@ class FrontendController extends Controller
             'votes' => $votes,
             'questImages' => $questImages,
             'isFollowing' => $isFollowing,
+            'userUploadedImages' => $userUploadedImages,
         ]);
     }
 

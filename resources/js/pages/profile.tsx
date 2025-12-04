@@ -1,4 +1,4 @@
-import Gallery from '@/components/home/Gallery'
+import Gallery from '@/components/shared/Gallery'
 import Stats from '@/components/profile/stats'
 import Container from '@/components/shared/container'
 import Creator from '@/components/shared/creator'

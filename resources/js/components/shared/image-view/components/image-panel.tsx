@@ -6,15 +6,7 @@ import { useEffect, useState } from "react";
 
 // --- Image Panel Component ---
 const ImagePanel = ({ setIsOpen, data, index }: any) => {
-    const [imageHistory, setImageHistory] = useState({});
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(`/image-history/${data?.[index]?.id}`);
-            const resData = await response.json();
-            console.log(resData)
-        };
-        fetchData();
-    }, []);
+
     return (
         <div className="relative h-full bg-[var(--background)]">
             <CustomSlider mobileView={1} desktopView={1} tabletView={1} hasButton={data.length > 1} index={index}>

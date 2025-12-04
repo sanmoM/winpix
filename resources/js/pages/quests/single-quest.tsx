@@ -41,6 +41,8 @@ export default function SingleQuest() {
         return today < startDate || today > endDate || !isJoined;
     }, [quest.start_date, quest.end_date]);
 
+    console.log(isDisabled)
+
     const { post, setData, data } = useForm<any>({
         quest_id: quest.id,
         image: null
@@ -68,10 +70,13 @@ export default function SingleQuest() {
     const { t, direction, currentLanguage } = useLocales()
 
     const handleJoinQuest = async (e) => {
-        const isGenerated = await AIImageDetector(data?.image);
-        if (isGenerated) {
-            toast.error('This image is AI-generated, SVG, or edited. Please upload a valid image.');
-            return;
+        console.log(data?.image)
+        if (typeof data?.image !== "string") {
+            const isGenerated = await AIImageDetector(data?.image);
+            if (isGenerated) {
+                toast.error('This image is AI-generated, SVG, or edited. Please upload a valid image.');
+                return;
+            }
         }
         if (quest?.entry_coin < auth?.user?.pixel) {
             post(route('join-quest', quest.id), {
@@ -105,22 +110,24 @@ export default function SingleQuest() {
                         <img src="/images/coin.png" alt="" className="w-6 h-6" />
                         <p>{quest?.entry_coin}</p>
                     </div>
-                    {
-                        quest?.start_date <= Date.now() ? quest?.end_date >= Date.now() && (
-
-                            <div className='grid gap-4 grid-cols-2'
-                            >
-                                <SecondaryButton
-                                    disabled={isDisabled}
-                                    text={t('singleQuest.banner.voteText')} className="bg-primary-color text-white disabled:bg-gray-500"
-                                    onClick={() => setVoteModalOpen(true)}
-                                />
-                                <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} className='px-8 py-2 lg:text-sm disabled:!bg-gray-600' type='button' onClick={() => setJoinModalOpen(true)} />
-                            </div>
-                        ) : (
-                            <p>Quest is closed</p>
-                        )
-                    }
+                    {new Date(quest?.end_date) >= new Date() ? (
+                        <div className='grid gap-4 grid-cols-2'>
+                            <SecondaryButton
+                                disabled={isDisabled}
+                                text={t('singleQuest.banner.voteText')}
+                                className="bg-primary-color text-white disabled:bg-gray-500"
+                                onClick={() => setVoteModalOpen(true)}
+                            />
+                            <Button
+                                text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')}
+                                className='px-8 py-2 lg:text-sm disabled:!bg-gray-600'
+                                type='button'
+                                onClick={() => setJoinModalOpen(true)}
+                            />
+                        </div>
+                    ) : (
+                        <p>Quest is closed</p>
+                    )}
                 </div>
             </Banner>
             <Container className="space-y-14 md:space-y-20 lg:space-y-10 my-10 md:my-16 lg:mb-28 lg:mt-8">

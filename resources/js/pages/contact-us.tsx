@@ -6,6 +6,7 @@ import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import Button from '@/components/shared/buttons/button';
 import { useForm } from '@inertiajs/react';
 import toast from 'react-hot-toast';
+import useLocales from '@/hooks/useLocales';
 
 export default function ContactUs() {
     const { data, setData, post } = useForm({
@@ -14,7 +15,8 @@ export default function ContactUs() {
         last_name: '',
         message: ''
     })
-    const [submitted, setSubmitted] = useState(false);
+
+    const { t } = useLocales()
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,48 +41,32 @@ export default function ContactUs() {
 
     return (
         <UserLayout>
-            <div className="w-full max-w-7xl rounded-3xl overflow-hidden flex flex-col md:flex-row bg-white  mx-auto my-10">
+            <div className="w-full max-w-7xl rounded-3xl overflow-hidden flex flex-col md:flex-row bg-bg-primary  mx-auto my-10">
 
                 {/* Left Column: Form */}
                 <div className="w-full md:w-1/2 p-8 md:p-12 lg:p-16">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        Contact Us
+                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                        {t('contactUs.title')}
                     </h1>
                     <p className="text-gray-500 mb-10 leading-relaxed">
-                        This is your direct line to reach out to us with any questions,
-                        concerns, feedback, or inquiries you might have.
+                        {t('contactUs.description')}
                     </p>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="flex flex-col md:flex-row gap-6">
-                            {/* First Name */}
-                            {/* <div className="w-full">
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
-                                    First Name <span className="text-red-500">*</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    name="firstName"
-                                    placeholder="First Name"
-                                    required
-                                    value={data.firstName}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                />
-                            </div> */}
                             <TextInput
-                                label="First Name"
+                                label={t('contactUs.inputs.firstName.label')}
                                 name="firstName"
-                                placeholder="First Name"
+                                placeholder={t('contactUs.inputs.firstName.placeholder')}
                                 required
                                 value={data.first_name}
                                 setValue={(value) => setData(prev => ({ ...prev, first_name: value }))}
                                 className="w-full"
                             />
                             <TextInput
-                                label="Last Name"
+                                label={t('contactUs.inputs.lastName.label')}
                                 name="lastName"
-                                placeholder="Last Name"
+                                placeholder={t('contactUs.inputs.lastName.placeholder')}
                                 required
                                 value={data.last_name}
                                 setValue={(value) => setData(prev => ({ ...prev, last_name: value }))}
@@ -89,9 +75,9 @@ export default function ContactUs() {
                         </div>
 
                         <TextInput
-                            label="Email"
+                            label={t('contactUs.inputs.email.label')}
                             name="email"
-                            placeholder="Email"
+                            placeholder={t('contactUs.inputs.email.placeholder')}
                             required
                             value={data.email}
                             setValue={(value) => setData(prev => ({ ...prev, email: value }))}
@@ -100,21 +86,21 @@ export default function ContactUs() {
 
                         {/* Description */}
                         <TextAreaInput
-                            label="Message"
+                            label={t('contactUs.inputs.message.label')}
                             name="message"
-                            placeholder="Your Message"
+                            placeholder={t('contactUs.inputs.message.placeholder')}
                             required
                             value={data.message}
                             onChange={handleChange}
                             inputClassName={"w-full"}
                         />
 
-                        <Button text='Submit' className='w-full lg:py-2 text-lg' />
+                        <Button className='w-full lg:py-2 text-lg' text={t('contactUs.inputs.buttons.submit')} type='submit' />
                     </form>
                 </div>
 
                 {/* Right Column: Illustration */}
-                <div className="w-full md:w-1/2 bg-white flex items-center justify-center p-8 md:p-12 relative overflow-hidden">
+                <div className="w-full md:w-1/2 flex items-center justify-center p-8 md:p-12 relative overflow-hidden">
                     <img
                         src="/images/contact-us.png"
                         alt="Contact Us Illustration"

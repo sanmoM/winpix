@@ -10,14 +10,14 @@ const colors = [
     "bg-emerald-500",
 ]
 
-export default function BrandMarketingContestTypes({ data: contestTypes }) {
+export default function BrandMarketingContestTypes({ data: contestTypes, t }) {
     console.log(contestTypes)
     return (
         <div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <SectionHeading title='Contest Types' className='mb-3 md:mb-4 lg:mb-6' />
+                <SectionHeading className='mb-3 md:mb-4 lg:mb-6' title={t('brandMarketing.contestTypes.title')} />
                 <p className="!text-center text-xs md:text-sm lg:text-lg text-gray-600 dark:text-gray-300 mb-4 md:mb-6 lg:mb-12 lg:w-[90%] mx-auto">
-                    Tailored campaign formats designed to meet your specific marketing objectives.
+                    {t('brandMarketing.contestTypes.description')}
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {contestTypes.map((type, index) => (

@@ -7,9 +7,10 @@ import GalleryImageCart from "./gallary-image-cart";
 import ImageActionButtons from "./image-action-buttons/image-action-buttons";
 import ImageView from "./image-view/image-view";
 
-export default function Gallery({ title, galleryImages }: any) {
+export default function Gallery({ title, galleryImages, hasImageView = true }: any) {
     const [isImageViewOpen, setIsImageViewOpen] = useState(false);
     const [imageIndex, setImageIndex] = useState(0);
+    console.log(galleryImages)
     return (
         <div>
             {
@@ -24,14 +25,14 @@ export default function Gallery({ title, galleryImages }: any) {
                                 setImageIndex(index)
                             }}
                             item={{
-                                image: item?.image.image,
-                                user: item?.image.user
+                                image: item?.image,
+                                user: item?.user
                             }}
                             actionButtons={
                                 <ImageActionButtons data={{
-                                    id: item?.image.id,
-                                    image: item?.image.image,
-                                    user: item?.image.user
+                                    id: item?.id,
+                                    image: item?.image,
+                                    user: item?.user
                                 }}
 
                                 />
@@ -42,7 +43,7 @@ export default function Gallery({ title, galleryImages }: any) {
             </div>
 
             {
-                isImageViewOpen && <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} data={galleryImages?.map((item) => ({ image: item?.image.image, user: item?.image.user, id: item?.image.id }))} index={imageIndex} />
+                isImageViewOpen && hasImageView && <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} data={galleryImages?.map((item) => ({ image: item?.image, user: item?.user, id: item?.id }))} index={imageIndex} />
             }
         </div>
     );

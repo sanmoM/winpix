@@ -1,11 +1,12 @@
-import CheckBox from '@/components/shared/inputs/check-box';
-import React, { JSX, useState } from 'react';
+import BorderButton from '@/components/shared/buttons/border-button';
+import Button from '@/components/shared/buttons/button';
+import PillButton from '@/components/shared/buttons/pill-button';
+import useLocales from '@/hooks/useLocales';
+import { cn } from '@/lib/utils';
+import React, { useState } from 'react';
 import BadgeCheckboxItem from './components/badge-checkbox';
 import CheckboxItem from './components/checkbox-item';
 import FilterSection from './components/filter-section';
-import PillButton from '@/components/shared/buttons/pill-button';
-import Button from '@/components/shared/buttons/button';
-import BorderButton from '@/components/shared/buttons/border-button';
 
 // --- Type Definitions ---
 
@@ -46,29 +47,19 @@ interface IQuestType {
     community: boolean;
 }
 
+const colors = ['bg-red-500', 'bg-purple-600', 'bg-blue-500', 'bg-green-500']
+
 export default function ActiveQuestFilterModalContents({ handleFilter, filter, setFilter, categories, questTypes, resetFilter }: any) {
-    // --- State Hooks ---
+    const { currentLanguage, t } = useLocales()
+
+    const skillRankOptions = t('activeQuests.filter.filterModal.rank', { returnObjects: true })
 
     // Sort filter state
-    const [activeSort, setActiveSort] = useState<string>('Rising');
-    const sortOptions = [
-        { label: 'Rising', value: 'rising' },
-        { label: 'Ending Soon', value: 'endingSoon' },
-        { label: 'Newest', value: 'newest' },
-        { label: 'Oldest', value: 'oldest' },
-    ];
+    const sortOptions = t('activeQuests.filter.filterModal.sort', { returnObjects: true })
 
-    // Skill Rank filter state
-    const [skillRank, setSkillRank] = useState<ISkillRank>({
-        multiSkill: true,
-        a: true,
-        b: false,
-        c: false,
-        unranked: false,
-    });
+    const entryFeeOptions = t('activeQuests.filter.filterModal.entryFee', { returnObjects: true })
 
-    // Entry Fee filter state
-    const [entryFee, setEntryFee] = useState<string>('No');
+    const questStatusOptions = t('activeQuests.filter.filterModal.status', { returnObjects: true })
 
     // Quest Status filter state
     const [questStatus, setQuestStatus] = useState<IQuestStatus>({
@@ -87,7 +78,6 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
         setState(prev => ({ ...prev, [key]: !prev[key] }));
     };
 
-    console.log(filter)
     return (
         <>
             <div className="mx-auto font-sans pb-16">
@@ -108,75 +98,47 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
 
                 {/* Skill Rank Filter */}
                 <FilterSection title="Skill Rank">
-                    <CheckboxItem
-                        label="All"
-                        checked={filter.rank === 'All'}
-                        onChange={() => filter.rank === 'All' ? setFilter('rank', null) : setFilter('rank', 'All')}
-                    />
-                    <BadgeCheckboxItem
-                        label="A"
-                        color="bg-red-500"
-                        checked={filter.rank === 'A'}
-                        onChange={() => filter.rank === 'A' ? setFilter('rank', null) : setFilter('rank', 'A')}
-                    />
-                    <BadgeCheckboxItem
-                        label="B"
-                        color="bg-purple-600"
-                        checked={filter.rank === 'B'}
-                        onChange={() => filter.rank === 'B' ? setFilter('rank', null) : setFilter('rank', 'B')}
-                    />
-                    <BadgeCheckboxItem
-                        label="C"
-                        color="bg-blue-500"
-                        checked={filter.rank === 'C'}
-                        onChange={() => filter.rank === 'C' ? setFilter('rank', null) : setFilter('rank', 'C')}
-                    />
-                    <BadgeCheckboxItem
-                        label="M"
-                        color="bg-green-500"
-                        checked={filter.rank === 'M'}
-                        onChange={() => filter.rank === 'M' ? setFilter('rank', null) : setFilter('rank', 'M')}
-                    />
-                    <CheckboxItem
-                        label="Unranked"
-                        checked={filter.rank === 'Unranked'}
-                        onChange={() => filter.rank === 'Unranked' ? setFilter('rank', null) : setFilter('rank', 'Unranked')}
-                    />
+
+                    {
+                        skillRankOptions.map((item: any, index) => (
+                            <BadgeCheckboxItem
+                                key={item.value}
+                                label={item.label}
+                                checked={filter.rank === item.value}
+                                onChange={() => filter.rank === item.value ? setFilter('rank', null) : setFilter('rank', item.value)}
+                                color={item?.hasColor !== false ? colors[index % colors?.length] : null}
+                            />
+                        ))
+                    }
                 </FilterSection>
 
                 {/* Entry Fee Filter */}
                 <FilterSection title="Entry Fee">
-                    <PillButton
-                        label="Yes"
-                        isActive={filter.isFree}
-                        onClick={() => filter.isFree === true ? setFilter('isFree', null) : setFilter('isFree', true)}
-                        className={"py-2 px-5 "}
-                    />
-                    <PillButton
-                        label="No"
-                        isActive={filter.isFree === false}
-                        onClick={() => filter.isFree === false ? setFilter('isFree', null) : setFilter('isFree', false)}
-                        className={"py-2 px-5 "}
-                    />
+                    {
+                        entryFeeOptions.map((item: any, index) => (
+                            <PillButton
+                                key={item.value}
+                                label={item.label}
+                                isActive={filter.isFree === item.value}
+                                onClick={() => filter.isFree === item.value ? setFilter('isFree', null) : setFilter('isFree', item.value)}
+                                className={"py-2 px-5 "}
+                            />
+                        ))
+                    }
                 </FilterSection>
 
                 {/* Quest Status Filter */}
                 <FilterSection title="Quest status">
-                    <CheckboxItem
-                        label="Submit"
-                        checked={questStatus.submit}
-                        onChange={() => handleCheckboxChange(setQuestStatus, 'submit')}
-                    />
-                    <CheckboxItem
-                        label="Vote"
-                        checked={questStatus.vote}
-                        onChange={() => handleCheckboxChange(setQuestStatus, 'vote')}
-                    />
-                    <CheckboxItem
-                        label="Finalizing"
-                        checked={questStatus.finalizing}
-                        onChange={() => handleCheckboxChange(setQuestStatus, 'finalizing')}
-                    />
+                    {
+                        questStatusOptions.map((item: any, index) => (
+                            <CheckboxItem
+                                key={item.value}
+                                label={item.label}
+                                checked={filter.status === item.value}
+                                onChange={() => filter.status === item.value ? setFilter('status', null) : setFilter('status', item.value)}
+                            />
+                        ))
+                    }
                 </FilterSection>
 
                 {/* Category Filter */}
@@ -193,14 +155,6 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
 
                 {/* Quest Type Filter */}
                 <FilterSection title="Quest type">
-                    {/* {(Object.keys(questType) as Array<keyof IQuestType>).map(key => (
-                        <CheckboxItem
-                            key={key}
-                            label={key.charAt(0).toUpperCase() + key.slice(1)}
-                            checked={questType[key]}
-                            onChange={() => handleCheckboxChange(setQuestType, key)}
-                        />
-                    ))} */}
                     {questTypes.map((questType) => (
                         <CheckboxItem
                             key={questType.id}
@@ -211,11 +165,11 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                     ))}
                 </FilterSection>
             </div>
-            <div className='absolute bottom-6 right-10 grid grid-cols-2'>
+            <div className={cn('absolute bottom-0 py-6 flex items-center gap-4 bg-background', currentLanguage === 'en' ? 'pr-10 ' : 'pr-0 flex-row-reverse')}>
                 <BorderButton text='Reset Filter' onClick={() => {
                     resetFilter();
                 }} className="w-fit" />
-                <Button text="Apply Filter" onClick={() => handleFilter()} />
+                <Button text="Apply Filter" onClick={() => handleFilter()} className="px-8" />
             </div>
 
         </>

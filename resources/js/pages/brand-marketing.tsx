@@ -8,7 +8,7 @@ import UserLayout from '@/layouts/user-layout';
 
 
 export default function BrandMarketing({ banner, features }: any) {
-  const { currentLanguage } = useLocales()
+  const { currentLanguage, t } = useLocales()
 
   features = features.filter(feature => feature?.lang === currentLanguage)
   const overviewFeatures = features.filter(feature => feature.brand_marketing_type === 'why_choose')
@@ -16,9 +16,9 @@ export default function BrandMarketing({ banner, features }: any) {
   return (
     <UserLayout>
       <Container className="my-10 space-y-14 md:my-16 md:space-y-20 lg:my-12 lg:space-y-28">
-        <BrandMarketingBanner banner={banner} />
-        <BrandMarketingOverview data={overviewFeatures} />
-        <BrandMarketingContestTypes data={contestFeatures} />
+        <BrandMarketingBanner banner={banner} t={t} />
+        <BrandMarketingOverview data={overviewFeatures} t={t} />
+        <BrandMarketingContestTypes data={contestFeatures} t={t} />
       </Container>
     </UserLayout>
   )

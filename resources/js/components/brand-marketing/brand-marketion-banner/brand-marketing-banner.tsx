@@ -14,7 +14,7 @@ const featuredBrand = {
     website: "www.luminalens.com",
     category: "Premium Partner"
 };
-export default function BrandMarketingBanner({ banner }) {
+export default function BrandMarketingBanner({ banner, t }) {
     console.log(banner)
     const [isHovered, setIsHovered] = useState(false);
     const { currentLanguage } = useLocales()
@@ -39,7 +39,7 @@ export default function BrandMarketingBanner({ banner }) {
             {/* Content Content */}
             <div className="relative z-10 p-8 md:p-12 h-full flex flex-col justify-center">
                 <div className="flex flex-col md:flex-row gap-6 items-end justify-center w-full">
-                    <div className="flex flex-col gap-6 items-center w-full max-w-3xl">
+                    <div className="flex flex-col gap-6 items-center w-full max-w-5xl">
                         {/* Brand Identity */}
                         <div className="flex items-center gap-5">
                             <div>
@@ -50,7 +50,7 @@ export default function BrandMarketingBanner({ banner }) {
                             </div>
                         </div>
                         <Link href="/contact-us">
-                            <Button text='Contact Us' className='px-7 py-3' />
+                            <Button className='px-7 py-3' text={t('brandMarketing.buttons.contactUs')} />
                         </Link>
                     </div>
 

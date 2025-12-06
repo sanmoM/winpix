@@ -1,1332 +1,1455 @@
 {
-  "shared": {
-    "questCard": {
-      "btnText": "إرسال المسابقة",
-      "days": "أيام"
-    },
-    "prizes": {
-      "title": "الجوائز",
-      "viewAll": "عرض الكل",
-      "viewLess": "عرض أقل",
-      "card": {
-        "no": "رقم",
-        "first": "الجائزة الأولى",
-        "second": "الجائزة الثانية",
-        "third": "الجائزة الثالثة",
-        "fourth": "الجائزة الرابعة",
-        "fifth": "الجائزة الخامسة"
-      }
-    },
-    "followers": "المتابعون",
-    "follow": "متابعة",
-    "following": "أتابع"
-  },
-  "stats": {
-    "contests": "المسابقات",
-    "votes": "الأصوات",
-    "level": "الرتبة"
-  },
-  "root": {
-    "navbar": {
-      "navLinks": {
-        "discover": "اكتشف",
-        "quests": {
-          "title": "المسابقة",
-          "submenu": {
-            "activeQuests": "المسابقات النشطة",
-            "questSeries": "سلسلة المسابقات",
-            "enteredQuests": "المسابقات المشارك بها",
-            "endedQuests": "المسابقات المنتهية"
-          }
-        },
-        "store": "المتجر",
-        "redeem": "استرداد",
-        "dashboard": "لوحة التحكم",
-        "aboutUs": "من نحن",
-        "help": "المساعدة"
-      },
-      "buttons": {
-        "signUp": "إنشاء حساب",
-        "logIn": "تسجيل الدخول",
-        "promote": "روّج لعلامتك التجارية"
-      },
-      "notifications": {
-        "title": "الإشعارات"
-      }
-    },
-    "footer": {
-      "navLinks": {
-        "home": "الرئيسية",
-        "about": "عن الموقع",
-        "help": "المساعدة"
-      },
-      "copyright": "حقوق النشر &copy;{{year}} جميع الحقوق محفوظة | صُنع هذا القالب بـ {{heart}} بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.co</a>"
-    }
-  },
-  "home": {
-    "banner": {
-      "btnText": "انضم الآن"
-    },
-    "newest": {
-      "title": "الأحدث"
-    },
-    "gallery": {
-      "title": "أفضل الصور"
-    },
-    "getApp": {
-      "title": "حمل التطبيق مجاناً!",
-      "description": "اجعل تجربة التسوق عبر الإنترنت أسهل وأسرع. اضغط على الرابط للحصول على التطبيق الآن."
-    }
-  },
-  "discover": {
-    "leaderboard": {
-      "title": "أفضل اللاعبين",
-      "points": "نقطة"
-    },
-    "activeQuests": {
-      "title": "المسابقات النشطة"
-    },
-    "topPhotos": {
-      "title": "أفضل الصور"
-    }
-  },
-  "activeQuests": {
-    "banner": {
-      "joinNowText": "انضم الآن",
-      "voteText": "تصويت"
-    },
-    "questSeries": {
-      "title": "سلسلة المسابقات"
-    },
-    "quests": {
-      "title": "المسابقات"
-    },
-    "filter": {
-      "sortAndFilter": "فرز وتصفية",
-      "filterItems": [
-        "الكل",
-        "مصنف",
-        "مجاني",
-        "بريميوم",
-        "مجتمع"
-      ]
-    }
-  },
-  "questSeries": {
-    "title": "سلسلة المسابقات"
-  },
-  "endedQuests": {
-    "tab": {
-      "myQuests": "مسابقاتي",
-      "ended": "المسابقات المنتهية",
-      "inactive": "السلاسل غير النشطة"
-    }
-  },
-  "singleEndedQuest": {
-    "tab": {
-      "brief": "الموجز",
-      "entries": "المشاركات"
-    },
-    "brief": {
-      "title": "الموجز"
-    }
-  },
-  "enteredQuests": {
-    "title": "المسابقات المشارك بها"
-  },
-  "store": {
-    "title": "عن Pixels",
-    "description": "Pixels هي بوابتك للمحتوى الحصري! استخدمها لفتح عناصر فريدة، والمشاركة في أحداث خاصة، واكتساب ميزة في مسابقاتك. المزيد من Pixels يعني المزيد من القوة!"
-  },
-  "redeem": {
-    "appPriceTitle": "جوائز داخل التطبيق",
-    "greatPriceTitle": "جوائز رائعة",
-    "grandPriceTitle": "الجوائز الكبرى"
-  },
-  "singleQuest": {
-    "banner": {
-      "voteText": "تصويت",
-      "joinNowText": "انضم الآن",
-      "addEntryText": "إضافة مشاركة"
-    },
-    "tabs": {
-      "brief": "الموجز",
-      "entries": "المشاركات"
-    },
-    "guidelines": {
-      "title": "الإرشادات",
-      "guideLines": [
-        {
-          "title": "رتبة المهارة",
-          "description": "المستخدمون من جميع رتب المهارة مرحب بهم للمشاركة في هذه المسابقة!"
-        },
-        {
-          "title": "الفئة",
-          "description": "المستخدمون من جميع رتب المهارة مرحب بهم للمشاركة في هذه المسابقة!"
-        },
-        {
-          "title": "حقوق النشر",
-          "description": "يجب أن تكون المشاركات ملكاً لك، ويمنع استخدام المشاركات المولدة بالذكاء الاصطناعي."
-        }
-      ]
-    }
-  },
-  "profile": {
-    "gallery": {
-      "title": "مكتبة الصور"
-    },
-    "tabs": {
-      "stats": "الإحصائيات",
-      "photos": "الصور"
-    }
-  },
-  "singleQuestSeries": {
-    "activeQuest": {
-      "title": "المسابقات النشطة"
-    },
-    "stats": {
-      "prizeLabel": "مجموع الجوائز",
-      "entriesLabel": "المشاركات",
-      "questLabel": "المسابقة"
-    }
-  },
-  "singleQuestDetails": {
-    "brief": {
-      "title": "الموجز"
-    },
-    "status": {
-      "title": "الحالة",
-      "submit": {
-        "title": "إرسال",
-        "daysLeft": "أيام متبقية"
-      },
-      "vote": {
-        "title": "تصويت"
-      }
-    }
-  },
-  "aboutUs": {
-    "title": "من نحن",
-    "whatWeDo": {
-      "title": "ماذا نفعل",
-      "services": [
-        {
-          "title": "صُممت لمكافأة التصوير الجيد",
-          "description": "في winpix، نؤمن بأن كل صورة تستحق فرصة عادلة. نحن ملتزمون بخلق بيئة محايدة حيث يتم الحكم على الصور بناءً على جدارتها فقط - بغض النظر عن شهرة المصور أو عدد متابعيه. هدفنا هو ضمان أن التميز في التصوير يبرز بناءً على الموهبة والتعبير الإبداعي فقط."
-        },
-        {
-          "title": "صُممت لكل مصور",
-          "description": "التصوير للجميع، وكذلك winpix. سواء كنت مبتدئاً أو محترفاً متمرساً، تم تصميم منصتنا لتعزيز المنافسة الصحية والتفاعل المجتمعي. نحن هنا لمساعدتك على صقل مهاراتك، وتحدي حدودك، والتقدم في رحلتك الفوتوغرافية جنباً إلى جنب مع أقران يشاركونك شغفك."
-        },
-        {
-          "title": "صُممت لتكون ممتعة",
-          "description": "نحن نؤمن بأن التصوير يجب أن يكون مبهجاً ومجزياً. في winpix، المشاركة في المسابقات، والتصويت على المشاركات، والفوز بالجوائز، وتتبع تقدمك، والتواصل مع زملائك المصورين هي جزء من المتعة. نهدف إلى جعل تجربتك مع winpix ممتعة، مما يلهمك لحمل كاميرتك واستكشاف العالم من خلال عدستك."
-        }
-      ]
-    }
-  },
-  "help": {
-    "categories": [
-      "اقتصاد التطبيق",
-      "المسابقات",
-      "البدء",
-      "المشتريات",
-      "إدارة الحساب",
-      "رتب المهارة",
-      "اتصل بالدعم",
-      "إرشادات المحتوى والمجتمع",
-      "استكشاف الأخطاء وإصلاحها"
-    ],
-    "singleCategoryHelps": {
-      "paths": [
-        {
-          "label": "جميع فئات المساعدة",
-          "href": "/all-help-categories"
-        },
-        {
-          "label": "مساعدات الفئة الواحدة"
-        }
-      ]
-    },
-    "singleFaq": {
-      "paths": [
-        {
-          "label": "جميع فئات المساعدة",
-          "href": "/all-help-categories"
-        },
-        {
-          "label": "الأسئلة الشائعة"
-        }
-      ],
-      "sidebarHeading": "مقالات في هذا القسم",
-      "haveMoreQuestionsLabel": {
-        "text1": "هل لديك المزيد من الأسئلة؟",
-        "text2": "اقرأ المزيد"
-      },
-      "relatedArticlesTitle": "مقالات ذات صلة",
-      "recentlyViewedArticleTitle": "المقالات التي تم عرضها مؤخراً"
-    }
-  },
-  "dashboard": {
     "shared": {
-      "save": "حفظ",
-      "saved": "تم الحفظ",
-      "link": "رابط",
-      "create": "إنشاء",
-      "delete": "حذف",
-      "edit": "تعديل",
-      "view": "عرض",
-      "back": "رجوع",
-      "update": "تحديث"
-    },
-    "slider": {
-      "inputs": {
-        "title": {
-          "label": "العنوان",
-          "placeholder": "أدخل العنوان"
-        },
-        "content": {
-          "label": "العنوان الفرعي",
-          "placeholder": "أدخل العنوان الفرعي"
-        },
-        "status": {
-          "label": "الحالة",
-          "placeholder": "اختر الحالة",
-          "options": [
-            {
-              "label": "نشط",
-              "value": "Active"
-            },
-            {
-              "label": "غير نشط",
-              "value": "Inactive"
-            }
-          ]
-        },
-        "bg_image": {
-          "label": "صورة الخلفية",
-          "placeholder": "اختر صورة الخلفية"
-        }
-      },
-      "create": {
-        "title": "إنشاء شريط تمرير",
-        "breadcrumbs": [
-          {
-            "title": "كل شرائط التمرير",
-            "href": "/admin/slider"
-          },
-          {
-            "title": "إنشاء شريط تمرير",
-            "href": ""
-          }
-        ]
-      },
-      "edit": {
-        "title": "تعديل شريط التمرير",
-        "breadcrumbs": [
-          {
-            "title": "كل شرائط التمرير",
-            "href": "/admin/slider"
-          },
-          {
-            "title": "تعديل شريط التمرير",
-            "href": ""
-          }
-        ]
-      },
-      "view": {
-        "title": "عرض شريط التمرير"
-      },
-      "index": {
-        "title": "أشرطة التمرير",
-        "breadcrumbs": [
-          {
-            "title": "كل شرائط التمرير",
-            "href": "/admin/slider"
-          }
-        ],
-        "table": {
-          "headings": [
-            "#",
-            "الصورة",
-            "العنوان",
-            "العنوان الفرعي",
-            "الحالة",
-            "الإجراءات"
-          ]
-        }
-      }
-    },
-    "store": {
-      "inputs": {
-        "number_of_coin": {
-          "label": "عدد العملات",
-          "placeholder": "أدخل عدد العملات"
-        },
-        "price": {
-          "label": "السعر",
-          "placeholder": "أدخل السعر"
-        },
-        "icon_image": {
-          "label": "صورة الأيقونة",
-          "placeholder": "اختر صورة الأيقونة"
-        },
-        "status": {
-          "label": "الحالة",
-          "placeholder": "اختر الحالة",
-          "options": [
-            {
-              "label": "نشط",
-              "value": "Active"
-            },
-            {
-              "label": "غير نشط",
-              "value": "Inactive"
-            }
-          ]
-        }
-      },
-      "create": {
-        "title": "إنشاء باقة متجر",
-        "breadcrumbs": [
-          {
-            "title": "كل باقات المتجر",
-            "href": "/admin/store"
-          },
-          {
-            "title": "إنشاء باقة متجر",
-            "href": ""
-          }
-        ]
-      },
-      "edit": {
-        "title": "تعديل باقة المتجر",
-        "breadcrumbs": [
-          {
-            "title": "كل باقات المتجر",
-            "href": "/admin/store"
-          },
-          {
-            "title": "تعديل باقة المتجر",
-            "href": ""
-          }
-        ]
-      },
-      "view": {
-        "title": "عرض باقة المتجر"
-      },
-      "index": {
-        "title": "باقات المتجر",
-        "breadcrumbs": [
-          {
-            "title": "كل باقات المتجر",
-            "href": "/admin/store"
-          }
-        ],
-        "table": {
-          "headings": [
-            "#",
-            "الأيقونة",
-            "عدد العملات",
-            "السعر",
-            "الحالة",
-            "الإجراءات"
-          ]
-        },
-        "confirm_delete": "هل أنت متأكد أنك تريد حذف باقة المتجر هذه؟"
-      }
-    },
-    "redeem": {
-      "inputs": {
-        "number_of_coin": {
-          "label": "عدد العملات",
-          "placeholder": "أدخل عدد العملات"
-        },
-        "price": {
-          "label": "السعر",
-          "placeholder": "أدخل السعر"
-        },
-        "icon_image": {
-          "label": "صورة الأيقونة",
-          "placeholder": "اختر صورة الأيقونة"
-        },
-        "prize_type": {
-          "label": "نوع الجائزة",
-          "placeholder": "اختر نوع الجائزة",
-          "options": [
-            {
-              "label": "جائزة داخل التطبيق",
-              "value": "app_prize"
-            },
-            {
-              "label": "جائزة رائعة",
-              "value": "great_prize"
-            },
-            {
-              "label": "جائزة كبرى",
-              "value": "grand_prize"
-            }
-          ]
-        },
-        "status": {
-          "label": "الحالة",
-          "placeholder": "اختر الحالة",
-          "options": [
-            {
-              "label": "نشط",
-              "value": "Active"
-            },
-            {
-              "label": "غير نشط",
-              "value": "InActive"
-            }
-          ]
-        }
-      },
-      "create": {
-        "title": "إنشاء باقة استرداد",
-        "breadcrumbs": [
-          {
-            "title": "كل باقات الاسترداد",
-            "href": "/admin/redeem"
-          },
-          {
-            "title": "إنشاء باقة استرداد",
-            "href": ""
-          }
-        ]
-      },
-      "edit": {
-        "title": "تعديل باقة الاسترداد",
-        "breadcrumbs": [
-          {
-            "title": "كل باقات الاسترداد",
-            "href": "/admin/redeem"
-          },
-          {
-            "title": "تعديل باقة الاسترداد",
-            "href": ""
-          }
-        ]
-      },
-      "view": {
-        "title": "عرض باقة الاسترداد"
-      },
-      "index": {
-        "title": "باقات الاسترداد",
-        "breadcrumbs": [
-          {
-            "title": "كل باقات الاسترداد",
-            "href": "/admin/redeem"
-          }
-        ],
-        "table": {
-          "headings": [
-            "#",
-            "الأيقونة",
-            "عدد العملات",
-            "السعر",
-            "نوع الجائزة",
-            "الحالة",
-            "الإجراءات"
-          ]
-        },
-        "confirm_delete": "هل أنت متأكد أنك تريد حذف باقة الاسترداد هذه؟"
-      }
-    },
-    "analytics": {
-      "breadcrumbs": [
-        {
-          "title": "التحليلات",
-          "href": "/admin/dashboard"
-        }
-      ],
-      "totalUsers": "إجمالي المستخدمين",
-      "totalQuests": "إجمالي المسابقات",
-      "visitorsOverview": "نظرة عامة على الزوار",
-      "counts": "الأعداد",
-      "monthlyVisitors": "الزوار الشهريين",
-      "users": "المستخدمين",
-      "quests": "المسابقات"
-    },
-    "about": {
-      "inputs": {
-        "title": {
-          "label": "العنوان",
-          "placeholder": "أدخل العنوان"
-        },
-        "content": {
-          "label": "العنوان الفرعي",
-          "placeholder": "أدخل العنوان الفرعي"
-        },
-        "status": {
-          "label": "الحالة",
-          "placeholder": "اختر الحالة",
-          "options": [
-            {
-              "label": "نشط",
-              "value": "Active"
-            },
-            {
-              "label": "غير نشط",
-              "value": "Inactive"
-            }
-          ]
-        },
-        "image": {
-          "label": "صورة الخلفية",
-          "placeholder": "اختر صورة الخلفية"
-        }
-      },
-      "create": {
-        "title": "إنشاء نبذة",
-        "breadcrumbs": [
-          {
-            "title": "كل النبذات",
-            "href": "/admin/about"
-          },
-          {
-            "title": "إنشاء نبذة",
-            "href": ""
-          }
-        ]
-      },
-      "view": {
-        "title": "عن الموقع"
-      },
-      "index": {
-        "title": "عن الموقع",
-        "breadcrumbs": [
-          {
-            "title": "من نحن",
-            "href": "/admin/about"
-          }
-        ],
-        "table": {
-          "headings": [
-            "#",
-            "الصورة",
-            "العنوان",
-            "الحالة",
-            "الإجراءات"
-          ]
-        }
-      },
-      "edit": {
-        "title": "تعديل النبذة",
-        "breadcrumbs": [
-          {
-            "title": "كل النبذات",
-            "href": "/admin/about"
-          },
-          {
-            "title": "تعديل النبذة",
-            "href": ""
-          }
-        ]
-      }
-    },
-    "profile": {
-      "heading": "الملف الشخصي",
-      "tab": {
-        "myStats": "إحصائياتي",
-        "myPhotos": "صوري",
-        "likedPhotos": "الصور التي أعجبتني"
-      },
-      "inputs": {
-        "name": {
-          "label": "الاسم",
-          "placeholder": "الاسم الكامل"
-        },
-        "email": {
-          "label": "البريد الإلكتروني",
-          "placeholder": "البريد الإلكتروني"
-        }
-      }
-    },
-    "settings": {
-      "heading": "الإعدادات",
-      "description": "إدارة ملفك الشخصي وإعدادات الحساب"
-    },
-    "editProfile": {
-      "heading": "إعدادات الملف الشخصي"
-    },
-    "socialLinks": {
-      "heading": "روابط التواصل الاجتماعي",
-      "inputs": {
-        "personalWebsite": {
-          "label": "الموقع الشخصي",
-          "placeholder": "أدخل رابط موقعك الشخصي"
-        },
-        "facebook": {
-          "label": "اسم مستخدم فيسبوك",
-          "placeholder": "أدخل اسم مستخدم فيسبوك الخاص بك"
-        },
-        "instagram": {
-          "label": "اسم مستخدم انستغرام",
-          "placeholder": "أدخل اسم مستخدم انستغرام الخاص بك"
-        },
-        "x": {
-          "label": "اسم مستخدم X",
-          "placeholder": "أدخل اسم مستخدم X الخاص بك"
-        }
-      }
-    },
-    "linkedAccounts": {
-      "heading": "الحسابات المرتبطة"
-    },
-    "address": {
-      "heading": "عنوان الشحن",
-      "inputs": {
-        "country": {
-          "label": "الدولة",
-          "placeholder": "اختر الدولة"
-        },
-        "city": {
-          "label": "المدينة",
-          "placeholder": "أدخل مدينتك"
-        },
-        "fullAddress": {
-          "label": "العنوان الكامل",
-          "placeholder": "أدخل عنوانك الكامل"
-        }
-      }
-    },
-    "password": {
-      "heading": "كلمة المرور",
-      "inputs": {
-        "currentPassword": {
-          "label": "كلمة المرور الحالية",
-          "placeholder": "كلمة المرور الحالية"
-        },
-        "password": {
-          "label": "كلمة المرور الجديدة",
-          "placeholder": "كلمة المرور الجديدة"
-        },
-        "passwordConfirmation": {
-          "label": "تأكيد كلمة المرور",
-          "placeholder": "تأكيد كلمة المرور"
-        }
-      }
-    },
-    "twoFactorAuth": {
-      "heading": "المصادقة الثنائية"
-    },
-    "appearance": {
-      "heading": "المظهر",
-      "tab": {
-        "light": "فاتح",
-        "dark": "داكن",
-        "system": "النظام"
-      }
-    },
-    "language": {
-      "heading": "اللغة",
-      "inputs": {
-        "language": {
-          "label": "اختر لغة:",
-          "placeholder": "اختر لغة"
-        }
-      }
-    },
-    "root": {
-      "footer": {
-        "setting": "الإعدادات",
-        "logout": "تسجيل الخروج"
-      }
-    },
-    "quest": {
-      "inputs": {
-        "image": {
-          "label": "الصورة"
-        },
-        "level_requirement": {
-          "label": "المستوى المطلوب",
-          "placeholder": "أدخل متطلبات المستوى"
-        },
-        "categories_requirement": {
-          "label": "متطلبات الفئات",
-          "placeholder": "أدخل متطلبات الفئات"
-        },
-        "copyright_requirement": {
-          "label": "متطلبات حقوق النشر",
-          "placeholder": "أدخل متطلبات حقوق النشر"
-        },
-        "title": {
-          "label": "العنوان",
-          "placeholder": "أدخل عنواناً"
-        },
-        "entryCoin": {
-          "label": "عملات الدخول",
-          "placeholder": "أدخل عملات الدخول"
-        },
-        "category": {
-          "label": "الوسم",
-          "placeholder": "اختر وسماً"
-        },
-        "series": {
-          "label": "السلسلة",
-          "placeholder": "اختر سلسلة"
-        },
-        "brief": {
-          "label": "الموجز",
-          "placeholder": "أدخل موجزاً"
-        },
-        "startDate": {
-          "label": "تاريخ البدء",
-          "placeholder": "اختر تاريخ البدء"
-        },
-        "endDate": {
-          "label": "تاريخ الانتهاء",
-          "placeholder": "اختر تاريخ الانتهاء"
-        },
-        "singlePrize": {
-          "label": "جائزة فردية",
-          "placeholder": "أدخل جائزة فردية"
-        },
-        "multiplePrizes": {
-          "buttons": {
-            "addSinglePrize": "إضافة جائزة",
-            "addMultiplePrizes": "إضافة جوائز متعددة"
-          },
-          "titleInput": {
-            "label": "عنوان الجائزة",
-            "placeholder": "أدخل عنوان الجائزة"
-          },
-          "start": {
-            "label": "البدء",
-            "placeholder": "أدخل"
-          },
-          "end": {
-            "label": "الانتهاء",
-            "placeholder": "أدخل"
-          },
-          "numOfPrizes": {
-            "label": "عدد الجوائز",
-            "placeholder": "أدخل"
-          },
-          "amount": {
-            "label": "الجائزة",
-            "placeholder": "أدخل"
-          },
-          "title": "الجوائز"
-        },
-        "type": {
-          "label": "النوع",
-          "placeholder": "اختر نوعاً"
-        },
-        "rank_tier": {
-          "label": "الرتبة الدنيا",
-          "placeholder": "اختر أدنى رتبة"
+        "questCard": {
+            "btnText": "إرسال المسابقة",
+            "days": "أيام"
         },
         "prizes": {
-          "singlePosition": "مركز واحد",
-          "rangePrize": "جائزة النطاق",
-          "serialNumber": "المركز (الرقم التسلسلي)",
-          "minPosition": "أدنى مركز",
-          "maxPosition": "أعلى مركز",
-          "coin": "عملات الجائزة",
-          "allocatePrizes": "تخصيص الجوائز",
-          "addPrize": "إضافة جائزة",
-          "noPrizes": "لم يتم تخصيص جوائز بعد. ابدأ الإضافة من المركز 1.",
-          "coinTypes": [
-            {
-              "label": "عملة",
-              "value": "coin"
-            },
-            {
-              "label": "بكسل",
-              "value": "pixel"
+            "title": "الجوائز",
+            "viewAll": "عرض الكل",
+            "viewLess": "عرض أقل",
+            "card": {
+                "no": "رقم",
+                "first": "الجائزة الأولى",
+                "second": "الجائزة الثانية",
+                "third": "الجائزة الثالثة",
+                "fourth": "الجائزة الرابعة",
+                "fifth": "الجائزة الخامسة"
             }
-          ]
+        },
+        "followers": "المتابعون",
+        "follow": "متابعة",
+        "following": "تتابع",
+        "unfollow": "إلغاء المتابعة",
+        "imageView": {
+            "activeQuest": {
+                "title": "المسابقة النشطة"
+            }
         }
-      },
-      "create": {
-        "title": "إنشاء مسابقة",
-        "breadcrumbs": [
-          {
-            "title": "كل المسابقات",
-            "href": "/admin/quest"
-          },
-          {
-            "title": "إنشاء مسابقة",
-            "href": ""
-          }
-        ]
-      },
-      "edit": {
-        "title": "تعديل المسابقة",
-        "breadcrumbs": [
-          {
-            "title": "كل المسابقات",
-            "href": "/admin/quest"
-          },
-          {
-            "title": "تعديل المسابقة",
-            "href": ""
-          }
-        ]
-      },
-      "view": {
-        "title": "عرض المسابقة"
-      },
-      "index": {
-        "title": "المسابقة",
-        "breadcrumbs": [
-          {
-            "title": "كل المسابقات",
-            "href": "/admin/quest"
-          }
-        ],
-        "table": {
-          "headings": [
-            "#",
-            "الصورة",
-            "الاسم",
-            "المُنشئ",
-            "الحالة",
-            "الإجراءات"
-          ]
-        }
-      }
     },
-    "series": {
-      "inputs": {
-        "image": {
-          "label": "الصورة",
-          "placeholder": "اختر صورة"
+    "stats": {
+        "contests": "المسابقات",
+        "votes": "الأصوات",
+        "level": "الرتبة"
+    },
+    "root": {
+        "navbar": {
+            "navLinks": {
+                "discover": "اكتشف",
+                "quests": {
+                    "title": "المسابقة",
+                    "submenu": {
+                        "activeQuests": "مسابقة نشطة",
+                        "questSeries": "سلسلة المسابقات",
+                        "enteredQuests": "مسابقة مُدخَلَة",
+                        "endedQuests": "مسابقة منتهية"
+                    }
+                },
+                "store": "المتجر",
+                "redeem": "استرداد",
+                "dashboard": "لوحة التحكم",
+                "aboutUs": "من نحن",
+                "help": "المساعدة"
+            },
+            "buttons": {
+                "signUp": "تسجيل جديد",
+                "logIn": "تسجيل الدخول",
+                "promote": "روّج لعلامتك التجارية"
+            },
+            "notifications": {
+                "title": "الإشعارات"
+            }
         },
-        "title": {
-          "label": "العنوان",
-          "placeholder": "أدخل عنواناً"
+        "footer": {
+            "navLinks": {
+                "home": "الرئيسية",
+                "about": "من نحن",
+                "help": "المساعدة"
+            },
+            "copyright": "حقوق النشر &copy;{{year}} جميع الحقوق محفوظة | تم تصميم هذا القالب بـ {{heart}} بواسطة <a href='https://colorlib.com' target='_blank' rel='noopener noreferrer' class='hover:text-white transition-colors duration-200'>Winpix.co</a>"
+        }
+    },
+    "home": {
+        "banner": {
+            "btnText": "انضم الآن"
         },
-        "description": {
-          "label": "الوصف",
-          "placeholder": "أدخل وصفاً"
+        "newest": {
+            "title": "الأحدث"
+        },
+        "gallery": {
+            "title": "أفضل الصور"
+        },
+        "getApp": {
+            "title": "حمل التطبيق مجاناً!",
+            "description": "اجعل تجربة التسوق عبر الإنترنت أسهل وأسرع. اضغط على الرابط للحصول على التطبيق الآن."
+        }
+    },
+    "discover": {
+        "leaderboard": {
+            "title": "أفضل اللاعبين",
+            "points": "نقاط"
+        },
+        "activeQuests": {
+            "title": "المسابقات النشطة"
+        },
+        "topPhotos": {
+            "title": "أفضل الصور"
+        }
+    },
+    "activeQuests": {
+        "banner": {
+            "joinNowText": "انضم الآن",
+            "voteText": "تصويت"
+        },
+        "questSeries": {
+            "title": "سلسلة المسابقات"
+        },
+        "quests": {
+            "title": "المسابقات"
+        },
+        "filter": {
+            "sortAndFilter": "فرز وتصفية",
+            "filterItems": [
+                "الكل",
+                "مصنف",
+                "مجاني",
+                "مميز",
+                "مجتمع"
+            ],
+            "filterModal": {
+                "title": "تصفية",
+                "rank": [
+                    {
+                        "label": "الكل",
+                        "value": "All"
+                    },
+                    {
+                        "label": "أ",
+                        "value": "A"
+                    },
+                    {
+                        "label": "ب",
+                        "value": "B"
+                    },
+                    {
+                        "label": "ج",
+                        "value": "C"
+                    },
+                    {
+                        "label": "غير مصنف",
+                        "value": "Unranked",
+                        "hasColor": false
+                    }
+                ],
+                "sort": [
+                    {
+                        "label": "صاعد",
+                        "value": "rising"
+                    },
+                    {
+                        "label": "ينتهي قريباً",
+                        "value": "endingSoon"
+                    },
+                    {
+                        "label": "الأحدث",
+                        "value": "newest"
+                    },
+                    {
+                        "label": "الأقدم",
+                        "value": "oldest"
+                    }
+                ],
+                "entryFee": [
+                    {
+                        "label": "نعم",
+                        "value": "true"
+                    },
+                    {
+                        "label": "لا",
+                        "value": "false"
+                    }
+                ],
+                "status": [
+                    {
+                        "label": "إرسال",
+                        "value": "Submit"
+                    },
+                    {
+                        "label": "تصويت",
+                        "value": "Vote"
+                    },
+                    {
+                        "label": "قيد الانتهاء",
+                        "value": "Finalizing"
+                    }
+                ]
+            }
+        }
+    },
+    "questSeries": {
+        "title": "سلسلة المسابقات"
+    },
+    "endedQuests": {
+        "tab": {
+            "myQuests": "مسابقاتي",
+            "ended": "مسابقات منتهية",
+            "inactive": "سلاسل غير نشطة"
+        }
+    },
+    "singleEndedQuest": {
+        "tab": {
+            "brief": "الملخص",
+            "entries": "المشاركات"
+        },
+        "brief": {
+            "title": "الملخص"
+        }
+    },
+    "enteredQuests": {
+        "title": "المسابقات المُدخَلَة"
+    },
+    "store": {
+        "title": "عن Pixels",
+        "description": "الـ Pixels هي بوابتك للمحتوى الحصري! استخدمها لفتح عناصر فريدة، والمشاركة في أحداث خاصة، واكتساب ميزة في مسابقاتك. المزيد من الـ Pixels يعني قوة أكبر!"
+    },
+    "redeem": {
+        "appPriceTitle": "جوائز داخل التطبيق",
+        "greatPriceTitle": "جوائز رائعة",
+        "grandPriceTitle": "جوائز كبرى"
+    },
+    "singleQuest": {
+        "banner": {
+            "voteText": "تصويت",
+            "joinNowText": "انضم الآن",
+            "addEntryText": "إضافة مشاركة"
+        },
+        "tabs": {
+            "brief": "الملخص",
+            "entries": "المشاركات"
+        },
+        "guidelines": {
+            "title": "الإرشادات",
+            "guideLines": [
+                {
+                    "title": "مستوى المهارة",
+                    "description": "نرحب بالمستخدمين من جميع مستويات المهارة للمشاركة في هذه المسابقة!"
+                },
+                {
+                    "title": "الفئة",
+                    "description": "نرحب بالمستخدمين من جميع مستويات المهارة للمشاركة في هذه المسابقة!"
+                },
+                {
+                    "title": "حقوق النشر",
+                    "description": "يجب أن تكون المشاركات خاصة بك، ويجب ألا تكون مولدة بواسطة الذكاء الاصطناعي."
+                }
+            ]
+        },
+        "joinedQuestModal": {
+            "title": "انضم للمسابقة",
+            "description": "يجب أن تكون المشاركات صوراً فوتوغرافية، ومن تصويرك الخاص، وألا تكون مولدة بواسطة الذكاء الاصطناعي.",
+            "uploadFromDevice": "رفع من الجهاز",
+            "uploadFromLibrary": "رفع من المكتبة",
+            "submit": "إرسال"
+        },
+        "libraryModal": {
+            "title": "مكتبتك",
+            "noImage": "لا توجد صور أخرى متاحة"
+        }
+    },
+    "profile": {
+        "gallery": {
+            "title": "مكتبة الصور"
+        },
+        "tabs": {
+            "stats": "الإحصائيات",
+            "photos": "الصور"
+        }
+    },
+    "singleQuestSeries": {
+        "activeQuest": {
+            "title": "المسابقات النشطة"
+        },
+        "stats": {
+            "prizeLabel": "إجمالي مجموع الجوائز",
+            "entriesLabel": "المشاركات",
+            "questLabel": "مسابقة"
+        }
+    },
+    "singleQuestDetails": {
+        "brief": {
+            "title": "الملخص"
         },
         "status": {
-          "label": "الحالة",
-          "placeholder": "اختر الحالة",
-          "options": [
-            {
-              "label": "نشط",
-              "value": "Active"
+            "title": "الحالة",
+            "submit": {
+                "title": "إرسال",
+                "daysLeft": "أيام متبقية"
             },
-            {
-              "label": "غير نشط",
-              "value": "Inactive"
+            "vote": {
+                "title": "تصويت"
             }
-          ]
         }
-      },
-      "index": {
-        "title": "السلاسل",
-        "breadcrumbs": [
-          {
-            "title": "كل السلاسل",
-            "href": "/admin/series"
-          }
-        ],
-        "table": {
-          "headings": [
-            "#",
-            "الصورة",
-            "العنوان",
-            "الحالة",
-            "الإجراءات"
-          ]
-        },
-        "confirm_delete": "هل أنت متأكد أنك تريد حذف هذه السلسلة؟"
-      },
-      "create": {
-        "title": "إنشاء سلسلة",
-        "breadcrumbs": [
-          {
-            "title": "كل السلاسل",
-            "href": "/admin/series"
-          },
-          {
-            "title": "إنشاء سلسلة",
-            "href": ""
-          }
-        ]
-      },
-      "edit": {
-        "title": "تعديل السلسلة",
-        "breadcrumbs": [
-          {
-            "title": "كل السلاسل",
-            "href": "/admin/series"
-          },
-          {
-            "title": "تعديل السلسلة",
-            "href": ""
-          }
-        ]
-      },
-      "view": {
-        "title": "عرض السلسلة"
-      }
     },
-    "questType": {
-      "inputs": {
-        "name": {
-          "label": "الاسم",
-          "placeholder": "أدخل اسماً"
-        },
-        "status": {
-          "label": "الحالة",
-          "placeholder": "اختر الحالة",
-          "options": [
-            {
-              "label": "نشط",
-              "value": "Active"
-            },
-            {
-              "label": "غير نشط",
-              "value": "Inactive"
-            }
-          ]
+    "aboutUs": {
+        "title": "من نحن",
+        "whatWeDo": {
+            "title": "ماذا نفعل",
+            "services": [
+                {
+                    "title": "بُنيت لمكافأة التصوير الجيد",
+                    "description": "في Winpix، نؤمن بأن كل صورة تستحق فرصة عادلة. نحن ملتزمون بخلق بيئة محايدة حيث يتم الحكم على الصور بناءً على جدارتها فقط - بغض النظر عن شهرة المصور أو عدد متابعيه. هدفنا هو ضمان تألق التميز في التصوير الفوتوغرافي بناءً على الموهبة والتعبير الإبداعي فقط."
+                },
+                {
+                    "title": "بُنيت لكل مصور",
+                    "description": "التصوير الفوتوغرافي للجميع، وكذلك Winpix. سواء كنت في بداياتك أو كنت محترفاً متمرساً، تم تصميم منصتنا لتعزيز المنافسة الصحية والتفاعل المجتمعي. نحن هنا لمساعدتك على صقل مهاراتك، وتحدي حدودك، والتقدم في رحلتك الفوتوغرافية جنباً إلى جنب مع أقران يشاركونك شغفك."
+                },
+                {
+                    "title": "بُنيت لتكون ممتعة",
+                    "description": "نحن نؤمن بأن التصوير الفوتوغرافي يجب أن يكون مبهجاً ومجزياً. في Winpix، المشاركة في المسابقات، والتصويت على المشاركات، والفوز بالجوائز، وتتبع تقدمك، والتواصل مع زملائك المصورين هي جزء من المتعة. نهدف إلى جعل تجربتك مع Winpix ممتعة، مما يلهمك لحمل كاميرتك واستكشاف العالم من خلال عدستك."
+                }
+            ]
         }
-      },
-      "index": {
-        "title": "نوع المسابقة",
-        "breadcrumbs": [
-          {
-            "title": "كل أنواع المسابقات",
-            "href": "/admin/quest-type"
-          }
-        ],
-        "table": {
-          "headings": [
-            "#",
-            "الاسم",
-            "الحالة",
-            "الإجراءات"
-          ]
-        }
-      },
-      "create": {
-        "title": "إنشاء نوع مسابقة",
-        "breadcrumbs": [
-          {
-            "title": "كل أنواع المسابقات",
-            "href": "/admin/quest-type"
-          },
-          {
-            "title": "إنشاء نوع مسابقة",
-            "href": ""
-          }
-        ]
-      },
-      "edit": {
-        "title": "تعديل نوع المسابقة",
-        "breadcrumbs": [
-          {
-            "title": "كل أنواع المسابقات",
-            "href": "/admin/quest-type"
-          },
-          {
-            "title": "تعديل نوع المسابقة",
-            "href": ""
-          }
-        ]
-      },
-      "view": {
-        "title": "عرض نوع المسابقة"
-      }
-    },
-    "questCategory": {
-      "inputs": {
-        "name": {
-          "label": "الاسم",
-          "placeholder": "أدخل اسماً"
-        },
-        "description": {
-          "label": "الوصف",
-          "placeholder": "أدخل وصفاً"
-        },
-        "status": {
-          "label": "الحالة",
-          "placeholder": "اختر الحالة",
-          "options": [
-            {
-              "label": "نشط",
-              "value": "Active"
-            },
-            {
-              "label": "غير نشط",
-              "value": "Inactive"
-            }
-          ]
-        }
-      },
-      "index": {
-        "title": "فئة المسابقة",
-        "breadcrumbs": [
-          {
-            "title": "كل فئات المسابقات",
-            "href": "/admin/quest-category"
-          }
-        ],
-        "table": {
-          "headings": [
-            "#",
-            "الاسم",
-            "الحالة",
-            "الإجراءات"
-          ]
-        }
-      },
-      "create": {
-        "title": "إنشاء فئة مسابقة",
-        "breadcrumbs": [
-          {
-            "title": "كل فئات المسابقات",
-            "href": "/admin/category"
-          },
-          {
-            "title": "إنشاء فئة مسابقة",
-            "href": ""
-          }
-        ]
-      },
-      "edit": {
-        "title": "تعديل فئة المسابقة",
-        "breadcrumbs": [
-          {
-            "title": "كل فئات المسابقات",
-            "href": "/admin/quest-category"
-          },
-          {
-            "title": "تعديل فئة المسابقة",
-            "href": ""
-          }
-        ]
-      },
-      "view": {
-        "title": "عرض فئة المسابقة"
-      }
-    },
-    "users": {
-      "index": {
-        "title": "المستخدمون",
-        "breadcrumbs": [
-          {
-            "title": "كل المستخدمين",
-            "href": "/admin/users"
-          }
-        ],
-        "table": {
-          "headings": [
-            "#",
-            "الاسم",
-            "البريد الإلكتروني",
-            "الرتبة",
-            "الحالة",
-            "الإجراءات"
-          ]
-        }
-      }
     },
     "help": {
-      "inputs": {
-        "question": {
-          "label": "السؤال",
-          "placeholder": "أدخل سؤالاً"
-        },
-        "answer": {
-          "label": "الإجابة",
-          "placeholder": "أدخل إجابة"
-        },
-        "status": {
-          "label": "الحالة",
-          "placeholder": "اختر الحالة",
-          "options": [
-            {
-              "label": "نشط",
-              "value": "Active"
-            },
-            {
-              "label": "غير نشط",
-              "value": "Inactive"
-            }
-          ]
-        },
-        "questionType": {
-          "label": "نوع السؤال",
-          "placeholder": "اختر نوع السؤال",
-          "options": [
-            {
-              "label": "البدء",
-              "value": "Getting_Start"
-            },
-            {
-              "label": "المسابقات",
-              "value": "Quests"
-            },
-            {
-              "label": "اقتصاد التطبيق",
-              "value": "App_Economy"
-            },
-            {
-              "label": "رتب المهارة",
-              "value": "Skill_Ranks"
-            },
-            {
-              "label": "إدارة الحساب",
-              "value": "Account_Management"
-            },
-            {
-              "label": "المشتريات",
-              "value": "Purchase"
-            },
-            {
-              "label": "استكشاف الأخطاء وإصلاحها",
-              "value": "Troubleshooting"
-            },
-            {
-              "label": "إرشادات المحتوى والمجتمع",
-              "value": "Content_Community_Guidelines"
-            },
-            {
-              "label": "اتصل بالدعم",
-              "value": "Contact_Support"
-            }
-          ]
-        }
-      },
-      "index": {
-        "title": "المساعدات",
-        "breadcrumbs": [
-          {
-            "title": "المساعدات",
-            "href": "/admin/help"
-          }
+        "categories": [
+            "اقتصاد التطبيق",
+            "المسابقات",
+            "البدء",
+            "المشتريات",
+            "إدارة الحساب",
+            "مستويات المهارة",
+            "اتصل بالدعم",
+            "إرشادات المحتوى والمجتمع",
+            "استكشاف الأخطاء وإصلاحها"
         ],
-        "table": {
-          "headings": [
-            "#",
-            "نوع السؤال",
-            "السؤال",
-            "الإجابة",
-            "الحالة",
-            "الإجراءات"
-          ]
-        }
-      },
-      "create": {
-        "title": "إنشاء مساعدة",
-        "breadcrumbs": [
-          {
-            "title": "المساعدات",
-            "href": "/admin/help"
-          },
-          {
-            "title": "إنشاء مساعدة",
-            "href": ""
-          }
-        ]
-      },
-      "edit": {
-        "title": "تعديل المساعدة",
-        "breadcrumbs": [
-          {
-            "title": "المساعدات",
-            "href": "/admin/help"
-          },
-          {
-            "title": "تعديل المساعدة",
-            "href": ""
-          }
-        ]
-      },
-      "view": {
-        "title": "عرض المساعدة"
-      }
-    },
-    "contacts": {
-      "view": {
-        "title": "عرض جهة الاتصال",
-        "breadcrumbs": [
-          {
-            "title": "جهة الاتصال",
-            "href": "/admin/contact"
-          }
-        ]
-      },
-      "index": {
-        "title": "جهة الاتصال",
-        "breadcrumbs": [
-          {
-            "title": "جهة الاتصال",
-            "href": "/admin/contact"
-          }
-        ],
-        "table": {
-          "headings": [
-            "#",
-            "الاسم",
-            "البريد الإلكتروني",
-            "الرسالة",
-            "الإجراءات"
-          ]
-        }
-      }
-    },
-    "brand_marketing_type": {
-      "label": "اختر الخيار",
-      "placeholder": "اختر نوع المسابقة",
-      "options": [
-        {
-          "value": "why_choose",
-          "label": "لماذا تختارنا"
+        "singleCategoryHelps": {
+            "paths": [
+                {
+                    "label": "جميع فئات المساعدة",
+                    "href": "/all-help-categories"
+                },
+                {
+                    "label": "مساعدات الفئة الواحدة"
+                }
+            ]
         },
-        {
-          "value": "contest_types",
-          "label": "أنواع المسابقات"
+        "singleFaq": {
+            "paths": [
+                {
+                    "label": "جميع فئات المساعدة",
+                    "href": "/all-help-categories"
+                },
+                {
+                    "label": "الأسئلة الشائعة"
+                }
+            ],
+            "sidebarHeading": "مقالات في هذا القسم",
+            "haveMoreQuestionsLabel": {
+                "text1": "هل لديك المزيد من الأسئلة؟",
+                "text2": "اقرأ المزيد"
+            },
+            "relatedArticlesTitle": "مقالات ذات صلة",
+            "recentlyViewedArticleTitle": "مقالات شوهدت مؤخراً"
         }
-      ]
     },
-    "brandMarketingBanner": {
-      "edit": {
-        "title": "تعديل راية تسويق العلامة التجارية",
-        "breadcrumbs": [
-          {
-            "title": "كل رايات تسويق العلامة التجارية",
-            "href": "/admin/brand-marketing"
-          },
-          {
-            "title": "تعديل راية تسويق العلامة التجارية",
-            "href": ""
-          }
-        ],
+    "brandMarketing": {
+        "buttons": {
+            "contactUs": "اتصل بنا"
+        },
+        "whyChooseWinpix": {
+            "title": "لماذا تختار مسابقات Winpix",
+            "description": "تقوم Winpix بتحويل الحملات التسويقية إلى مسابقات تصوير فوتوغرافي، وتربط العلامات التجارية بآلاف المبدعين في جميع أنحاء دول مجلس التعاون الخليجي والعالم لإنتاج محتوى مرئي أصيل."
+        },
+        "contestTypes": {
+            "title": "أنواع المسابقات",
+            "description": "نماذج حملات مصممة خصيصاً لتلبية أهدافك التسويقية المحددة."
+        }
+    },
+    "contactUs": {
+        "title": "اتصل بنا",
+        "description": "هذا هو خطك المباشر للتواصل معنا بشأن أي أسئلة أو مخاوف أو ملاحظات أو استفسارات قد تكون لديك.",
         "inputs": {
-          "title_en": {
-            "label": "العنوان",
-            "placeholder": "أدخل العنوان"
-          },
-          "subtitle_en": {
-            "label": "العنوان الفرعي",
-            "placeholder": "أدخل العنوان الفرعي"
-          },
-          "title_ar": {
-            "label": "العنوان (عربي)",
-            "placeholder": "أدخل العنوان (عربي)"
-          },
-          "subtitle_ar": {
-            "label": "العنوان الفرعي (عربي)",
-            "placeholder": "أدخل العنوان الفرعي (عربي)"
-          },
-          "bg_image": {
-            "label": "صورة الخلفية",
-            "placeholder": "اختر صورة الخلفية"
-          }
+            "firstName": {
+                "label": "الاسم الأول",
+                "placeholder": "أدخل اسمك الأول"
+            },
+            "lastName": {
+                "label": "الاسم الأخير",
+                "placeholder": "أدخل اسمك الأخير"
+            },
+            "email": {
+                "label": "البريد الإلكتروني",
+                "placeholder": "أدخل بريدك الإلكتروني"
+            },
+            "message": {
+                "label": "الرسالة",
+                "placeholder": "أدخل رسالتك"
+            },
+            "buttons": {
+                "submit": "إرسال"
+            }
         }
-      },
-      "index": {
-        "title": "راية تسويق العلامة التجارية"
-      }
+    },
+    "dashboard": {
+        "shared": {
+            "save": "حفظ",
+            "saved": "تم الحفظ",
+            "link": "رابط",
+            "create": "إنشاء",
+            "delete": "حذف",
+            "edit": "تعديل",
+            "view": "عرض",
+            "back": "رجوع",
+            "update": "تحديث"
+        },
+        "slider": {
+            "inputs": {
+                "title": {
+                    "label": "العنوان",
+                    "placeholder": "أدخل العنوان"
+                },
+                "content": {
+                    "label": "العنوان الفرعي",
+                    "placeholder": "أدخل العنوان الفرعي"
+                },
+                "status": {
+                    "label": "الحالة",
+                    "placeholder": "اختر الحالة",
+                    "options": [
+                        {
+                            "label": "نشط",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "غير نشط",
+                            "value": "Inactive"
+                        }
+                    ]
+                },
+                "bg_image": {
+                    "label": "صورة الخلفية",
+                    "placeholder": "اختر صورة الخلفية"
+                }
+            },
+            "create": {
+                "title": "إنشاء شريط عرض",
+                "breadcrumbs": [
+                    {
+                        "title": "كل أشرطة العرض",
+                        "href": "/admin/slider"
+                    },
+                    {
+                        "title": "إنشاء شريط عرض",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "تعديل شريط العرض",
+                "breadcrumbs": [
+                    {
+                        "title": "كل أشرطة العرض",
+                        "href": "/admin/slider"
+                    },
+                    {
+                        "title": "تعديل شريط العرض",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "عرض شريط العرض"
+            },
+            "index": {
+                "title": "أشرطة العرض",
+                "breadcrumbs": [
+                    {
+                        "title": "كل أشرطة العرض",
+                        "href": "/admin/slider"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "صورة",
+                        "العنوان",
+                        "العنوان الفرعي",
+                        "الحالة",
+                        "الإجراءات"
+                    ]
+                }
+            }
+        },
+        "store": {
+            "inputs": {
+                "number_of_coin": {
+                    "label": "عدد العملات",
+                    "placeholder": "أدخل عدد العملات"
+                },
+                "price": {
+                    "label": "السعر",
+                    "placeholder": "أدخل السعر"
+                },
+                "icon_image": {
+                    "label": "صورة الأيقونة",
+                    "placeholder": "اختر صورة الأيقونة"
+                },
+                "status": {
+                    "label": "الحالة",
+                    "placeholder": "اختر الحالة",
+                    "options": [
+                        {
+                            "label": "نشط",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "غير نشط",
+                            "value": "Inactive"
+                        }
+                    ]
+                }
+            },
+            "create": {
+                "title": "إنشاء باقة متجر",
+                "breadcrumbs": [
+                    {
+                        "title": "كل باقات المتجر",
+                        "href": "/admin/store"
+                    },
+                    {
+                        "title": "إنشاء باقة متجر",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "تعديل باقة المتجر",
+                "breadcrumbs": [
+                    {
+                        "title": "كل باقات المتجر",
+                        "href": "/admin/store"
+                    },
+                    {
+                        "title": "تعديل باقة المتجر",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "عرض باقة المتجر"
+            },
+            "index": {
+                "title": "باقات المتجر",
+                "breadcrumbs": [
+                    {
+                        "title": "كل باقات المتجر",
+                        "href": "/admin/store"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "أيقونة",
+                        "عدد العملات",
+                        "السعر",
+                        "الحالة",
+                        "الإجراءات"
+                    ]
+                },
+                "confirm_delete": "هل أنت متأكد أنك تريد حذف باقة المتجر هذه؟"
+            }
+        },
+        "redeem": {
+            "inputs": {
+                "number_of_coin": {
+                    "label": "عدد العملات",
+                    "placeholder": "أدخل عدد العملات"
+                },
+                "price": {
+                    "label": "السعر",
+                    "placeholder": "أدخل السعر"
+                },
+                "icon_image": {
+                    "label": "صورة الأيقونة",
+                    "placeholder": "اختر صورة الأيقونة"
+                },
+                "prize_type": {
+                    "label": "نوع الجائزة",
+                    "placeholder": "اختر نوع الجائزة",
+                    "options": [
+                        {
+                            "label": "جائزة داخل التطبيق",
+                            "value": "app_prize"
+                        },
+                        {
+                            "label": "جائزة رائعة",
+                            "value": "great_prize"
+                        },
+                        {
+                            "label": "جائزة كبرى",
+                            "value": "grand_prize"
+                        }
+                    ]
+                },
+                "status": {
+                    "label": "الحالة",
+                    "placeholder": "اختر الحالة",
+                    "options": [
+                        {
+                            "label": "نشط",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "غير نشط",
+                            "value": "InActive"
+                        }
+                    ]
+                }
+            },
+            "create": {
+                "title": "إنشاء باقة استرداد",
+                "breadcrumbs": [
+                    {
+                        "title": "كل باقات الاسترداد",
+                        "href": "/admin/redeem"
+                    },
+                    {
+                        "title": "إنشاء باقة استرداد",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "تعديل باقة الاسترداد",
+                "breadcrumbs": [
+                    {
+                        "title": "كل باقات الاسترداد",
+                        "href": "/admin/redeem"
+                    },
+                    {
+                        "title": "تعديل باقة الاسترداد",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "عرض باقة الاسترداد"
+            },
+            "index": {
+                "title": "باقات الاسترداد",
+                "breadcrumbs": [
+                    {
+                        "title": "كل باقات الاسترداد",
+                        "href": "/admin/redeem"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "أيقونة",
+                        "عدد العملات",
+                        "السعر",
+                        "نوع الجائزة",
+                        "الحالة",
+                        "الإجراءات"
+                    ]
+                },
+                "confirm_delete": "هل أنت متأكد أنك تريد حذف باقة الاسترداد هذه؟"
+            }
+        },
+        "analytics": {
+            "breadcrumbs": [
+                {
+                    "title": "التحليلات",
+                    "href": "/admin/dashboard"
+                }
+            ],
+            "totalUsers": "إجمالي المستخدمين",
+            "totalQuests": "إجمالي المسابقات",
+            "visitorsOverview": "نظرة عامة على الزوار",
+            "counts": "الأعداد",
+            "monthlyVisitors": "الزوار الشهريون",
+            "users": "المستخدمون",
+            "quests": "مسابقة"
+        },
+        "about": {
+            "inputs": {
+                "title": {
+                    "label": "العنوان",
+                    "placeholder": "أدخل العنوان"
+                },
+                "content": {
+                    "label": "العنوان الفرعي",
+                    "placeholder": "أدخل العنوان الفرعي"
+                },
+                "status": {
+                    "label": "الحالة",
+                    "placeholder": "اختر الحالة",
+                    "options": [
+                        {
+                            "label": "نشط",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "غير نشط",
+                            "value": "Inactive"
+                        }
+                    ]
+                },
+                "image": {
+                    "label": "صورة الخلفية",
+                    "placeholder": "اختر صورة الخلفية"
+                }
+            },
+            "create": {
+                "title": "إنشاء (من نحن)",
+                "breadcrumbs": [
+                    {
+                        "title": "كل (من نحن)",
+                        "href": "/admin/about"
+                    },
+                    {
+                        "title": "إنشاء (من نحن)",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "من نحن"
+            },
+            "index": {
+                "title": "من نحن",
+                "breadcrumbs": [
+                    {
+                        "title": "من نحن",
+                        "href": "/admin/about"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "صورة",
+                        "العنوان",
+                        "الحالة",
+                        "الإجراءات"
+                    ]
+                }
+            },
+            "edit": {
+                "title": "تعديل (من نحن)",
+                "breadcrumbs": [
+                    {
+                        "title": "كل (من نحن)",
+                        "href": "/admin/about"
+                    },
+                    {
+                        "title": "تعديل (من نحن)",
+                        "href": ""
+                    }
+                ]
+            }
+        },
+        "profile": {
+            "heading": "الملف الشخصي",
+            "tab": {
+                "myStats": "إحصائياتي",
+                "myPhotos": "صوري",
+                "likedPhotos": "الصور المُعجب بها"
+            },
+            "inputs": {
+                "name": {
+                    "label": "الاسم",
+                    "placeholder": "الاسم الكامل"
+                },
+                "email": {
+                    "label": "البريد الإلكتروني",
+                    "placeholder": "عنوان البريد الإلكتروني"
+                }
+            }
+        },
+        "settings": {
+            "heading": "الإعدادات",
+            "description": "إدارة ملفك الشخصي وإعدادات الحساب"
+        },
+        "editProfile": {
+            "heading": "إعدادات الملف الشخصي"
+        },
+        "socialLinks": {
+            "heading": "روابط التواصل الاجتماعي",
+            "inputs": {
+                "personalWebsite": {
+                    "label": "الموقع الشخصي",
+                    "placeholder": "أدخل رابط موقعك الشخصي"
+                },
+                "facebook": {
+                    "label": "اسم مستخدم فيسبوك",
+                    "placeholder": "أدخل اسم مستخدم فيسبوك"
+                },
+                "instagram": {
+                    "label": "اسم مستخدم انستغرام",
+                    "placeholder": "أدخل اسم مستخدم انستغرام"
+                },
+                "x": {
+                    "label": "اسم مستخدم X",
+                    "placeholder": "أدخل اسم مستخدم X"
+                }
+            }
+        },
+        "linkedAccounts": {
+            "heading": "الحسابات المرتبطة"
+        },
+        "address": {
+            "heading": "عنوان الشحن",
+            "inputs": {
+                "country": {
+                    "label": "الدولة",
+                    "placeholder": "اختر دولة"
+                },
+                "city": {
+                    "label": "المدينة",
+                    "placeholder": "أدخل مدينتك"
+                },
+                "fullAddress": {
+                    "label": "العنوان الكامل",
+                    "placeholder": "أدخل عنوانك الكامل"
+                }
+            }
+        },
+        "password": {
+            "heading": "كلمة المرور",
+            "inputs": {
+                "currentPassword": {
+                    "label": "كلمة المرور الحالية",
+                    "placeholder": "كلمة المرور الحالية"
+                },
+                "password": {
+                    "label": "كلمة المرور الجديدة",
+                    "placeholder": "كلمة المرور الجديدة"
+                },
+                "passwordConfirmation": {
+                    "label": "تأكيد كلمة المرور",
+                    "placeholder": "تأكيد كلمة المرور"
+                }
+            }
+        },
+        "twoFactorAuth": {
+            "heading": "المصادقة الثنائية"
+        },
+        "appearance": {
+            "heading": "المظهر",
+            "tab": {
+                "light": "فاتح",
+                "dark": "داكن",
+                "system": "النظام"
+            }
+        },
+        "language": {
+            "heading": "اللغة",
+            "inputs": {
+                "language": {
+                    "label": "اختر لغة:",
+                    "placeholder": "اختر لغة"
+                }
+            }
+        },
+        "root": {
+            "footer": {
+                "setting": "الإعدادات",
+                "logout": "تسجيل الخروج"
+            }
+        },
+        "quest": {
+            "inputs": {
+                "image": {
+                    "label": "الصورة"
+                },
+                "level_requirement": {
+                    "label": "متطلبات المستوى",
+                    "placeholder": "أدخل متطلبات المستوى"
+                },
+                "categories_requirement": {
+                    "label": "متطلبات الفئات",
+                    "placeholder": "أدخل متطلبات الفئات"
+                },
+                "copyright_requirement": {
+                    "label": "متطلبات حقوق النشر",
+                    "placeholder": "أدخل متطلبات حقوق النشر"
+                },
+                "title": {
+                    "label": "العنوان",
+                    "placeholder": "أدخل عنواناً"
+                },
+                "entryCoin": {
+                    "label": "عملة الدخول",
+                    "placeholder": "أدخل عملة الدخول"
+                },
+                "category": {
+                    "label": "وسم",
+                    "placeholder": "اختر وسماً"
+                },
+                "series": {
+                    "label": "سلسلة",
+                    "placeholder": "اختر سلسلة"
+                },
+                "brief": {
+                    "label": "الملخص",
+                    "placeholder": "أدخل ملخصاً"
+                },
+                "startDate": {
+                    "label": "تاريخ البدء",
+                    "placeholder": "اختر تاريخ البدء"
+                },
+                "endDate": {
+                    "label": "تاريخ الانتهاء",
+                    "placeholder": "اختر تاريخ الانتهاء"
+                },
+                "singlePrize": {
+                    "label": "جائزة واحدة",
+                    "placeholder": "أدخل جائزة واحدة"
+                },
+                "multiplePrizes": {
+                    "buttons": {
+                        "addSinglePrize": "إضافة جائزة",
+                        "addMultiplePrizes": "إضافة جوائز متعددة"
+                    },
+                    "titleInput": {
+                        "label": "عنوان الجائزة",
+                        "placeholder": "أدخل عنوان الجائزة"
+                    },
+                    "start": {
+                        "label": "بداية",
+                        "placeholder": "أدخل"
+                    },
+                    "end": {
+                        "label": "نهاية",
+                        "placeholder": "أدخل"
+                    },
+                    "numOfPrizes": {
+                        "label": "عدد الجوائز",
+                        "placeholder": "أدخل"
+                    },
+                    "amount": {
+                        "label": "الجائزة",
+                        "placeholder": "أدخل"
+                    },
+                    "title": "الجوائز"
+                },
+                "type": {
+                    "label": "النوع",
+                    "placeholder": "اختر نوعاً"
+                },
+                "rank_tier": {
+                    "label": "الحد الأدنى للرتبة",
+                    "placeholder": "اختر الحد الأدنى للرتبة"
+                },
+                "prizes": {
+                    "singlePosition": "مركز واحد",
+                    "rangePrize": "جائزة النطاق",
+                    "serialNumber": "المركز (الرقم التسلسلي)",
+                    "minPosition": "أدنى مركز",
+                    "maxPosition": "أقصى مركز",
+                    "coin": "عملات الجائزة",
+                    "allocatePrizes": "توزيع الجوائز",
+                    "addPrize": "إضافة جائزة",
+                    "noPrizes": "لم يتم تخصيص جوائز بعد. ابدأ بالإضافة من المركز 1.",
+                    "coinTypes": [
+                        {
+                            "label": "عملة",
+                            "value": "coin"
+                        },
+                        {
+                            "label": "بكسل",
+                            "value": "pixel"
+                        }
+                    ]
+                }
+            },
+            "create": {
+                "title": "إنشاء مسابقة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل المسابقات",
+                        "href": "/admin/quest"
+                    },
+                    {
+                        "title": "إنشاء مسابقة",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "تعديل المسابقة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل المسابقات",
+                        "href": "/admin/quest"
+                    },
+                    {
+                        "title": "تعديل المسابقة",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "عرض المسابقة"
+            },
+            "index": {
+                "title": "المسابقة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل المسابقات",
+                        "href": "/admin/quest"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "صورة",
+                        "الاسم",
+                        "المنشئ",
+                        "الحالة",
+                        "الإجراءات"
+                    ]
+                }
+            }
+        },
+        "series": {
+            "inputs": {
+                "image": {
+                    "label": "صورة",
+                    "placeholder": "اختر صورة"
+                },
+                "title": {
+                    "label": "العنوان",
+                    "placeholder": "أدخل عنواناً"
+                },
+                "description": {
+                    "label": "الوصف",
+                    "placeholder": "أدخل وصفاً"
+                },
+                "status": {
+                    "label": "الحالة",
+                    "placeholder": "اختر الحالة",
+                    "options": [
+                        {
+                            "label": "نشط",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "غير نشط",
+                            "value": "Inactive"
+                        }
+                    ]
+                }
+            },
+            "index": {
+                "title": "السلسلة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل السلاسل",
+                        "href": "/admin/series"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "صورة",
+                        "العنوان",
+                        "الحالة",
+                        "الإجراءات"
+                    ]
+                },
+                "confirm_delete": "هل أنت متأكد أنك تريد حذف هذه السلسلة؟"
+            },
+            "create": {
+                "title": "إنشاء سلسلة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل السلاسل",
+                        "href": "/admin/series"
+                    },
+                    {
+                        "title": "إنشاء سلسلة",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "تعديل السلسلة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل السلاسل",
+                        "href": "/admin/series"
+                    },
+                    {
+                        "title": "تعديل السلسلة",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "عرض السلسلة"
+            }
+        },
+        "questType": {
+            "inputs": {
+                "name": {
+                    "label": "الاسم",
+                    "placeholder": "أدخل اسماً"
+                },
+                "status": {
+                    "label": "الحالة",
+                    "placeholder": "اختر الحالة",
+                    "options": [
+                        {
+                            "label": "نشط",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "غير نشط",
+                            "value": "Inactive"
+                        }
+                    ]
+                }
+            },
+            "index": {
+                "title": "نوع المسابقة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل أنواع المسابقات",
+                        "href": "/admin/quest-type"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "الاسم",
+                        "الحالة",
+                        "الإجراءات"
+                    ]
+                }
+            },
+            "create": {
+                "title": "إنشاء نوع مسابقة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل أنواع المسابقات",
+                        "href": "/admin/quest-type"
+                    },
+                    {
+                        "title": "إنشاء نوع مسابقة",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "تعديل نوع المسابقة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل أنواع المسابقات",
+                        "href": "/admin/quest-type"
+                    },
+                    {
+                        "title": "تعديل نوع المسابقة",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "عرض نوع المسابقة"
+            }
+        },
+        "questCategory": {
+            "inputs": {
+                "name": {
+                    "label": "الاسم",
+                    "placeholder": "أدخل اسماً"
+                },
+                "description": {
+                    "label": "الوصف",
+                    "placeholder": "أدخل وصفاً"
+                },
+                "status": {
+                    "label": "الحالة",
+                    "placeholder": "اختر الحالة",
+                    "options": [
+                        {
+                            "label": "نشط",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "غير نشط",
+                            "value": "Inactive"
+                        }
+                    ]
+                }
+            },
+            "index": {
+                "title": "فئة المسابقة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل فئات المسابقات",
+                        "href": "/admin/quest-category"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "الاسم",
+                        "الحالة",
+                        "الإجراءات"
+                    ]
+                }
+            },
+            "create": {
+                "title": "إنشاء فئة مسابقة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل فئات المسابقات",
+                        "href": "/admin/category"
+                    },
+                    {
+                        "title": "إنشاء فئة مسابقة",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "تعديل فئة المسابقة",
+                "breadcrumbs": [
+                    {
+                        "title": "كل فئات المسابقات",
+                        "href": "/admin/quest-category"
+                    },
+                    {
+                        "title": "تعديل فئة المسابقة",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "عرض فئة المسابقة"
+            }
+        },
+        "users": {
+            "index": {
+                "title": "المستخدمون",
+                "breadcrumbs": [
+                    {
+                        "title": "كل المستخدمين",
+                        "href": "/admin/users"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "الاسم",
+                        "البريد الإلكتروني",
+                        "الرتبة",
+                        "الحالة",
+                        "الإجراءات"
+                    ]
+                }
+            }
+        },
+        "help": {
+            "inputs": {
+                "question": {
+                    "label": "السؤال",
+                    "placeholder": "أدخل سؤالاً"
+                },
+                "answer": {
+                    "label": "الإجابة",
+                    "placeholder": "أدخل إجابة"
+                },
+                "status": {
+                    "label": "الحالة",
+                    "placeholder": "اختر الحالة",
+                    "options": [
+                        {
+                            "label": "نشط",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "غير نشط",
+                            "value": "Inactive"
+                        }
+                    ]
+                },
+                "questionType": {
+                    "label": "نوع السؤال",
+                    "placeholder": "اختر نوع السؤال",
+                    "options": [
+                        {
+                            "label": "البدء",
+                            "value": "Getting_Start"
+                        },
+                        {
+                            "label": "المسابقات",
+                            "value": "Quests"
+                        },
+                        {
+                            "label": "اقتصاد التطبيق",
+                            "value": "App_Economy"
+                        },
+                        {
+                            "label": "مستويات المهارة",
+                            "value": "Skill_Ranks"
+                        },
+                        {
+                            "label": "إدارة الحساب",
+                            "value": "Account_Management"
+                        },
+                        {
+                            "label": "الشراء",
+                            "value": "Purchase"
+                        },
+                        {
+                            "label": "استكشاف الأخطاء وإصلاحها",
+                            "value": "Troubleshooting"
+                        },
+                        {
+                            "label": "إرشادات المحتوى والمجتمع",
+                            "value": "Content_Community_Guidelines"
+                        },
+                        {
+                            "label": "اتصل بالدعم",
+                            "value": "Contact_Support"
+                        }
+                    ]
+                }
+            },
+            "index": {
+                "title": "المساعدات",
+                "breadcrumbs": [
+                    {
+                        "title": "المساعدات",
+                        "href": "/admin/help"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "نوع السؤال",
+                        "السؤال",
+                        "الإجابة",
+                        "الحالة",
+                        "الإجراءات"
+                    ]
+                }
+            },
+            "create": {
+                "title": "إنشاء مساعدة",
+                "breadcrumbs": [
+                    {
+                        "title": "المساعدات",
+                        "href": "/admin/help"
+                    },
+                    {
+                        "title": "إنشاء مساعدة",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "تعديل المساعدة",
+                "breadcrumbs": [
+                    {
+                        "title": "المساعدات",
+                        "href": "/admin/help"
+                    },
+                    {
+                        "title": "تعديل المساعدة",
+                        "href": ""
+                    }
+                ]
+            },
+            "view": {
+                "title": "عرض المساعدة"
+            }
+        },
+        "contacts": {
+            "view": {
+                "title": "عرض جهة الاتصال",
+                "breadcrumbs": [
+                    {
+                        "title": "جهة الاتصال",
+                        "href": "/admin/contact"
+                    }
+                ]
+            },
+            "index": {
+                "title": "جهة الاتصال",
+                "breadcrumbs": [
+                    {
+                        "title": "جهة الاتصال",
+                        "href": "/admin/contact"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "الاسم",
+                        "البريد الإلكتروني",
+                        "الرسالة",
+                        "الإجراءات"
+                    ]
+                }
+            }
+        },
+        "brand_marketing_type": {
+            "label": "اختر خياراً",
+            "placeholder": "اختر نوع المسابقة",
+            "options": [
+                {
+                    "value": "why_choose",
+                    "label": "لماذا تختارنا"
+                },
+                {
+                    "value": "contest_types",
+                    "label": "أنواع المسابقات"
+                }
+            ]
+        },
+        "brandMarketingBanner": {
+            "edit": {
+                "title": "تعديل بنر تسويق العلامة التجارية",
+                "breadcrumbs": [
+                    {
+                        "title": "كل بنرات تسويق العلامة التجارية",
+                        "href": "/admin/brand-marketing"
+                    },
+                    {
+                        "title": "تعديل بنر تسويق العلامة التجارية",
+                        "href": ""
+                    }
+                ],
+                "inputs": {
+                    "title_en": {
+                        "label": "العنوان",
+                        "placeholder": "أدخل العنوان"
+                    },
+                    "subtitle_en": {
+                        "label": "العنوان الفرعي",
+                        "placeholder": "أدخل العنوان الفرعي"
+                    },
+                    "title_ar": {
+                        "label": "العنوان (عربي)",
+                        "placeholder": "أدخل العنوان (عربي)"
+                    },
+                    "subtitle_ar": {
+                        "label": "العنوان الفرعي (عربي)",
+                        "placeholder": "أدخل العنوان الفرعي (عربي)"
+                    },
+                    "bg_image": {
+                        "label": "صورة الخلفية",
+                        "placeholder": "اختر صورة الخلفية"
+                    }
+                }
+            },
+            "index": {
+                "title": "بنر تسويق العلامة التجارية"
+            }
+        }
     }
-  }
 }

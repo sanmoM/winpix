@@ -19,14 +19,19 @@
         },
         "followers": "Followers",
         "follow": "Follow",
-        "following": "Following"
+        "following": "Following",
+        "unfollow": "Unfollow",
+        "imageView": {
+            "activeQuest": {
+                "title": "Active Quest"
+            }
+        }
     },
     "stats": {
         "contests": "Contests",
         "votes": "Votes",
         "level": "Rank"
     },
-    
     "root": {
         "navbar": {
             "navLinks": {
@@ -104,7 +109,81 @@
         },
         "filter": {
             "sortAndFilter": "Sort & Filter",
-            "filterItems": ["All", "Ranked", "Free", "Premium", "Community"]
+            "filterItems": [
+                "All",
+                "Ranked",
+                "Free",
+                "Premium",
+                "Community"
+            ],
+            "filterModal": {
+                "title": "Filter",
+                "rank": [
+                    {
+                        "label": "All",
+                        "value": "All"
+                    },
+                    {
+                        "label": "A",
+                        "value": "A"
+                    },
+                    {
+                        "label": "B",
+                        "value": "B"
+                    },
+                    {
+                        "label": "C",
+                        "value": "C"
+                    },
+                    {
+                        "label": "Unranked",
+                        "value": "Unranked",
+                        "hasColor": false
+                    }
+                ],
+                "sort": [
+                    {
+                        "label": "Rising",
+                        "value": "rising"
+                    },
+                    {
+                        "label": "Ending Soon",
+                        "value": "endingSoon"
+                    },
+                    {
+                        "label": "Newest",
+                        "value": "newest"
+                    },
+                    {
+                        "label": "Oldest",
+                        "value": "oldest"
+                    }
+                ],
+                "entryFee": [
+                    {
+                        "label": "Yes",
+                        "value": "true"
+                    },
+                    {
+                        "label": "No",
+                        "value": "false"
+                    }
+                ],
+                "status": [
+                    {
+                        "label": "Submit",
+                        "value": "Submit"
+                    },
+                    {
+                        "label": "Vote",
+                        "value": "Vote"
+                    },
+                    {
+                        "label": "Finalizing",
+                        "value": "Finalizing"
+                    }
+                ]
+            }
         }
     },
     "questSeries": {
@@ -164,6 +243,17 @@
                     "description": "Submissions must be your own, submissions must not be AI generated."
                 }
             ]
+        },
+        "joinedQuestModal": {
+            "title": "Join Quest",
+            "description": "Submissions must be photography, submissions must be your own, and submissions must not be AI generated.",
+            "uploadFromDevice": "Upload from Device",
+            "uploadFromLibrary": "Upload from Library",
+            "submit": "Submit"
+        },
+        "libraryModal": {
+            "title": "Your Library",
+            "noImage": "No more images available"
         }
     },
     "profile": {
@@ -260,6 +350,44 @@
             },
             "relatedArticlesTitle": "Related Articles",
             "recentlyViewedArticleTitle": "Recently Viewed Articles"
+        }
+    },
+    "brandMarketing": {
+        "buttons": {
+            "contactUs": "Contact Us"
+        },
+        "whyChooseWinpix": {
+            "title": "Why Choose Winpix Contests",
+            "description": "Winpix turns marketing campaigns into photography contests, connecting brands with thousands of creators across the GCC and worldwide to produce authentic visual content."
+        },
+        "contestTypes": {
+            "title": "Contest Types",
+            "description": "Tailored campaign formats designed to meet your specific marketing objectives."
+        }
+    },
+    "contactUs": {
+        "title": "Contact Us",
+        "description": "This is your direct line to reach out to us with any questions, concerns, feedback, or inquiries you might have.",
+        "inputs": {
+            "firstName": {
+                "label": "First Name",
+                "placeholder": "Enter your first name"
+            },
+            "lastName": {
+                "label": "Last Name",
+                "placeholder": "Enter your last name"
+            },            
+            "email": {
+                "label": "Email",
+                "placeholder": "Enter your email"
+            },
+            "message": {
+                "label": "Message",
+                "placeholder": "Enter your message"
+            },
+            "buttons": {
+                "submit": "Submit"
+            }
         }
     },
     "dashboard": {
@@ -598,7 +726,13 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Image", "Title", "Status", "Actions"]
+                    "headings": [
+                        "#",
+                        "Image",
+                        "Title",
+                        "Status",
+                        "Actions"
+                    ]
                 }
             },
             "edit": {
@@ -917,7 +1051,13 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Image", "Title", "Status", "Actions"]
+                    "headings": [
+                        "#",
+                        "Image",
+                        "Title",
+                        "Status",
+                        "Actions"
+                    ]
                 },
                 "confirm_delete": "Are you sure you want to delete this series?"
             },
@@ -981,7 +1121,12 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Name", "Status", "Actions"]
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Status",
+                        "Actions"
+                    ]
                 }
             },
             "create": {
@@ -1048,7 +1193,12 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Name", "Status", "Actions"]
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Status",
+                        "Actions"
+                    ]
                 }
             },
             "create": {
@@ -1237,7 +1387,13 @@
                     }
                 ],
                 "table": {
-                    "headings": ["#", "Name", "Email", "Message", "Actions"]
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Email",
+                        "Message",
+                        "Actions"
+                    ]
                 }
             }
         },

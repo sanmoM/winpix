@@ -148,7 +148,8 @@ class FrontendController extends Controller
         $imagePath = $questImage->image;
 
         // Active quests
-        $activeQuest = Quest::where('id', $questImage->quest_id)
+        $activeQuest = Quest::with("category", "user")
+            ->where('id', $questImage->quest_id)
             ->where('start_date', '<=', today())
             ->where('end_date', '>=', today())
             ->get();
@@ -264,7 +265,7 @@ class FrontendController extends Controller
             ->whereDate('end_date', Carbon::yesterday())
             ->orderBy('end_date', 'desc')
             ->get();
-        $inactiveSeries = Series::with('quests.user', 'quests.category', 'user')->get();
+        $inactiveSeries = Series::with('quests.user', 'quests.category', 'user')->where('status', 'inactive')->get();
 
         return Inertia::render('quests/ended-quests', [
             'myQuests' => $myQuests,

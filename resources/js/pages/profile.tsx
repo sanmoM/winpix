@@ -58,10 +58,9 @@ export default function Profile({ user, stats, isFollowing }: any) {
           }
           {
             activeTab === "my-photos" && <Gallery galleryImages={stats?.questImages?.map(item => ({
-              image: {
-                image: item?.image,
-                user
-              }
+              id: item?.image?.id,
+              image: item?.image,
+              user
             }))} />
           }
         </Container>

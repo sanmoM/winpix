@@ -9,13 +9,20 @@ import UserLayout from '@/layouts/user-layout'
 
 export default function discover({ quests, galleryImages, topPlayers }: any) {
     const { t } = useLocales()
-    console.log(quests)
     return (
         <UserLayout>
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
                 <Leaderboard t={t} data={topPlayers} />
                 <Quests t={t} quests={quests} />
-                <Gallery galleryImages={galleryImages} t={t} title={t('home.gallery.title')} />
+                <Gallery
+                    galleryImages={galleryImages?.map(item => ({
+                        id: item?.id,
+                        image: item?.image?.image,
+                        user: item?.image?.user
+                    }))}
+                    t={t}
+                    title={t('home.gallery.title')}
+                />
             </Container>
         </UserLayout>
     )

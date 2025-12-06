@@ -24,6 +24,7 @@ export default function Dashboard({ stats }: { stats: any }) {
     ];
 
 
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head />
@@ -61,21 +62,27 @@ export default function Dashboard({ stats }: { stats: any }) {
                         activeTab === "my-stats" && <Stats containerClassName='translate-y-0 mb-0 md:mb-0 lg:mb-0' t={t} stats={stats} />
                     }
                     {
-                        activeTab === "my-photos" && <Gallery galleryImages={stats?.questImages?.map(item => ({
-                            image: {
+                        activeTab === "my-photos" && <Gallery
+                            galleryImages={stats?.questImages?.map(item => ({
+                                id: item?.image?.id,
                                 image: item?.image,
                                 user
-                            }
-                        }))} />
+                            }))}
+                            hasImageView={false}
+                        />
                     }
                     {
-                        activeTab === "liked-photos" && <Gallery galleryImages={stats?.likedImages?.map(item => ({
-                            image: {
+                        activeTab === "liked-photos" && <Gallery
+                            galleryImages={stats?.likedImages?.map(item => ({
+                                id: item?.image?.id,
                                 image: item?.image?.image,
                                 user
-                            }
-                        }))} />
+                            }))}
+                            hasImageView={false}
+                        />
                     }
+
+
                 </Container>
             </div>
         </AppLayout>

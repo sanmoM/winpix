@@ -20,7 +20,11 @@ export default function Home() {
                 <Newest t={t} newQuest={new_quest} />
                 <Gallery
                     title={t('home.gallery.title')}
-                    galleryImages={galleryImages}
+                    galleryImages={galleryImages?.map(item => ({
+                        id: item?.id,
+                        image: item?.image?.image,
+                        user: item?.image?.user
+                    }))}
                 />
             </Container>
             <GetApp t={t} />

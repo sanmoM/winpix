@@ -97,7 +97,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                 </div>
 
                 {/* Skill Rank Filter */}
-                <FilterSection title="Skill Rank">
+                <FilterSection title={t('activeQuests.filter.labels.rank')}>
 
                     {
                         skillRankOptions.map((item: any, index) => (
@@ -113,7 +113,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                 </FilterSection>
 
                 {/* Entry Fee Filter */}
-                <FilterSection title="Entry Fee">
+                <FilterSection title={t('activeQuests.filter.labels.entryFee')}>
                     {
                         entryFeeOptions.map((item: any, index) => (
                             <PillButton
@@ -128,7 +128,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                 </FilterSection>
 
                 {/* Quest Status Filter */}
-                <FilterSection title="Quest status">
+                <FilterSection title={t('activeQuests.filter.labels.status')}>
                     {
                         questStatusOptions.map((item: any, index) => (
                             <CheckboxItem
@@ -142,7 +142,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                 </FilterSection>
 
                 {/* Category Filter */}
-                <FilterSection title="Category">
+                <FilterSection title={t('activeQuests.filter.labels.category')}>
                     {(categories as Array<keyof ICategory>).map(category => (
                         <CheckboxItem
                             key={category?.id}
@@ -154,7 +154,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                 </FilterSection>
 
                 {/* Quest Type Filter */}
-                <FilterSection title="Quest type">
+                <FilterSection title={t('activeQuests.filter.labels.questType')}>
                     {questTypes.map((questType) => (
                         <CheckboxItem
                             key={questType.id}

@@ -326,7 +326,7 @@ export default function EditQuest() {
                         <SelectInput
                             id="quest_type_id"
                             name="quest_type_id"
-                            label={t('dashboard.quest.inputs.questType.label')}
+                            label={t('dashboard.quest.inputs.type.label')}
                             options={questTypeOptions}
                             value={data.quest_type_id}
                             onChange={(value) =>

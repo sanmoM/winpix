@@ -190,7 +190,7 @@ class FrontendController extends Controller
     {
         $userId = auth()->user()->id;
         $joinedQuests = QuestJoin::with(['user'])->where('user_id', $userId)->get();
-        $quest = Quest::with(['category', 'user', 'prizes', 'images'])->findOrFail($id);
+        $quest = Quest::with(['category', 'user', 'prizes', 'images', 'quest_type'])->findOrFail($id);
         $votes = Vote::where('user_id', $userId)->get();
         $questImages = QuestImage::with(['user', 'quest.category', 'quest.user'])
             ->where('quest_id', $id)  // filter only for this quest

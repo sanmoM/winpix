@@ -149,17 +149,17 @@ const isBlockedImage = async (file: File): Promise<boolean> => {
  * Main AI Image Detector
  * Returns true if AI-generated, false otherwise
  */
-export const AIImageDetector = async (imageFile: File): Promise<boolean | undefined> => {
-  if (!imageFile) {
-    toast.error('Please upload an image first.');
-    return true;
-  }
+export const AIImageDetector = async (imageFile: File, category: string): Promise<boolean | undefined> => {
+  // if (!imageFile) {
+  //   toast.error('Please upload an image first.');
+  //   return true;
+  // }
 
 
-  // 1️⃣ Check if file is blocked
-  const blocked = await isBlockedImage(imageFile);
-  // console.log(blocked)
-  if (blocked) return true;
+  // // 1️⃣ Check if file is blocked
+  // const blocked = await isBlockedImage(imageFile);
+  // // console.log(blocked)
+  // if (blocked) return true;
 
   try {
     // 2️⃣ Convert to Base64
@@ -172,9 +172,7 @@ export const AIImageDetector = async (imageFile: File): Promise<boolean | undefi
 
     // 4️⃣ Define prompt
     const prompt = `
-      Analyze the provided image to determine if it is AI-generated.
-      Respond with only one word: "True" if it is AI-generated, or "False" if it is not.
-      Do not provide any explanation.
+      you will receive an image. Check whether the content of the image matches the ${category} category; if it does not match, reply only with "True". If the image matches the category, analyze it to determine whether it is AI-generated and reply with only one word: "True" if the image is AI-generated or "False" if it is not. Do not provide explanations, extra text, or confidence levels. Your output must be exactly "True" or "False" only.
     `;
 
     // 5️⃣ Construct request payload

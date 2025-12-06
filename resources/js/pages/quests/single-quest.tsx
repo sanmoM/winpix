@@ -73,12 +73,12 @@ export default function SingleQuest() {
     const [activeTab, setActiveTab] = useState("brief");
     const { t, direction, currentLanguage } = useLocales()
 
+    console.log(quest?.quest_type?.name)
     const handleJoinQuest = async (e) => {
-        console.log(data?.image)
         if (typeof data?.image !== "string") {
-            const isGenerated = await AIImageDetector(data?.image);
+            const isGenerated = await AIImageDetector(data?.image, quest?.quest_type?.name);
             if (isGenerated) {
-                toast.error('This image is AI-generated, SVG, or edited. Please upload a valid image.');
+                toast.error('This image is AI-generated or not in the right category. Please upload a valid image.');
                 return;
             }
         }
@@ -111,7 +111,7 @@ export default function SingleQuest() {
             <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]'>
                 <div className='w-full h-full flex flex-col justify-center items-center'>
                     <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold text-white'>{currentLanguage === 'en' ? quest?.title_en : quest?.title_ar}</h1>
-                    <p className='text-gray-400 mt-4 mb-4'>#{quest?.category?.name}</p>
+                    <p className='text-gray-100 mt-4 mb-4'>#{quest?.quest_type?.name}</p>
                     <div className="flex items-center gap-2 mb-5 text-xl">
                         <img src="/images/coin.png" alt="" className="w-6 h-6" />
                         <p>{quest?.entry_coin}</p>

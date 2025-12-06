@@ -24,12 +24,13 @@ const colors = [
     "bg-violet-500",
     "bg-emerald-500",
 ]
-export default function BrandMarketingOverview({ data: features }) {
+export default function BrandMarketingOverview({ data: features, t }) {
     console.log(features)
     return (
         <div className=' mx-auto max-w-7xl'>
-            <SectionHeading title='Why Choose Winpix Contests' className='mb-3 md:mb-4 lg:mb-6' />
-            <p className='!text-center text-xs md:text-sm lg:text-lg text-gray-600 dark:text-gray-300 mb-4 md:mb-6 lg:mb-12 lg:w-[70%] mx-auto'>Winpix turns marketing campaigns into photography contests, connecting brands with thousands of creators across the GCC and worldwide to produce authentic visual content.
+            <SectionHeading className='mb-3 md:mb-4 lg:mb-6' title={t('brandMarketing.whyChooseWinpix.title')} />
+            <p className='!text-center text-xs md:text-sm lg:text-lg text-gray-600 dark:text-gray-300 mb-4 md:mb-6 lg:mb-12 lg:w-[70%] mx-auto'>
+                {t('brandMarketing.whyChooseWinpix.description')}
             </p>
 
             <div className="flex justify-center gap-8 flex-wrap">

@@ -13,7 +13,7 @@ type BadgeCheckboxItemProps = {
 const BadgeCheckboxItem: React.FC<BadgeCheckboxItemProps> = ({ label, color, checked, onChange }) => (
     <label className="flex items-center space-x-3 cursor-pointer group">
         <CheckBox checked={checked} onChange={onChange} />
-        <span className={`w-6 h-6 rounded-md flex items-center justify-center text-white font-bold text-sm ${color}`}>
+        <span className={`w-fit min-w-6 aspect-square rounded-md flex items-center justify-center text-white font-bold text-sm ${color}`}>
             {label}
         </span>
     </label>

@@ -103,15 +103,6 @@ export default function ActiveQuestsFilter({ t, handleFilter, filter, setFilter,
 
                 </div>
             </div>
-
-            {/* Sort and Filter Button */}
-            {/* <button
-                className="flex-shrink-0 flex items-center justify-center gap-2 px-8 py-3 bg-bg-primary cursor-pointer rounded-full hover:bg-primary-color hover:text-white transition-colors duration-200"
-                onClick={() => setIsFilterModalOpen(true)}
-            >
-                <SlidersIcon />
-                <span className="font-medium">Sort & Filter</span>
-            </button> */}
             <PillButton
                 label={t('activeQuests.filter.sortAndFilter')}
                 isActive={false}
@@ -119,7 +110,7 @@ export default function ActiveQuestsFilter({ t, handleFilter, filter, setFilter,
                 icon={<SlidersIcon />}
             />
 
-            <Modal isOpen={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)} title="Filter">
+            <Modal isOpen={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)} title={t('activeQuests.filter.title')}>
                 <ActiveQuestFilterModalContents handleFilter={handleFilter} filter={filter} setFilter={setFilter} categories={categories} questTypes={questTypes} resetFilter={resetFilter} />
             </Modal>
         </div>

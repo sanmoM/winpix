@@ -23,7 +23,7 @@
         "unfollow": "Unfollow",
         "imageView": {
             "activeQuest": {
-                "title": "Active Quest"
+                "title": "Active Contest"
             }
         }
     },
@@ -90,7 +90,7 @@
             "points": "PTS"
         },
         "activeQuests": {
-            "title": "Active Quests"
+            "title": "Active Contests"
         },
         "topPhotos": {
             "title": "Top Photos"
@@ -108,6 +108,14 @@
             "title": "Contests"
         },
         "filter": {
+            "title": "Filter",
+            "labels": {
+                "rank": "Skill Rank",
+                "category": "Category",
+                "questType": "Contest Type",
+                "status": "Status",
+                "entryFee": "Entry Fee"
+            },
             "sortAndFilter": "Sort & Filter",
             "filterItems": [
                 "All",
@@ -206,11 +214,11 @@
         }
     },
     "enteredQuests": {
-        "title": "Entered Quests"
+        "title": "Entered Contests"
     },
     "store": {
         "title": "About Pixels",
-        "description": "Pixels are your gateway to exclusive content! Use them to unlock unique items, participate in special events, and gain an edge in your quests. More pixels, more power!"
+        "description": "Pixels are your gateway to exclusive content! Use them to unlock unique items, participate in special events, and gain an edge in your contests. More pixels, more power!"
     },
     "redeem": {
         "appPriceTitle": "In App Prizes",
@@ -232,11 +240,11 @@
             "guideLines": [
                 {
                     "title": "Skill Rank",
-                    "description": "Users of all Skill Ranks are welcome to submit to this Quest!"
+                    "description": "Users of all Skill Ranks are welcome to submit to this Contest!"
                 },
                 {
                     "title": "Category",
-                    "description": "Users of all Skill Ranks are welcome to submit to this Quest!"
+                    "description": "Users of all Skill Ranks are welcome to submit to this Contest!"
                 },
                 {
                     "title": "Copyright",
@@ -245,7 +253,7 @@
             ]
         },
         "joinedQuestModal": {
-            "title": "Join Quest",
+            "title": "Join Contest",
             "description": "Submissions must be photography, submissions must be your own, and submissions must not be AI generated.",
             "uploadFromDevice": "Upload from Device",
             "uploadFromLibrary": "Upload from Library",
@@ -267,12 +275,12 @@
     },
     "singleQuestSeries": {
         "activeQuest": {
-            "title": "Active Quests"
+            "title": "Active Contests"
         },
         "stats": {
             "prizeLabel": "Total Prize Pool",
             "entriesLabel": "Entries",
-            "questLabel": "Quest"
+            "questLabel": "Contest"
         }
     },
     "singleQuestDetails": {
@@ -313,7 +321,7 @@
     "help": {
         "categories": [
             "In App Economy",
-            "Quests",
+            "Contests",
             "Getting Started",
             "Purchases",
             "Account Management",
@@ -376,7 +384,7 @@
             "lastName": {
                 "label": "Last Name",
                 "placeholder": "Enter your last name"
-            },            
+            },
             "email": {
                 "label": "Email",
                 "placeholder": "Enter your email"
@@ -965,10 +973,10 @@
                 }
             },
             "create": {
-                "title": "CreateContest Contest",
+                "title": "Create Contest",
                 "breadcrumbs": [
                     {
-                        "title": "AllContestContests",
+                        "title": "All Contests",
                         "href": "/admin/quest"
                     },
                     {
@@ -1285,7 +1293,7 @@
                             "value": "Getting_Start"
                         },
                         {
-                            "label": "Quests",
+                            "label": "Contests",
                             "value": "Quests"
                         },
                         {

@@ -485,6 +485,7 @@ export default function EditQuest() {
                                 {t('dashboard.quest.inputs.startDate.label')}
                             </Label>
                             <DateInput
+                                disabled={new Date(new Date().toISOString().slice(0, 10)) > new Date(data.startDate)}
                                 min={new Date().toISOString().slice(0, 10)}
                                 value={data.startDate}
                                 onChange={(value) =>

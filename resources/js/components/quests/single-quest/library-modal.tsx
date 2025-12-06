@@ -2,13 +2,13 @@ import Button from '@/components/shared/buttons/button'
 import { cn } from '@/lib/utils'
 import React from 'react'
 
-export default function LibraryModal({ images, setImage, selectedImage, handleJoinQuest, btnText }: any) {
+export default function LibraryModal({ images, setImage, selectedImage, handleJoinQuest, isJoined, t }: any) {
     return (
         <>
             {
                 images?.length === 0 ? (
                     <div className='!text-center w-full h-30 flex justify-center items-center'>
-                        No more images available
+                        {t("singleQuest.libraryModal.noImage")}
                     </div>
                 ) : (
                     <div>
@@ -23,7 +23,7 @@ export default function LibraryModal({ images, setImage, selectedImage, handleJo
                         </div>
                         {
                             selectedImage && (
-                                <Button text={btnText} onClick={handleJoinQuest} className='mt-4 px-6 lg:px-14 text-lg' />
+                                <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} onClick={handleJoinQuest} className='mt-4 px-6 lg:px-14 text-lg' />
                             )
                         }
                     </div>

@@ -10,6 +10,8 @@ import Container from '@/components/shared/container'
 import Creator from '@/components/shared/creator'
 import GalleryImageCart from '@/components/shared/gallary-image-cart'
 import Guidelines from '@/components/shared/guidelines/guidelines'
+import ImageActionButtons from '@/components/shared/image-action-buttons/image-action-buttons'
+import ImageView from '@/components/shared/image-view/image-view'
 import Modal from '@/components/shared/modal'
 import NoData from '@/components/shared/no-data'
 import Prizes from '@/components/shared/prizes/prizes'
@@ -17,15 +19,18 @@ import Tab from '@/components/shared/tab'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
+import { AIImageDetector } from '@/utils/detector'
 import { router, useForm, usePage } from '@inertiajs/react'
 import { useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { route } from 'ziggy-js'
-import { AIImageDetector } from '@/utils/detector'
 
 export default function SingleQuest() {
+
     const { quest, auth, joinedQuests, questImages, votes, isFollowing, userUploadedImages } = usePage<any>().props;
 
+    const [isImageViewOpen, setIsImageViewOpen] = useState(false);
+    const [imageIndex, setImageIndex] = useState(0);
 
     const [joinModalOpen, setJoinModalOpen] = useState(false);
     const [libraryModalOpen, setLibraryModalOpen] = useState(false);
@@ -41,7 +46,6 @@ export default function SingleQuest() {
         return today < startDate || today > endDate || !isJoined;
     }, [quest.start_date, quest.end_date]);
 
-    console.log(isDisabled)
 
     const { post, setData, data } = useForm<any>({
         quest_id: quest.id,
@@ -100,6 +104,8 @@ export default function SingleQuest() {
             followed_id: quest?.user?.id
         });
     }
+
+    console.log(questImages)
     return (
         <UserLayout>
             <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]'>
@@ -151,7 +157,7 @@ export default function SingleQuest() {
                             copyright_requirement={currentLanguage === 'en' ? quest?.copyright_requirement_en : quest?.copyright_requirement_ar}
                         />
                         <div className='className="w-fit lg:w-full md:max-w-md mt-auto mx-auto lg:mx-0'>
-                            <Creator user={quest?.user} onClick={handleFollow} btnText={isFollowing ? "Unfollow" : "Follow"} />
+                            <Creator user={quest?.user} onClick={handleFollow} btnText={isFollowing ? t('shared.unfollow') : t('shared.follow')} />
                         </div>
                     </div>
                 </div>
@@ -161,7 +167,25 @@ export default function SingleQuest() {
                             <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
                                 {questImages?.map((item, index) => (
                                     <div key={index} className="break-inside-avoid rounded overflow-hidden shadow-lg">
-                                        <GalleryImageCart item={item} />
+                                        <GalleryImageCart
+                                            onClick={() => {
+                                                setIsImageViewOpen(true)
+                                                setImageIndex(index)
+                                            }}
+                                            item={{
+                                                image: item?.image,
+                                                user: item?.user
+                                            }}
+                                            actionButtons={
+                                                <ImageActionButtons data={{
+                                                    id: item?.id,
+                                                    image: item?.image,
+                                                    user: item?.user
+                                                }}
+
+                                                />
+                                            }
+                                        />
                                     </div>
                                 ))}
                             </div>
@@ -171,21 +195,25 @@ export default function SingleQuest() {
                 <Modal
                     isOpen={joinModalOpen}
                     onClose={() => setJoinModalOpen(false)}
-                    title='Join Quest'
+                    title={t("singleQuest.joinedQuestModal.title")}
                     containerClassName='w-full max-w-lg'
                 >
-                    <JoinModal handleJoinQuest={handleJoinQuest} image={data?.image} setImage={setImage} setLibraryModalOpen={setLibraryModalOpen} btnText={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} setJoinModalOpen={setJoinModalOpen} />
+                    <JoinModal handleJoinQuest={handleJoinQuest} image={data?.image} setImage={setImage} setLibraryModalOpen={setLibraryModalOpen} isJoined={isJoined} setJoinModalOpen={setJoinModalOpen} t={t} />
                 </Modal>
                 <Modal
                     isOpen={libraryModalOpen}
                     onClose={() => setLibraryModalOpen(false)}
-                    title='Your Library'
+                    title={t("singleQuest.libraryModal.title")}
                     containerClassName='w-full'
                 >
-                    <LibraryModal images={libraryImages} setImage={(value) => setData("image", value)} selectedImage={data?.image} handleJoinQuest={handleJoinQuest} btnText={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')} />
+                    <LibraryModal images={libraryImages} setImage={(value) => setData("image", value)} selectedImage={data?.image} handleJoinQuest={handleJoinQuest} isJoined={isJoined} t={t} />
                 </Modal>
 
                 <VoteModal questImages={votingItems} isOpen={voteModalOpen} onClose={() => setVoteModalOpen(false)} questId={quest?.id} />
+
+                {
+                    isImageViewOpen && <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} data={questImages?.map((item) => ({ image: item?.image, user: item?.user, id: item?.id }))} index={imageIndex} />
+                }
             </Container>
         </UserLayout>
     )

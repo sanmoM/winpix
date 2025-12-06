@@ -2,7 +2,7 @@ import Button from '@/components/shared/buttons/button';
 import React, { useRef, useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 
-const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnText, setJoinModalOpen }: any) => {
+const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, isJoined, setJoinModalOpen, t }: any) => {
     const [isLoading, setIsLoading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     // const imageUrl = image && URL.createObjectURL(image?.file);
@@ -28,13 +28,14 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnT
     };
 
 
+
     return (
         <div>
             {/* Body Content */}
             <div className="">
                 {/* Submission Rules Text */}
                 <p className="text-gray-700 dark:text-gray-300 mb-6 text-sm">
-                    Submissions must be <strong>photography</strong>, submissions must be <strong>your own</strong>, and submissions must not be <strong>AI generated</strong>.
+                    {t("singleQuest.joinedQuestModal.description")}
                 </p>
 
                 {/* Buttons/Options Container */}
@@ -47,7 +48,7 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnT
                     >
                         <FiUploadCloud className="text-4xl mb-1" />
                         <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                            Upload from Device
+                            {t('singleQuest.joinedQuestModal.uploadFromDevice')}
                         </span>
                     </button>
 
@@ -84,7 +85,8 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnT
                             />
                         </svg>
                         <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                            Quest Library</span>
+                            {t("singleQuest.joinedQuestModal.uploadFromLibrary")}
+                        </span>
                     </button>
                 </div>
 
@@ -110,7 +112,7 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, btnT
                 )}
                 {
                     image && <div>
-                        <Button text={btnText}
+                        <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')}
                             onClick={async () => {
                                 setIsLoading(true)
                                 await handleJoinQuest()

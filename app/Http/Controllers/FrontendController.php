@@ -184,7 +184,13 @@ class FrontendController extends Controller
     }
 
 
-    // 
+    public function imageView($id)
+    {
+        $data = QuestImage::findOrFail($id);
+        return Inertia::render('image-view', [
+            'data'->$data
+        ]);
+    }
 
     public function singleQuest($id)
     {

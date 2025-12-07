@@ -11,7 +11,6 @@ import { useState } from 'react';
 
 export default function Home() {
     const { sliders, new_quest, galleryImages } = usePage().props;
-
     const { t } = useLocales();
     return (
         <UserLayout>
@@ -21,7 +20,7 @@ export default function Home() {
                 <Gallery
                     title={t('home.gallery.title')}
                     galleryImages={galleryImages?.map(item => ({
-                        id: item?.id,
+                        id: item?.image_id,
                         image: item?.image?.image,
                         user: item?.image?.user
                     }))}

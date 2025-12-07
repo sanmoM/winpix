@@ -5,7 +5,7 @@ import ImageActionButton from "../../image-action-button";
 import { useEffect, useState } from "react";
 
 // --- Image Panel Component ---
-const ImagePanel = ({ setIsOpen, data, index }: any) => {
+const ImagePanel = ({ setIsOpen, data, index, hasClose = true }: any) => {
 
     return (
         <div className="relative h-full bg-[var(--background)]">
@@ -30,18 +30,20 @@ const ImagePanel = ({ setIsOpen, data, index }: any) => {
                                     image: item?.image,
                                     user: item?.user
                                 }} />
-                                <div
-                                    onClick={(e) => {
-                                        e.stopPropagation()
-                                    }}
-                                >
-                                    <ImageActionButton
-                                        Icon={<MdClose className="text-xl text-white" />}
-                                        onClick={() => {
-                                            setIsOpen(false)
+                                {
+                                    hasClose && <div
+                                        onClick={(e) => {
+                                            e.stopPropagation()
                                         }}
-                                    />
-                                </div>
+                                    >
+                                        <ImageActionButton
+                                            Icon={<MdClose className="text-xl text-white" />}
+                                            onClick={() => {
+                                                setIsOpen(false)
+                                            }}
+                                        />
+                                    </div>
+                                }
                             </div>
                         </div>
                     ))

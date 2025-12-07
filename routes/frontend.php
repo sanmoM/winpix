@@ -35,3 +35,4 @@ Route::post('/follow-user', [FrontendController::class, 'followUser'])->name('fo
 Route::post('/contact-us', [FrontendController::class, 'createContact'])->name('create-contact');
 Route::post('/handle-payment', [FrontendController::class, 'handlePayment'])->name('handle-payment');
 Route::post('/claim', [FrontendController::class, 'claim'])->name('claim');
+Route::post('/report', [FrontendController::class, 'report'])->name('report');

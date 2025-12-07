@@ -16,7 +16,7 @@ export default function discover({ quests, galleryImages, topPlayers }: any) {
                 <Quests t={t} quests={quests} />
                 <Gallery
                     galleryImages={galleryImages?.map(item => ({
-                        id: item?.id,
+                        id: item?.image_id,
                         image: item?.image?.image,
                         user: item?.image?.user
                     }))}

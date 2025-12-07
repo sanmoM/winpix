@@ -15,6 +15,7 @@ use App\Models\QuestImage;
 use App\Models\QuestJoin;
 use App\Models\QuestType;
 use App\Models\Redeem;
+use App\Models\Report;
 use App\Models\Series;
 use App\Models\Slider;
 use App\Models\Store;
@@ -186,9 +187,9 @@ class FrontendController extends Controller
 
     public function imageView($id)
     {
-        $data = QuestImage::findOrFail($id);
+        $data = QuestImage::with(['user'])->findOrFail($id);
         return Inertia::render('image-view', [
-            'data'->$data
+            'data' => $data
         ]);
     }
 
@@ -492,6 +493,21 @@ class FrontendController extends Controller
 
         $user->update([
             'isRedeemed' => 1
+        ]);
+
+        return redirect()->back()->with('success', 'Contact form submitted successfully!');
+    }
+
+    public function report()
+    {
+        $validated = request()->validate([
+            'image_id' => 'required|integer|exists:quest_images,id',
+            'reason' => 'required',
+        ]);
+
+        Report::create([
+            'image_id' => $validated['image_id'],
+            'reason' => $validated['reason'],
         ]);
 
         return redirect()->back()->with('success', 'Contact form submitted successfully!');

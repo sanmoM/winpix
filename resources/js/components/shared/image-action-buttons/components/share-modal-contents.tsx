@@ -7,6 +7,7 @@ export default function ShareModalContents({ data }) {
     const handleCopyLink = () => {
         navigator.clipboard.writeText(`${import.meta.env.VITE_CLIENT_URL}/image-view/${data?.id}`)
         toast.success('Link copied to clipboard!')
+        console.log(data)
     }
 
     const handleDownload = () => {

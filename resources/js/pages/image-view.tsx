@@ -1,11 +1,18 @@
 import ImageView from '@/components/shared/image-view/image-view'
+import UserLayout from '@/layouts/user-layout';
 import { useState } from 'react';
 
 export default function page({ data }: any) {
-    const [isImageViewOpen, setIsImageViewOpen] = useState(false);
+    const imageViewData = {
+        image: data?.image,
+        user: data?.user,
+        id: data?.id
+    }
+
+    console.log(imageViewData)
     return (
-        <div>
-            <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} data={[]} hasClose={false} />
-        </div>
+        <UserLayout>
+            <ImageView isOpen={true} setIsOpen={() => { }} data={[imageViewData]} hasClose={false} containerClassName='static' />
+        </UserLayout>
     )
 }

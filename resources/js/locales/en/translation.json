@@ -1458,6 +1458,26 @@
             "index": {
                 "title": "Brand Marketing Banner"
             }
+        },
+        "reports": {
+            "index": {
+                "title": "Reports",
+                "breadcrumbs": [
+                    {
+                        "title": "All Reports",
+                        "href": "/admin/report"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Image",
+                        "Reason",
+                        "User",
+                        "Actions"
+                    ]
+                }
+            }
         }
     }
 }

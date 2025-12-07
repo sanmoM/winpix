@@ -178,6 +178,11 @@ export const adminNavItemsEN: NavItem[] = [
                 href: route('admin.contacts.index'),
                 icon: ServerIcon,
             },
+            {
+                title: 'Reports',
+                href: '/admin/report',
+                icon: ServerIcon,
+            },
         ],
     },
 ];

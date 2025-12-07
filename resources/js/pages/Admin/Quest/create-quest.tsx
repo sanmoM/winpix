@@ -51,9 +51,14 @@ export default function Dashboard() {
         series,
         types,
         rank_tiers,
+        prizePools
     }: { categories: { id: number; name: string }[] } = usePage<any>().props;
     const { t } = useLocales();
 
+    const prizePoolsOptions = prizePools.map((prizePool) => ({
+        value: prizePool.id,
+        label: prizePool.name,
+    }));
     const {
         data,
         setData,
@@ -371,6 +376,7 @@ export default function Dashboard() {
                     <PrizesInput
                         prizes={data.prizes}
                         setPrizes={(value) => setData('prizes', value)}
+                        prizePools={prizePoolsOptions}
                     />
                     <SaveAndBackButtons
                         processing={processing}

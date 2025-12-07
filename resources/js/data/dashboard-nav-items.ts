@@ -135,6 +135,11 @@ export const adminNavItemsEN: NavItem[] = [
                 href: route('admin.quest'),
                 icon: ServerIcon,
             },
+            {
+                title: 'Prize Pool',
+                href: route('admin.prize_pools.index'),
+                icon: ServerIcon,
+            },
         ],
     },
     {

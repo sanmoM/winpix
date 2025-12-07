@@ -12,7 +12,7 @@ class Prize extends Model
     'max',
     'coin',
     'title',
-    'coinType'
+    'prize_pool'
   ];
   public function quest()
   {

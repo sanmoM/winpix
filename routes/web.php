@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\PrizePoolController;
 use App\Models\Report;
 use App\Models\User;
 use App\Services\RankingService;
@@ -99,7 +100,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
             'reports' => $reports
         ]);
     });
-    // Route::
+    Route::resource('/prize-pools', PrizePoolController::class)->names('admin.prize_pools');
 
 });
 

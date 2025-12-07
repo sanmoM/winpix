@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\UserController;
+use App\Models\Report;
 use App\Models\User;
 use App\Services\RankingService;
 use Illuminate\Support\Facades\Artisan;
@@ -92,10 +93,16 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('marketing-banner', [BannerController::class, 'index'])->name('marketing.banner');
     Route::put('marketing-banner/update', [BannerController::class, 'update'])->name('banner.update');
     Route::resource('brand-marketing', BrandMarketingController::class)->names('admin.brand_marketing');
+    Route::get('/report', function () {
+        $reports = Report::with(['image.user'])->get();
+        return Inertia::render("Admin/Report/index", [
+            'reports' => $reports
+        ]);
+    });
 
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
-require __DIR__.'/frontend.php';
-require __DIR__.'/user-dashboard.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/frontend.php';
+require __DIR__ . '/user-dashboard.php';

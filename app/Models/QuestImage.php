@@ -36,4 +36,9 @@ class QuestImage extends Model
     {
         return $this->hasMany(Vote::class);
     }
+
+    public function report()
+    {
+        return $this->hasMany(Report::class);
+    }
 }

@@ -81,14 +81,6 @@ export default function Index() {
 
                                 <TableCell>{item.reason}</TableCell>
                                 <TableCell>{item?.image.user.name}</TableCell>
-
-                                <TableCell className="space-x-2">
-                                    <DeleteButton
-                                        // handleDelete={() =>
-                                        //     handleDelete(item.id)
-                                        // }
-                                    />
-                                </TableCell>
                             </TableRow>
                         ))
                     ) : (

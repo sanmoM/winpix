@@ -1473,8 +1473,7 @@
                         "#",
                         "Image",
                         "Reason",
-                        "User",
-                        "Actions"
+                        "User"
                     ]
                 }
             }

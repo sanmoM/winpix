@@ -18,9 +18,6 @@ class RankingController extends Controller
         $this->rankingService = $rankingService;
     }
 
-    /**
-     * Display the ranking page.
-     */
     public function index()
     {
         return Inertia::render('DemoRanking', [
@@ -38,20 +35,12 @@ class RankingController extends Controller
         return Redirect::back()->with('success', 'Joined contest! +2 Levels.');
     }
 
-    /**
-     * Handle the 'Win Contest' action.
-     */
     public function winContest(Request $request)
     {
         $this->rankingService->winContest($request->user());
         return Redirect::back()->with('success', 'Won contest! +5 Levels.');
     }
 
-    /**
-     * Handle the 'Cast 50 Votes' action.
-     * In a real app, you'd call castVote() once per vote.
-     * This is a helper to simulate 50 votes at once.
-     */
     public function castVote(Request $request)
     {
         $user = $request->user();

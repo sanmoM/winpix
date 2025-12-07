@@ -71,7 +71,7 @@ class QuestController extends Controller
             'prizes.*.max' => 'required|integer|gte:prizes.*.min',
             'prizes.*.coin' => 'required|integer|min:0',
             'prizes.*.title' => 'required|string|max:255',
-            'prizes.*.coinType' => 'required|string|max:255',
+            'prizes.*.prize_pool' => 'required|integer|exists:prize_pools,id',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'entry_coin' => 'required|integer|min:0',
             'level_requirement' => 'nullable|string|max:255',
@@ -130,7 +130,7 @@ class QuestController extends Controller
                 'max' => $prizeData['max'],
                 'coin' => $prizeData['coin'],
                 'title' => $prizeData['title'],
-                'coinType' => $prizeData['coinType'],
+                'prize_pool_id' => $prizeData['prize_pool'],
             ]);
         }
 

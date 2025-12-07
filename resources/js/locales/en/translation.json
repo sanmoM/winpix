@@ -1477,6 +1477,57 @@
                     ]
                 }
             }
+        },
+        "prizePool": {
+            "inputs": {
+                "name": {
+                    "label": "Name",
+                    "placeholder": "Enter a name"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status",
+                    "options": [
+                        {
+                            "label": "Active",
+                            "value": "Active"
+                        },
+                        {
+                            "label": "Inactive",
+                            "value": "Inactive"
+                        }
+                    ]
+                }
+            },
+            "index": {
+                "title": "Prize Pools",
+                "breadcrumbs": [
+                    {
+                        "title": "All Contest Type",
+                        "href": "/admin/quest-type"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Actions"
+                    ]
+                }
+            },
+            "create": {
+                "title": "Create Prize Pool",
+                "breadcrumbs": [
+                    {
+                        "title": "All Prize Pool",
+                        "href": "/admin/prize-pool"
+                    },
+                    {
+                        "title": "Create Prize Pool",
+                        "href": ""
+                    }
+                ]
+            }
         }
     }
 }

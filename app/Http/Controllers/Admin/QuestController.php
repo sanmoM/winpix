@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PrizePool;
 use App\Models\Quest;
 use App\Models\QuestCategory;
 use App\Models\QuestType;
@@ -38,6 +39,7 @@ class QuestController extends Controller
             'series' => $series,
             'types' => $types,
             'rank_tiers' => RankingService::RANK_TIERS,
+            'prizePools' => PrizePool::all()
         ]);
     }
 
@@ -55,6 +57,7 @@ class QuestController extends Controller
         $series = Series::all();
         $categories = QuestCategory::all();
         $types = QuestType::all();
+        $prizePools = PrizePool::all();
 
         return Inertia::render('Admin/Quest/edit-quest', [
             'quest' => [
@@ -85,6 +88,7 @@ class QuestController extends Controller
             'series' => $series,
             'types' => $types,
             'rank_tiers' => RankingService::RANK_TIERS,
+            'prizePools' => $prizePools
         ]);
 
     }

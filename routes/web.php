@@ -99,6 +99,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
             'reports' => $reports
         ]);
     });
+    // Route::
 
 });
 

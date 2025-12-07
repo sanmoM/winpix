@@ -10,7 +10,6 @@ import ImageView from "./image-view/image-view";
 export default function Gallery({ title, galleryImages, hasImageView = true }: any) {
     const [isImageViewOpen, setIsImageViewOpen] = useState(false);
     const [imageIndex, setImageIndex] = useState(0);
-    console.log(galleryImages)
     return (
         <div>
             {

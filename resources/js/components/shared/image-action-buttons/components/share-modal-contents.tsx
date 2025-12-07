@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
-import { Download, Link as LinkIcon, Info, X, Zap } from 'lucide-react';
+import { Info } from 'lucide-react';
 import PillButton from '../../buttons/pill-button';
 import Logo from '../../logo';
+import toast from 'react-hot-toast';
 
 export default function ShareModalContents({ data }) {
+    const handleCopyLink = () => {
+        navigator.clipboard.writeText(`${import.meta.env.VITE_CLIENT_URL}/image-view/${data?.id}`)
+        toast.success('Link copied to clipboard!')
+        console.log(data)
+    }
+
+    const handleDownload = () => {
+        const link = document.createElement('a');
+        link.href = `${import.meta.env.VITE_CLIENT_URL}/storage/${data?.image}`;
+        link.download = `${data?.user?.name}-image.jpg`;
+        document.body.appendChild(link);  // IMPORTANT for mobile
+        link.click();
+        document.body.removeChild(link);
+    }
     return (
         <div>
             {/* Preview Card */}
@@ -12,7 +26,7 @@ export default function ShareModalContents({ data }) {
                 <div className="w-full h-full z-10 absolute bg-black/30 p-4 flex flex-col justify-between">
                     {/* Logo */}
                     <div className="flex items-center gap-1.5 opacity-90">
-                        <Logo className='lg:w-10'  />
+                        <Logo className='lg:w-10' />
                     </div>
 
                     {/* User Info */}
@@ -49,12 +63,14 @@ export default function ShareModalContents({ data }) {
             {/* Action Buttons Row */}
             <div className="grid grid-cols-2 gap-3 w-full mb-4">
                 <PillButton
+                    onClick={handleDownload}
                     label="Download"
-                    className='bg-primary-color hover:bg-background block mx-auto px-10 hover:border-primary-color border-1'
+                    className='bg-primary-color w-full !text-center hover:bg-background block mx-auto px-10 hover:border-primary-color border-1'
                 />
                 <PillButton
+                    onClick={handleCopyLink}
                     label="Copy Link"
-                    className='bg-primary-color hover:bg-background block mx-auto px-10 hover:border-primary-color border-1'
+                    className='bg-primary-color w-full !text-center hover:bg-background block mx-auto px-10 hover:border-primary-color border-1'
                 />
             </div>
         </div>

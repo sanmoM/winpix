@@ -57,7 +57,7 @@ export default function ImageActionButtons({ data, containerClassName = "opacity
                 title="Report"
                 containerClassName="max-w-lg"
             >
-                <ReportModalContents />
+                <ReportModalContents data={data} setIsOpen={setIsReportModalOpen} />
             </Modal>
         </>
     )

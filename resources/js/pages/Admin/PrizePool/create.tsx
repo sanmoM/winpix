@@ -1,12 +1,13 @@
 import SaveAndBackButtons from '@/components/save-and-back-buttons';
+import ImageInput from '@/components/shared/inputs/image-input';
 import TextInput from '@/components/shared/inputs/text-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
+import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
-import { useEffect } from 'react';
 
 interface FlashProps {
     success?: string;
@@ -22,6 +23,7 @@ export default function Create({ flash }: Props) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
+        image: null,
     });
 
     useEffect(() => {
@@ -50,6 +52,15 @@ export default function Create({ flash }: Props) {
                 onSubmit={handleSubmit}
                 className="max-w-6xl space-y-6 p-4"
             >
+                <ImageInput
+                    image={data.image}
+                    setImage={(value) => setData('image', value)}
+                    wrapperClassName="w-full aspect-[2/1]"
+                    iconClassName="w-[20%]"
+                    error={errors.image}
+                    label={t('dashboard.series.inputs.image.label')}
+                    required={true}
+                />
                 {/* NAME */}
                 <TextInput
                     id="name"

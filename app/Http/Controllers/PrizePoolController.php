@@ -34,10 +34,18 @@ class PrizePoolController extends Controller
     {
         $request->validate([
             "name" => "required|string|max:255",
+            "image" => "required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048",
         ]);
+
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('uploads/prize-pool', 'public');
+        }
 
         PrizePool::create([
             "name" => $request->name,
+            "image" => $imagePath,
         ]);
 
         return redirect()->route('admin.prize_pools.index')

@@ -207,7 +207,7 @@ class QuestController extends Controller
             'prizes.*.max' => 'required|integer|gte:prizes.*.min',
             'prizes.*.coin' => 'nullable|integer|min:0',
             'prizes.*.title' => 'required|string|max:255',
-            'prizes.*.coinType' => 'required|string|max:255',
+            'prizes.*.prize_pool' => 'required|integer|exists:prize_pools,id',
             'image' => [
                 function ($attribute, $value, $fail) {
                     if ($value instanceof \Illuminate\Http\UploadedFile) {
@@ -252,6 +252,19 @@ class QuestController extends Controller
             $input['image'] = $quest->image;
         }
 
+        Prize::where('quest_id', $id)->delete();
+
+        foreach ($input['prizes'] as $prizeData) {
+            Prize::create([
+                'quest_id' => $quest->id,
+                'min' => $prizeData['min'],
+                'max' => $prizeData['max'],
+                'coin' => $prizeData['coin'],
+                'title' => $prizeData['title'],
+                'prize_pool' => $prizeData['prize_pool'],
+            ]);
+        }
+
         // Update quest
         $quest->update([
 
@@ -264,7 +277,6 @@ class QuestController extends Controller
             'end_date' => $input['endDate'],
             'image' => $input['image'],
             'entry_coin' => $input['entry_coin'],
-
             'level_requirement_en' => $input['level_requirement_en'],
             'categories_requirement_en' => $input['categories_requirement_en'],
             'copyright_requirement_en' => $input['copyright_requirement_en'],

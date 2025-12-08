@@ -65,12 +65,14 @@ export default function EditQuest() {
         series,
         types,
         rank_tiers,
+        prizePools,
     }: {
         quest: Quest;
         categories: { id: number; name: string }[];
         series: { id: number; title_en: string }[];
         types: { id: number; name: string }[];
     } = usePage().props;
+
 
     const { t } = useLocales();
 
@@ -133,6 +135,11 @@ export default function EditQuest() {
         label: 'All',
     });
 
+    const prizePoolsOptions = prizePools.map((prizePool) => ({
+        value: prizePool.id,
+        label: prizePool.name,
+    }));
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -180,6 +187,8 @@ export default function EditQuest() {
 
         formData.append('quest_series_id', data.quest_series_id);
         formData.append('quest_type_id', data.quest_type_id);
+
+        console.log(data?.prizes)
         // Append prizes (array of objects)
         data.prizes.forEach((prize, index) => {
             if ('id' in prize && prize.id) {
@@ -190,12 +199,7 @@ export default function EditQuest() {
             formData.append(`prizes[${index}][coin]`, prize.coin.toString());
             formData.append(`prizes[${index}][title]`, prize.title);
             formData.append('rank_tier', data.rank_tier || '');
-            if ('coinType' in prize) {
-                formData.append(
-                    `prizes[${index}][coinType]`,
-                    (prize as any).coinType || '',
-                );
-            }
+            formData.append('prizes[' + index + '][prize_pool]', prize.prize_pool);
         });
 
         // Append image — only if a new file is selected
@@ -507,6 +511,7 @@ export default function EditQuest() {
                         </div>
                     </div>
                     <PrizesInput
+                        prizePools={prizePoolsOptions}
                         prizes={data.prizes}
                         setPrizes={(value) => setData('prizes', value)}
                     />

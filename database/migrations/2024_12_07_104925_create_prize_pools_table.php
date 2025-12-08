@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('prize_pools', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image');
+            $table->boolean('is_editable')->default(true);
             $table->timestamps();
         });
     }

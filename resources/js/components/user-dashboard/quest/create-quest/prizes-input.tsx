@@ -15,6 +15,7 @@ const generatePrizeTitle = (min, max) => {
 };
 
 const PrizesInput = ({ prizes, setPrizes, prizePools }: any) => {
+    console.log(prizes)
     // --- Shared State ---
     const [error, setError] = useState('');
     // const [coinType, setCoinType] = useState('coin');
@@ -54,6 +55,10 @@ const PrizesInput = ({ prizes, setPrizes, prizePools }: any) => {
         const min = parseInt(newMin, 10);
         const max = newMax ? parseInt(newMax, 10) : min;
         const coin = parseInt(newCoin, 10);
+
+        if (!prizePool) {
+            return setError('Please select a prize pool.');
+        }
 
         if (isNaN(min) || isNaN(max) || isNaN(coin) || min < 1 || coin <= 0)
             return setError('Please enter valid, positive numbers for all fields.');
@@ -264,6 +269,8 @@ const PrizesInput = ({ prizes, setPrizes, prizePools }: any) => {
             <div className="p-6 rounded-xl border border-purple-600/50">
                 <div className="flex justify-between items-center mb-4">
                     <SelectInput
+                        placeholder='Select prize pool'
+                        hasOption={false}
                         value={prizePool}
                         id="coin-type"
                         options={prizePools}

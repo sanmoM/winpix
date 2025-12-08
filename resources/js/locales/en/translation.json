@@ -1510,6 +1510,7 @@
                 "table": {
                     "headings": [
                         "#",
+                        "Image",
                         "Name",
                         "Actions"
                     ]

@@ -10,4 +10,5 @@ class PrizePool extends Model
         'name',
         'image',
     ];
+    
 }

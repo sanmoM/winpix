@@ -105,7 +105,6 @@ export default function SingleQuest() {
         });
     }
 
-    console.log(questImages)
     return (
         <UserLayout>
             <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]'>

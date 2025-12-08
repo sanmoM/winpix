@@ -112,7 +112,7 @@ export default function SingleQuest() {
                     <p className='text-gray-100 mt-4 mb-4'>#{quest?.quest_type?.name}</p>
                     <div className="flex items-center gap-2 mb-5 text-xl">
                         <img src="/images/coin.png" alt="" className="w-6 h-6" />
-                        <p className='text-gray-100 dark:text-gray-700'>{quest?.entry_coin}</p>
+                        <p className='text-gray-100'>{quest?.entry_coin}</p>
                     </div>
                     {new Date(quest?.end_date) >= new Date() ? (
                         <div className='grid gap-4 grid-cols-2'>
@@ -130,7 +130,7 @@ export default function SingleQuest() {
                             />
                         </div>
                     ) : (
-                        <p className='text-gray-100 dark:text-gray-700'>Quest is closed</p>
+                        <p className='text-gray-100'>Quest is closed</p>
                     )}
                 </div>
             </Banner>

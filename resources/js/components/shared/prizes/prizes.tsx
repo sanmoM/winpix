@@ -39,6 +39,7 @@ export default function Prizes({ t, prizes }: { t: any, prizes: any[] }) {
                         number={index + 1}
                         title={prize.title}
                         amount={prize.coin}
+                        image={prize.prize_pool?.image}
                         containerClassName='w-full'
                     />
                 ))}

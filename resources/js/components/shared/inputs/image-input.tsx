@@ -103,12 +103,12 @@ export default function ImageInput({
                         />
                     )}
                 </label>
-                {error && (
-                    <p className="text-sm text-red-600">
-                        {error}
-                    </p>
-                )}
             </div>
+            {error && (
+                <p className="text-sm text-red-600">
+                    {error}
+                </p>
+            )}
         </div>
     );
 }

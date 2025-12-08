@@ -18,4 +18,9 @@ class Prize extends Model
   {
     return $this->belongsTo(Quest::class);
   }
+
+  public function prize_pool()
+  {
+    return $this->belongsTo(PrizePool::class, 'prize_pool');
+  }
 }

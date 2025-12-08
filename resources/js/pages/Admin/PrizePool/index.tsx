@@ -18,6 +18,7 @@ interface PrizePoolItem {
     id: number;
     name: string;
     status: string;
+    image: string;
 }
 
 interface FlashProps {
@@ -68,11 +69,28 @@ export default function PrizePoolIndex({
                         items.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
-                                <TableCell>{item.name}</TableCell>
-                                <TableCell className="space-x-2">
-                                    {/* <EditButton route={route('admin.prizePool.edit', item.id)} /> */}
-                                    <DeleteButton handleDelete={() => handleDelete(item.id)} />
+                                <TableCell>
+                                    {item.image ? (
+                                        <img
+                                            src={`/storage/${item.image}`}
+                                            alt={item.name}
+                                            className="h-10 w-10 rounded object-cover"
+                                        />
+                                    ) : (
+                                        <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
+                                            —
+                                        </div>
+                                    )}
                                 </TableCell>
+                                <TableCell>{item.name}</TableCell>
+                                {
+                                    item?.is_editable ? (
+                                        <TableCell className="space-x-2">
+                                            {/* <EditButton route={route('admin.prizePool.edit', item.id)} /> */}
+                                            <DeleteButton handleDelete={() => handleDelete(item.id)} />
+                                        </TableCell>
+                                    ) : (<div></div>)
+                                }
                             </TableRow>
                         ))
                     ) : (

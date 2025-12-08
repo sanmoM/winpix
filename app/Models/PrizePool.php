@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PrizePool extends Model
 {
     protected $fillable = [
-        'name'
+        'name',
+        'image',
     ];
 }

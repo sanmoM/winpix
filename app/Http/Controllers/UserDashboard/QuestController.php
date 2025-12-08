@@ -19,33 +19,33 @@ class QuestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // $quests = Quest::where('user_id', auth()->user()->id)->get();
-        $quests = Quest::where('user_id', auth()->id())
-            ->get();
+    // public function index()
+    // {
+    //     // $quests = Quest::where('user_id', auth()->user()->id)->get();
+    //     $quests = Quest::where('user_id', auth()->id())
+    //         ->get();
 
-        return Inertia::render('user-dashboard/quest/show-quests', [
-            'quests' => $quests,
-        ]);
-    }
+    //     return Inertia::render('user-dashboard/quest/show-quests', [
+    //         'quests' => $quests,
+    //     ]);
+    // }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        $categories = QuestCategory::all();
-        $series = Series::all();
-        $types = QuestType::all();
+    // public function create()
+    // {
+    //     $categories = QuestCategory::all();
+    //     $series = Series::all();
+    //     $types = QuestType::all();
 
-        return Inertia::render('user-dashboard/quest/create-quest', [
-            'categories' => $categories,
-            'series' => $series,
-            'types' => $types,
-            'rank_tiers' => RankingService::RANK_TIERS,
-        ]);
-    }
+    //     return Inertia::render('user-dashboard/quest/create-quest', [
+    //         'categories' => $categories,
+    //         'series' => $series,
+    //         'types' => $types,
+    //         'rank_tiers' => RankingService::RANK_TIERS,
+    //     ]);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -149,43 +149,43 @@ class QuestController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        $quest = Quest::with('prizes')->findOrFail($id);
-        $series = Series::all();
-        $categories = QuestCategory::all();
-        $types = QuestType::all();
+    // public function edit(string $id)
+    // {
+    //     $quest = Quest::with('prizes')->findOrFail($id);
+    //     $series = Series::all();
+    //     $categories = QuestCategory::all();
+    //     $types = QuestType::all();
 
-        return Inertia::render('user-dashboard/quest/edit-quest', [
-            'quest' => [
-                'id' => $quest->id,
-                'title_en' => $quest->title_en,
-                'brief_en' => $quest->brief_en,
-                'title_ar' => $quest->title_ar,
-                'brief_ar' => $quest->brief_ar,
-                'category_id' => (string) $quest->category_id,
-                'startDate' => $quest->start_date, // already string thanks to casting
-                'endDate' => $quest->end_date,
-                'prizes' => $quest->prizes,
-                'image' => $quest->image,
-                'entry_coin' => $quest->entry_coin,
-                'level_requirement_en' => $quest->level_requirement_en,
-                'categories_requirement_en' => $quest->categories_requirement_en,
-                'copyright_requirement_en' => $quest->copyright_requirement_en,
+    //     return Inertia::render('user-dashboard/quest/edit-quest', [
+    //         'quest' => [
+    //             'id' => $quest->id,
+    //             'title_en' => $quest->title_en,
+    //             'brief_en' => $quest->brief_en,
+    //             'title_ar' => $quest->title_ar,
+    //             'brief_ar' => $quest->brief_ar,
+    //             'category_id' => (string) $quest->category_id,
+    //             'startDate' => $quest->start_date, // already string thanks to casting
+    //             'endDate' => $quest->end_date,
+    //             'prizes' => $quest->prizes,
+    //             'image' => $quest->image,
+    //             'entry_coin' => $quest->entry_coin,
+    //             'level_requirement_en' => $quest->level_requirement_en,
+    //             'categories_requirement_en' => $quest->categories_requirement_en,
+    //             'copyright_requirement_en' => $quest->copyright_requirement_en,
 
-                'level_requirement_ar' => $quest->level_requirement_ar,
-                'categories_requirement_ar' => $quest->categories_requirement_ar,
-                'copyright_requirement_ar' => $quest->copyright_requirement_ar,
+    //             'level_requirement_ar' => $quest->level_requirement_ar,
+    //             'categories_requirement_ar' => $quest->categories_requirement_ar,
+    //             'copyright_requirement_ar' => $quest->copyright_requirement_ar,
 
-                'quest_series_id' => $quest->quest_series_id,
-                'quest_type_id' => $quest->quest_type_id,
-                'rank_tier' => $quest->rank_tier,
-            ],
-            'categories' => $categories,
-            'series' => $series,
-            'types' => $types,
-        ]);
-    }
+    //             'quest_series_id' => $quest->quest_series_id,
+    //             'quest_type_id' => $quest->quest_type_id,
+    //             'rank_tier' => $quest->rank_tier,
+    //         ],
+    //         'categories' => $categories,
+    //         'series' => $series,
+    //         'types' => $types,
+    //     ]);
+    // }
 
     public function update(Request $request, string $id)
     {
@@ -238,7 +238,7 @@ class QuestController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        // ✅ Handle image upload and delete old one if replaced
+        // ✅ Handle image
         if ($request->hasFile('image')) {
             // Delete old image if exists
             if ($quest->image && Storage::disk('public')->exists($quest->image)) {

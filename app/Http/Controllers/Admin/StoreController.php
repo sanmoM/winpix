@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
 use App\Models\Store;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class StoreController extends Controller
 {
@@ -16,8 +16,9 @@ class StoreController extends Controller
     public function index()
     {
         $stores = Store::orderBy('id', 'DESC')->get();
+
         return Inertia::render('Admin/Store/Index', [
-            'stores' => $stores
+            'stores' => $stores,
         ]);
     }
 
@@ -26,7 +27,7 @@ class StoreController extends Controller
      */
     public function create()
     {
-     return Inertia::render('Admin/Store/Create');
+        return Inertia::render('Admin/Store/Create');
     }
 
     /**
@@ -36,65 +37,60 @@ class StoreController extends Controller
     {
         $validated = $request->validate([
             'number_of_coin' => 'required',
-            'price' => 'required',
-            'icon_image' => 'required | image| max:2048'
+            'price' => 'required|decimal:0,2',
+            'icon_image' => 'required | image| max:2048',
         ]);
 
-       $store =new Store();
-       $store->number_of_coin = $request->number_of_coin;
-       $store->price = $request->price;
+        $store = new Store;
+        $store->number_of_coin = $request->number_of_coin;
+        $store->price = $request->price;
 
-       if ($request->hasFile('icon_image')) {
+        if ($request->hasFile('icon_image')) {
 
             $file = $request->file('icon_image')->store('uploads/store', 'public');
             $store->icon_image = $file;
-       }
+        }
 
+        $store->save();
 
-       $store->save();
-
-       return redirect()->back()->with('success', 'Store package saved successfully 🎉');
+        return redirect()->back()->with('success', 'Store package saved successfully 🎉');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
      */
-
     public function edit(string $id)
     {
-       $store = Store::find($id);
-       return Inertia::render('Admin/Store/Edit',[
-            'store' => $store
-       ]);
+        $store = Store::find($id);
+
+        return Inertia::render('Admin/Store/Edit', [
+            'store' => $store,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
 
             'number_of_coin' => 'required',
-            'price' => 'required',
-            'icon_image' => 'nullable | image | max:2048'
+            'price' => 'required|decimal:0,2',
+            'icon_image' => 'nullable | image | max:2048',
         ]);
 
-       $store = Store::find($id);
-       $store->number_of_coin = $request->number_of_coin;
-       $store->price = $request->price;
-       $store->status = $request->status;
+        $store = Store::find($id);
+        $store->number_of_coin = $request->number_of_coin;
+        $store->price = $request->price;
+        $store->status = $request->status;
 
-       if ($request->hasFile('icon_image')) {
+        if ($request->hasFile('icon_image')) {
             // Delete old image
             if ($store->icon_image && Storage::disk('public')->exists($store->icon_image)) {
                 Storage::disk('public')->delete($store->icon_image);
@@ -103,11 +99,11 @@ class StoreController extends Controller
             // Store new image
             $file = $request->file('icon_image')->store('uploads/store', 'public');
             $store->icon_image = $file;
-       }
+        }
 
-       $store->update();
+        $store->update();
 
-       return redirect()->route('admin.store.index')->with('success', 'Store package updated successfully 🎉');
+        return redirect()->route('admin.store.index')->with('success', 'Store package updated successfully 🎉');
     }
 
     /**

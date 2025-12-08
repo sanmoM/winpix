@@ -224,7 +224,7 @@ const PrizesInput = ({ prizes, setPrizes, prizePools }: any) => {
                                     </div>
                                     <div className="flex flex-col items-center justify-center space-x-2">
                                         <span className="text-3xl font-extrabold">{prize.coin}</span>
-                                        <span className="text-sm text-gray-400 capitalize">{prizePools.find((pool: any) => pool.value === prize.prizePool)?.label}</span>
+                                        <span className="text-xl text-gray-600 dark:text-gray-200 capitalize">{prizePools.find((pool: any) => pool.value === prize?.prize_pool)?.label}</span>
                                     </div>
                                     <div className="mt-4 flex justify-between">
                                         {/* <button

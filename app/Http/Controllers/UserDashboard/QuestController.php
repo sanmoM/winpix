@@ -130,7 +130,7 @@ class QuestController extends Controller
                 'max' => $prizeData['max'],
                 'coin' => $prizeData['coin'],
                 'title' => $prizeData['title'],
-                'prize_pool_id' => $prizeData['prize_pool'],
+                'prize_pool' => $prizeData['prize_pool'],
             ]);
         }
 

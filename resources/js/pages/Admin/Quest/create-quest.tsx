@@ -86,7 +86,7 @@ export default function Dashboard() {
         categories_requirement_ar: '',
         copyright_requirement_ar: '',
         quest_series_id: '',
-        rank_tier: '',
+        rank_tier: 'all',
     });
 
     const categoryOptions = categories.map((category) => ({
@@ -138,6 +138,8 @@ export default function Dashboard() {
                     encType="multipart/form-data"
                 >
                     <ImageInput
+                        label={t('dashboard.quest.inputs.image.label')}
+                        required
                         image={data.image}
                         setImage={(value) => setData('image', value)}
                         wrapperClassName="w-full aspect-[2/1]"

@@ -73,7 +73,6 @@ export default function SingleQuest() {
     const [activeTab, setActiveTab] = useState("brief");
     const { t, direction, currentLanguage } = useLocales()
 
-    console.log(quest?.quest_type?.name)
     const handleJoinQuest = async (e) => {
         if (typeof data?.image !== "string") {
             const isGenerated = await AIImageDetector(data?.image, quest?.quest_type?.name);

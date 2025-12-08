@@ -118,7 +118,7 @@ export default function SingleQuest() {
                     {new Date(quest?.end_date) >= new Date() ? (
                         <div className='grid gap-4 grid-cols-2'>
                             <SecondaryButton
-                                disabled={isDisabled}
+                                disabled={isDisabled || votingItems?.length === 0}
                                 text={t('singleQuest.banner.voteText')}
                                 className="bg-primary-color text-white disabled:bg-gray-500"
                                 onClick={() => setVoteModalOpen(true)}

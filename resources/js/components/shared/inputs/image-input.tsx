@@ -93,6 +93,7 @@ export default function ImageInput({
                         type="file"
                         className="hidden"
                         onChange={handleFileChange}
+                        required={required}
                     />
 
                     {imgSrc && (

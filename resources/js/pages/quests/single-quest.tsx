@@ -147,7 +147,7 @@ export default function SingleQuest() {
                 />
                 <div className={cn('px-2 space-y-14 md:space-y-20 lg:space-y-10', activeTab !== "brief" && "hidden")}>
                     <Status t={t} direction={direction} />
-                    <Brief title={t('singleQuestDetails.brief.title')} text={quest?.brief} />
+                    <Brief title={t('singleQuestDetails.brief.title')} text={currentLanguage === 'en' ? quest?.brief_en : quest?.brief_ar} />
                     <Prizes t={t} prizes={quest?.prizes} />
                     <div className='flex flex-col xl:flex-row justify-between gap-14 md:gap-20 lg:gap-0'>
                         <Guidelines t={t}

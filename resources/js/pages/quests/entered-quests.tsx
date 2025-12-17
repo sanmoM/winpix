@@ -1,4 +1,4 @@
-import Card from '@/components/shared/card'
+import Card from '@/components/shared/card/card'
 import Container from '@/components/shared/container'
 import NoData from '@/components/shared/no-data'
 import SectionHeading from '@/components/shared/SectionHeading'

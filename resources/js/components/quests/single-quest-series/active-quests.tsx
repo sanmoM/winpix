@@ -1,4 +1,4 @@
-import Card from '@/components/shared/card'
+import Card from '@/components/shared/card/card'
 import SectionHeading from '@/components/shared/SectionHeading'
 import { Link } from '@inertiajs/react'
 

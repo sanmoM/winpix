@@ -3,7 +3,7 @@ import SectionHeading from '@/components/shared/SectionHeading'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { Link } from '@inertiajs/react'
-import Card from '@/components/shared/card'
+import Card from '@/components/shared/card/card'
 
 export default function QuestsSeries({ series }: any) {
     const { t } = useLocales()

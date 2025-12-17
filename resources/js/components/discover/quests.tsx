@@ -1,6 +1,6 @@
 import SectionHeading from '@/components/shared/SectionHeading'
 import { Link } from '@inertiajs/react'
-import Card from '../shared/card'
+import Card from '../shared/card/card'
 
 const questsData = [
     {
@@ -76,6 +76,8 @@ export default function Quests({ t, quests }) {
                                 image: quest.image,
                                 entry_coin: quest.entry_coin,
                                 user: quest.user,
+                                end_date: quest.end_date,
+
                             }
                         } />
                     </Link>

@@ -1,9 +1,10 @@
-import { Link } from "@inertiajs/react";
 import { LuLayers } from "react-icons/lu";
 import { TbTrophyFilled } from "react-icons/tb";
+import CardActions from "./count-actions";
 
 
 export default function Card({ item, isSeries = false }: any) {
+    console.log(item)
     return (
         <div className="relative block w-full rounded-2xl overflow-hidden group cursor-pointer">
 
@@ -53,6 +54,20 @@ export default function Card({ item, isSeries = false }: any) {
                 </div>
             </div>
 
+            {/* Card actions */}
+            {
+                !isSeries && ( <CardActions data={{
+                    end_date: item?.end_date,
+                    id: item?.id,
+                    hasVote: true,
+                    hasJoin: true,
+                }} />)
+            }
+
         </div>
     );
 }
+
+
+
+

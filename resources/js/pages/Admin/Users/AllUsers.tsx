@@ -3,6 +3,7 @@ import EditButton from '@/components/shared/table/components/edit-button';
 import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
+import ViewButton from '@/components/shared/table/components/view-button';
 import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
@@ -83,12 +84,19 @@ export default function UsersIndex({
                                     </Badge>
                                 </TableCell>
                                 <TableCell className="space-x-2">
+                                    <ViewButton
+                                        route={route(
+                                            'admin.view-user',
+                                            user.id,
+                                        )}
+                                    />
                                     <EditButton
                                         route={route(
                                             'admin.editUsers',
                                             user.id,
                                         )}
                                     />
+
                                     <DeleteButton
                                         handleDelete={() =>
                                             handleDelete(user.id)

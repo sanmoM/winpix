@@ -4,6 +4,7 @@ import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
 import TableTopSection from '@/components/shared/table/components/table-top-section/table-top-section';
+import ViewButton from '@/components/shared/table/components/view-button';
 import Table from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
@@ -92,6 +93,13 @@ export default function Index() {
                                 </TableCell>
 
                                 <TableCell className="space-x-2">
+                                    <ViewButton
+                                        route={route(
+                                            'admin.quest.view',
+                                            item.id,
+                                        )}
+                                    />
+
                                     <EditButton
                                         route={route(
                                             'admin.quest.edit',

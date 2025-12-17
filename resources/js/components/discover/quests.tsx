@@ -1,6 +1,6 @@
 import SectionHeading from '@/components/shared/SectionHeading'
 import { Link } from '@inertiajs/react'
-import Card from '../shared/card'
+import Card from '../shared/card/card'
 
 const questsData = [
     {
@@ -67,8 +67,8 @@ export default function Quests({ t, quests }) {
                     <Link href={`/quests/single-quest/${quest.id}`}>
                         <Card key={quest.id} item={
                             {
+                                ...quest,
                                 id: quest.id,
-                                title: quest.title,
                                 brief: quest.brief,
                                 category: quest.category,
                                 reward: quest.entry_coin,

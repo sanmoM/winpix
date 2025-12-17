@@ -25,7 +25,6 @@ const colors = [
     "bg-emerald-500",
 ]
 export default function BrandMarketingOverview({ data: features, t }) {
-    console.log(features)
     return (
         <div className=' mx-auto max-w-7xl'>
             <SectionHeading className='mb-3 md:mb-4 lg:mb-6' title={t('brandMarketing.whyChooseWinpix.title')} />

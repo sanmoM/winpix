@@ -1,9 +1,8 @@
-import Button from '@/components/shared/buttons/button';
 import React, { useRef, useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 
-const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, isJoined, setJoinModalOpen, t }: any) => {
-    const [isLoading, setIsLoading] = useState(false);
+export default function AddImage({ setImage, t, setLibraryModalOpen, setJoinModalOpen }: any) {
+
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     // const imageUrl = image && URL.createObjectURL(image?.file);
     const [imageUrl, setImageUrl] = useState<any>(null);
@@ -26,9 +25,6 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, isJo
         setImage(file);
         setImageUrl(URL.createObjectURL(file));
     };
-
-
-
     return (
         <div>
             {/* Body Content */}
@@ -110,23 +106,8 @@ const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, isJo
                         </button>
                     </div>
                 )}
-                {
-                    image && <div>
-                        <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')}
-                            onClick={async () => {
-                                setIsLoading(true)
-                                await handleJoinQuest()
-                                setIsLoading(false)
-                            }}
-                            className='mt-4 px-6 lg:px-14 text-lg'
-                            loading={isLoading}
-                            disabled={isLoading}
-                        />
-                    </div>
-                }
+
             </div>
         </div>
-    );
-};
-
-export default JoinModal;
+    )
+}

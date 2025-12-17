@@ -45,7 +45,35 @@ class QuestController extends Controller
 
     public function show(string $id)
     {
-        //
+        $quest = Quest::with('prizes', "category", "quest_type", "questSeries")->findOrFail($id);
+
+        return Inertia::render('Admin/Quest/view-quest', [
+            'quest' => [
+                'id' => $quest->id,
+                'title_en' => $quest->title_en,
+                'brief_en' => $quest->brief_en,
+                'title_ar' => $quest->title_ar,
+                'brief_ar' => $quest->brief_ar,
+                'category' => $quest->category,
+                'startDate' => $quest->start_date, // already string thanks to casting
+                'endDate' => $quest->end_date,
+                'prizes' => $quest->prizes,
+                'image' => $quest->image,
+                'entry_coin' => $quest->entry_coin,
+                'level_requirement_en' => $quest->level_requirement_en,
+                'categories_requirement_en' => $quest->categories_requirement_en,
+                'copyright_requirement_en' => $quest->copyright_requirement_en,
+
+                'level_requirement_ar' => $quest->level_requirement_ar,
+                'categories_requirement_ar' => $quest->categories_requirement_ar,
+                'copyright_requirement_ar' => $quest->copyright_requirement_ar,
+
+                'quest_series' => $quest->questSeries,
+                'quest_type' => $quest->quest_type,
+                'rank_tier' => $quest->rank_tier,
+            ],
+            'prizePools' => PrizePool::all()
+        ]);
     }
 
     /**

@@ -43,7 +43,6 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                                 })}
                             >
                                 <Link href={item.href}>
-                                    {console.log(item.access, user?.role)}
                                     {item.icon && (
                                         <item.icon className="h-4 w-4" />
                                     )}

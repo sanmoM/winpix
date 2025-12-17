@@ -24,7 +24,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index() {
     const { reports: items, flash } = usePage<any>().props;
-    console.log(items)
     const { t } = useLocales();
     useEffect(() => {
         if (flash?.success) {

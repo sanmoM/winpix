@@ -1,4 +1,4 @@
-import Card from "@/components/shared/card";
+import Card from "@/components/shared/card/card";
 import CustomSlider from "@/components/shared/custom-slider/CustomSlider";
 import useLocales from "@/hooks/useLocales";
 import { Link } from "@inertiajs/react";

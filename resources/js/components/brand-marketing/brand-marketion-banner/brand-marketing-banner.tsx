@@ -15,7 +15,6 @@ const featuredBrand = {
     category: "Premium Partner"
 };
 export default function BrandMarketingBanner({ banner, t }) {
-    console.log(banner)
     const [isHovered, setIsHovered] = useState(false);
     const { currentLanguage } = useLocales()
 

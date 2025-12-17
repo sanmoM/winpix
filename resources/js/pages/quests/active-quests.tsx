@@ -1,7 +1,7 @@
 import ActiveQuestsBanner from '@/components/quests/active-quests/active-quests-banner/active-quests-banner'
 import ActiveQuestsFilter from '@/components/quests/active-quests/active-quests-filter'
 import QuestsSeries from '@/components/quests/active-quests/quests-series'
-import Card from '@/components/shared/card'
+import Card from '@/components/shared/card/card'
 import Container from '@/components/shared/container'
 import NoData from '@/components/shared/no-data'
 import SectionHeading from '@/components/shared/SectionHeading'
@@ -25,7 +25,6 @@ export default function active({ series, quests, categories, questTypes }: any) 
         setFilter(prev => ({ ...prev, [Key]: Value }));
     }
 
-    console.log(series)
 
     const handleFilter = () => {
         const queryParams = new URLSearchParams(window.location.search);

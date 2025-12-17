@@ -76,11 +76,13 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
     Route::get('/dashboard', [AdminController::class, 'admin'])->name('admin.dashboard');
     Route::get('/users', [UserController::class, 'allUsers'])->name('admin.allUsers');
+    Route::get('/users/view/{id}', [UserController::class, 'show'])->name('admin.view-user');
     Route::get('/users/edit/{id}', [UserController::class, 'EditUsers'])->name('admin.editUsers');
     Route::put('/users/update/{id}', [UserController::class, 'updateUsers'])->name('admin.updateUsers');
     Route::get('/contest', [QuestController::class, 'index'])->name('admin.quest');
     Route::get('/contest/create', [QuestController::class, 'create'])->name('admin.quest.create');
     Route::get('/contest/edit/{id}', [QuestController::class, 'edit'])->name('admin.quest.edit');
+    Route::get('/contest/view/{id}', [QuestController::class, 'show'])->name('admin.quest.view');
     Route::resource('about', AboutController::class)->names('admin.about');
     Route::resource('slider', SliderController::class)->names('admin.slider');
     Route::resource('store', StoreController::class)->names('admin.store');

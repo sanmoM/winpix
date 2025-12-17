@@ -1,6 +1,6 @@
 import { Quest } from "@/types/quest";
 import SectionHeading from "../../shared/SectionHeading";
-import Card from "../../shared/card";
+import Card from "../../shared/card/card";
 import { Link } from "@inertiajs/react";
 export default function Newest({ t, newQuest }: any) {
     return (

@@ -52,7 +52,7 @@ export default function Card({ item, isSeries = false }: any) {
                         </div>
                     </div>
                     <div className="flex flex-col items-center">
-                        {!isSeries && (<div className="flex items-center gap-1 border border-primary px-4 py-1.5 rounded-full mb-2 text-xs">
+                        {!isSeries && (<div className="flex items-center gap-1 border border-primary px-2 py-1 rounded-full mb-2 text-xs">
                             <img src={"/images/coin.png"} alt="Old Crane in Gdansk at Night" className="w-4 h-4 rounded-full" />
                             <p>X {item?.entry_coin}</p>
                         </div>)

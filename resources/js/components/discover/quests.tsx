@@ -67,8 +67,8 @@ export default function Quests({ t, quests }) {
                     <Link href={`/quests/single-quest/${quest.id}`}>
                         <Card key={quest.id} item={
                             {
+                                ...quest,
                                 id: quest.id,
-                                title: quest.title,
                                 brief: quest.brief,
                                 category: quest.category,
                                 reward: quest.entry_coin,
@@ -76,8 +76,6 @@ export default function Quests({ t, quests }) {
                                 image: quest.image,
                                 entry_coin: quest.entry_coin,
                                 user: quest.user,
-                                end_date: quest.end_date,
-
                             }
                         } />
                     </Link>

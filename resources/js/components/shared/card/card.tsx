@@ -1,9 +1,11 @@
 import { LuLayers } from "react-icons/lu";
 import { TbTrophyFilled } from "react-icons/tb";
 import CardActions from "./count-actions";
+import useLocales from "@/hooks/useLocales";
 
 
 export default function Card({ item, isSeries = false }: any) {
+    const { currentLanguage } = useLocales()
     return (
         <div className="relative block w-full rounded-2xl overflow-hidden group cursor-pointer">
 
@@ -37,7 +39,7 @@ export default function Card({ item, isSeries = false }: any) {
             <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
                 <div className="flex justify-between items-end">
                     <div>
-                        <h2 className="text-2xl font-bold mb-2">{item?.title}</h2>
+                        <h2 className="text-2xl font-bold mb-2">{currentLanguage === 'en' ? item?.title_en : item?.title_ar}</h2>
                         <div className="items-center border !border-white rounded-full flex justify-center gap-2 w-fit px-4 py-1">
                             <TbTrophyFilled />
                             <span className="text-sm font-medium ">
@@ -55,7 +57,7 @@ export default function Card({ item, isSeries = false }: any) {
 
             {/* Card actions */}
             {
-                !isSeries && ( <CardActions data={{
+                !isSeries && (<CardActions data={{
                     end_date: item?.end_date,
                     id: item?.id,
                     hasVote: true,

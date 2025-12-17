@@ -1,5 +1,5 @@
-import Card from '@/components/shared/card/card'
 // import QuestCard from '@/components/shared/QuestCard'
+import Card from '@/components/shared/card/card'
 import SectionHeading from '@/components/shared/SectionHeading'
 import { Link } from '@inertiajs/react'
 const questsData = [
@@ -64,7 +64,8 @@ export default function QuestsSeries({ title, series }: { title: string, series:
                 {series.map((singleSeries) => (
                     <Link href={`/quests/single-quest-series/${singleSeries?.id}`} className='block'>
                         <Card key={singleSeries.id} item={{
-                            title: singleSeries.title,
+                            title_en: singleSeries.title_en,
+                            title_ar: singleSeries.title_ar,
                             category: singleSeries.category,
                             image: singleSeries.image,
                             user: singleSeries.user,

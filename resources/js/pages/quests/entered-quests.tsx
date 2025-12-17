@@ -22,7 +22,7 @@ export default function QuestsSeries({ enteredQuests }: any) {
                                         <Card key={joinedQuest.id}
                                             item={
                                                 {
-                                                    title: joinedQuest?.quest?.title,
+                                                    ...joinedQuest?.quest,
                                                     category: joinedQuest?.quest?.category,
                                                     image: joinedQuest?.quest?.image,
                                                     user: joinedQuest?.quest?.user,

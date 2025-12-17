@@ -1,4 +1,4 @@
-import JoinModal from '@/components/quests/single-quest/join-modal'
+import JoinModal from '@/components/quests/single-quest/join-modal/join-modal'
 import LibraryModal from '@/components/quests/single-quest/library-modal'
 import Status from '@/components/quests/single-quest/status'
 import VoteModal from '@/components/quests/single-quest/vote-modal/vote-modal'
@@ -104,6 +104,7 @@ export default function SingleQuest() {
         });
     }
 
+    console.log(new Date(quest?.end_date), new Date())
     return (
         <UserLayout>
             <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]'>
@@ -114,7 +115,7 @@ export default function SingleQuest() {
                         <img src="/images/coin.png" alt="" className="w-6 h-6" />
                         <p className='text-gray-100'>{quest?.entry_coin}</p>
                     </div>
-                    {new Date(quest?.end_date) >= new Date() ? (
+                    {new Date(new Date(quest?.end_date).setHours(23,59,59,999)) > new Date() ? (
                         <div className='grid gap-4 grid-cols-2'>
                             <SecondaryButton
                                 disabled={isDisabled || votingItems?.length === 0}

@@ -39,4 +39,11 @@ class UserController extends Controller
             ->with('success', 'User updated successfully 🎉');
 
     }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+
+        return Inertia::render('Admin/Users/view-user', ['user' => $user]);
+    }
 }

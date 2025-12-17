@@ -25,7 +25,6 @@ export default function AllHelpCategories({ helpCategories }: { allHelpCategorie
             }, {})
     );
 
-    console.log(grouped);
 
     return (
         <UserLayout>

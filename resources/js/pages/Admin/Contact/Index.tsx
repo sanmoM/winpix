@@ -41,7 +41,6 @@ export default function Index({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
-    console.log("first")
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />

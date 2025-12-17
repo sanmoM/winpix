@@ -7,7 +7,7 @@ import TextInput from '@/components/shared/inputs/text-input';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import PrizesInput from '@/components/user-dashboard/quest/create-quest/prizes-input';
+import PrizesInput from '@/components/user-dashboard/quest/prize-input/prizes-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
@@ -188,7 +188,6 @@ export default function EditQuest() {
         formData.append('quest_series_id', data.quest_series_id);
         formData.append('quest_type_id', data.quest_type_id);
 
-        console.log(data?.prizes)
         // Append prizes (array of objects)
         data.prizes.forEach((prize, index) => {
             if ('id' in prize && prize.id) {
@@ -215,7 +214,6 @@ export default function EditQuest() {
             forceFormData: true, // ensures multipart/form-data encoding
             preserveScroll: true, // keeps scroll position after submit
             onSuccess: () => {
-                // console.log('Quest updated successfully');
             },
             onError: (errors) => {
                 console.error('Validation errors:', errors);

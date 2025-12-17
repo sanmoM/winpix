@@ -6,7 +6,7 @@ import SelectInput from '@/components/shared/inputs/select-input';
 import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import TextInput from '@/components/shared/inputs/text-input';
 import { Label } from '@/components/ui/label';
-import PrizesInput from '@/components/user-dashboard/quest/create-quest/prizes-input';
+import PrizesInput from '@/components/user-dashboard/quest/prize-input/prizes-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';

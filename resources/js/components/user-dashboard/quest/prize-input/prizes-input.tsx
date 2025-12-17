@@ -2,6 +2,7 @@ import Button from '@/components/shared/buttons/button';
 import SelectInput from '@/components/shared/inputs/select-input';
 import { AlertTriangle, Award, Save, Trash2, X } from 'lucide-react';
 import { useCallback, useMemo, useState } from 'react';
+import SinglePrize from './single-prize';
 
 // --- Utility: Generate Display Title ---
 const generatePrizeTitle = (min, max) => {
@@ -15,7 +16,6 @@ const generatePrizeTitle = (min, max) => {
 };
 
 const PrizesInput = ({ prizes, setPrizes, prizePools }: any) => {
-    console.log(prizes)
     // --- Shared State ---
     const [error, setError] = useState('');
     // const [coinType, setCoinType] = useState('coin');
@@ -48,6 +48,7 @@ const PrizesInput = ({ prizes, setPrizes, prizePools }: any) => {
         }, 0);
         return maxCovered + 1;
     }, [sortedPrizes]);
+
 
     // --- Add Prize ---
     const validateAndAddPrize = useCallback(() => {
@@ -154,7 +155,6 @@ const PrizesInput = ({ prizes, setPrizes, prizePools }: any) => {
         setPrizes(updatedPrizes.sort((a, b) => a.min - b.min));
         cancelEditing();
     }, [editData, prizes, editingPrizeId, setPrizes]);
-    console.log(prizePools)
     // --- Render ---
     return (
         <div className="font-inter">
@@ -163,93 +163,7 @@ const PrizesInput = ({ prizes, setPrizes, prizePools }: any) => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
                 {sortedPrizes.length > 0 ? (
                     sortedPrizes.map((prize) => (
-                        <div key={prize.prizeId} className="prize-card bg-bg-primary p-4 rounded-xl border flex flex-col justify-between">
-                            {editingPrizeId === prize.prizeId ? (
-                                <>
-                                    <div className="flex items-center justify-between mb-3">
-                                        <input
-                                            type="number"
-                                            value={editData.min}
-                                            onChange={(e) => setEditData(prev => ({ ...prev, min: e.target.value }))}
-                                            className="w-16 bg-bg-primary border border-gray-600 rounded-lg px-4 py-2 text-center"
-                                            min="1"
-                                        />
-                                        <span className="mx-1 text-gray-400">-</span>
-                                        <input
-                                            type="number"
-                                            value={editData.max}
-                                            onChange={(e) => setEditData(prev => ({ ...prev, max: e.target.value }))}
-                                            className="w-16 bg-bg-primary border border-gray-600 rounded-lg px-4 py-2 text-center"
-                                            min={editData.min}
-                                        />
-                                        <Award className="w-5 h-5 text-yellow-500 ml-auto" />
-                                    </div>
-                                    <div className="flex items-center space-x-2 mb-3">
-                                        <input
-                                            type="number"
-                                            value={editData.coin}
-                                            onChange={(e) => setEditData(prev => ({ ...prev, coin: e.target.value }))}
-                                            className="w-full bg-bg-primary border border-gray-600 rounded-lg p-2"
-                                            placeholder="Coins"
-                                            min="1"
-                                        />
-                                        <SelectInput
-                                            id="coin-type-edit"
-                                            value={editData.coinType}
-                                            options={[
-                                                { label: "Coin", value: "coin" },
-                                                { label: "Pixel", value: "pixel" },
-                                            ]}
-                                            inputClassName="py-2"
-                                            onChange={(value) => setEditData(prev => ({ ...prev, coinType: value }))}
-                                        />
-                                    </div>
-                                    <div className="flex justify-between mt-2">
-                                        <button
-                                            type="button"
-                                            onClick={saveEditedPrize}
-                                            className="px-4 py-2 text-xs text-green-400 border border-green-500 rounded-lg flex items-center"
-                                        >
-                                            <Save className="w-3 h-3 mr-1" /> Save
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={cancelEditing}
-                                            className="px-4 py-2 text-xs text-red-400 border border-red-500 rounded-lg flex items-center"
-                                        >
-                                            <X className="w-3 h-3 mr-1" /> Cancel
-                                        </button>
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    <div className="flex items-center justify-between mb-3">
-                                        <span className="text-lg font-bold text-purple-400">{prize.title}</span>
-                                        <Award className="w-5 h-5 text-yellow-500" />
-                                    </div>
-                                    <div className="flex flex-col items-center justify-center space-x-2">
-                                        <span className="text-3xl font-extrabold">{prize.coin}</span>
-                                        <span className="text-xl text-gray-600 dark:text-gray-200 capitalize">{prizePools.find((pool: any) => pool.value === prize?.prize_pool)?.label}</span>
-                                    </div>
-                                    <div className="mt-4 flex justify-between">
-                                        {/* <button
-                                            type="button"
-                                            onClick={() => startEditing(prize)}
-                                            className="px-4 py-2 text-xs text-blue-400 border border-blue-500 rounded-lg flex items-center"
-                                        >
-                                            Edit
-                                        </button> */}
-                                        <button
-                                            type="button"
-                                            onClick={() => removePrize(prize.prizeId)}
-                                            className="px-4 py-2 text-xs mx-auto text-red-400 border border-red-500 rounded-lg flex items-center"
-                                        >
-                                            <Trash2 className="w-3 h-3 mr-1" /> Remove
-                                        </button>
-                                    </div>
-                                </>
-                            )}
-                        </div>
+                        <SinglePrize prize={prize} prizePools={prizePools} removePrize={removePrize} />
                     ))
                 ) : (
                     <div className="col-span-full text-center py-8 rounded-lg border border-dashed border-gray-700">

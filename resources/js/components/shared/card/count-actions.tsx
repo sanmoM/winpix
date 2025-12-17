@@ -6,7 +6,6 @@ import Button from "../buttons/button";
 import PillButton from "../buttons/pill-button";
 
 export default function CardActions({ data }: any) {
-    console.log(data?.end_date, Date.now())
     return (
         <div className="absolute top-4 left-4 right-0 text-white flex flex-col w-[15%] lg:w-[25%] rounded-sm overflow-hidden">
             <Countdown targetDate={data?.end_date} />

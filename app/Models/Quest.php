@@ -91,9 +91,10 @@ class Quest extends Model
     {
         return $this->hasMany(Vote::class);
     }
-
     protected $casts = [
         'start_date' => 'date:Y-m-d',
         'end_date' => 'date:Y-m-d',
     ];
+
+    
 }

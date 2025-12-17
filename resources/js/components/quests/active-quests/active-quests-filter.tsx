@@ -94,7 +94,6 @@ export default function ActiveQuestsFilter({ t, handleFilter, filter, setFilter,
                             isActive={activeFilter === filter.id}
                             onClick={() => {
                                 setActiveFilter(filter.id);
-                                // console.log(filter?.path)
                                 router.get(filter?.path)
                             }}
                             icon={filter.icon}

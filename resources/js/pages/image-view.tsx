@@ -9,7 +9,6 @@ export default function page({ data }: any) {
         id: data?.id
     }
 
-    console.log(imageViewData)
     return (
         <UserLayout>
             <ImageView isOpen={true} setIsOpen={() => { }} data={[imageViewData]} hasClose={false} containerClassName='static' />

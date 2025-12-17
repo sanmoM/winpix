@@ -4,7 +4,6 @@ import CardActions from "./count-actions";
 
 
 export default function Card({ item, isSeries = false }: any) {
-    console.log(item)
     return (
         <div className="relative block w-full rounded-2xl overflow-hidden group cursor-pointer">
 

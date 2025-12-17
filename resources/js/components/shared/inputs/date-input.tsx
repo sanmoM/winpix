@@ -12,7 +12,6 @@ export default function DateInput({
   max?: string;
   disabled?: boolean;
 }) {
-  console.log(min)
   return (
     <input
       disabled={disabled}

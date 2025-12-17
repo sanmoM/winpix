@@ -8,7 +8,6 @@ export default function SingleCategoryHelps({ helps }: { helps: any }) {
     const { t, currentLanguage } = useLocales();
 
     const questions = helps?.filter((help: any) => help.lang === currentLanguage);
-console.log(questions)
     return (
         <UserLayout>
             <Container className="space-y-6 md:space-y-8 lg:space-y-12 my-10 md:my-16 lg:my-12">

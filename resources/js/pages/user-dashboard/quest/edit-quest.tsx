@@ -6,7 +6,7 @@ import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import PrizesInput from '@/components/user-dashboard/quest/create-quest/prizes-input';
+import PrizesInput from '@/components/user-dashboard/quest/prize-input/prizes-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
@@ -109,15 +109,6 @@ export default function EditQuest() {
         value: types.id,
         label: types.name,
     }));
-
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     put(route('user-dashboard.quest.update', data.id), {
-    //         onSuccess: () => reset(),
-    //         onError: (errors) => console.log(errors),
-    //         forceFormData: true,
-    //     });
-    // };
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -177,7 +168,6 @@ export default function EditQuest() {
             forceFormData: true, // ensures multipart/form-data encoding
             preserveScroll: true, // keeps scroll position after submit
             onSuccess: () => {
-                // console.log('Quest updated successfully');
             },
             onError: (errors) => {
                 console.error('Validation errors:', errors);

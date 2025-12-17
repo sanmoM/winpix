@@ -25,7 +25,6 @@ export default function active({ series, quests, categories, questTypes }: any) 
         setFilter(prev => ({ ...prev, [Key]: Value }));
     }
 
-    console.log(series)
 
     const handleFilter = () => {
         const queryParams = new URLSearchParams(window.location.search);

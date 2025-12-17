@@ -7,7 +7,6 @@ import Card from '@/components/shared/card/card'
 
 export default function QuestsSeries({ series }: any) {
     const { t } = useLocales()
-    console.log(series)
     return (
         <UserLayout>
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">

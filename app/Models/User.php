@@ -18,7 +18,6 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-
     protected $fillable = [
         'name',
         'email',
@@ -38,7 +37,7 @@ class User extends Authenticatable
         'votes_cast',
         'coins',
         'pixel',
-        'isRedeemed'
+        'isRedeemed',
     ];
 
     /**
@@ -72,7 +71,6 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-
     public function getDashboardRoute()
     {
         return match ($this->role) {

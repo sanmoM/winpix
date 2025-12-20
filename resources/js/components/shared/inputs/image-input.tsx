@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { useId } from "react";
 import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
+import { useId } from 'react';
 
 export default function ImageInput({
     image,
@@ -33,39 +33,45 @@ export default function ImageInput({
         }
     };
 
-
     const getImageSrc = () => {
         if (!image) return null;
-        if (typeof image === "string") return image;
+        if (typeof image === 'string') return image;
         if (image instanceof File) return URL.createObjectURL(image);
         return null;
     };
 
     const imgSrc = getImageSrc();
 
-
     return (
         <div>
-            {
-                label && (
-                    <Label htmlFor={inputId} className="font-semibold mb-3 block">
-                        {label} {required && <span className="text-red-600">*</span>}
-                    </Label>
-                )
-            }
-            <div className={cn("flex items-center justify-center w-full border-dashed rounded-lg bg-bg-primary", !image && "border  border-primary", wrapperClassName)}>
+            {label && (
+                <Label htmlFor={inputId} className="mb-3 block font-semibold">
+                    {label}{' '}
+                    {required && <span className="text-red-600">*</span>}
+                </Label>
+            )}
+            <div
+                className={cn(
+                    'flex w-full items-center justify-center rounded-lg border-dashed bg-bg-primary',
+                    !image && 'border border-primary',
+                    wrapperClassName,
+                )}
+            >
                 <label
                     htmlFor={inputId} // ✅ use unique ID here
                     className={cn(
-                        "flex flex-col items-center justify-center w-full h-full  border-gray-300 border-dashed rounded-lg cursor-pointer bg-tertiary overflow-hidden",
-                        containerClassName
+                        'bg-tertiary flex h-full w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-lg border-dashed border-gray-300',
+                        containerClassName,
                     )}
                 >
                     <div className="flex flex-col items-center justify-center">
                         {!imgSrc && (
                             <>
                                 <svg
-                                    className={cn("w-[10%] aspect-square text-primary", iconClassName)}
+                                    className={cn(
+                                        'aspect-square w-[10%] text-primary',
+                                        iconClassName,
+                                    )}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -76,10 +82,10 @@ export default function ImageInput({
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
-                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 
-                     0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 
-                     5.021C5.137 5.017 5.071 5 5 
-                     5a4 4 0 0 0 0 8h2.167M10 
+                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56
+                     0 0 0 16 6.5 5.5 5.5 0 0 0 5.207
+                     5.021C5.137 5.017 5.071 5 5
+                     5a4 4 0 0 0 0 8h2.167M10
                      15V6m0 0L8 8m2-2 2 2"
                                     />
                                 </svg>
@@ -100,16 +106,12 @@ export default function ImageInput({
                         <img
                             src={imgSrc}
                             alt="Selected"
-                            className="w-full h-full object-cover"
+                            className="h-full w-full object-cover"
                         />
                     )}
                 </label>
             </div>
-            {error && (
-                <p className="text-sm text-red-600">
-                    {error}
-                </p>
-            )}
+            {error && <p className="text-sm text-red-600">{error}</p>}
         </div>
     );
 }

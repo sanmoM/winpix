@@ -41,8 +41,15 @@ class UserController extends Controller
     }
 
     public function show($id)
+    /**
+     * Show the form for editing the given user.
+     *
+     * @param  int  $id
+     * @return \Inertia\Response
+     */
     {
-        $user = User::find($id);
+        // $user = User::find($id);
+        $user = User::with(['followers', 'following', 'joinedQuests', 'questImages', 'votes'])->find($id);
 
         return Inertia::render('Admin/Users/view-user', ['user' => $user]);
     }

@@ -51,7 +51,7 @@ export default function Dashboard() {
         series,
         types,
         rank_tiers,
-        prizePools
+        prizePools,
     }: { categories: { id: number; name: string }[] } = usePage<any>().props;
     const { t } = useLocales();
 
@@ -144,9 +144,10 @@ export default function Dashboard() {
                         setImage={(value) => setData('image', value)}
                         wrapperClassName="w-full aspect-[2/1]"
                         iconClassName="w-[20%]"
+                        error={errors.image}
                     />
                     <div className="grid grid-cols-2 gap-4">
-                        <div className='space-y-6'>
+                        <div className="space-y-6">
                             <TextInput
                                 id="title_en"
                                 value={data.title_en}
@@ -172,7 +173,7 @@ export default function Dashboard() {
                                 required={true}
                             />
                         </div>
-                        <div className='space-y-6'>
+                        <div className="space-y-6">
                             <TextInput
                                 id="title_ar"
                                 value={data.title_ar}

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Settings;
 
-use App\Helpers\File;
+use App\Helpers\FileHelper as File;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -50,7 +50,6 @@ class ProfileController extends Controller
 
         return to_route('profile.edit')->with('success', 'Profile updated successfully!');
     }
-
 
     /**
      * Delete the user's account.

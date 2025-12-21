@@ -47,7 +47,7 @@ export default function Profile({ user, stats, isFollowing }: any) {
           </Creator>
         </div>
         <Container className='max-w-[450px] mx-auto mt-4'>
-          <LevelProgress displayValue={stats.currentLevel} level={stats.currentLevel} max={10} current={stats.currentLevel} />
+          <LevelProgress displayValue={stats.currentLevel} level={stats.currentLevel} max={100} current={stats.currentLevel} />
           <div className='grid grid-cols-2 gap-4 w-fit mt-4'>
             <StatsCard item={{ icon: <FaTrophy className='w-8 h-8 text-white' />, label: stats.totalQuests }} />
             <StatsCard item={{ icon: <RiFolderUploadFill className='w-8 h-8 text-white' />, label: stats?.questImages?.length }} />

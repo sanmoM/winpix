@@ -229,7 +229,8 @@
         "banner": {
             "voteText": "Vote",
             "joinNowText": "Join Now",
-            "addEntryText": "Add Entry"
+            "addEntryText": "Add Entry",
+            "next": "Next"
         },
         "tabs": {
             "brief": "Brief",

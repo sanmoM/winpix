@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 const differentNavUrls = [
     "/",
     "/quests/active-quests",
-    /^\/profile\/[^/]+$/
 ];
 
 export default function useBackground() {

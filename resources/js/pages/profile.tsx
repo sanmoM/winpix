@@ -1,12 +1,15 @@
-import Gallery from '@/components/shared/Gallery'
-import Stats from '@/components/profile/stats'
 import Container from '@/components/shared/container'
 import Creator from '@/components/shared/creator'
-import Tab from '@/components/shared/tab'
+import Gallery from '@/components/shared/Gallery'
+import LevelProgress from '@/components/shared/profile/lavel-progress'
+import StatsCard from '@/components/shared/profile/stats-card'
+import SectionHeading from '@/components/shared/SectionHeading'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { router, type PageProps as InertiaPageProps } from '@inertiajs/core'
 import { useState } from 'react'
+import { FaTrophy } from 'react-icons/fa'
+import { RiFolderUploadFill } from 'react-icons/ri'
 import { route } from 'ziggy-js'
 
 interface PageProps extends InertiaPageProps {
@@ -43,25 +46,25 @@ export default function Profile({ user, stats, isFollowing }: any) {
             </div>
           </Creator>
         </div>
-        <Container className="space-y-14 md:space-y-20 lg:space-y-16 my-10 md:my-16 lg:mt-12 lg:mb-32 lg:mx-10">
-          <div className='w-fit mx-auto'>
-            <Tab
-              options={[
-                { label: t("profile.tabs.stats"), value: "my-stats" },
-                { label: t("profile.tabs.photos"), value: "my-photos" },
-              ]}
-              onChange={(val) => setActiveTab(val)}
-            />
+        <Container className='max-w-[450px] mx-auto mt-4'>
+          <LevelProgress displayValue={stats.currentLevel} level={stats.currentLevel} max={10} current={stats.currentLevel} />
+          <div className='grid grid-cols-2 gap-4 w-fit mt-4'>
+            <StatsCard item={{ icon: <FaTrophy className='w-8 h-8 text-white' />, label: stats.totalQuests }} />
+            <StatsCard item={{ icon: <RiFolderUploadFill className='w-8 h-8 text-white' />, label: stats?.questImages?.length }} />
           </div>
+        </Container>
+        <Container className="space-y-14 md:space-y-20 lg:space-y-16 my-10 md:my-16 lg:mt-12 lg:mb-32 lg:mx-10">
           {
-            activeTab === "my-stats" && <Stats containerClassName='translate-y-0 mb-0 md:mb-0 lg:mb-0' t={t} stats={stats} />
-          }
-          {
-            activeTab === "my-photos" && <Gallery galleryImages={stats?.questImages?.map(item => ({
-              id: item?.image?.id,
-              image: item?.image,
-              user
-            }))} />
+            stats?.questImages?.length > 0 && (
+              <>
+                <SectionHeading title={t("profile.tabs.photos")} />
+                <Gallery galleryImages={stats?.questImages?.map(item => ({
+                  id: item?.image?.id,
+                  image: item?.image,
+                  user
+                }))} />
+              </>
+            )
           }
         </Container>
       </div>

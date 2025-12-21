@@ -1,7 +1,8 @@
+import Button from '@/components/shared/buttons/button';
 import React, { useRef, useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 
-export default function AddImage({ setImage, t, setLibraryModalOpen, setJoinModalOpen }: any) {
+export default function AddImage({ setImage, t, setLibraryModalOpen, setJoinModalOpen, handleAddImage }: any) {
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     // const imageUrl = image && URL.createObjectURL(image?.file);
@@ -106,6 +107,19 @@ export default function AddImage({ setImage, t, setLibraryModalOpen, setJoinModa
                         </button>
                     </div>
                 )}
+
+                {
+                    imageUrl && <div>
+                        {/* <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')}
+                            onClick={handleAddImage}
+                            className='mt-4 px-6 lg:px-14 text-lg'
+                        /> */}
+                        <Button type={"button"} text={t('singleQuest.banner.next')}
+                            onClick={handleAddImage}
+                            className='mt-4 px-6 lg:px-14 text-lg'
+                        />
+                    </div>
+                }
 
             </div>
         </div>

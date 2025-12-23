@@ -9,7 +9,7 @@ export default function SocialIcon({ Icon, href, ariaLabel, containerClassName =
             target="_blank"
             rel="noopener noreferrer"
             aria-label={ariaLabel}
-            className={cn(`w-12 h-12 flex items-center justify-center rounded-full 
+            className={cn(`w-12 h-12 cursor-pointer flex items-center justify-center rounded-full 
                                            text-primary-color border border-primary-color hover:bg-primary-color hover:text-white
                                            transition-colors duration-300`, containerClassName)}
         >

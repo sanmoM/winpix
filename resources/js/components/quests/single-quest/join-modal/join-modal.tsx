@@ -6,32 +6,33 @@ import AddImage from './components/add-image';
 const JoinModal = ({ handleJoinQuest, image, setImage, setLibraryModalOpen, isJoined, setJoinModalOpen, t }: any) => {
     const [isLoading, setIsLoading] = useState(false);
     const [currentStep, setCurrentStep] = useState("addImage");
+    const [cameraData, setCameraData] = useState({
+        model: "",
+        lens: "",
+        focus: "",
+        iso: "",
+    });
 
-    const isShowButton = currentStep === "addDetails" && image;
+    const handleJoin = async () => {
+        setIsLoading(true)
+        await handleJoinQuest()
+        setIsLoading(false)
+    }
+
+    const handleAddImage = () => {
+        setCurrentStep("addDetails")
+    }
 
     return (
         <div>
             {
-                currentStep === "addImage" && <AddImage setImage={setImage} t={t} setLibraryModalOpen={setLibraryModalOpen} setJoinModalOpen={setJoinModalOpen} />
+                currentStep === "addImage" && <AddImage setImage={setImage} t={t} setLibraryModalOpen={setLibraryModalOpen} setJoinModalOpen={setJoinModalOpen} handleAddImage={handleAddImage} />
             }
 
             {
-                currentStep === "addDetails" && <AddDetails />
+                currentStep === "addDetails" && <AddDetails cameraData={cameraData} setCameraData={setCameraData} isJoined={isJoined} handleJoinQuest={handleJoinQuest} />
             }
-            {
-                isShowButton && <div>
-                    <Button text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')}
-                        onClick={async () => {
-                            setIsLoading(true)
-                            await handleJoinQuest()
-                            setIsLoading(false)
-                        }}
-                        className='mt-4 px-6 lg:px-14 text-lg'
-                        loading={isLoading}
-                        disabled={isLoading}
-                    />
-                </div>
-            }
+
         </div>
     );
 };

@@ -33,8 +33,9 @@ class FrontendController extends Controller
 
     public function __construct()
     {
-        $this->rankingService = new RankingService();
+        $this->rankingService = new RankingService;
     }
+
     // this all are get controller for frontend
     public function home()
     {
@@ -52,7 +53,7 @@ class FrontendController extends Controller
             ->with(['image.user', 'image.quest'])
             ->get();
         if ($user) {
-            return redirect("/discover");
+            return redirect('/discover');
         }
 
         return Inertia::render('home', [
@@ -66,6 +67,7 @@ class FrontendController extends Controller
     {
         $banner = MarketingBanner::first();
         $features = BrandMarketing::all();
+
         return Inertia::render('brand-marketing', [
             'banner' => $banner,
             'features' => $features,
@@ -149,7 +151,7 @@ class FrontendController extends Controller
         $imagePath = $questImage->image;
 
         // Active quests
-        $activeQuest = Quest::with("category", "user")
+        $activeQuest = Quest::with('category', 'user')
             ->where('id', $questImage->quest_id)
             ->where('start_date', '<=', today())
             ->where('end_date', '>=', today())
@@ -184,12 +186,12 @@ class FrontendController extends Controller
         ];
     }
 
-
     public function imageView($id)
     {
         $data = QuestImage::with(['user'])->findOrFail($id);
+
         return Inertia::render('image-view', [
-            'data' => $data
+            'data' => $data,
         ]);
     }
 
@@ -248,7 +250,6 @@ class FrontendController extends Controller
             'series' => $series,
         ]);
     }
-
 
     public function enteredQuests()
     {
@@ -322,6 +323,7 @@ class FrontendController extends Controller
     public function allHelpCategories()
     {
         $helpCategories = Help::all();
+
         // return dd($helpCategories);
         return Inertia::render('help/all-help-categories', [
             'helpCategories' => $helpCategories,
@@ -331,6 +333,7 @@ class FrontendController extends Controller
     public function singleCategoryHelps($section)
     {
         $helps = Help::where('section', $section)->get();
+
         return Inertia::render('help/single-category-helps', [
             'helps' => $helps,
         ]);
@@ -339,6 +342,7 @@ class FrontendController extends Controller
     public function singleFaq($group_id, $section)
     {
         $faqs = Help::where('section', $section)->get();
+
         return Inertia::render('help/single-faq', [
             'faqs' => $faqs,
             'section' => $section,
@@ -349,9 +353,10 @@ class FrontendController extends Controller
     public function searchedHelps()
     {
         $searchTerm = request()->query('searchTerm');
-        $helps = Help::where('question', 'LIKE', '%' . $searchTerm . '%')
-            ->orWhere('answer', 'LIKE', '%' . $searchTerm . '%')
+        $helps = Help::where('question', 'LIKE', '%'.$searchTerm.'%')
+            ->orWhere('answer', 'LIKE', '%'.$searchTerm.'%')
             ->get();
+
         return Inertia::render('help/searched-helps', [
             'helps' => $helps,
         ]);
@@ -413,19 +418,63 @@ class FrontendController extends Controller
         return redirect()->back();
     }
 
+    // Old Voting Function
+    // public function vote($imageId, $questId)
+    // {
+    //     $user = auth()->user();
+
+    //     // return response()->json(['user' => $userUnderImage->user], 200);
+    //     Vote::firstOrCreate([
+    //         'image_id' => $imageId,
+    //         'user_id' => $user->id,
+    //         'quest_id' => $questId,
+    //     ]);
+
+    //     $userUnderImage = QuestImage::where('id', $imageId)->where('user_id', $user->id)->first();
+    //     $this->rankingService->castVote($userUnderImage->user);
+    //     return response()->json(['success' => true]);
+    // }
+
     public function vote($imageId, $questId)
     {
         $user = auth()->user();
 
-        // return response()->json(['user' => $userUnderImage->user], 200);
+        $quest = Quest::findOrFail($questId);
+        $image = QuestImage::where('id', $imageId)
+            ->where('quest_id', $questId)
+            ->firstOrFail();
+
+        if ($quest->vote_rights === 'Public') {
+            abort_unless($user->role === 'user', 403);
+        }
+
+        if ($quest->vote_rights === 'Judges') {
+            abort_unless(
+                $user->role === 'jury' &&
+                JudgePanel::where('quest_id', $quest->id)
+                    ->where('judge_id', $user->id)
+                    ->exists(),
+                403
+            );
+        }
+
+        if ($quest->vote_rights === 'Hybrid') {
+            abort_unless(
+                in_array($user->role, ['user', 'jury']),
+                403
+            );
+        }
+
+        abort_if($image->user_id === $user->id, 403, 'You cannot vote your own submission');
+
         Vote::firstOrCreate([
             'image_id' => $imageId,
             'user_id' => $user->id,
             'quest_id' => $questId,
         ]);
 
-        $userUnderImage = QuestImage::where('id', $imageId)->where('user_id', $user->id)->first();
-        $this->rankingService->castVote($userUnderImage->user);
+        $this->rankingService->castVote($image->user);
+
         return response()->json(['success' => true]);
     }
 
@@ -492,7 +541,7 @@ class FrontendController extends Controller
         $user->increment('pixel', 15);
 
         $user->update([
-            'isRedeemed' => 1
+            'isRedeemed' => 1,
         ]);
 
         return redirect()->back()->with('success', 'Contact form submitted successfully!');

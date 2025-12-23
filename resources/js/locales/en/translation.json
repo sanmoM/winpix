@@ -117,13 +117,7 @@
                 "entryFee": "Entry Fee"
             },
             "sortAndFilter": "Sort & Filter",
-            "filterItems": [
-                "All",
-                "Ranked",
-                "Free",
-                "Premium",
-                "Community"
-            ],
+            "filterItems": ["All", "Ranked", "Free", "Premium", "Community"],
             "filterModal": {
                 "title": "Filter",
                 "rank": [
@@ -734,13 +728,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Image",
-                        "Title",
-                        "Status",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Image", "Title", "Status", "Actions"]
                 }
             },
             "edit": {
@@ -890,6 +878,14 @@
                 "entryCoin": {
                     "label": "Entry Coin",
                     "placeholder": "Enter an entry coin"
+                },
+                "vote_rights": {
+                    "label": "Vote Rights",
+                    "placeholder": "Select vote rights"
+                },
+                "manual_override": {
+                    "label": "Manual Override",
+                    "placeholder": "Select manual override"
                 },
                 "category": {
                     "label": "Tag",
@@ -1059,13 +1055,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Image",
-                        "Title",
-                        "Status",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Image", "Title", "Status", "Actions"]
                 },
                 "confirm_delete": "Are you sure you want to delete this series?"
             },
@@ -1129,12 +1119,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Name",
-                        "Status",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Name", "Status", "Actions"]
                 }
             },
             "create": {
@@ -1201,12 +1186,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Name",
-                        "Status",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Name", "Status", "Actions"]
                 }
             },
             "create": {
@@ -1395,13 +1375,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Name",
-                        "Email",
-                        "Message",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Name", "Email", "Message", "Actions"]
                 }
             }
         },
@@ -1469,12 +1443,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Image",
-                        "Reason",
-                        "User"
-                    ]
+                    "headings": ["#", "Image", "Reason", "User"]
                 }
             }
         },
@@ -1508,12 +1477,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Image",
-                        "Name",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Image", "Name", "Actions"]
                 }
             },
             "create": {

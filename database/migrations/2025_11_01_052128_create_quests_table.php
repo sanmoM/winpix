@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title_ar');
             $table->longText('brief_ar');
             $table->string('image');
-            $table->enum('status', ['active', 'ended'])->default('active');
+            $table->enum('status', ['Scheduled', 'Paused', 'Open', 'Closed'])->default('Scheduled');
             $table->integer('entry_coin');
             $table->foreignId('category_id')
                 ->constrained('quest_categories')
@@ -40,7 +40,12 @@ return new class extends Migration
             $table->text('level_requirement_ar')->nullable();
             $table->text('categories_requirement_ar')->nullable();
             $table->text('copyright_requirement_ar')->nullable();
-            $table->enum('rank_tier', ['all', 'A', 'B', 'C', 'M'])->default('all');
+
+            $table->enum('vote_rights', ['Public', 'Judges', 'Hybrid'])->default('Public');
+            $table->enum('manual_override', ['None', 'Force_Open', 'Force_Paused', 'Force_Closed'])->default('None');
+            $table->date('manual_override_end_date')->nullable();
+            $table->string('winner_declaration', 50)->default('auto')->change();
+            $table->foreignId('lead_judge')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

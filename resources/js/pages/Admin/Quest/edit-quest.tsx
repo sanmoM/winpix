@@ -1,6 +1,7 @@
 import InputError from '@/components/input-error';
 import DateInput from '@/components/shared/inputs/date-input';
 import ImageInput from '@/components/shared/inputs/image-input';
+import MultiSelectInput from '@/components/shared/inputs/multi-select-input';
 import SelectInput from '@/components/shared/inputs/select-input';
 import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import TextInput from '@/components/shared/inputs/text-input';
@@ -42,7 +43,13 @@ interface Quest {
     copyright_requirement_ar: string;
     quest_series_id: string;
     quest_type_id: string;
-    rank_tier: string;
+    vote_rights: string;
+    status?: string;
+    manual_override?: string;
+    judges?: number[];
+    lead_judge?: number | '';
+    winner_declaration: string;
+    manual_override_end_date?: string;
 }
 
 // Utility to format ISO date string to YYYY-MM-DD
@@ -64,15 +71,14 @@ export default function EditQuest() {
         categories,
         series,
         types,
-        rank_tiers,
         prizePools,
+        judges,
     }: {
         quest: Quest;
         categories: { id: number; name: string }[];
         series: { id: number; title_en: string }[];
         types: { id: number; name: string }[];
     } = usePage().props;
-
 
     const { t } = useLocales();
 
@@ -107,7 +113,13 @@ export default function EditQuest() {
         copyright_requirement_ar: quest.copyright_requirement_ar,
         quest_series_id: quest.quest_series_id,
         quest_type_id: quest.quest_type_id,
-        rank_tier: (quest as any).rank_tier || 'all',
+        manual_override: quest.manual_override,
+        winner_declaration: quest.winner_declaration,
+        manual_override_end_date: formatDate(quest.manual_override_end_date),
+        vote_rights: quest.vote_rights,
+        status: quest.status,
+        lead_judge: quest.lead_judge,
+        judges: quest.judges,
     });
 
     const categoryOptions = categories.map((category) => ({
@@ -125,19 +137,27 @@ export default function EditQuest() {
         label: types.name,
     }));
 
-    const rankTierOptions = rank_tiers.map((tier: any) => ({
-        value: tier.tier,
-        label: tier.tier,
-    }));
-
-    rankTierOptions.unshift({
-        value: 'all',
-        label: 'All',
-    });
-
     const prizePoolsOptions = prizePools.map((prizePool) => ({
         value: prizePool.id,
         label: prizePool.name,
+    }));
+
+    const manualOverrideOptions = [
+        { value: 'None', label: 'None' },
+        { value: 'Force_Open', label: 'Force Open' },
+        { value: 'Force_Paused', label: 'Force Paused' },
+        { value: 'Force_Closed', label: 'Force Closed' },
+    ];
+
+    const winnerDeclarationOptions = [
+        { value: 'auto', label: 'Auto (System Calculated)' },
+        { value: 'admin', label: 'Manual (Admin Only)' },
+        { value: 'judges', label: 'Manual (Lead Judge Decides)' },
+    ];
+
+    const judgesOptions = judges.map((judge) => ({
+        value: judge.id,
+        label: judge.name,
     }));
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -197,8 +217,10 @@ export default function EditQuest() {
             formData.append(`prizes[${index}][max]`, prize.max.toString());
             formData.append(`prizes[${index}][coin]`, prize.coin.toString());
             formData.append(`prizes[${index}][title]`, prize.title);
-            formData.append('rank_tier', data.rank_tier || '');
-            formData.append('prizes[' + index + '][prize_pool]', prize.prize_pool);
+            formData.append(
+                'prizes[' + index + '][prize_pool]',
+                prize.prize_pool,
+            );
         });
 
         // Append image — only if a new file is selected
@@ -213,8 +235,7 @@ export default function EditQuest() {
         router.post(route('user-dashboard.quest.update', data.id), formData, {
             forceFormData: true, // ensures multipart/form-data encoding
             preserveScroll: true, // keeps scroll position after submit
-            onSuccess: () => {
-            },
+            onSuccess: () => {},
             onError: (errors) => {
                 console.error('Validation errors:', errors);
             },
@@ -247,7 +268,7 @@ export default function EditQuest() {
 
                     {/* Title */}
                     <div className="grid grid-cols-2 gap-4">
-                        <div className='space-y-6'>
+                        <div className="space-y-6">
                             <TextInput
                                 id="title_en"
                                 value={data.title_en}
@@ -273,7 +294,7 @@ export default function EditQuest() {
                                 required={true}
                             />
                         </div>
-                        <div className='space-y-6'>
+                        <div className="space-y-6">
                             <TextInput
                                 id="title_ar"
                                 value={data.title_ar}
@@ -335,18 +356,6 @@ export default function EditQuest() {
                                 setData('quest_type_id', value as string)
                             }
                             className="max-w-auto w-full"
-                        />
-                        <SelectInput
-                            id="rank_tier"
-                            name="rank_tier"
-                            label={t('dashboard.quest.inputs.rank_tier.label')}
-                            options={rankTierOptions}
-                            value={data.rank_tier}
-                            onChange={(value) =>
-                                setData('rank_tier', value as string)
-                            }
-                            className="max-w-auto w-full"
-                            hasOption={false}
                         />
                     </div>
 
@@ -487,7 +496,11 @@ export default function EditQuest() {
                                 {t('dashboard.quest.inputs.startDate.label')}
                             </Label>
                             <DateInput
-                                disabled={new Date(new Date().toISOString().slice(0, 10)) > new Date(data.startDate)}
+                                disabled={
+                                    new Date(
+                                        new Date().toISOString().slice(0, 10),
+                                    ) > new Date(data.startDate)
+                                }
                                 min={new Date().toISOString().slice(0, 10)}
                                 value={data.startDate}
                                 onChange={(value) =>
@@ -508,6 +521,164 @@ export default function EditQuest() {
                             <InputError message={errors.endDate} />
                         </div>
                     </div>
+
+                    <div className="grid grid-cols-1 gap-4">
+                        <SelectInput
+                            id="manual_override"
+                            name="manual_override"
+                            label={t(
+                                'dashboard.quest.inputs.manual_override.label',
+                            )}
+                            options={manualOverrideOptions}
+                            value={data.manual_override}
+                            onChange={(value) =>
+                                setData('manual_override', value as string)
+                            }
+                            className="max-w-auto w-full"
+                            hasOption={false}
+                        />
+                        {data.manual_override === 'Force_Open' && (
+                            <div className="grid gap-2">
+                                <Label htmlFor="manual_override_end_date">
+                                    Manual Override End Date
+                                </Label>
+                                <DateInput
+                                    min={data.startDate}
+                                    value={data.manual_override_end_date}
+                                    onChange={(value) =>
+                                        setData(
+                                            'manual_override_end_date',
+                                            value,
+                                        )
+                                    }
+                                />
+                                <InputError
+                                    message={errors.manual_override_end_date}
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                    {/* --- JUDGING SECTION --- */}
+                    <div className="space-y-6 rounded-lg border bg-gray-50 p-6">
+                        <h3 className="mb-4 border-b pb-2 text-lg font-medium text-gray-800">
+                            Judging & Winner Rules
+                        </h3>
+
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                            {/* 1. Vote Rights */}
+                            <SelectInput
+                                id="vote_rights"
+                                label="Judging Type"
+                                options={[
+                                    {
+                                        value: 'Public',
+                                        label: 'Public Voting Only',
+                                    },
+                                    { value: 'Judges', label: 'Judges Only' },
+                                    {
+                                        value: 'Hybrid',
+                                        label: 'Hybrid (Public + Judges)',
+                                    },
+                                ]}
+                                value={data.vote_rights}
+                                onChange={(val) => {
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        vote_rights: val as string,
+
+                                        judges: [],
+                                        lead_judge: '',
+                                        winner_declaration: 'auto',
+                                    }));
+                                }}
+                                hasOption={false}
+                                error={errors.vote_rights}
+                                className="max-w-auto w-full"
+                            />
+
+                            {/* 2. Winner Declaration (Hidden if Public) */}
+                            {data.vote_rights !== 'Public' && (
+                                <SelectInput
+                                    id="winner_declaration"
+                                    label="Winner Declaration Mode"
+                                    options={winnerDeclarationOptions}
+                                    value={data.winner_declaration}
+                                    onChange={(val) =>
+                                        setData(
+                                            'winner_declaration',
+                                            val as string,
+                                        )
+                                    }
+                                    hasOption={false}
+                                    error={errors.winner_declaration}
+                                    className="max-w-auto w-full"
+                                />
+                            )}
+                        </div>
+
+                        {/* 3. Judge Assignment (Hidden if Public) */}
+                        {data.vote_rights !== 'Public' && (
+                            <div className="space-y-6">
+                                <MultiSelectInput
+                                    id="judges"
+                                    label="Assign Judge Panel"
+                                    options={judgesOptions}
+                                    value={data.judges}
+                                    onChange={(val) => {
+                                        const newJudges = val as number[];
+                                        const currentLead = data.lead_judge;
+                                        const newLead =
+                                            currentLead &&
+                                            newJudges.includes(
+                                                Number(currentLead),
+                                            )
+                                                ? currentLead
+                                                : '';
+
+                                        setData((data) => ({
+                                            ...data,
+                                            judges: newJudges,
+                                            lead_judge: newLead,
+                                        }));
+                                    }}
+                                    className="max-w-auto w-full"
+                                />
+
+                                {/* 4. LEAD JUDGE SELECTOR */}
+                                {data.winner_declaration === 'judges' && (
+                                    <div className="rounded-md border border-blue-200 bg-white p-4">
+                                        <div className="mb-2 text-sm text-blue-800">
+                                            <strong>Option A Selected:</strong>{' '}
+                                            You must assign a Lead Judge to
+                                            finalize the winners.
+                                        </div>
+                                        <SelectInput
+                                            id="lead_judge"
+                                            label="Select Lead Judge"
+                                            options={judgesOptions.filter((j) =>
+                                                data.judges
+                                                    .map((id) => Number(id))
+                                                    .includes(Number(j.value)),
+                                            )}
+                                            value={data.lead_judge}
+                                            onChange={(val) =>
+                                                setData(
+                                                    'lead_judge',
+                                                    val as number,
+                                                )
+                                            }
+                                            hasOption={false}
+                                            error={errors.lead_judge}
+                                            placeholder="-- Choose Lead Judge --"
+                                            className="max-w-auto w-full"
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
                     <PrizesInput
                         prizePools={prizePoolsOptions}
                         prizes={data.prizes}

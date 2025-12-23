@@ -159,9 +159,14 @@ export const adminNavItemsEN: NavItem[] = [
         ],
     },
     {
-        title: 'User',
+        title: 'Users',
         icon: UserPlus,
         subItems: [
+            {
+                title: 'All Judges',
+                href: route('admin.allJudge'),
+                icon: ServerIcon,
+            },
             {
                 title: 'All Users',
                 href: route('admin.allUsers'),

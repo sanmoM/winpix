@@ -19,7 +19,7 @@ class RoleMiddleware
         if (! Auth::check() || ! in_array(Auth()->user()->role, $roles)) {
             if ($request->inertia()) {
 
-                if (Auth::user()->role === 'user') {
+                if (Auth::user()->role === 'user' || Auth::user()->role === 'jury') {
                     return redirect()->route('dashboard');
                 } elseif (Auth::user()->role === 'admin') {
                     return redirect()->route('admin.dashboard');

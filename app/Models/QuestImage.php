@@ -11,6 +11,14 @@ class QuestImage extends Model
         'quest_id',
         'image',
         'user_id',
+        'camera_brand',
+        'camera_model',
+        'lens',
+        'focal_length',
+        'aperture',
+        'shutter_speed',
+        'iso',
+        'date_captured',
     ];
 
     protected static function booted()

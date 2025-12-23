@@ -37,6 +37,7 @@ class User extends Authenticatable
         'votes_cast',
         'coins',
         'pixel',
+        'cash',
         'isRedeemed',
     ];
 

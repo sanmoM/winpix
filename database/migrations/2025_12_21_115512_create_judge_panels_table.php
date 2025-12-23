@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('votes', function (Blueprint $table) {
+        Schema::create('judge_panels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('image_id')->constrained('quest_images');
-            $table->foreignId('user_id')->constrained('users');
             $table->foreignId('quest_id')->constrained('quests');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
-
-            $table->unique(['image_id', 'user_id', 'quest_id']);
         });
     }
 
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('votes');
+        Schema::dropIfExists('judge_panels');
     }
 };

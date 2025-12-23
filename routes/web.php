@@ -39,7 +39,7 @@ Route::get('auth-error', function () {
     return view('error');
 })->name('auth.error');
 
-Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
     Route::get('dashboard', function () {
         $stats = [
             'totalQuests' => auth()->user()->joinedQuests()->count(),
@@ -66,11 +66,11 @@ Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'verified', 'role:jury'])->prefix('jury')->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('Jury/dashboard');
-    })->name('jury.dashboard');
-});
+// Route::middleware(['auth', 'verified', 'role:jury'])->prefix('jury')->group(function () {
+//     Route::get('dashboard', function () {
+//         return Inertia::render('Jury/dashboard');
+//     })->name('jury.dashboard');
+// });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
 
@@ -79,6 +79,11 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('/users/view/{id}', [UserController::class, 'show'])->name('admin.view-user');
     Route::get('/users/edit/{id}', [UserController::class, 'EditUsers'])->name('admin.editUsers');
     Route::put('/users/update/{id}', [UserController::class, 'updateUsers'])->name('admin.updateUsers');
+    Route::get('/all-judge', [UserController::class, 'allJudge'])->name('admin.allJudge');
+    Route::get('/judge/create', [UserController::class, 'createJudge'])->name('admin.judge.create');
+    Route::post('/judge/store', [UserController::class, 'storeJudge'])->name('admin.judge.store');
+    Route::get('/judge/edit/{id}', [UserController::class, 'editJudge'])->name('admin.editJudge');
+    Route::put('/judge/update/{id}', [UserController::class, 'updateJudge'])->name('admin.updateJudge');
     Route::get('/contest', [QuestController::class, 'index'])->name('admin.quest');
     Route::get('/contest/create', [QuestController::class, 'create'])->name('admin.quest.create');
     Route::get('/contest/edit/{id}', [QuestController::class, 'edit'])->name('admin.quest.edit');
@@ -98,15 +103,16 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::resource('brand-marketing', BrandMarketingController::class)->names('admin.brand_marketing');
     Route::get('/report', function () {
         $reports = Report::with(['image.user'])->get();
-        return Inertia::render("Admin/Report/index", [
-            'reports' => $reports
+
+        return Inertia::render('Admin/Report/index', [
+            'reports' => $reports,
         ]);
     });
     Route::resource('/prize-pools', PrizePoolController::class)->names('admin.prize_pools');
 
 });
 
-require __DIR__ . '/settings.php';
-require __DIR__ . '/auth.php';
-require __DIR__ . '/frontend.php';
-require __DIR__ . '/user-dashboard.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/frontend.php';
+require __DIR__.'/user-dashboard.php';

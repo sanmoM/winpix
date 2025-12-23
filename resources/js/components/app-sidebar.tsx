@@ -9,16 +9,16 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { adminNavItemsAR, adminNavItemsEN, userNavItemsAR, userNavItemsEN } from '@/data/dashboard-nav-items';
+import {
+    adminNavItemsAR,
+    adminNavItemsEN,
+    userNavItemsAR,
+    userNavItemsEN,
+} from '@/data/dashboard-nav-items';
 import useBackground from '@/hooks/useBackground';
 import useLocales from '@/hooks/useLocales';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import {
-    LayoutGrid,
-    Scale
-} from 'lucide-react';
-import { route } from 'ziggy-js';
 import Logo from './shared/logo';
 
 export function AppSidebar() {
@@ -30,37 +30,36 @@ export function AppSidebar() {
     const mainNavItems: NavItem[] =
         currentLanguage === 'ar' ? userNavItemsAR : userNavItemsEN;
 
-    const adminNavItems: NavItem[] = currentLanguage === 'ar' ? adminNavItemsAR : adminNavItemsEN
+    const adminNavItems: NavItem[] =
+        currentLanguage === 'ar' ? adminNavItemsAR : adminNavItemsEN;
 
-    const juryNavItems: NavItem[] = [
-        {
-            title: 'Jury Panel',
-            href: 'jury/dashboard',
-            icon: Scale,
-            subItems: [
-                {
-                    title: 'Dashboard',
-                    href: route('jury.dashboard'),
-                    icon: LayoutGrid,
-                },
-            ],
-        },
-    ];
+    // const juryNavItems: NavItem[] = [
+    //     {
+    //         title: 'Jury Panel',
+    //         href: 'jury/dashboard',
+    //         icon: Scale,
+    //         subItems: [
+    //             {
+    //                 title: 'Dashboard',
+    //                 href: route('jury.dashboard'),
+    //                 icon: LayoutGrid,
+    //             },
+    //         ],
+    //     },
+    // ];
 
     let roleBaseNavItems = [...mainNavItems];
 
     if (userRole === 'admin') {
         roleBaseNavItems = [...adminNavItems];
-    } else if (userRole === 'jury') {
-        roleBaseNavItems = [...juryNavItems];
     }
 
     const dashboardHref =
         userRole === 'admin'
             ? 'admin/dashboard'
-            : userRole === 'jury'
-                ? 'jury/dashboard'
-                : '/dashboard';
+            : userRole === 'user' || userRole === 'jury'
+              ? '/dashboard'
+              : '/';
 
     return (
         <Sidebar collapsible="icon" variant="inset">

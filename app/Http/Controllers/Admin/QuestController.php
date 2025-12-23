@@ -8,7 +8,7 @@ use App\Models\Quest;
 use App\Models\QuestCategory;
 use App\Models\QuestType;
 use App\Models\Series;
-use App\Services\RankingService;
+use App\Models\User;
 use Inertia\Inertia;
 
 class QuestController extends Controller
@@ -33,19 +33,20 @@ class QuestController extends Controller
         $categories = QuestCategory::all();
         $series = Series::all();
         $types = QuestType::all();
+        $judges = User::where('role', 'jury')->select('id', 'name')->get();
 
         return Inertia::render('Admin/Quest/create-quest', [
             'categories' => $categories,
             'series' => $series,
             'types' => $types,
-            'rank_tiers' => RankingService::RANK_TIERS,
-            'prizePools' => PrizePool::all()
+            'judges' => $judges,
+            'prizePools' => PrizePool::all(),
         ]);
     }
 
     public function show(string $id)
     {
-        $quest = Quest::with('prizes', "category", "quest_type", "questSeries")->findOrFail($id);
+        $quest = Quest::with('prizes', 'category', 'quest_type', 'questSeries')->findOrFail($id);
 
         return Inertia::render('Admin/Quest/view-quest', [
             'quest' => [
@@ -55,7 +56,7 @@ class QuestController extends Controller
                 'title_ar' => $quest->title_ar,
                 'brief_ar' => $quest->brief_ar,
                 'category' => $quest->category,
-                'startDate' => $quest->start_date, // already string thanks to casting
+                'startDate' => $quest->start_date,
                 'endDate' => $quest->end_date,
                 'prizes' => $quest->prizes,
                 'image' => $quest->image,
@@ -72,7 +73,7 @@ class QuestController extends Controller
                 'quest_type' => $quest->quest_type,
                 'rank_tier' => $quest->rank_tier,
             ],
-            'prizePools' => PrizePool::all()
+            'prizePools' => PrizePool::all(),
         ]);
     }
 
@@ -86,6 +87,8 @@ class QuestController extends Controller
         $categories = QuestCategory::all();
         $types = QuestType::all();
         $prizePools = PrizePool::all();
+
+        $judges = User::where('role', 'jury')->select('id', 'name')->get();
 
         return Inertia::render('Admin/Quest/edit-quest', [
             'quest' => [
@@ -110,13 +113,18 @@ class QuestController extends Controller
 
                 'quest_series_id' => $quest->quest_series_id,
                 'quest_type_id' => $quest->quest_type_id,
-                'rank_tier' => $quest->rank_tier,
+                'status' => $quest->status,
+                'manual_override' => $quest->manual_override,
+                'lead_judge' => $quest->lead_judge,
+                'winner_declaration' => $quest->winner_declaration,
+                'manual_override_end_date' => $quest->manual_override_end_date,
             ],
             'categories' => $categories,
             'series' => $series,
             'types' => $types,
-            'rank_tiers' => RankingService::RANK_TIERS,
-            'prizePools' => $prizePools
+            'prizePools' => $prizePools,
+            'judges' => $judges,
+
         ]);
 
     }

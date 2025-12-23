@@ -2,6 +2,7 @@ import InputError from '@/components/input-error';
 import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import DateInput from '@/components/shared/inputs/date-input';
 import ImageInput from '@/components/shared/inputs/image-input';
+import MultiSelectInput from '@/components/shared/inputs/multi-select-input';
 import SelectInput from '@/components/shared/inputs/select-input';
 import TextAreaInput from '@/components/shared/inputs/text-area-input';
 import TextInput from '@/components/shared/inputs/text-input';
@@ -43,6 +44,13 @@ interface Quest {
     categories_requirement_ar: string;
     copyright_requirement_ar: string;
     quest_series_id: string;
+    vote_rights: string;
+    status?: string;
+    manual_override?: string;
+    judges?: number[];
+    lead_judge?: number | '';
+    winner_declaration: string;
+    manual_override_end_date?: string;
 }
 
 export default function Dashboard() {
@@ -50,7 +58,7 @@ export default function Dashboard() {
         categories,
         series,
         types,
-        rank_tiers,
+        judges,
         prizePools,
     }: { categories: { id: number; name: string }[] } = usePage<any>().props;
     const { t } = useLocales();
@@ -86,7 +94,13 @@ export default function Dashboard() {
         categories_requirement_ar: '',
         copyright_requirement_ar: '',
         quest_series_id: '',
-        rank_tier: 'all',
+        vote_rights: 'Public',
+        manual_override: 'None',
+        judges: [],
+        lead_judge: '',
+        winner_declaration: 'auto',
+        manual_override_end_date: '',
+        status: 'Scheduled',
     });
 
     const categoryOptions = categories.map((category) => ({
@@ -104,15 +118,23 @@ export default function Dashboard() {
         label: types.name,
     }));
 
-    const rankTierOptions = rank_tiers.map((tier: any) => ({
-        value: tier.tier,
-        label: tier.tier,
+    const judgesOptions = judges.map((judge) => ({
+        value: judge.id,
+        label: judge.name,
     }));
 
-    rankTierOptions.unshift({
-        value: 'all',
-        label: 'All',
-    });
+    const manualOverrideOptions = [
+        { value: 'None', label: 'None' },
+        { value: 'Force_Open', label: 'Force Open' },
+        { value: 'Force_Paused', label: 'Force Paused' },
+        { value: 'Force_Closed', label: 'Force Closed' },
+    ];
+
+    const winnerDeclarationOptions = [
+        { value: 'auto', label: 'Auto (System Calculated)' },
+        { value: 'admin', label: 'Manual (Admin Only)' },
+        { value: 'judges', label: 'Manual (Lead Judge Decides)' },
+    ];
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -235,31 +257,20 @@ export default function Dashboard() {
                             }
                             className="max-w-auto w-full"
                         />
-                        <SelectInput
-                            id="rank_tier"
-                            name="rank_tier"
-                            label={t('dashboard.quest.inputs.rank_tier.label')}
-                            options={rankTierOptions}
-                            value={data.rank_tier}
-                            onChange={(value) =>
-                                setData('rank_tier', value as string)
-                            }
-                            className="max-w-auto w-full"
-                            hasOption={false}
+                        <TextInput
+                            id="entry_coin"
+                            type="number"
+                            value={data.entry_coin}
+                            setValue={(value) => setData('entry_coin', value)}
+                            label={t('dashboard.quest.inputs.entryCoin.label')}
+                            placeholder={t(
+                                'dashboard.quest.inputs.entryCoin.placeholder',
+                            )}
+                            error={errors.entry_coin}
+                            required={true}
                         />
                     </div>
-                    <TextInput
-                        id="entry_coin"
-                        type="number"
-                        value={data.entry_coin}
-                        setValue={(value) => setData('entry_coin', value)}
-                        label={t('dashboard.quest.inputs.entryCoin.label')}
-                        placeholder={t(
-                            'dashboard.quest.inputs.entryCoin.placeholder',
-                        )}
-                        error={errors.entry_coin}
-                        required={true}
-                    />
+
                     <div className="grid grid-cols-3 gap-4">
                         <TextInput
                             id="copyright_requirement_en"
@@ -376,6 +387,163 @@ export default function Dashboard() {
                             <InputError message={errors.endDate} />
                         </div>
                     </div>
+
+                    <div className="grid grid-cols-1 gap-4">
+                        <SelectInput
+                            id="manual_override"
+                            name="manual_override"
+                            label={t(
+                                'dashboard.quest.inputs.manual_override.label',
+                            )}
+                            options={manualOverrideOptions}
+                            value={data.manual_override}
+                            onChange={(value) =>
+                                setData('manual_override', value as string)
+                            }
+                            className="max-w-auto w-full"
+                            hasOption={false}
+                        />
+                        {data.manual_override === 'Force_Open' && (
+                            <div className="grid gap-2">
+                                <Label htmlFor="manual_override_end_date">
+                                    Manual Override End Date
+                                </Label>
+                                <DateInput
+                                    min={data.startDate}
+                                    value={data.manual_override_end_date}
+                                    onChange={(value) =>
+                                        setData(
+                                            'manual_override_end_date',
+                                            value,
+                                        )
+                                    }
+                                />
+                                <InputError
+                                    message={errors.manual_override_end_date}
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                    {/* --- JUDGING SECTION --- */}
+                    <div className="space-y-6 rounded-lg border bg-gray-50 p-6">
+                        <h3 className="mb-4 border-b pb-2 text-lg font-medium text-gray-800">
+                            Judging & Winner Rules
+                        </h3>
+
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                            {/* 1. Vote Rights */}
+                            <SelectInput
+                                id="vote_rights"
+                                label="Judging Type"
+                                options={[
+                                    {
+                                        value: 'Public',
+                                        label: 'Public Voting Only',
+                                    },
+                                    { value: 'Judges', label: 'Judges Only' },
+                                    {
+                                        value: 'Hybrid',
+                                        label: 'Hybrid (Public + Judges)',
+                                    },
+                                ]}
+                                value={data.vote_rights}
+                                onChange={(val) => {
+                                    setData((prevData) => ({
+                                        ...prevData,
+                                        vote_rights: val as string,
+
+                                        judges: [],
+                                        lead_judge: '',
+                                        winner_declaration: 'auto',
+                                    }));
+                                }}
+                                hasOption={false}
+                                error={errors.vote_rights}
+                                className="max-w-auto w-full"
+                            />
+
+                            {/* 2. Winner Declaration (Hidden if Public) */}
+                            {data.vote_rights !== 'Public' && (
+                                <SelectInput
+                                    id="winner_declaration"
+                                    label="Winner Declaration Mode"
+                                    options={winnerDeclarationOptions}
+                                    value={data.winner_declaration}
+                                    onChange={(val) =>
+                                        setData(
+                                            'winner_declaration',
+                                            val as string,
+                                        )
+                                    }
+                                    hasOption={false}
+                                    error={errors.winner_declaration}
+                                    className="max-w-auto w-full"
+                                />
+                            )}
+                        </div>
+
+                        {/* 3. Judge Assignment (Hidden if Public) */}
+                        {data.vote_rights !== 'Public' && (
+                            <div className="space-y-6">
+                                <MultiSelectInput
+                                    label="Assign Judge Panel"
+                                    options={judgesOptions}
+                                    value={data.judges}
+                                    onChange={(val) => {
+                                        const newJudges = val as number[];
+                                        const currentLead = data.lead_judge;
+                                        const newLead =
+                                            currentLead &&
+                                            newJudges.includes(
+                                                Number(currentLead),
+                                            )
+                                                ? currentLead
+                                                : '';
+
+                                        setData((data) => ({
+                                            ...data,
+                                            judges: newJudges,
+                                            lead_judge: newLead,
+                                        }));
+                                    }}
+                                    className="max-w-auto w-full"
+                                />
+
+                                {/* 4. LEAD JUDGE SELECTOR */}
+                                {data.winner_declaration === 'judges' && (
+                                    <div className="rounded-md border border-blue-200 bg-white p-4">
+                                        <div className="mb-2 text-sm text-blue-800">
+                                            <strong>Option A Selected:</strong>{' '}
+                                            You must assign a Lead Judge to
+                                            finalize the winners.
+                                        </div>
+                                        <SelectInput
+                                            id="lead_judge"
+                                            label="Select Lead Judge"
+                                            options={judgesOptions.filter((j) =>
+                                                data.judges
+                                                    .map((id) => Number(id))
+                                                    .includes(Number(j.value)),
+                                            )}
+                                            value={data.lead_judge}
+                                            onChange={(val) =>
+                                                setData(
+                                                    'lead_judge',
+                                                    val as number,
+                                                )
+                                            }
+                                            hasOption={false}
+                                            error={errors.lead_judge}
+                                            placeholder="-- Choose Lead Judge --"
+                                            className="max-w-auto w-full"
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
                     <PrizesInput
                         prizes={data.prizes}
                         setPrizes={(value) => setData('prizes', value)}

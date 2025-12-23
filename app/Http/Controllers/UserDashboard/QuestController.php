@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UserDashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\JudgePanel;
 use App\Models\Prize;
 use App\Models\Quest;
 use App\Models\QuestCategory;
@@ -52,7 +53,6 @@ class QuestController extends Controller
      */
     public function store(Request $request)
     {
-        // Get authenticated user
         $user = auth()->user();
         $userId = $user->id;
         $input = $request->all();
@@ -84,7 +84,21 @@ class QuestController extends Controller
 
             'quest_series_id' => 'required|integer|exists:series,id',
             'quest_type_id' => 'required|integer|exists:quest_types,id',
-            'rank_tier' => 'required',
+
+            'winner_declaration' => 'nullable|string|in:auto,admin,judges',
+
+            'vote_rights' => 'required|string|in:Public,Judges,Hybrid',
+            'judges' => 'required_if:vote_rights,Judges,Hybrid|array',
+            'judges.*' => 'exists:users,id',
+
+            'lead_judge' => [
+                'nullable',
+                'required_if:winner_declaration,judges',
+                'exists:users,id',
+            ],
+            'manual_override' => 'required',
+            'manual_override_end_date' => 'required_if:manual_override,Force_Open',
+
         ]);
 
         if ($validator->fails()) {
@@ -106,7 +120,7 @@ class QuestController extends Controller
             'start_date' => $input['startDate'],
             'end_date' => $input['endDate'],
             'image' => $input['image'] ?? null,
-            'status' => 'active',
+            'status' => $input['status'],
             'user_id' => $userId,
             'entry_coin' => $input['entry_coin'],
             'level_requirement_en' => $input['level_requirement_en'],
@@ -119,7 +133,13 @@ class QuestController extends Controller
 
             'quest_series_id' => $input['quest_series_id'],
             'quest_type_id' => $input['quest_type_id'],
-            'rank_tier' => $input['rank_tier'],
+
+            'vote_rights' => $input['vote_rights'],
+            'winner_declaration' => $input['winner_declaration'],
+            'manual_override' => $input['manual_override'],
+            'manual_override_end_date' => $input['manual_override_end_date'],
+            'lead_judge' => $input['lead_judge'] ?? null,
+
         ]);
 
         // Create prizes
@@ -132,6 +152,15 @@ class QuestController extends Controller
                 'title' => $prizeData['title'],
                 'prize_pool' => $prizeData['prize_pool'],
             ]);
+        }
+
+        if (isset($input['judges']) && is_array($input['judges'])) {
+            foreach ($input['judges'] as $judge) {
+                JudgePanel::create([
+                    'quest_id' => $quest->id,
+                    'user_id' => $judge,
+                ]);
+            }
         }
 
         return redirect()->route('admin.quest')
@@ -288,6 +317,7 @@ class QuestController extends Controller
             'quest_series_id' => $input['quest_series_id'],
             'quest_type_id' => $input['quest_type_id'],
             'rank_tier' => $input['rank_tier'],
+
         ]);
 
         // (Prizes update logic same as before...)

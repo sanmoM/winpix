@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -52,5 +53,68 @@ class UserController extends Controller
         $user = User::with(['followers', 'following', 'joinedQuests', 'questImages', 'votes'])->find($id);
 
         return Inertia::render('Admin/Users/view-user', ['user' => $user]);
+    }
+
+    // New method to get all judges
+
+    public function allJudge(Request $request)
+    {
+        $judges = User::where('role', 'jury')->get();
+
+        return Inertia::render('Admin/Judge/AllJudge', ['judges' => $judges]);
+    }
+
+    public function createJudge()
+    {
+        return Inertia::render('Admin/Judge/Create');
+    }
+
+    public function storeJudge(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'role' => $request->role,
+            'level' => $request->level,
+        ]);
+
+        $user->save();
+
+        return redirect()
+            ->route('admin.allJudge')
+            ->with('success', 'User created successfully 🎉');
+    }
+
+    public function editJudge($id)
+    {
+
+        $judge = User::find($id);
+
+        return Inertia::render('Admin/Judge/Edit', ['judge' => $judge]);
+
+    }
+
+    public function updateJudge(Request $request, string $id)
+    {
+        $item = User::findOrFail($id);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'status' => 'required',
+        ]);
+
+        $item->update($validated);
+
+        return redirect()
+            ->route('admin.allJudge')
+            ->with('success', 'User updated successfully 🎉');
     }
 }

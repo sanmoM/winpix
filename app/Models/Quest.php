@@ -31,7 +31,11 @@ class Quest extends Model
         'copyright_requirement_ar',
         'quest_series_id',
         'quest_type_id',
-        'rank_tier',
+        'vote_rights',
+        'manual_override',
+        'winner_declaration',
+        'lead_judge',
+        'manual_override_end_date',
     ];
 
     protected static function booted()
@@ -91,10 +95,14 @@ class Quest extends Model
     {
         return $this->hasMany(Vote::class);
     }
+
+    public function judges()
+    {
+        return $this->hasMany(JudgePanel::class);
+    }
+
     protected $casts = [
         'start_date' => 'date:Y-m-d',
         'end_date' => 'date:Y-m-d',
     ];
-
-    
 }

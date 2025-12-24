@@ -79,7 +79,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('/users/view/{id}', [UserController::class, 'show'])->name('admin.view-user');
     Route::get('/users/edit/{id}', [UserController::class, 'EditUsers'])->name('admin.editUsers');
     Route::put('/users/update/{id}', [UserController::class, 'updateUsers'])->name('admin.updateUsers');
-    Route::get('/all-judge', [UserController::class, 'allJudge'])->name('admin.allJudge');
+    Route::get('/judge', [UserController::class, 'allJudge'])->name('admin.allJudge');
     Route::get('/judge/create', [UserController::class, 'createJudge'])->name('admin.judge.create');
     Route::post('/judge/store', [UserController::class, 'storeJudge'])->name('admin.judge.store');
     Route::get('/judge/edit/{id}', [UserController::class, 'editJudge'])->name('admin.editJudge');
@@ -88,6 +88,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('/contest/create', [QuestController::class, 'create'])->name('admin.quest.create');
     Route::get('/contest/edit/{id}', [QuestController::class, 'edit'])->name('admin.quest.edit');
     Route::get('/contest/view/{id}', [QuestController::class, 'show'])->name('admin.quest.view');
+    Route::get('/loges', [QuestController::class, 'ContestLogs'])->name('admin.contestLogs');
     Route::resource('about', AboutController::class)->names('admin.about');
     Route::resource('slider', SliderController::class)->names('admin.slider');
     Route::resource('store', StoreController::class)->names('admin.store');

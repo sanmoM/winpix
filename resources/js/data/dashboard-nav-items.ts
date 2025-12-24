@@ -1,6 +1,7 @@
 import { type NavItem } from '@/types';
 import {
     Airplay,
+    Gavel,
     LayoutGrid,
     ServerIcon,
     Store,
@@ -116,6 +117,11 @@ export const adminNavItemsEN: NavItem[] = [
         icon: Trophy,
         subItems: [
             {
+                title: 'Prize Pool',
+                href: route('admin.prize_pools.index'),
+                icon: ServerIcon,
+            },
+            {
                 title: 'Series',
                 href: route('admin.series.index'),
                 icon: ServerIcon,
@@ -136,8 +142,8 @@ export const adminNavItemsEN: NavItem[] = [
                 icon: ServerIcon,
             },
             {
-                title: 'Prize Pool',
-                href: route('admin.prize_pools.index'),
+                title: 'Contest Log',
+                href: route('admin.contestLogs'),
                 icon: ServerIcon,
             },
         ],
@@ -159,14 +165,20 @@ export const adminNavItemsEN: NavItem[] = [
         ],
     },
     {
-        title: 'Users',
-        icon: UserPlus,
+        title: 'Judge',
+        icon: Gavel,
         subItems: [
             {
                 title: 'All Judges',
                 href: route('admin.allJudge'),
                 icon: ServerIcon,
             },
+        ],
+    },
+    {
+        title: 'Users',
+        icon: UserPlus,
+        subItems: [
             {
                 title: 'All Users',
                 href: route('admin.allUsers'),

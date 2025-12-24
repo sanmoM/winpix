@@ -50,6 +50,7 @@ interface Quest {
     lead_judge?: number | '';
     winner_declaration: string;
     manual_override_end_date?: string;
+    reason?: string;
 }
 
 // Utility to format ISO date string to YYYY-MM-DD
@@ -119,7 +120,8 @@ export default function EditQuest() {
         vote_rights: quest.vote_rights,
         status: quest.status,
         lead_judge: quest.lead_judge,
-        judges: quest.judges,
+        judges: quest.judges || [],
+        reason: '',
     });
 
     const categoryOptions = categories.map((category) => ({
@@ -163,11 +165,7 @@ export default function EditQuest() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Create FormData object (required for file upload)
         const formData = new FormData();
-
-        // Laravel expects a PUT, but browsers only support POST in multipart/form-data
-        // So we spoof the method:
         formData.append('_method', 'PUT');
 
         // Append all quest fields
@@ -207,6 +205,22 @@ export default function EditQuest() {
 
         formData.append('quest_series_id', data.quest_series_id);
         formData.append('quest_type_id', data.quest_type_id);
+        formData.append('manual_override', data.manual_override || 'None');
+        formData.append('winner_declaration', data.winner_declaration);
+        if (data.reason) {
+            formData.append('reason', data.reason);
+        }
+        formData.append(
+            'manual_override_end_date',
+            data.manual_override_end_date || '',
+        );
+        formData.append('vote_rights', data.vote_rights);
+
+        if (Array.isArray(data.judges)) {
+            data.judges.forEach((judgeId) => {
+                formData.append('judges[]', judgeId.toString());
+            });
+        }
 
         // Append prizes (array of objects)
         data.prizes.forEach((prize, index) => {
@@ -233,8 +247,8 @@ export default function EditQuest() {
 
         // Send FormData to Laravel via Inertia
         router.post(route('user-dashboard.quest.update', data.id), formData, {
-            forceFormData: true, // ensures multipart/form-data encoding
-            preserveScroll: true, // keeps scroll position after submit
+            forceFormData: true,
+            preserveScroll: true,
             onSuccess: () => {},
             onError: (errors) => {
                 console.error('Validation errors:', errors);
@@ -357,26 +371,26 @@ export default function EditQuest() {
                             }
                             className="max-w-auto w-full"
                         />
+                        <div className="grid gap-2">
+                            <Label htmlFor="title">
+                                {t('dashboard.quest.inputs.entryCoin.label')}
+                            </Label>
+                            <Input
+                                type="number"
+                                id="start"
+                                name="start"
+                                value={data.entry_coin}
+                                onChange={(e) => {
+                                    setData('entry_coin', e.target.value);
+                                }}
+                                placeholder={t(
+                                    'dashboard.quest.inputs.entryCoin.placeholder',
+                                )}
+                            />
+                            <InputError message={errors.entry_coin} />
+                        </div>
                     </div>
 
-                    <div className="grid gap-2">
-                        <Label htmlFor="title">
-                            {t('dashboard.quest.inputs.entryCoin.label')}
-                        </Label>
-                        <Input
-                            type="number"
-                            id="start"
-                            name="start"
-                            value={data.entry_coin}
-                            onChange={(e) => {
-                                setData('entry_coin', e.target.value);
-                            }}
-                            placeholder={t(
-                                'dashboard.quest.inputs.entryCoin.placeholder',
-                            )}
-                        />
-                        <InputError message={errors.entry_coin} />
-                    </div>
                     <div className="grid grid-cols-3 gap-4">
                         <div className="grid gap-2">
                             <Label htmlFor="title">
@@ -537,28 +551,61 @@ export default function EditQuest() {
                             className="max-w-auto w-full"
                             hasOption={false}
                         />
-                        {data.manual_override === 'Force_Open' && (
-                            <div className="grid gap-2">
-                                <Label htmlFor="manual_override_end_date">
-                                    Manual Override End Date
-                                </Label>
-                                <DateInput
-                                    min={data.startDate}
-                                    value={data.manual_override_end_date}
-                                    onChange={(value) =>
-                                        setData(
-                                            'manual_override_end_date',
-                                            value,
-                                        )
-                                    }
-                                />
-                                <InputError
-                                    message={errors.manual_override_end_date}
-                                />
-                            </div>
-                        )}
                     </div>
-
+                    {data.manual_override !== 'None' && (
+                        <div className="space-y-6 rounded-lg border bg-gray-50 p-6">
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                {data.manual_override === 'Force_Open' && (
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="manual_override_end_date">
+                                            Manual Override End Date{' '}
+                                            <span className="text-red-600">
+                                                *
+                                            </span>
+                                        </Label>
+                                        <DateInput
+                                            min={data.startDate}
+                                            value={
+                                                data.manual_override_end_date
+                                            }
+                                            onChange={(value) =>
+                                                setData(
+                                                    'manual_override_end_date',
+                                                    value,
+                                                )
+                                            }
+                                            required={true}
+                                        />
+                                        <InputError
+                                            message={
+                                                errors.manual_override_end_date
+                                            }
+                                        />
+                                    </div>
+                                )}
+                                {data.manual_override !== 'None' && (
+                                    <div className="grid gap-2">
+                                        <Label
+                                            htmlFor="reason"
+                                            className="text-red-600"
+                                        ></Label>
+                                        <TextInput
+                                            id="reason"
+                                            value={data.reason}
+                                            setValue={(value) =>
+                                                setData('reason', value)
+                                            }
+                                            label=" Reason for Status Change"
+                                            placeholder="Why are you changing the status?"
+                                            error={errors.reason}
+                                            required={true}
+                                        />
+                                        <InputError message={errors.reason} />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
                     {/* --- JUDGING SECTION --- */}
                     <div className="space-y-6 rounded-lg border bg-gray-50 p-6">
                         <h3 className="mb-4 border-b pb-2 text-lg font-medium text-gray-800">
@@ -649,7 +696,7 @@ export default function EditQuest() {
                                 {data.winner_declaration === 'judges' && (
                                     <div className="rounded-md border border-blue-200 bg-white p-4">
                                         <div className="mb-2 text-sm text-blue-800">
-                                            <strong>Option A Selected:</strong>{' '}
+                                            <strong>Option Selected:</strong>{' '}
                                             You must assign a Lead Judge to
                                             finalize the winners.
                                         </div>
@@ -686,7 +733,7 @@ export default function EditQuest() {
                     />
 
                     {/* Submit */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-end gap-4">
                         <Button disabled={processing}>
                             {t('dashboard.shared.update')}
                         </Button>

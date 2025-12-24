@@ -9,6 +9,7 @@ use App\Models\QuestCategory;
 use App\Models\QuestType;
 use App\Models\Series;
 use App\Models\User;
+use App\Models\VotingOverrideLog;
 use Inertia\Inertia;
 
 class QuestController extends Controller
@@ -82,12 +83,11 @@ class QuestController extends Controller
      */
     public function edit(string $id)
     {
-        $quest = Quest::with('prizes')->findOrFail($id);
+        $quest = Quest::with('prizes', 'judges')->findOrFail($id);
         $series = Series::all();
         $categories = QuestCategory::all();
         $types = QuestType::all();
         $prizePools = PrizePool::all();
-
         $judges = User::where('role', 'jury')->select('id', 'name')->get();
 
         return Inertia::render('Admin/Quest/edit-quest', [
@@ -118,6 +118,8 @@ class QuestController extends Controller
                 'lead_judge' => $quest->lead_judge,
                 'winner_declaration' => $quest->winner_declaration,
                 'manual_override_end_date' => $quest->manual_override_end_date,
+                'judges' => $quest->judges->pluck('user_id'),
+                'vote_rights' => $quest->vote_rights,
             ],
             'categories' => $categories,
             'series' => $series,
@@ -134,6 +136,15 @@ class QuestController extends Controller
         $quest = Quest::findOrFail($id);
         $quest->delete();
 
-        return redirect()->route('user-dashboard.quest.index');
+        return redirect()->back('success', 'Quest deleted successfully 🎉');
+    }
+
+    public function ContestLogs()
+    {
+        $loges = VotingOverrideLog::with('quest:id,title_en', 'admin:id,name')->get();
+
+        return Inertia::render('Admin/Quest/quest-log', [
+            'loges' => $loges,
+        ]);
     }
 }

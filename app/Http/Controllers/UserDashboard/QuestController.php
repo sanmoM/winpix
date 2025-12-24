@@ -9,6 +9,7 @@ use App\Models\Quest;
 use App\Models\QuestCategory;
 use App\Models\QuestType;
 use App\Models\Series;
+use App\Models\VotingOverrideLog;
 use App\Services\RankingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -175,51 +176,14 @@ class QuestController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    // public function edit(string $id)
-    // {
-    //     $quest = Quest::with('prizes')->findOrFail($id);
-    //     $series = Series::all();
-    //     $categories = QuestCategory::all();
-    //     $types = QuestType::all();
-
-    //     return Inertia::render('user-dashboard/quest/edit-quest', [
-    //         'quest' => [
-    //             'id' => $quest->id,
-    //             'title_en' => $quest->title_en,
-    //             'brief_en' => $quest->brief_en,
-    //             'title_ar' => $quest->title_ar,
-    //             'brief_ar' => $quest->brief_ar,
-    //             'category_id' => (string) $quest->category_id,
-    //             'startDate' => $quest->start_date, // already string thanks to casting
-    //             'endDate' => $quest->end_date,
-    //             'prizes' => $quest->prizes,
-    //             'image' => $quest->image,
-    //             'entry_coin' => $quest->entry_coin,
-    //             'level_requirement_en' => $quest->level_requirement_en,
-    //             'categories_requirement_en' => $quest->categories_requirement_en,
-    //             'copyright_requirement_en' => $quest->copyright_requirement_en,
-
-    //             'level_requirement_ar' => $quest->level_requirement_ar,
-    //             'categories_requirement_ar' => $quest->categories_requirement_ar,
-    //             'copyright_requirement_ar' => $quest->copyright_requirement_ar,
-
-    //             'quest_series_id' => $quest->quest_series_id,
-    //             'quest_type_id' => $quest->quest_type_id,
-    //             'rank_tier' => $quest->rank_tier,
-    //         ],
-    //         'categories' => $categories,
-    //         'series' => $series,
-    //         'types' => $types,
-    //     ]);
-    // }
-
     public function update(Request $request, string $id)
     {
         $quest = Quest::with('prizes')->findOrFail($id);
         $input = $request->all();
+
+        $oldStatus = $quest->manual_override ?? 'None';
+        $newStatus = $request->input('manual_override') ?? 'None';
+        $statusChanged = $oldStatus !== $newStatus;
 
         // Validation (same as before)
         $validator = Validator::make($input, [
@@ -260,16 +224,33 @@ class QuestController extends Controller
 
             'quest_series_id' => 'integer|exists:series,id',
             'quest_type_id' => 'integer|exists:quest_types,id',
-            'rank_tier' => 'nullable|string|max:255',
+
+            'winner_declaration' => 'nullable|string|in:auto,admin,judges',
+            'vote_rights' => 'required|string|in:Public,Judges,Hybrid',
+
+            'judges' => 'required_if:vote_rights,Judges,Hybrid|array',
+            'judges.*' => 'exists:users,id',
+
+            'lead_judge' => [
+                'nullable',
+                'required_if:winner_declaration,judges',
+                'exists:users,id',
+            ],
+            'manual_override' => 'required',
+            'reason' => 'nullable|string',
+            'manual_override_end_date' => 'required_if:manual_override,Force_Open',
+
         ]);
+
+        if ($statusChanged) {
+            $rules['reason'] = 'required|string|min:5|max:500';
+        }
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        // ✅ Handle image
         if ($request->hasFile('image')) {
-            // Delete old image if exists
             if ($quest->image && Storage::disk('public')->exists($quest->image)) {
                 Storage::disk('public')->delete($quest->image);
             }
@@ -277,21 +258,7 @@ class QuestController extends Controller
             // Upload new one
             $input['image'] = $request->file('image')->store('uploads/quests', 'public');
         } else {
-            // Keep the existing image if no new file uploaded
             $input['image'] = $quest->image;
-        }
-
-        Prize::where('quest_id', $id)->delete();
-
-        foreach ($input['prizes'] as $prizeData) {
-            Prize::create([
-                'quest_id' => $quest->id,
-                'min' => $prizeData['min'],
-                'max' => $prizeData['max'],
-                'coin' => $prizeData['coin'],
-                'title' => $prizeData['title'],
-                'prize_pool' => $prizeData['prize_pool'],
-            ]);
         }
 
         // Update quest
@@ -316,11 +283,45 @@ class QuestController extends Controller
 
             'quest_series_id' => $input['quest_series_id'],
             'quest_type_id' => $input['quest_type_id'],
-            'rank_tier' => $input['rank_tier'],
-
+            'winner_declaration' => $input['winner_declaration'],
+            'vote_rights' => $input['vote_rights'],
+            'lead_judge' => $input['lead_judge'] ?? null,
+            'manual_override' => $newStatus,
+            'manual_override_end_date' => $input['manual_override_end_date'],
         ]);
 
-        // (Prizes update logic same as before...)
+        Prize::where('quest_id', $id)->delete();
+
+        foreach ($input['prizes'] as $prizeData) {
+            Prize::create([
+                'quest_id' => $quest->id,
+                'min' => $prizeData['min'],
+                'max' => $prizeData['max'],
+                'coin' => $prizeData['coin'],
+                'title' => $prizeData['title'],
+                'prize_pool' => $prizeData['prize_pool'],
+            ]);
+        }
+
+        JudgePanel::where('quest_id', $quest->id)->delete();
+
+        if (isset($input['judges']) && is_array($input['judges'])) {
+            foreach ($input['judges'] as $judgeId) {
+                JudgePanel::create([
+                    'quest_id' => $quest->id,
+                    'user_id' => $judgeId,
+                ]);
+            }
+        }
+
+        if ($statusChanged) {
+            VotingOverrideLog::create([
+                'contest_id' => $quest->id,
+                'admin_id' => auth()->id(),
+                'action' => $newStatus,
+                'reason' => $request->input('reason'),
+            ]);
+        }
 
         return redirect()->route('admin.quest')
             ->with('success', 'Quest updated successfully.');
@@ -332,8 +333,9 @@ class QuestController extends Controller
     public function destroy(string $id)
     {
         $quest = Quest::findOrFail($id);
-        $quest->delete(); // This triggers all cascading deletes
+        $quest->delete();
 
-        return redirect()->route('user-dashboard.quest.index');
+        return redirect()->back()
+            ->with('success', 'Quest deleted successfully.');
     }
 }

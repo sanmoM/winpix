@@ -123,12 +123,7 @@ export default function Dashboard() {
         label: judge.name,
     }));
 
-    const manualOverrideOptions = [
-        { value: 'None', label: 'None' },
-        { value: 'Force_Open', label: 'Force Open' },
-        { value: 'Force_Paused', label: 'Force Paused' },
-        { value: 'Force_Closed', label: 'Force Closed' },
-    ];
+    const manualOverrideOptions = [{ value: 'None', label: 'None' }];
 
     const winnerDeclarationOptions = [
         { value: 'auto', label: 'Auto (System Calculated)' },
@@ -514,7 +509,7 @@ export default function Dashboard() {
                                 {data.winner_declaration === 'judges' && (
                                     <div className="rounded-md border border-blue-200 bg-white p-4">
                                         <div className="mb-2 text-sm text-blue-800">
-                                            <strong>Option A Selected:</strong>{' '}
+                                            <strong>Option Selected:</strong>{' '}
                                             You must assign a Lead Judge to
                                             finalize the winners.
                                         </div>

@@ -37,7 +37,7 @@ export default function AllJudge({
 }) {
     const { t } = useLocales();
 
-    const breadcrumbs = t('dashboard.users.index.breadcrumbs', {
+    const breadcrumbs = t('dashboard.judges.index.breadcrumbs', {
         returnObjects: true,
     });
 
@@ -62,7 +62,7 @@ export default function AllJudge({
                     title="All Judge"
                 />
                 <Table
-                    headingItems={t('dashboard.users.index.table.headings', {
+                    headingItems={t('dashboard.judges.index.table.headings', {
                         returnObjects: true,
                     })}
                 >

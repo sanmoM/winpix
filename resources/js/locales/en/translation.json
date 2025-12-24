@@ -1016,6 +1016,26 @@
                         "Actions"
                     ]
                 }
+            },
+
+            "logs": {
+                "title": "Contest Logs",
+                "breadcrumbs": [
+                    {
+                        "title": "All Contest Logs",
+                        "href": "/admin/quest-logs"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Contest Name",
+                        "Name",
+                        "Reason",
+                        "Action",
+                        "Date"
+                    ]
+                }
             }
         },
         "series": {
@@ -1227,6 +1247,27 @@
                     {
                         "title": "All Users",
                         "href": "/admin/users"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Name",
+                        "Email",
+                        "Rank",
+                        "Status",
+                        "Actions"
+                    ]
+                }
+            }
+        },
+        "judges": {
+            "index": {
+                "title": "Judges",
+                "breadcrumbs": [
+                    {
+                        "title": "All Judges",
+                        "href": "/admin/judges"
                     }
                 ],
                 "table": {

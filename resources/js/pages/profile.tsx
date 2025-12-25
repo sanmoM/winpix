@@ -57,16 +57,16 @@ export default function Profile({ user, stats, isFollowing }: any) {
             <CoinCard item={{ src: "/images/cash.png", count: user.cash }} />
           </div>
           <div className='flex gap-4 mt-4'>
-            <StatsCard item={{ icon: <FaTrophy className='w-6 h-6 lg:w-8 lg:h-8 text-white' />, label: user.totalQuests }} />
+            <StatsCard item={{ icon: <FaTrophy className='w-6 h-6 lg:w-8 lg:h-8 text-white' />, label: user.joined_quests?.length }} />
             <StatsCard item={{ icon: <RiFolderUploadFill className='w-6 h-6 lg:w-8 lg:h-8 text-white' />, label: user?.votes_cast }} />
           </div>
         </Container>
         <Container className="space-y-14 md:space-y-20 lg:space-y-16 my-10 md:my-16 lg:mt-12 lg:mb-32 lg:mx-10">
           {
-            stats?.questImages?.length > 0 && (
+            user?.quest_images?.length > 0 && (
               <>
                 <SectionHeading title={t("profile.tabs.photos")} />
-                <Gallery galleryImages={stats?.questImages?.map(item => ({
+                <Gallery galleryImages={user?.quest_images?.map(item => ({
                   id: item?.image?.id,
                   image: item?.image,
                   user

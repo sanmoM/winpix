@@ -9,6 +9,7 @@ class PrizePool extends Model
     protected $fillable = [
         'name',
         'image',
+        'quantity'
     ];
     
 }

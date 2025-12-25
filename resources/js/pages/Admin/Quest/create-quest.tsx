@@ -132,10 +132,12 @@ export default function Dashboard() {
     ];
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        post(route('user-dashboard.quest.store'), {
-            onSuccess: () => reset(),
-        });
+        console.log(data)
+
+        // e.preventDefault();
+        // post(route('user-dashboard.quest.store'), {
+        //     onSuccess: () => reset(),
+        // });
     };
 
     const breadcrumbs: BreadcrumbItem[] = [
@@ -490,9 +492,9 @@ export default function Dashboard() {
                                         const currentLead = data.lead_judge;
                                         const newLead =
                                             currentLead &&
-                                            newJudges.includes(
-                                                Number(currentLead),
-                                            )
+                                                newJudges.includes(
+                                                    Number(currentLead),
+                                                )
                                                 ? currentLead
                                                 : '';
 

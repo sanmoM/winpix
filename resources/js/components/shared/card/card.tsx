@@ -47,7 +47,14 @@ export default function Card({ item, isSeries = false }: any) {
                                     isSeries ? item?.quests?.reduce((acc, current) => {
                                         acc += current?.entry_coin
                                         return acc
-                                    }, 0) : item?.entry_coin
+                                    }, 0) : item?.prizes?.reduce((acc, current) => {
+                                        // acc += current?.prize
+                                        console.log(current?.prize_pool, "current")
+                                        if (current?.prize_pool?.name === "Cash") {
+                                            acc += current?.prize_pool?.value
+                                        }
+                                        return acc
+                                    }, 0)
                                 } USD</span>
                         </div>
                     </div>

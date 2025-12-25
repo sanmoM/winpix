@@ -41,10 +41,11 @@ class FrontendController extends Controller
     {
         $user = auth()->user();
         $sliders = Slider::all();
-        $new_quest = Quest::with(['category', 'user'])
-            ->where('start_date', '<=', today())
-            ->where('end_date', '>=', today())
-            ->where('status', 'active')->orderBy('created_at', 'desc')->take(8)->get();
+        $new_quest = Quest::with(['category', 'user', "prizes.prize_pool"])
+            // ->where('start_date', '<=', today())
+            // ->where('end_date', '>=', today())
+            // ->where('status', 'active')
+            ->orderBy('created_at', 'desc')->take(8)->get();
         $topImages = Vote::select('image_id')
             ->selectRaw('count(*) as total_votes')
             ->groupBy('image_id')

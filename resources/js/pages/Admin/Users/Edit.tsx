@@ -54,6 +54,7 @@ export default function Edit({ user }: EditProps) {
                         value={data.name}
                         onChange={(e) => setData('name', e.target.value)}
                         placeholder="Enter name"
+                        readOnly
                     />
                 </div>
 
@@ -66,6 +67,7 @@ export default function Edit({ user }: EditProps) {
                         value={data.email}
                         onChange={(e) => setData('email', e.target.value)}
                         placeholder="Enter email"
+                        readOnly
                     />
                 </div>
 

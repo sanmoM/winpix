@@ -333,6 +333,7 @@ class QuestController extends Controller
     public function destroy(string $id)
     {
         $quest = Quest::findOrFail($id);
+        $quest->judges()->delete();
         $quest->delete();
 
         return redirect()->back()

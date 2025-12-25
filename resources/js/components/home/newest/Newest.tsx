@@ -10,7 +10,10 @@ export default function Newest({ t, newQuest }: any) {
                 {
                     newQuest?.map((item: Quest, index: number) => (
                         <Link className="block" href={"/quests/single-quest/" + item.id}>
-                            <Card key={index} item={item} />
+                            <Card key={index} item={{
+                                ...item,
+                                
+                            }} />
                         </Link>
                     ))
                 }

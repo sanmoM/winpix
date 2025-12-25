@@ -80,14 +80,14 @@ const PrizesInput = ({ prizes, setPrizes, prizePools }: any) => {
         const title = generatePrizeTitle(min, max);
 
         const newPrize = {
-            prizeId: Date.now(), // Local unique ID for UI tracking
-            // id: null, // Reserved for DB id
+            prizeId: Date.now(),
             min,
             max,
             coin,
             title,
             prize_pool: prizePool,
         };
+
 
         setPrizes([...prizes, newPrize]);
         setNewMin('');

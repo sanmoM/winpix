@@ -44,7 +44,7 @@ return new class extends Migration
             $table->enum('vote_rights', ['Public', 'Judges', 'Hybrid'])->default('Public');
             $table->enum('manual_override', ['None', 'Force_Open', 'Force_Paused', 'Force_Closed'])->default('None');
             $table->date('manual_override_end_date')->nullable();
-            $table->string('winner_declaration', 50)->default('auto')->change();
+            $table->string('winner_declaration', 50)->default('auto');
             $table->foreignId('lead_judge')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

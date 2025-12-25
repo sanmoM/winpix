@@ -286,7 +286,7 @@ class FrontendController extends Controller
     {
         $isFollowing = Follower::where('follower_id', auth()->user()->id)->where('followed_id', $id)->exists();
 
-        $user = User::with(['questImages', 'votes.image', 'followers', 'following'])->findOrFail($id);
+        $user = User::with(['questImages', 'votes.image', 'joinedQuests', 'followers', 'following'])->findOrFail($id);
 
         $stats = [
             'totalQuests' => $user->joinedQuests()->count(),

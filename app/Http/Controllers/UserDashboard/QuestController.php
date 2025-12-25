@@ -111,7 +111,7 @@ class QuestController extends Controller
             $input['image'] = $request->file('image')->store('uploads/quests', 'public');
         }
 
-        // // Create quest
+        // Create quest
         $quest = Quest::create([
             'title_en' => $input['title_en'],
             'brief_en' => $input['brief_en'],

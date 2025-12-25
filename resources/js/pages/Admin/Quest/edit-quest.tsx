@@ -151,12 +151,6 @@ export default function EditQuest() {
         { value: 'Force_Closed', label: 'Force Closed' },
     ];
 
-    const winnerDeclarationOptions = [
-        { value: 'auto', label: 'Auto (System Calculated)' },
-        { value: 'admin', label: 'Manual (Admin Only)' },
-        { value: 'judges', label: 'Manual (Lead Judge Decides)' },
-    ];
-
     const judgesOptions = judges.map((judge) => ({
         value: judge.id,
         label: judge.name,
@@ -220,6 +214,10 @@ export default function EditQuest() {
             data.judges.forEach((judgeId) => {
                 formData.append('judges[]', judgeId.toString());
             });
+        }
+
+        if (data.lead_judge) {
+            formData.append('lead_judge', data.lead_judge.toString());
         }
 
         // Append prizes (array of objects)
@@ -616,7 +614,7 @@ export default function EditQuest() {
                             {/* 1. Vote Rights */}
                             <SelectInput
                                 id="vote_rights"
-                                label="Judging Type"
+                                label="Voting Type"
                                 options={[
                                     {
                                         value: 'Public',
@@ -629,16 +627,9 @@ export default function EditQuest() {
                                     },
                                 ]}
                                 value={data.vote_rights}
-                                onChange={(val) => {
-                                    setData((prevData) => ({
-                                        ...prevData,
-                                        vote_rights: val as string,
-
-                                        judges: [],
-                                        lead_judge: '',
-                                        winner_declaration: 'auto',
-                                    }));
-                                }}
+                                onChange={(val) =>
+                                    setData('vote_rights', val as string)
+                                }
                                 hasOption={false}
                                 error={errors.vote_rights}
                                 className="max-w-auto w-full"
@@ -649,14 +640,30 @@ export default function EditQuest() {
                                 <SelectInput
                                     id="winner_declaration"
                                     label="Winner Declaration Mode"
-                                    options={winnerDeclarationOptions}
+                                    options={[
+                                        {
+                                            value: 'auto',
+                                            label: 'Auto (System Calculated)',
+                                        },
+                                        {
+                                            value: 'admin',
+                                            label: 'Manual (Admin Only)',
+                                        },
+                                        {
+                                            value: 'judges',
+                                            label: 'Manual (Lead Judge Decides)',
+                                        },
+                                    ]}
                                     value={data.winner_declaration}
-                                    onChange={(val) =>
-                                        setData(
-                                            'winner_declaration',
-                                            val as string,
-                                        )
-                                    }
+                                    onChange={(val) => {
+                                        setData((prevData) => ({
+                                            ...prevData,
+                                            winner_declaration: val as string,
+
+                                            judges: [],
+                                            lead_judge: '',
+                                        }));
+                                    }}
                                     hasOption={false}
                                     error={errors.winner_declaration}
                                     className="max-w-auto w-full"
@@ -665,7 +672,7 @@ export default function EditQuest() {
                         </div>
 
                         {/* 3. Judge Assignment (Hidden if Public) */}
-                        {data.vote_rights !== 'Public' && (
+                        {data.winner_declaration === 'judges' && (
                             <div className="space-y-6">
                                 <MultiSelectInput
                                     id="judges"
@@ -693,35 +700,31 @@ export default function EditQuest() {
                                 />
 
                                 {/* 4. LEAD JUDGE SELECTOR */}
-                                {data.winner_declaration === 'judges' && (
-                                    <div className="rounded-md border border-blue-200 bg-white p-4">
-                                        <div className="mb-2 text-sm text-blue-800">
-                                            <strong>Option Selected:</strong>{' '}
-                                            You must assign a Lead Judge to
-                                            finalize the winners.
-                                        </div>
-                                        <SelectInput
-                                            id="lead_judge"
-                                            label="Select Lead Judge"
-                                            options={judgesOptions.filter((j) =>
-                                                data.judges
-                                                    .map((id) => Number(id))
-                                                    .includes(Number(j.value)),
-                                            )}
-                                            value={data.lead_judge}
-                                            onChange={(val) =>
-                                                setData(
-                                                    'lead_judge',
-                                                    val as number,
-                                                )
-                                            }
-                                            hasOption={false}
-                                            error={errors.lead_judge}
-                                            placeholder="-- Choose Lead Judge --"
-                                            className="max-w-auto w-full"
-                                        />
+
+                                <div className="rounded-md border border-blue-200 bg-white p-4">
+                                    <div className="mb-2 text-sm text-blue-800">
+                                        <strong>Option Selected:</strong> You
+                                        must assign a Lead Judge to finalize the
+                                        winners.
                                     </div>
-                                )}
+                                    <SelectInput
+                                        id="lead_judge"
+                                        label="Select Lead Judge"
+                                        options={judgesOptions.filter((j) =>
+                                            data.judges
+                                                .map((id) => Number(id))
+                                                .includes(Number(j.value)),
+                                        )}
+                                        value={data.lead_judge}
+                                        onChange={(val) =>
+                                            setData('lead_judge', val as number)
+                                        }
+                                        hasOption={false}
+                                        error={errors.lead_judge}
+                                        placeholder="-- Choose Lead Judge --"
+                                        className="max-w-auto w-full"
+                                    />
+                                </div>
                             </div>
                         )}
                     </div>

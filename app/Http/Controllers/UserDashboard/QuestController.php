@@ -89,7 +89,7 @@ class QuestController extends Controller
             'winner_declaration' => 'nullable|string|in:auto,admin,judges',
 
             'vote_rights' => 'required|string|in:Public,Judges,Hybrid',
-            'judges' => 'required_if:vote_rights,Judges,Hybrid|array',
+            'judges' => 'required_if:winner_declaration,judges|array',
             'judges.*' => 'exists:users,id',
 
             'lead_judge' => [
@@ -228,11 +228,10 @@ class QuestController extends Controller
             'winner_declaration' => 'nullable|string|in:auto,admin,judges',
             'vote_rights' => 'required|string|in:Public,Judges,Hybrid',
 
-            'judges' => 'required_if:vote_rights,Judges,Hybrid|array',
+            'judges' => 'required_if:winner_declaration,judges|array',
             'judges.*' => 'exists:users,id',
 
             'lead_judge' => [
-                'nullable',
                 'required_if:winner_declaration,judges',
                 'exists:users,id',
             ],

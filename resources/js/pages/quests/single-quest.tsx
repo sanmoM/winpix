@@ -28,6 +28,7 @@ import { route } from 'ziggy-js'
 export default function SingleQuest() {
 
     const { quest, auth, joinedQuests, questImages, votes, isFollowing, userUploadedImages } = usePage<any>().props;
+    const user = auth?.user;
 
     const [isImageViewOpen, setIsImageViewOpen] = useState(false);
     const [imageIndex, setImageIndex] = useState(0);
@@ -38,18 +39,49 @@ export default function SingleQuest() {
 
     const isJoined = joinedQuests?.map((item: any) => item.quest_id).includes(quest.id)
 
-    const isDisabled = useMemo(() => {
-        const today = new Date(); // current date
-        const startDate = new Date(quest.start_date);
-        const endDate = new Date(quest.end_date);
+    const isDisabled = (() => {
+        // const today = new Date(); // current date
+        // const startDate = new Date(quest.start_date);
+        // const endDate = new Date(quest.end_date);
         // disable if today is before start or after end
-        return today < startDate || today > endDate || !isJoined;
-    }, [quest.start_date, quest.end_date]);
+        // return today < startDate || today > endDate || !isJoined;
+        // console.log( (today < startDate || today > endDate))
+        const votingRights = quest?.vote_rights;
+        let hasVotingRight = false;
+        if (votingRights === "Public") {
+            hasVotingRight = user?.role === "user";
+        } else if (votingRights === "Judges") {
+            hasVotingRight = user?.role === "jury";
+        } else if (votingRights === "Hybrid") {
+            hasVotingRight = true;
+        }
 
+
+        // if admin forsed open contest
+        if (quest?.manual_override === "Force_Open") {
+            return !hasVotingRight;
+        }
+
+
+        // console.log(user?.role === "jury", "hasVotingRight")
+        // console.log(user?.role, "userRole")
+
+        // console.log(hasVotingRight, "hasVotingRight")
+        return !((quest?.status?.toLowerCase() === "open") && quest?.manual_override === "None" && hasVotingRight);
+    })();
+    // console.log(isDisabled, "isDisabled")
 
     const { post, setData, data } = useForm<any>({
         quest_id: quest.id,
-        image: null
+        image: null,
+        camera_brand: "",
+        camera_model: "",
+        lens: "",
+        focal_length: "",
+        aperture: "",
+        shutter_speed: "",
+        iso: "",
+        date_captured: "",
     })
 
     // get quest images array
@@ -81,6 +113,7 @@ export default function SingleQuest() {
                 return;
             }
         }
+
         if (quest?.entry_coin < auth?.user?.pixel) {
             post(route('join-quest', quest.id), {
                 onSuccess: () => {
@@ -94,7 +127,6 @@ export default function SingleQuest() {
             toast.error('Not enough Pixels')
             router.visit('/store')
         }
-
     }
 
 
@@ -104,7 +136,8 @@ export default function SingleQuest() {
         });
     }
 
-    console.log(quest)
+    // console.log(quest)
+    // console.log(isDisabled, votingItems?.length === 0)
     return (
         <UserLayout>
             <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]'>
@@ -115,7 +148,7 @@ export default function SingleQuest() {
                         <img src="/images/coin.png" alt="" className="w-6 h-6" />
                         <p className='text-gray-100'>{quest?.entry_coin}</p>
                     </div>
-                    {new Date(new Date(quest?.end_date).setHours(23,59,59,999)) > new Date() ? (
+                    {new Date(new Date(quest?.end_date).setHours(23, 59, 59, 999)) > new Date() ? (
                         <div className='grid gap-4 grid-cols-2'>
                             <SecondaryButton
                                 disabled={isDisabled || votingItems?.length === 0}
@@ -197,7 +230,7 @@ export default function SingleQuest() {
                     title={t("singleQuest.joinedQuestModal.title")}
                     containerClassName='w-full max-w-lg'
                 >
-                    <JoinModal handleJoinQuest={handleJoinQuest} image={data?.image} setImage={setImage} setLibraryModalOpen={setLibraryModalOpen} isJoined={isJoined} setJoinModalOpen={setJoinModalOpen} t={t} />
+                    <JoinModal handleJoinQuest={handleJoinQuest} data={data} setData={setData} setLibraryModalOpen={setLibraryModalOpen} isJoined={isJoined} setJoinModalOpen={setJoinModalOpen} t={t} />
                 </Modal>
                 <Modal
                     isOpen={libraryModalOpen}

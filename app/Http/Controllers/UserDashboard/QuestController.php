@@ -98,7 +98,6 @@ class QuestController extends Controller
                 'exists:users,id',
             ],
             'manual_override' => 'required',
-            'manual_override_end_date' => 'required_if:manual_override,Force_Open',
 
         ]);
 
@@ -138,7 +137,6 @@ class QuestController extends Controller
             'vote_rights' => $input['vote_rights'],
             'winner_declaration' => $input['winner_declaration'],
             'manual_override' => $input['manual_override'],
-            'manual_override_end_date' => $input['manual_override_end_date'],
             'lead_judge' => $input['lead_judge'] ?? null,
 
         ]);
@@ -237,7 +235,6 @@ class QuestController extends Controller
             ],
             'manual_override' => 'required',
             'reason' => 'nullable|string',
-            'manual_override_end_date' => 'required_if:manual_override,Force_Open',
 
         ]);
 
@@ -286,7 +283,6 @@ class QuestController extends Controller
             'vote_rights' => $input['vote_rights'],
             'lead_judge' => $input['lead_judge'] ?? null,
             'manual_override' => $newStatus,
-            'manual_override_end_date' => $input['manual_override_end_date'],
         ]);
 
         Prize::where('quest_id', $id)->delete();

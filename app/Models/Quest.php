@@ -35,7 +35,6 @@ class Quest extends Model
         'manual_override',
         'winner_declaration',
         'lead_judge',
-        'manual_override_end_date',
     ];
 
     protected static function booted()

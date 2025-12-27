@@ -24,11 +24,11 @@ export const userNavItemsEN: NavItem[] = [
                 href: route('dashboard'),
                 icon: LayoutGrid,
             },
-            // {
-            //   title: 'Home',
-            //   href: route('home'),
-            //   icon: LayoutGrid,
-            // },
+            {
+                title: 'Transaction',
+                href: route('transaction'),
+                icon: LayoutGrid,
+            },
             // {
             //   title: 'Create Contest',
             //   href: route('user-dashboard.quest.index'),
@@ -42,17 +42,6 @@ export const userNavItemsEN: NavItem[] = [
             {
                 title: 'Help',
                 href: route('all-help-categories'),
-                icon: LayoutGrid,
-            },
-        ],
-    },
-    {
-        title: 'Transaction Logs',
-        icon: DollarSignIcon,
-        subItems: [
-            {
-                title: 'Transaction',
-                href: route('transaction'),
                 icon: LayoutGrid,
             },
         ],

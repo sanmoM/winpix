@@ -552,35 +552,7 @@ export default function EditQuest() {
                     </div>
                     {data.manual_override !== 'None' && (
                         <div className="space-y-6 rounded-lg border bg-gray-50 p-6">
-                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                                {data.manual_override === 'Force_Open' && (
-                                    <div className="grid gap-2">
-                                        <Label htmlFor="manual_override_end_date">
-                                            Manual Override End Date{' '}
-                                            <span className="text-red-600">
-                                                *
-                                            </span>
-                                        </Label>
-                                        <DateInput
-                                            min={data.startDate}
-                                            value={
-                                                data.manual_override_end_date
-                                            }
-                                            onChange={(value) =>
-                                                setData(
-                                                    'manual_override_end_date',
-                                                    value,
-                                                )
-                                            }
-                                            required={true}
-                                        />
-                                        <InputError
-                                            message={
-                                                errors.manual_override_end_date
-                                            }
-                                        />
-                                    </div>
-                                )}
+                            <div className="grid grid-cols-1 gap-6">
                                 {data.manual_override !== 'None' && (
                                     <div className="grid gap-2">
                                         <Label

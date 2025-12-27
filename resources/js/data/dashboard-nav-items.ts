@@ -7,6 +7,7 @@ import {
     ServerIcon,
     Store,
     Trophy,
+    User,
     UserPlus,
     WashingMachine,
 } from 'lucide-react';
@@ -14,11 +15,11 @@ import { route } from 'ziggy-js';
 
 export const userNavItemsEN: NavItem[] = [
     {
-        title: 'Dashboard',
-        icon: LayoutGrid,
+        title: 'My Profile',
+        icon: User,
         subItems: [
             {
-                title: 'My Profile',
+                title: 'Profile',
                 href: route('dashboard'),
                 icon: LayoutGrid,
             },
@@ -48,11 +49,11 @@ export const userNavItemsEN: NavItem[] = [
 
 export const userNavItemsAR: NavItem[] = [
     {
-        title: 'لوحة التحكم',
-        icon: LayoutGrid,
+        title: 'ملفي الشخصي',
+        icon: User,
         subItems: [
             {
-                title: 'ملفي الشخصي',
+                title: 'الملف الشخصي',
                 href: route('dashboard'),
                 icon: LayoutGrid,
             },

@@ -47,7 +47,10 @@ class FrontendController extends Controller
             // ->where('status', 'active')
             ->orderBy('created_at', 'desc')->take(8)->get();
         $topImages = Vote::select('image_id')
-            ->selectRaw('count(*) as total_votes')
+            ->selectRaw('COUNT(*) as total_votes')
+            ->whereHas('image', function ($query) {
+                $query->whereNull('skip');
+            })
             ->groupBy('image_id')
             ->orderByDesc('total_votes')
             ->take(10)

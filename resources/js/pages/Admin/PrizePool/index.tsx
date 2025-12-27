@@ -1,18 +1,15 @@
-import AppLayout from '@/layouts/app-layout';
-import useLocales from '@/hooks/useLocales';
-import { Head, router } from '@inertiajs/react';
-import { ToastContainer, toast } from 'react-toastify';
-import { route } from 'ziggy-js';
-import { useEffect } from 'react';
-import { Badge } from '@/components/ui/badge';
-import TableContainer from '@/components/shared/table/table-container';
+import NoTableItems from '@/components/shared/table/components/no-table-items';
+import TableCell from '@/components/shared/table/components/table-cell';
+import TableRow from '@/components/shared/table/components/table-row';
 import TableTopSection from '@/components/shared/table/components/table-top-section/table-top-section';
 import Table from '@/components/shared/table/table';
-import TableRow from '@/components/shared/table/components/table-row';
-import TableCell from '@/components/shared/table/components/table-cell';
-import EditButton from '@/components/shared/table/components/edit-button';
-import DeleteButton from '@/components/shared/table/components/delete-button';
-import NoTableItems from '@/components/shared/table/components/no-table-items';
+import TableContainer from '@/components/shared/table/table-container';
+import useLocales from '@/hooks/useLocales';
+import AppLayout from '@/layouts/app-layout';
+import { Head, router } from '@inertiajs/react';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import { route } from 'ziggy-js';
 
 interface PrizePoolItem {
     id: number;
@@ -36,7 +33,10 @@ export default function PrizePoolIndex({
     const { t } = useLocales();
 
     const breadcrumbs = [
-        { title: t('dashboard.prizePool.index.title'), href: route('admin.prize_pools.index') },
+        {
+            title: t('dashboard.prizePool.index.title'),
+            href: route('admin.prize_pools.index'),
+        },
     ];
 
     useEffect(() => {
@@ -61,9 +61,12 @@ export default function PrizePoolIndex({
                 />
 
                 <Table
-                    headingItems={t('dashboard.prizePool.index.table.headings', {
-                        returnObjects: true,
-                    })}
+                    headingItems={t(
+                        'dashboard.prizePool.index.table.headings',
+                        {
+                            returnObjects: true,
+                        },
+                    )}
                 >
                     {items?.length > 0 ? (
                         items.map((item, index) => (
@@ -83,14 +86,14 @@ export default function PrizePoolIndex({
                                     )}
                                 </TableCell>
                                 <TableCell>{item.name}</TableCell>
-                                {
+                                {/* {
                                     item?.is_editable ? (
                                         <TableCell className="space-x-2">
-                                            {/* <EditButton route={route('admin.prizePool.edit', item.id)} /> */}
+                                            <EditButton route={route('admin.prizePool.edit', item.id)} />
                                             <DeleteButton handleDelete={() => handleDelete(item.id)} />
                                         </TableCell>
                                     ) : (<div></div>)
-                                }
+                                } */}
                             </TableRow>
                         ))
                     ) : (

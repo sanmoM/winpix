@@ -93,9 +93,12 @@ export default function SingleQuest() {
 
     // Voting items logic starts
     const allItems = questImages
-    const votingItems = allItems?.slice(((votes?.length || 0) * 2), allItems?.length)?.filter((item: any) => {
-        return !votes?.map((vote: any) => vote?.image_id)?.includes(item?.id)
-    })
+    // const votingItems = allItems?.slice(((votes?.length || 0) * 2), allItems?.length)?.filter((item: any) => {
+    //     return !votes?.map((vote: any) => vote?.image_id)?.includes(item?.id)
+    // })
+    const votingItems = allItems?.slice(((votes?.length || 0) * 2), allItems?.length)
+
+    console.log(votes)
 
     const setImage = (image: any) => {
         setData('image', image)

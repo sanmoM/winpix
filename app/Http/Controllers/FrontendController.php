@@ -454,6 +454,20 @@ class FrontendController extends Controller
     //     return response()->json(['success' => true]);
     // }
 
+    public function skipVote($imageId, $questId)
+    {
+        $userId = auth()->user()->id;
+
+        Vote::firstOrCreate([
+            // 'image_id' => null,
+            'user_id' => $userId,
+            'quest_id' => $questId,
+            'skip' => 2,
+        ]);
+
+        return response()->json(['success' => true]);
+    }
+
     public function vote($imageId, $questId)
     {
         $user = auth()->user();

@@ -19,6 +19,7 @@ use App\Models\Report;
 use App\Models\Series;
 use App\Models\Slider;
 use App\Models\Store;
+use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Vote;
 use App\Services\RankingService;
@@ -41,7 +42,7 @@ class FrontendController extends Controller
     {
         $user = auth()->user();
         $sliders = Slider::all();
-        $new_quest = Quest::with(['category', 'user', "prizes.prize_pool"])
+        $new_quest = Quest::with(['category', 'user', 'prizes.prize_pool'])
             // ->where('start_date', '<=', today())
             // ->where('end_date', '>=', today())
             // ->where('status', 'active')
@@ -543,6 +544,16 @@ class FrontendController extends Controller
 
         $user->update([
             'isRedeemed' => 1,
+        ]);
+
+        $lastId = Transaction::max('transaction_id') ?? 1000000000;
+
+        Transaction::create([
+            'transaction_id' => $lastId + 1,
+            'user_id' => $userId,
+            'transaction_type' => 'claim',
+            'amount_type' => 'pixel',
+            'amount' => 15,
         ]);
 
         return redirect()->back()->with('success', 'Contact form submitted successfully!');

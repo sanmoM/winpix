@@ -1,6 +1,7 @@
 import { type NavItem } from '@/types';
 import {
     Airplay,
+    DollarSignIcon,
     Gavel,
     LayoutGrid,
     Scale,
@@ -40,6 +41,17 @@ export const userNavItemsEN: NavItem[] = [
             {
                 title: 'Help',
                 href: route('all-help-categories'),
+                icon: LayoutGrid,
+            },
+        ],
+    },
+    {
+        title: 'Transaction Logs',
+        icon: DollarSignIcon,
+        subItems: [
+            {
+                title: 'Transaction',
+                href: route('transaction'),
                 icon: LayoutGrid,
             },
         ],
@@ -217,6 +229,17 @@ export const adminNavItemsEN: NavItem[] = [
             {
                 title: 'All Users',
                 href: route('admin.allUsers'),
+                icon: ServerIcon,
+            },
+        ],
+    },
+    {
+        title: 'Transaction',
+        icon: DollarSignIcon,
+        subItems: [
+            {
+                title: 'Transaction',
+                href: route('admin.transaction'),
                 icon: ServerIcon,
             },
         ],

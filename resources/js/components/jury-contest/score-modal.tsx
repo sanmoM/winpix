@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 
 import axios from "axios";
+import TextInput from "../shared/inputs/text-input";
+import Button from "../shared/buttons/button";
 
 interface QuestImage {
     id: number;
@@ -13,6 +15,7 @@ interface ModalProps {
 }
 
 const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
+    const [score, setScore] = useState<number | null>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [likedId, setLikedId] = useState<number | null>(null);
 
@@ -61,7 +64,7 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
 
     return (
         <div
-            className="fixed inset-0 dark:bg-black bg-white z-50 transition-opacity duration-300 backdrop-blur-sm h-screen flex flex-col"
+            className="h-[70vh] flex flex-col"
             aria-labelledby="modal-title"
             role="dialog"
             aria-modal="true"
@@ -87,7 +90,7 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
             {/* Image Grid */}
             <div
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white mx-auto my-auto dark:bg-gray-800 overflow-hidden grid grid-cols-2 gap-4 w-[90%]"
+                className="mx-auto my-auto overflow-hidden gap-4"
             >
                 <div
                     className="relative cursor-pointer group overflow-hidden rounded-lg"
@@ -96,11 +99,10 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
                     <img
                         src={"/storage/" + singleQuestImage.image}
                         alt={`Photo ${singleQuestImage.id}`}
-                        className="w-full h-[80vh] object-cover rounded-md group-hover:scale-105 duration-300"
+                        className="w-full h-full object-cover rounded-md group-hover:scale-105 duration-300"
                     />
 
-                    {/* Hover Overlay */}
-                    {
+                    {/* {
                         !likedId && (
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 bg-black/50 dark:bg-white/50">
                                 <span
@@ -112,14 +114,15 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
                         )
                     }
 
-                    {/* ❤️ Like Animation */}
                     {likedId === singleQuestImage.id && (
                         <span
                             className="absolute text-7xl text-red-500 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-like-burst select-none"
                         >
                             ❤️
                         </span>
-                    )}
+                    )} */}
+                    <TextInput label="Score" placeholder="Enter score" type="number" setValue={setScore} value={score} />
+                    <Button text={"Next"} onClick={() => handleVote(singleQuestImage.id)} className="mt-4 !text-lg px-10 py-1.5" />
                 </div>
             </div>
         </div>

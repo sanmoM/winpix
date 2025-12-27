@@ -5,11 +5,13 @@ import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
 import { ToastContainer } from 'react-toastify'
 
-export default function ScoreContest() {
+export default function ScoreContest({ questImages }: { questImages: any }) {
     const { t } = useLocales()
     const breadcrumbs = t('dashboard.jury.contest.index.breadcrumbs', {
         returnObjects: true,
     });
+
+    console.log(questImages)
 
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
@@ -20,7 +22,7 @@ export default function ScoreContest() {
                 <h1 className="mb-4 text-lg font-semibold">
                     {t('dashboard.jury.contest.index.title')}
                 </h1>
-                <ScoreModal questImages={[]} />
+                <ScoreModal questImages={questImages} />
             </TableContainer>
         </AppLayout>
     )

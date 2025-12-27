@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JudgePanel;
 use App\Models\Quest;
+use App\Models\QuestImage;
 use Inertia\Inertia;
 use Request;
 
@@ -31,10 +32,12 @@ class JudgeContestController extends Controller
 
     }
 
-    public function scoreContest(Request $request)
+    public function scoreContest($questId)
     {
-        return Inertia::render('jury/Contest/score-contest', [
-            // 'quest' => $request->quest,
+        // return dd($questId);
+        $questImages = QuestImage::where('quest_id', $questId)->get();
+        return Inertia::render('Jury/Contest/score-contest', [
+            'questImages' => $questImages,
         ]);
     }
 }

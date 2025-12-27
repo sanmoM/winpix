@@ -104,7 +104,7 @@ export default function Index({
                                         )}
                                     /> */}
                                     <Link
-                                        href={route('judge.contest.score', item.id)}
+                                        href={route('judge.contest.score', item?.quest.id)}
                                         className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
                                     >
                                         {t("dashboard.jury.contest.index.buttons.score.label")}

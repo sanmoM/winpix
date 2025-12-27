@@ -3,6 +3,7 @@ import {
     Airplay,
     Gavel,
     LayoutGrid,
+    Scale,
     ServerIcon,
     Store,
     Trophy,
@@ -73,6 +74,35 @@ export const userNavItemsAR: NavItem[] = [
             {
                 title: 'المساعدة',
                 href: route('all-help-categories'),
+                icon: LayoutGrid,
+            },
+        ],
+    },
+];
+
+export const judgeNavItemsEN: NavItem[] = [
+    {
+        title: 'Contest',
+        href: '/judge/contest',
+        icon: Scale,
+        subItems: [
+            {
+                title: 'Contest',
+                href: route('judge.contest'),
+                icon: Scale,
+            },
+        ],
+    },
+];
+
+export const judgeNavItemsAR: NavItem[] = [
+    {
+        title: 'المسابقة',
+        icon: Scale,
+        subItems: [
+            {
+                title: 'المسابقة',
+                href: route('judge.contest'),
                 icon: LayoutGrid,
             },
         ],

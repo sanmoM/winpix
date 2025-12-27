@@ -12,6 +12,8 @@ import {
 import {
     adminNavItemsAR,
     adminNavItemsEN,
+    judgeNavItemsAR,
+    judgeNavItemsEN,
     userNavItemsAR,
     userNavItemsEN,
 } from '@/data/dashboard-nav-items';
@@ -33,25 +35,17 @@ export function AppSidebar() {
     const adminNavItems: NavItem[] =
         currentLanguage === 'ar' ? adminNavItemsAR : adminNavItemsEN;
 
-    // const juryNavItems: NavItem[] = [
-    //     {
-    //         title: 'Jury Panel',
-    //         href: 'jury/dashboard',
-    //         icon: Scale,
-    //         subItems: [
-    //             {
-    //                 title: 'Dashboard',
-    //                 href: route('jury.dashboard'),
-    //                 icon: LayoutGrid,
-    //             },
-    //         ],
-    //     },
-    // ];
+    const juryNavItems: NavItem[] =
+        currentLanguage === 'ar' ? judgeNavItemsAR : judgeNavItemsEN;
 
     let roleBaseNavItems = [...mainNavItems];
 
     if (userRole === 'admin') {
         roleBaseNavItems = [...adminNavItems];
+    } else if (userRole === 'jury') {
+        roleBaseNavItems = [...mainNavItems, ...juryNavItems];
+    } else {
+        roleBaseNavItems = [...mainNavItems];
     }
 
     const dashboardHref =

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\JudgeContestController;
 use App\Http\Controllers\PrizePoolController;
 use App\Models\Report;
 use App\Models\User;
@@ -66,11 +67,9 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
 
 });
 
-// Route::middleware(['auth', 'verified', 'role:jury'])->prefix('jury')->group(function () {
-//     Route::get('dashboard', function () {
-//         return Inertia::render('Jury/dashboard');
-//     })->name('jury.dashboard');
-// });
+Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {
+    Route::get('/judge/contest', [JudgeContestController::class, 'index'])->name('judge.contest');
+});
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
 

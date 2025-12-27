@@ -13,6 +13,7 @@ import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm, usePage } from '@inertiajs/react';
+import { route } from 'ziggy-js';
 
 interface Prize {
     min: number | string;
@@ -132,11 +133,10 @@ export default function Dashboard() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(data)
 
-        // post(route('user-dashboard.quest.store'), {
-        //     onSuccess: () => reset(),
-        // });
+        post(route('user-dashboard.quest.store'), {
+            onSuccess: () => reset(),
+        });
     };
 
     const breadcrumbs: BreadcrumbItem[] = [

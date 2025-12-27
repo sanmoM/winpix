@@ -758,6 +758,29 @@
                 ]
             }
         },
+        "translation": {
+            "index": {
+                "title": "All Translation",
+                "breadcrumbs": [
+                    {
+                        "title": "Transactions",
+                        "href": "#"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Transaction ID",
+                        "User",
+                        "Reference",
+                        "Amount",
+                        "Payment Method",
+                        "Type",
+                        "Date"
+                    ]
+                }
+            }
+        },
         "profile": {
             "heading": "Profile",
             "tab": {

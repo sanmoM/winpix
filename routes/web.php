@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\JudgeContestController;
 use App\Http\Controllers\PrizePoolController;
+use App\Http\Controllers\TransactionController;
 use App\Models\Report;
 use App\Models\User;
 use App\Services\RankingService;
@@ -67,6 +68,8 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
     Route::post('/ranking/win-contest', [RankingController::class, 'winContest'])->name('ranking.win');
     Route::post('/ranking/cast-votes', [RankingController::class, 'castVote'])->name('ranking.vote');
 
+    Route::get('transactions', [TransactionController::class, 'index'])->name('transaction');
+
 });
 
 Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {
@@ -113,7 +116,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
         ]);
     });
     Route::resource('/prize-pools', PrizePoolController::class)->names('admin.prize_pools');
-
+    Route::get('/transactions', [TransactionController::class, 'adminIndex'])->name('admin.transaction');
 });
 
 require __DIR__ . '/settings.php';

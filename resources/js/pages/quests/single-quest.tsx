@@ -104,7 +104,7 @@ export default function SingleQuest() {
         });
     }
 
-    console.log(new Date(quest?.end_date), new Date())
+    console.log(quest)
     return (
         <UserLayout>
             <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]'>

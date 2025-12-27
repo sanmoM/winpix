@@ -74,10 +74,10 @@ export default function ViewUser() {
                         <CoinCard item={{ src: "/images/golden-coin.png", count: user?.coin }} />
                         <CoinCard item={{ src: "/images/cash.png", count: user?.cash }} />
                     </div>
-                    {/* <div className='flex gap-4 mt-4'>
-                        <StatsCard item={{ icon: <FaTrophy className='w-6 h-6 lg:w-8 lg:h-8 text-white' />, label: stats.totalQuests }} />
-                        <StatsCard item={{ icon: <RiFolderUploadFill className='w-6 h-6 lg:w-8 lg:h-8 text-white' />, label: stats?.questImages?.length }} />
-                    </div> */}
+                    <div className='flex gap-4 mt-4'>
+                        <StatsCard item={{ icon: <FaTrophy className='w-6 h-6 lg:w-8 lg:h-8 text-white' />, label: user.joined_quests?.length }} />
+                        <StatsCard item={{ icon: <RiFolderUploadFill className='w-6 h-6 lg:w-8 lg:h-8 text-white' />, label: user.votes?.length }} />
+                    </div>
                 </Container>
                 <Container className="space-y-14 md:space-y-20 lg:space-y-16 my-10 md:my-16 lg:mt-12 lg:mb-32 lg:mx-10">
                     {/* <div className='w-fit mx-auto'>
@@ -99,7 +99,7 @@ export default function ViewUser() {
                             user
                         }))} />
                     } */}
-                    <SectionHeading title={t("profile.tabs.photos")} className='!mb-6 !mt-20' />
+                    <SectionHeading title={t("profile.tabs.photos")} className='!mb-10' />
                     {
                         usersPhotos?.length > 0 ? (
                             <Gallery galleryImages={usersPhotos?.map(item => ({

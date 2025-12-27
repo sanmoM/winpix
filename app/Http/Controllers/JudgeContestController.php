@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\JudgePanel;
 use App\Models\Quest;
+use App\Models\QuestImage;
 use Inertia\Inertia;
+use Request;
 
 class JudgeContestController extends Controller
 {
     public function index()
     {
 
-        return $panel = JudgePanel::where('user_id', auth()->user()->id)->with('user')->with('quest')->orderBy('id', 'desc')->get();
+        $panel = JudgePanel::where('user_id', auth()->user()->id)->with('user')->with('quest')->orderBy('id', 'desc')->get();
 
         return Inertia::render('Jury/Contest/Index', [
             'panel' => $panel,
@@ -28,5 +30,14 @@ class JudgeContestController extends Controller
             'panel' => $panel,
         ]);
 
+    }
+
+    public function scoreContest($questId)
+    {
+        // return dd($questId);
+        $questImages = QuestImage::where('quest_id', $questId)->get();
+        return Inertia::render('Jury/Contest/score-contest', [
+            'questImages' => $questImages,
+        ]);
     }
 }

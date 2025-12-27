@@ -6,11 +6,11 @@ import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
 
-interface ContactItem {
+interface ContestItem {
     id: number;
     first_name: string;
     last_name: string;
@@ -24,15 +24,16 @@ interface FlashProps {
 }
 
 export default function Index({
-    items,
+    panel,
     flash,
 }: {
-    items: ContactItem[];
+    panel: ContestItem[];
     flash: FlashProps;
 }) {
-    const { t } = useLocales();
+    const [openModal, setOpenModal] = useState(false);
+    const { t, currentLanguage } = useLocales();
 
-    const breadcrumbs = t('dashboard.contacts.index.breadcrumbs', {
+    const breadcrumbs = t('dashboard.jury.contest.index.breadcrumbs', {
         returnObjects: true,
     });
 
@@ -41,47 +42,72 @@ export default function Index({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
+    console.log(panel)
+
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
-            <Head title={t('dashboard.contacts.index.title')} />
+            <Head title={t('dashboard.jury.contest.index.title')} />
 
             <TableContainer>
                 <h1 className="mb-4 text-lg font-semibold">
-                    {t('dashboard.contacts.index.title')}
+                    {t('dashboard.jury.contest.index.title')}
                 </h1>
 
                 <Table
-                    headingItems={t('dashboard.contacts.index.table.headings', {
+                    headingItems={t('dashboard.jury.contest.index.table.headings', {
                         returnObjects: true,
                     })}
                 >
-                    {items?.length > 0 ? (
-                        items.map((item, index) => (
+                    {panel?.length > 0 ? (
+                        panel.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
 
                                 <TableCell>
-                                    {item.first_name} {item.last_name}
+                                    {item.quest.image ? (
+                                        <img
+                                            src={`/storage/${item.quest.image}`}
+                                            alt={item.quest.title_en}
+                                            className="h-10 w-10 rounded object-cover"
+                                        />
+                                    ) : (
+                                        <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
+                                            —
+                                        </div>
+                                    )}
+                                </TableCell>
+                                <TableCell>
+                                    {currentLanguage === 'en' ? item?.quest?.title_en : item?.quest?.title_ar}
                                 </TableCell>
 
-                                <TableCell>{item.email}</TableCell>
+                                {/* <TableCell>{item.email}</TableCell>
 
                                 <TableCell>
                                     {item.message.length > 50
                                         ? item.message.substring(0, 50) + '...'
                                         : item.message}
-                                </TableCell>
+                                </TableCell> */}
 
                                 <TableCell className="space-x-2">
-                                    <Link
-                                        href={route(
-                                            'admin.contacts.show',
+                                    {/* <ViewButton
+                                        route={route(
+                                            'admin.quest.view',
                                             item.id,
                                         )}
-                                        className="rounded-md bg-slate-800 px-3 py-2 font-medium text-white hover:bg-slate-900"
+                                    />
+
+                                    <EditButton
+                                        route={route(
+                                            'admin.quest.edit',
+                                            item.id,
+                                        )}
+                                    /> */}
+                                    <Link
+                                        href={route('judge.contest.score', item?.quest.id)}
+                                        className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
                                     >
-                                        {t('dashboard.shared.view')}
+                                        {t("dashboard.jury.contest.index.buttons.score.label")}
                                     </Link>
                                 </TableCell>
                             </TableRow>
@@ -90,6 +116,9 @@ export default function Index({
                         <NoTableItems />
                     )}
                 </Table>
+                {/* <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
+                    <ScoreModal isOpen={openModal} onClose={() => setOpenModal(false)} questImages={[]} />
+                </Modal> */}
             </TableContainer>
         </AppLayout>
     );

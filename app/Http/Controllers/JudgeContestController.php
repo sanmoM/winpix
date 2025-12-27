@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\JudgePanel;
 use App\Models\Quest;
 use Inertia\Inertia;
+use Request;
 
 class JudgeContestController extends Controller
 {
     public function index()
     {
 
-        return $panel = JudgePanel::where('user_id', auth()->user()->id)->with('user')->with('quest')->orderBy('id', 'desc')->get();
+        $panel = JudgePanel::where('user_id', auth()->user()->id)->with('user')->with('quest')->orderBy('id', 'desc')->get();
 
         return Inertia::render('Jury/Contest/Index', [
             'panel' => $panel,
@@ -28,5 +29,12 @@ class JudgeContestController extends Controller
             'panel' => $panel,
         ]);
 
+    }
+
+    public function scoreContest(Request $request)
+    {
+        return Inertia::render('jury/Contest/score-contest', [
+            // 'quest' => $request->quest,
+        ]);
     }
 }

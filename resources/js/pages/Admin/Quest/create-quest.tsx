@@ -132,12 +132,11 @@ export default function Dashboard() {
     ];
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        console.log(data)
+        e.preventDefault();
 
-        // e.preventDefault();
-        // post(route('user-dashboard.quest.store'), {
-        //     onSuccess: () => reset(),
-        // });
+        post(route('user-dashboard.quest.store'), {
+            onSuccess: () => reset(),
+        });
     };
 
     const breadcrumbs: BreadcrumbItem[] = [

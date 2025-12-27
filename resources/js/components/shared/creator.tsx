@@ -1,12 +1,13 @@
 import SocialIcon from "@/components/shared/social-icon";
 import useLocales from "@/hooks/useLocales";
 import { cn } from "@/lib/utils";
+import { User } from "@/types";
 import { usePage } from "@inertiajs/react";
 import React from "react";
 
-const Creator = ({ containerClassName, infoContainerClassName, imageClassName, followBtnClassName, children, nameClassName, imageContainerClassName, btnText, onClick, hasBtn = true }: { containerClassName?: string, infoContainerClassName?: string, imageClassName?: string, followBtnClassName?: string, children?: React.ReactNode, nameClassName?: string, imageContainerClassName?: string, btnText?: string, onClick?: () => void, hasBtn: boolean }) => {
+const Creator = ({ containerClassName, infoContainerClassName, imageClassName, followBtnClassName, children, nameClassName, imageContainerClassName, btnText, onClick, hasBtn = true, userFromParent }: { containerClassName?: string, infoContainerClassName?: string, imageClassName?: string, followBtnClassName?: string, children?: React.ReactNode, nameClassName?: string, imageContainerClassName?: string, btnText?: string, onClick?: () => void, hasBtn: boolean, userFromParent?: User }) => {
     const { t } = useLocales()
-    const user = usePage().props.auth.user;
+    const user = userFromParent || usePage().props.auth.user;
     const socialIcons = [
         { Icon: TwitterIcon, href: user?.instagram, ariaLabel: 'Twitter' },
         { Icon: FacebookIcon, href: user?.facebook, ariaLabel: 'Facebook' },

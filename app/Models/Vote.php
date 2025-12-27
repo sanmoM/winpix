@@ -10,6 +10,7 @@ class Vote extends Model
         'image_id',
         'user_id',
         'quest_id',
+        'skip'
     ];
 
     public function image()

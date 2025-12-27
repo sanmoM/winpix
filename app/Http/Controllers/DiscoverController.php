@@ -14,14 +14,27 @@ class DiscoverController extends Controller
     public function discover()
     {
         $Ranking = new RankingService();
-        $new_quest = Quest::with(["category", "user"])->where('start_date', '<=', today())
-            ->where('end_date', '>=', today())->where('status', 'active')->orderBy("created_at", 'desc')->take(8)->get();
+        $new_quest = Quest::with(['category', 'user'])
+            ->where('start_date', '<=', today())
+            ->where(function ($query) {
+                $query->where('manual_override', 'Force_Open')
+                    ->orWhere(function ($q) {
+                        $q->where('status', 'Open')
+                            ->where('manual_override', 'None');
+                    });
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
         $topImages = Vote::select('image_id')
-            ->selectRaw('count(*) as total_votes')   // count votes per image
-            ->groupBy('image_id')                    // group by image
-            ->orderByDesc('total_votes')             // most votes first
-            ->take(10)                               // top 10
-            ->with(['image.user', 'image.quest'])    // eager load image, its user, and quest
+            ->selectRaw('COUNT(*) as total_votes')
+            ->whereHas('image', function ($query) {
+                $query->whereNull('skip');
+            })
+            ->groupBy('image_id')
+            ->orderByDesc('total_votes')
+            ->take(10)
+            ->with(['image.user', 'image.quest'])
             ->get();
         $topPlayers = User::with(['followers'])
             ->where('role', 'user')

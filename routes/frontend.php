@@ -36,3 +36,5 @@ Route::post('/contact-us', [FrontendController::class, 'createContact'])->name('
 Route::post('/handle-payment', [FrontendController::class, 'handlePayment'])->name('handle-payment');
 Route::post('/claim', [FrontendController::class, 'claim'])->name('claim');
 Route::post('/report', [FrontendController::class, 'report'])->name('report');
+Route::post('/skip-vote/{imageId}/{questId}', [FrontendController::class, 'skipVote'])->name('skip-vote');
+

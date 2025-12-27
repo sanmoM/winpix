@@ -100,7 +100,9 @@ class User extends Authenticatable
 
     public function votes()
     {
-        return $this->hasMany(Vote::class);
+        // return $this->hasMany(Vote::class);
+        return $this->hasMany(Vote::class)->whereNull('skip');
+
     }
 
     public function joinedQuests()

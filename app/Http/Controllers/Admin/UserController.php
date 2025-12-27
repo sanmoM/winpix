@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\QuestImage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
@@ -51,8 +52,9 @@ class UserController extends Controller
     {
         // $user = User::find($id);
         $user = User::with(['followers', 'following', 'joinedQuests', 'questImages', 'votes'])->find($id);
+        $usersPhotos = QuestImage::where('user_id', $user->id)->get();
 
-        return Inertia::render('Admin/Users/view-user', ['user' => $user]);
+        return Inertia::render('Admin/Users/view-user', ['user' => $user, 'usersPhotos' => $usersPhotos]);
     }
 
     // New method to get all judges
@@ -74,7 +76,7 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 

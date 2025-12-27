@@ -49,12 +49,14 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
             'currentLevel' => auth()->user()->level,
             'followers' => auth()->user()->followers()->count(),
             'following' => auth()->user()->following()->count(),
-            'questImages' => User::findOrFail(auth()->id())->questImages,
+            'questImages' => User::with('followers', 'following', 'joinedQuests', 'questImages', 'votes')->findOrFail(auth()->id())->questImages,
             'likedImages' => auth()->user()->votes()->with('image')->get(),
             'rank' => RankingService::getRank(auth()->user()->level),
         ];
 
-        return Inertia::render('dashboard', ['stats' => $stats]);
+        $user = User::with('followers', 'following', 'joinedQuests', 'questImages', 'votes')->findOrFail(auth()->user()->id);
+
+        return Inertia::render('dashboard', ['stats' => $stats, 'user' => $user]);
     })->name('dashboard');
     // follow unfollow
     Route::post('/users/{user}/follow', [FollowController::class, 'follow'])->name('users.follow');
@@ -116,7 +118,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('/transactions', [TransactionController::class, 'adminIndex'])->name('admin.transaction');
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
-require __DIR__.'/frontend.php';
-require __DIR__.'/user-dashboard.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/frontend.php';
+require __DIR__ . '/user-dashboard.php';

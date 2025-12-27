@@ -67,7 +67,7 @@ export default function Card({ item, isSeries = false }: any) {
                         <span className="text-white bg-white/10 px-4 py-1 rounded-full backdrop-blur-[3px] text-[11px] font-semibold tracking-wider">
                             {
                                 isSeries ? <span>@{item?.user?.name}</span> : <span>
-                                    # {item?.rank_tier}
+                                    # {item?.vote_rights}
                                 </span>
                             }
                         </span>

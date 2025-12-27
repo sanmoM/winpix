@@ -48,7 +48,10 @@ class FrontendController extends Controller
             // ->where('status', 'active')
             ->orderBy('created_at', 'desc')->take(8)->get();
         $topImages = Vote::select('image_id')
-            ->selectRaw('count(*) as total_votes')
+            ->selectRaw('COUNT(*) as total_votes')
+            ->whereHas('image', function ($query) {
+                $query->whereNull('skip');
+            })
             ->groupBy('image_id')
             ->orderByDesc('total_votes')
             ->take(10)
@@ -355,8 +358,8 @@ class FrontendController extends Controller
     public function searchedHelps()
     {
         $searchTerm = request()->query('searchTerm');
-        $helps = Help::where('question', 'LIKE', '%'.$searchTerm.'%')
-            ->orWhere('answer', 'LIKE', '%'.$searchTerm.'%')
+        $helps = Help::where('question', 'LIKE', '%' . $searchTerm . '%')
+            ->orWhere('answer', 'LIKE', '%' . $searchTerm . '%')
             ->get();
 
         return Inertia::render('help/searched-helps', [
@@ -373,10 +376,20 @@ class FrontendController extends Controller
     public function joinQuest(Request $request, $id)
     {
         $user = auth()->user();
+
+        // return dd($request->all());
         try {
             $request->validate([
                 'quest_id' => 'required|integer|exists:quests,id',
                 'image' => 'required',
+                'camera_brand' => "required",
+                'camera_model' => "required",
+                'lens' => "required",
+                'focal_length' => "required",
+                'aperture' => "required",
+                'shutter_speed' => "required",
+                'iso' => "required",
+                'date_captured' => "required",
             ]);
         } catch (ValidationException $e) {
             return response()->json([
@@ -408,6 +421,14 @@ class FrontendController extends Controller
             'quest_id' => $id,
             'image' => $image,
             'user_id' => $user->id,
+            'camera_brand' => $request->camera_brand,
+            'camera_model' => $request->camera_model,
+            'lens' => $request->lens,
+            'focal_length' => $request->focal_length,
+            'aperture' => $request->aperture,
+            'shutter_speed' => $request->shutter_speed,
+            'iso' => $request->iso,
+            'date_captured' => $request->date_captured,
         ]);
 
         $isJoinedNow = QuestJoin::where('quest_id', $id)->where('user_id', $user->id)->exists();
@@ -436,6 +457,20 @@ class FrontendController extends Controller
     //     $this->rankingService->castVote($userUnderImage->user);
     //     return response()->json(['success' => true]);
     // }
+
+    public function skipVote($imageId, $questId)
+    {
+        $userId = auth()->user()->id;
+
+        Vote::firstOrCreate([
+            // 'image_id' => null,
+            'user_id' => $userId,
+            'quest_id' => $questId,
+            'skip' => 2,
+        ]);
+
+        return response()->json(['success' => true]);
+    }
 
     public function vote($imageId, $questId)
     {

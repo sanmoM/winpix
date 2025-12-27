@@ -69,6 +69,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
 
 Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {
     Route::get('/judge/contest', [JudgeContestController::class, 'index'])->name('judge.contest');
+    Route::get('/lead-judge/contest', [JudgeContestController::class, 'leadJudge'])->name('lead_judge.contest');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {

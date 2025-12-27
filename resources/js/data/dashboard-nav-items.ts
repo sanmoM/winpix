@@ -87,8 +87,13 @@ export const judgeNavItemsEN: NavItem[] = [
         icon: Scale,
         subItems: [
             {
-                title: 'Contest',
+                title: 'Judge Panel Contest',
                 href: route('judge.contest'),
+                icon: Scale,
+            },
+            {
+                title: 'Lead Judge Contest',
+                href: route('lead_judge.contest'),
                 icon: Scale,
             },
         ],

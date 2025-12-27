@@ -399,26 +399,6 @@ export default function Dashboard() {
                             className="max-w-auto w-full"
                             hasOption={false}
                         />
-                        {data.manual_override === 'Force_Open' && (
-                            <div className="grid gap-2">
-                                <Label htmlFor="manual_override_end_date">
-                                    Manual Override End Date
-                                </Label>
-                                <DateInput
-                                    min={data.startDate}
-                                    value={data.manual_override_end_date}
-                                    onChange={(value) =>
-                                        setData(
-                                            'manual_override_end_date',
-                                            value,
-                                        )
-                                    }
-                                />
-                                <InputError
-                                    message={errors.manual_override_end_date}
-                                />
-                            </div>
-                        )}
                     </div>
 
                     {/* --- JUDGING SECTION --- */}
@@ -487,9 +467,9 @@ export default function Dashboard() {
                                         const currentLead = data.lead_judge;
                                         const newLead =
                                             currentLead &&
-                                                newJudges.includes(
-                                                    Number(currentLead),
-                                                )
+                                            newJudges.includes(
+                                                Number(currentLead),
+                                            )
                                                 ? currentLead
                                                 : '';
 

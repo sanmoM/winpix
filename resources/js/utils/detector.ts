@@ -145,6 +145,44 @@ const isBlockedImage = async (file: File): Promise<boolean> => {
   }
 };
 
+import * as exifr from "exifr";
+
+export async function extractImageMetadata(image) {
+  try {
+    const exif = await exifr.parse(image, {
+      // Only request what we need (faster)
+      pick: [
+        "Make",
+        "Model",
+        "LensModel",
+        "FocalLength",
+        "FNumber",
+        "ExposureTime",
+        "ISO",
+        "DateTimeOriginal"
+      ]
+    });
+
+    if (!exif) return null;
+
+    return {
+      camera_brand: exif.Make || null,
+      camera_model: exif.Model || null,
+      lens: exif.LensModel || null,
+      focal_length: exif.FocalLength ? `${exif.FocalLength} mm` : null,
+      aperture: exif.FNumber ? `f/${exif.FNumber}` : null,
+      shutter_speed: exif.ExposureTime
+        ? `1/${Math.round(1 / exif.ExposureTime)}`
+        : null,
+      iso: exif.ISO || null,
+      date_captured: exif.DateTimeOriginal || null
+    };
+  } catch (error) {
+    console.error("Failed to extract EXIF data:", error);
+    return null;
+  }
+}
+
 /**
  * Main AI Image Detector
  * Returns true if AI-generated, false otherwise

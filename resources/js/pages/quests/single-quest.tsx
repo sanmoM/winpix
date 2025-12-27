@@ -19,9 +19,9 @@ import Tab from '@/components/shared/tab'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
-import { AIImageDetector } from '@/utils/detector'
+import { AIImageDetector, extractImageMetadata } from '@/utils/detector'
 import { router, useForm, usePage } from '@inertiajs/react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { route } from 'ziggy-js'
 
@@ -136,8 +136,23 @@ export default function SingleQuest() {
         });
     }
 
-    // console.log(quest)
-    // console.log(isDisabled, votingItems?.length === 0)
+    useEffect(() => {
+        const getMetaData = async () => {
+            if (typeof data?.image !== "string") {
+                const metadata = await extractImageMetadata(data?.image);
+                console.log(metadata, "metadata")
+                setData('camera_brand', metadata?.camera_brand || '');
+                setData('camera_model', metadata?.camera_model || '');
+                setData('lens', metadata?.lens || '');
+                setData('focal_length', metadata?.focal_length || '');
+                setData('aperture', metadata?.aperture || '');
+                setData('shutter_speed', metadata?.shutter_speed || '');
+                setData('iso', metadata?.iso || '');
+                setData('date_captured', metadata?.date_captured || '');
+            }
+        }
+        getMetaData();
+    }, [data?.image])
     return (
         <UserLayout>
             <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]'>

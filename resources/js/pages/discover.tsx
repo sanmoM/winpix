@@ -1,4 +1,3 @@
-import InfiniteGallery from '@/components/discover/infinite-gallery'
 import Leaderboard from '@/components/discover/leader-board'
 import Quests from '@/components/discover/quests'
 import Container from '@/components/shared/container'

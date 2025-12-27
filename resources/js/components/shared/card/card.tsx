@@ -49,9 +49,9 @@ export default function Card({ item, isSeries = false }: any) {
                                         return acc
                                     }, 0) : item?.prizes?.reduce((acc, current) => {
                                         // acc += current?.prize
-                                        console.log(current?.prize_pool, "current")
-                                        if (current?.prize_pool?.name === "Cash") {
-                                            acc += current?.prize_pool?.value
+                                        console.log(current, "current")
+                                        if (current?.prize_pool?.name?.toLowerCase() === "cash") {
+                                            acc += current?.coin
                                         }
                                         return acc
                                     }, 0)

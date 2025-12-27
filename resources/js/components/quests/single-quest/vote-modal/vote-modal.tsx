@@ -45,6 +45,25 @@ const VoteModal: React.FC<ModalProps> = ({ isOpen, onClose, questImages, questId
         setCurrentIndex(currentIndex + 2);
       } else {
         onClose();
+        window.location.reload();
+      }
+    }, 800);
+  };
+
+  const handleSkip = async () => {
+    try {
+      const response = await axios.post(`/skip-vote/${null}/${questId}`);
+    } catch (error) {
+      console.error("❌ Skip failed:", error);
+    }
+
+    setTimeout(() => {
+      setLikedId(null);
+      if (currentIndex + 2 < questImages.length) {
+        setCurrentIndex(currentIndex + 2);
+      } else {
+        onClose();
+        window.location.reload();
       }
     }, 800);
   };
@@ -56,13 +75,24 @@ const VoteModal: React.FC<ModalProps> = ({ isOpen, onClose, questImages, questId
       role="dialog"
       aria-modal="true"
     >
-      {/* Back Button */}
-      <div
-        className="flex items-center ml-[5%] mt-[30px] border w-fit px-6 py-1.5 rounded-full cursor-pointer"
-        onClick={onClose}
-      >
-        <IoIosArrowForward className="text-2xl font-bold rotate-180" />
-        <span>Back</span>
+      <div className="flex justify-between">
+        {/* Back Button */}
+        <div
+          className="flex items-center ml-[5%] mt-[30px] border w-fit px-6 py-1.5 rounded-full cursor-pointer"
+          onClick={onClose}
+        >
+          <IoIosArrowForward className="text-2xl font-bold rotate-180" />
+          <span>Back</span>
+        </div>
+
+        {/* Skip Button */}
+        <div
+          className="flex items-center mr-[5%] mt-[30px] border w-fit px-6 py-1.5 rounded-full cursor-pointer"
+          onClick={handleSkip}
+        >
+          {/* <IoIosArrowForward className="text-2xl font-bold rotate-180" /> */}
+          <span>Skip</span>
+        </div>
       </div>
 
       {/* Image Grid */}

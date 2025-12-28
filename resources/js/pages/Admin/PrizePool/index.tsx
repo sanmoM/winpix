@@ -94,6 +94,7 @@ export default function PrizePoolIndex({
                                         </TableCell>
                                     ) : (<div></div>)
                                 } */}
+                                <div></div>
                             </TableRow>
                         ))
                     ) : (

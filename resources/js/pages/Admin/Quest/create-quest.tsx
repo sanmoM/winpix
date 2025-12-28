@@ -402,8 +402,8 @@ export default function Dashboard() {
                     </div>
 
                     {/* --- JUDGING SECTION --- */}
-                    <div className="space-y-6 rounded-lg border bg-gray-50 p-6">
-                        <h3 className="mb-4 border-b pb-2 text-lg font-medium text-gray-800">
+                    <div className="space-y-6 rounded-lg border bg-bg-primary p-6">
+                        <h3 className="mb-4 border-b pb-2 text-lg font-medium">
                             Judging & Winner Rules
                         </h3>
 
@@ -467,9 +467,9 @@ export default function Dashboard() {
                                         const currentLead = data.lead_judge;
                                         const newLead =
                                             currentLead &&
-                                            newJudges.includes(
-                                                Number(currentLead),
-                                            )
+                                                newJudges.includes(
+                                                    Number(currentLead),
+                                                )
                                                 ? currentLead
                                                 : '';
 

@@ -551,7 +551,7 @@ export default function EditQuest() {
                         />
                     </div>
                     {data.manual_override !== 'None' && (
-                        <div className="space-y-6 rounded-lg border bg-gray-50 p-6">
+                        <div className="space-y-6 rounded-lg border bg-bg-primary p-6">
                             <div className="grid grid-cols-1 gap-6">
                                 {data.manual_override !== 'None' && (
                                     <div className="grid gap-2">
@@ -577,8 +577,8 @@ export default function EditQuest() {
                         </div>
                     )}
                     {/* --- JUDGING SECTION --- */}
-                    <div className="space-y-6 rounded-lg border bg-gray-50 p-6">
-                        <h3 className="mb-4 border-b pb-2 text-lg font-medium text-gray-800">
+                    <div className="space-y-6 rounded-lg border bg-bg-primary p-6">
+                        <h3 className="mb-4 border-b pb-2 text-lg font-medium">
                             Judging & Winner Rules
                         </h3>
 

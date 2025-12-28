@@ -1,44 +1,83 @@
 import BorderButton from '@/components/shared/buttons/border-button'
 import Button from '@/components/shared/buttons/button'
 import { useForm } from '@inertiajs/react'
+import { useState } from 'react'
 import { route } from 'ziggy-js'
 
-export default function RedeemModal({ image, quantity, type }: { image: string, quantity: number }) {
+export default function RedeemModal({ image, quantity, type, onClose, vCoin, prizeId }: { image: string, quantity: number, type: string, onClose: () => void, vCoin: number, prizeId?: number }) {
+    const [isRedeemed, setIsRedeemed] = useState(false)
     const { post } = useForm({
         quantity,
+        coinQuantity: vCoin,
+        prizeId
     })
+
+    const handleOnSuccess = () => {
+        setIsRedeemed(true)
+        setTimeout(() => {
+            onClose()
+        }, 1000)
+    }
     const handleConfirm = () => {
+        console.log("first")
         if (type === "app_prize") {
-            post(route('add-pixel'))
-        }else if(type === "grand_prize"){
-            post(route('add-vcoin'))
+            post(route('add-pixel'), {
+                onSuccess: handleOnSuccess
+            })
+        } else if (type === "great_prize") {
+            post(route('add-cash'), {
+                onSuccess: handleOnSuccess
+            })
+        } else {
+            post(route('redeem-digital-product'), {
+                onSuccess: handleOnSuccess
+            })
         }
     }
     return (
         <div>
 
-            {/* Main Heading */}
-            <h1 className="text-2xl md:text-3xl font-extrabold  mb-8 !text-center">
-                Are you sure you want to redeem this prize?
-            </h1>
+            {
+                isRedeemed ? (
+                    <div>
+                        <h1 className="text-xl md:text-2xl font-medium  mb-8 !text-center !text-green-400">
+                            Redeemed Successfully
+                        </h1>
+                    </div>
+                ) : (
+                    <>
+                        {/* Main Heading */}
+                        <h1 className="text-2xl md:text-3xl font-extrabold  mb-8 !text-center">
+                            Are you sure you want to redeem this prize?
+                        </h1>
 
-            {/* Custom Treasure Chest Illustration */}
-            <div className="relative flex items-center justify-center">
-                {/* Animated bounce effect */}
-                <div className="animate-bounce-slow">
-                    <img
-                        src={image}
-                        alt='coin'
-                        className="w-20 object-cover"
-                    />
-                </div>
-            </div>
-            <p className=' mb-6 !text-center mt-3 text-2xl font-black'>X{quantity}</p>
+                        {/* Custom Treasure Chest Illustration */}
+                        <div className="relative flex items-center justify-center">
+                            {/* Animated bounce effect */}
+                            <div className="animate-bounce-slow">
+                                <img
+                                    src={image}
+                                    alt='coin'
+                                    className="w-20 object-cover"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-center gap-4 mt-5">
+                            <p className=' mb-6 !text-center mt-3 text-2xl font-medium'>Quantity: {quantity}</p>
+                            <p className=' mb-6 !text-center mt-3 text-2xl font-medium'>V-Coin: {vCoin}</p>
+                        </div>
+                    </>
+                )
+            }
 
-            <div className='grid grid-cols-2 gap-4 w-fit mx-auto'>
-                <BorderButton text='Cancel' className='py-2 px-8' />
-                <Button text='Confirm' className='py-2 px-8' onClick={handleConfirm} />
-            </div>
+            {
+                !isRedeemed && (
+                    <div className='grid grid-cols-2 gap-4 w-fit mx-auto'>
+                        <BorderButton text='Cancel' className='py-2 px-8' />
+                        <Button text='Confirm' className='py-2 px-8' onClick={handleConfirm} />
+                    </div>
+                )
+            }
         </div>
     )
 }

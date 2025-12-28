@@ -38,7 +38,7 @@ Route::post('/claim', [FrontendController::class, 'claim'])->name('claim');
 Route::post('/report', [FrontendController::class, 'report'])->name('report');
 Route::post('/skip-vote/{imageId}/{questId}', [FrontendController::class, 'skipVote'])->name('skip-vote');
 Route::post('/add-pixel', [FrontendController::class, 'addPixel'])->name('add-pixel');
-Route::post('/add-vcoin', [FrontendController::class, 'addVCoin'])->name('add-vc');
+Route::post('/add-cash', [FrontendController::class, 'addCash'])->name('add-cash');
 Route::post('/redeem-digital-product', [FrontendController::class, 'redeemDigitalProduct'])->name('redeem-digital-product');
 
 

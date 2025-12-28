@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('transaction_id')->unique();
+            $table->bigInteger('transaction_id')->unique()->nullable();
             $table->foreignId('user_id')->nullable();
             $table->foreignId('reference_id')->nullable();
             $table->string('transaction_type')->nullable();

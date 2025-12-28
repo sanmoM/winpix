@@ -359,8 +359,8 @@ class FrontendController extends Controller
     public function searchedHelps()
     {
         $searchTerm = request()->query('searchTerm');
-        $helps = Help::where('question', 'LIKE', '%'.$searchTerm.'%')
-            ->orWhere('answer', 'LIKE', '%'.$searchTerm.'%')
+        $helps = Help::where('question', 'LIKE', '%' . $searchTerm . '%')
+            ->orWhere('answer', 'LIKE', '%' . $searchTerm . '%')
             ->get();
 
         return Inertia::render('help/searched-helps', [
@@ -625,29 +625,51 @@ class FrontendController extends Controller
     {
         $request->validate([
             'quantity' => 'required',
+            'coinQuantity' => 'required',
         ]);
 
         $userId = auth()->user()->id;
 
         User::findOrFail($userId)->increment('pixel', $request->quantity);
+        User::findOrFail($userId)->decrement('coin', $request->coinQuantity);
 
         return redirect()->back()->with('success', 'Contact form submitted successfully!');
     }
 
-    public function addVCoin(Request $request){
+    public function addCash(Request $request)
+    {
         $request->validate([
             'quantity' => 'required',
+            'coinQuantity' => 'required',
         ]);
 
         $userId = auth()->user()->id;
 
-        User::findOrFail($userId)->increment('coin', $request->quantity);
+        User::findOrFail($userId)->increment('cash', $request->quantity);
+        User::findOrFail($userId)->decrement('coin', $request->coinQuantity);
 
         return redirect()->back()->with('success', 'Contact form submitted successfully!');
     }
 
-    public function reddemDigitalProduct(Request $request){
-        
+    public function redeemDigitalProduct(Request $request)
+    {
+        $request->validate([
+            'quantity' => 'required',
+            'coinQuantity' => 'required',
+            'prizeId' => 'required',
+        ]);
+
+        $userId = auth()->user()->id;
+        Transaction::create([
+            'user_id' => $userId,
+            'transaction_type' => 'redeem',
+            'reference_id' => $request->prizeId,
+            'amount' => $request->coinQuantity,
+            'amount_type' => "V-Coin",
+        ]);
+        User::findOrFail($userId)->decrement('coin', $request->coinQuantity);
+
+        return redirect()->back()->with('success', 'Contact form submitted successfully!');
     }
-    
+
 }

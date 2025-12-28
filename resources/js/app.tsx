@@ -3,6 +3,7 @@ import '../css/app.css';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
+import { Toaster } from 'react-hot-toast';
 import { initializeTheme } from './hooks/use-appearance';
 import "./i18n";
 import LanguageProvider from './providers/language-provider';
@@ -23,6 +24,7 @@ createInertiaApp({
         root.render(<StoreProvider>
             <LanguageProvider>
                 <App {...props} />
+                <Toaster />
             </LanguageProvider>
         </StoreProvider>);
     },

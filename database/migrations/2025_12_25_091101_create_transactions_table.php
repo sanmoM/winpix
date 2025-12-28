@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('transaction_id')->unique();
             $table->foreignId('user_id')->nullable();
             $table->foreignId('reference_id')->nullable();
-            $table->bigInteger('transaction_type')->nullable();
+            $table->string('transaction_type')->nullable();
             $table->integer('amount')->nullable();
             $table->string('amount_type')->nullable();
             $table->string('currency')->nullable();

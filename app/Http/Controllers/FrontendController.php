@@ -620,4 +620,34 @@ class FrontendController extends Controller
 
         return redirect()->back()->with('success', 'Contact form submitted successfully!');
     }
+
+    public function addPixel(Request $request)
+    {
+        $request->validate([
+            'quantity' => 'required',
+        ]);
+
+        $userId = auth()->user()->id;
+
+        User::findOrFail($userId)->increment('pixel', $request->quantity);
+
+        return redirect()->back()->with('success', 'Contact form submitted successfully!');
+    }
+
+    public function addVCoin(Request $request){
+        $request->validate([
+            'quantity' => 'required',
+        ]);
+
+        $userId = auth()->user()->id;
+
+        User::findOrFail($userId)->increment('coin', $request->quantity);
+
+        return redirect()->back()->with('success', 'Contact form submitted successfully!');
+    }
+
+    public function reddemDigitalProduct(Request $request){
+        
+    }
+    
 }

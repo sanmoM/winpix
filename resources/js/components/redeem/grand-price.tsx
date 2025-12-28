@@ -12,6 +12,7 @@ export default function GrandPrice({ t, prizes }: { t: any; prizes: any }) {
                         price={prize.price}
                         name={prize.name}
                         number_of_coin={prize.number_of_coin}
+                        type={prize.prize_type}
                     />
                 ))}
             </div>

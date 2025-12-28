@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
+import { router } from '@inertiajs/react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import { route } from 'ziggy-js';
 import Button from '../shared/buttons/button';
 import TextInput from '../shared/inputs/text-input';
 import NoData from '../shared/no-data';
-import { router } from '@inertiajs/react';
-import toast from 'react-hot-toast';
-import { route } from 'ziggy-js';
 
 interface QuestImage {
     id: number;
@@ -26,17 +26,16 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages }) => {
     }, []);
 
     const handleVote = async (votedImageId: number, questId: number) => {
-
-        console.log("first")
         if (score === null || isNaN(score)) {
             toast.error('Please enter a score');
             return;
         }
         try {
-            const response = await axios.post(
-                route('judge.vote'),
-                { image_id: votedImageId, score, quest_id: questId },
-            );
+            const response = await axios.post(route('judge.vote'), {
+                image_id: votedImageId,
+                score,
+                quest_id: questId,
+            });
         } catch (error) {
             console.error('❌ Vote failed:', error);
         }
@@ -81,21 +80,22 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages }) => {
                     // onClick={(e) => e.stopPropagation()}
                     onSubmit={(e) => {
                         e.preventDefault();
-                        handleVote(singleQuestImage.id, singleQuestImage.quest_id)
+                        handleVote(
+                            singleQuestImage.id,
+                            singleQuestImage.quest_id,
+                        );
                     }}
-                    className="my-auto gap-4 overflow-hidden h-full"
+                    className="my-auto h-full gap-4 overflow-hidden"
                 >
-                    <div
-                        className="group relative cursor-pointer overflow-hidden rounded-lg flex flex-col w-xl h-full"
-                    >
-                        <div className='flex-1 overflow-hidden bg-bg-primary mb-3 rounded-xl'>
+                    <div className="group relative flex h-full w-xl cursor-pointer flex-col overflow-hidden rounded-lg">
+                        <div className="mb-3 flex-1 overflow-hidden rounded-xl bg-bg-primary">
                             <img
                                 src={'/storage/' + singleQuestImage?.image}
                                 alt={`Photo ${singleQuestImage?.id}`}
                                 className="h-full w-full rounded-md object-contain duration-300 group-hover:scale-105"
                             />
                         </div>
-                        <div className='mx-3'>
+                        <div className="mx-3">
                             <TextInput
                                 min={0}
                                 max={10}

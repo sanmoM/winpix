@@ -2,7 +2,6 @@ import SectionHeading from '../shared/SectionHeading';
 import RedeemCard from './components/redeem-card';
 
 export default function AppPrice({ t, prizes }: { t: any; prizes: any }) {
-    console.log(prizes, 'prizes');
     return (
         <div>
             <SectionHeading title={t('redeem.appPriceTitle')} />

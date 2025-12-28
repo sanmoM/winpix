@@ -42,8 +42,6 @@ export default function Index({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
-    console.log(panel)
-
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
@@ -55,9 +53,12 @@ export default function Index({
                 </h1>
 
                 <Table
-                    headingItems={t('dashboard.jury.contest.index.table.headings', {
-                        returnObjects: true,
-                    })}
+                    headingItems={t(
+                        'dashboard.jury.contest.index.table.headings',
+                        {
+                            returnObjects: true,
+                        },
+                    )}
                 >
                     {panel?.length > 0 ? (
                         panel.map((item, index) => (
@@ -78,7 +79,9 @@ export default function Index({
                                     )}
                                 </TableCell>
                                 <TableCell>
-                                    {currentLanguage === 'en' ? item?.quest?.title_en : item?.quest?.title_ar}
+                                    {currentLanguage === 'en'
+                                        ? item?.quest?.title_en
+                                        : item?.quest?.title_ar}
                                 </TableCell>
 
                                 {/* <TableCell>{item.email}</TableCell>
@@ -104,10 +107,15 @@ export default function Index({
                                         )}
                                     /> */}
                                     <Link
-                                        href={route('judge.contest.score', item?.quest.id)}
+                                        href={route(
+                                            'judge.contest.score',
+                                            item?.quest.id,
+                                        )}
                                         className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
                                     >
-                                        {t("dashboard.jury.contest.index.buttons.score.label")}
+                                        {t(
+                                            'dashboard.jury.contest.index.buttons.score.label',
+                                        )}
                                     </Link>
                                 </TableCell>
                             </TableRow>

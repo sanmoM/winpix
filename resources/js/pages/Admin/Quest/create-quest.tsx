@@ -485,7 +485,7 @@ export default function Dashboard() {
 
                                 {/* 4. LEAD JUDGE SELECTOR */}
 
-                                <div className="rounded-md border border-blue-200 bg-white p-4">
+                                <div className="rounded-md border bg-bg-primary p-4">
                                     <div className="mb-2 text-sm text-blue-800">
                                         <strong>Option Selected:</strong> You
                                         must assign a Lead Judge to finalize the

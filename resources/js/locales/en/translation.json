@@ -263,6 +263,9 @@
         "libraryModal": {
             "title": "Your Library",
             "noImage": "No more images available"
+        },
+        "noPixelModal": {
+            "title": "pixels"
         }
     },
     "profile": {

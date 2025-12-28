@@ -644,61 +644,65 @@ export default function EditQuest() {
                         </div>
 
                         {/* 3. Judge Assignment (Hidden if Public) */}
-                        {data.winner_declaration === 'judges' && (
-                            <div className="space-y-6">
-                                <MultiSelectInput
-                                    id="judges"
-                                    label="Assign Judge Panel"
-                                    options={judgesOptions}
-                                    value={data.judges}
-                                    onChange={(val) => {
-                                        const newJudges = val as number[];
-                                        const currentLead = data.lead_judge;
-                                        const newLead =
-                                            currentLead &&
-                                            newJudges.includes(
-                                                Number(currentLead),
-                                            )
-                                                ? currentLead
-                                                : '';
+                        {data.vote_rights !== 'Public' &&
+                            data.winner_declaration === 'judges' && (
+                                <div className="space-y-6">
+                                    <MultiSelectInput
+                                        id="judges"
+                                        label="Assign Judge Panel"
+                                        options={judgesOptions}
+                                        value={data.judges}
+                                        onChange={(val) => {
+                                            const newJudges = val as number[];
+                                            const currentLead = data.lead_judge;
+                                            const newLead =
+                                                currentLead &&
+                                                newJudges.includes(
+                                                    Number(currentLead),
+                                                )
+                                                    ? currentLead
+                                                    : '';
 
-                                        setData((data) => ({
-                                            ...data,
-                                            judges: newJudges,
-                                            lead_judge: newLead,
-                                        }));
-                                    }}
-                                    className="max-w-auto w-full"
-                                />
-
-                                {/* 4. LEAD JUDGE SELECTOR */}
-
-                                <div className="rounded-md border bg-bg-primary p-4">
-                                    <div className="mb-2 text-sm text-blue-800">
-                                        <strong>Option Selected:</strong> You
-                                        must assign a Lead Judge to finalize the
-                                        winners.
-                                    </div>
-                                    <SelectInput
-                                        id="lead_judge"
-                                        label="Select Lead Judge"
-                                        options={judgesOptions.filter((j) =>
-                                            data.judges
-                                                .map((id) => Number(id))
-                                                .includes(Number(j.value)),
-                                        )}
-                                        value={data.lead_judge}
-                                        onChange={(val) =>
-                                            setData('lead_judge', val as number)
-                                        }
-                                        hasOption={false}
-                                        error={errors.lead_judge}
-                                        placeholder="-- Choose Lead Judge --"
+                                            setData((data) => ({
+                                                ...data,
+                                                judges: newJudges,
+                                                lead_judge: newLead,
+                                            }));
+                                        }}
                                         className="max-w-auto w-full"
                                     />
+
+                                    {/* 4. LEAD JUDGE SELECTOR */}
+
+                                    <div className="rounded-md border bg-bg-primary p-4">
+                                        <div className="mb-2 text-sm text-blue-800">
+                                            <strong>Option Selected:</strong>{' '}
+                                            You must assign a Lead Judge to
+                                            finalize the winners.
+                                        </div>
+                                        <SelectInput
+                                            id="lead_judge"
+                                            label="Select Lead Judge"
+                                            options={judgesOptions.filter((j) =>
+                                                data.judges
+                                                    .map((id) => Number(id))
+                                                    .includes(Number(j.value)),
+                                            )}
+                                            value={data.lead_judge}
+                                            onChange={(val) =>
+                                                setData(
+                                                    'lead_judge',
+                                                    val as number,
+                                                )
+                                            }
+                                            hasOption={false}
+                                            error={errors.lead_judge}
+                                            placeholder="-- Choose Lead Judge --"
+                                            className="max-w-auto w-full"
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
                     </div>
 
                     <PrizesInput

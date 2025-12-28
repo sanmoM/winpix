@@ -1,4 +1,6 @@
+import SaveAndBackButtons from '@/components/save-and-back-buttons';
 import ImageInput from '@/components/shared/inputs/image-input';
+import SelectInput from '@/components/shared/inputs/select-input';
 import TextInput from '@/components/shared/inputs/text-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
@@ -7,8 +9,6 @@ import { Head, useForm } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
-import SaveAndBackButtons from '@/components/save-and-back-buttons';
-import SelectInput from '@/components/shared/inputs/select-input';
 
 interface FlashProps {
     success?: string;
@@ -47,14 +47,21 @@ export default function Create({ flash }: Props) {
         });
     };
 
-    const breadcrumbs: BreadcrumbItem[] = t('dashboard.redeem.create.breadcrumbs', { returnObjects: true });
+    const breadcrumbs: BreadcrumbItem[] = t(
+        'dashboard.redeem.create.breadcrumbs',
+        { returnObjects: true },
+    );
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={t('dashboard.redeem.create.title')} />
             <ToastContainer />
 
-            <form onSubmit={handleSubmit} className="max-w-6xl space-y-6 p-4" encType="multipart/form-data">
+            <form
+                onSubmit={handleSubmit}
+                className="max-w-6xl space-y-6 p-4"
+                encType="multipart/form-data"
+            >
                 <ImageInput
                     image={data.icon_image}
                     setImage={(value) => setData('icon_image', value)}
@@ -71,7 +78,9 @@ export default function Create({ flash }: Props) {
                     value={data.number_of_coin}
                     setValue={(value) => setData('number_of_coin', value)}
                     label={t('dashboard.redeem.inputs.number_of_coin.label')}
-                    placeholder={t('dashboard.redeem.inputs.number_of_coin.placeholder')}
+                    placeholder={t(
+                        'dashboard.redeem.inputs.number_of_coin.placeholder',
+                    )}
                     error={errors.number_of_coin}
                     required
                 />
@@ -91,14 +100,19 @@ export default function Create({ flash }: Props) {
                     value={data.prize_type}
                     onChange={(value) => setData('prize_type', value)}
                     label={t('dashboard.redeem.inputs.prize_type.label')}
-                    options={t('dashboard.redeem.inputs.prize_type.options', { returnObjects: true })}
+                    options={t('dashboard.redeem.inputs.prize_type.options', {
+                        returnObjects: true,
+                    })}
                     error={errors.prize_type}
                     required
                     className="max-w-auto w-full"
                     hasOption={false}
                 />
 
-                <SaveAndBackButtons processing={processing} href={route('admin.redeem.index')} />
+                <SaveAndBackButtons
+                    processing={processing}
+                    href={route('admin.redeem.index')}
+                />
             </form>
         </AppLayout>
     );

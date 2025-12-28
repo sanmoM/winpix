@@ -358,8 +358,8 @@ class FrontendController extends Controller
     public function searchedHelps()
     {
         $searchTerm = request()->query('searchTerm');
-        $helps = Help::where('question', 'LIKE', '%' . $searchTerm . '%')
-            ->orWhere('answer', 'LIKE', '%' . $searchTerm . '%')
+        $helps = Help::where('question', 'LIKE', '%'.$searchTerm.'%')
+            ->orWhere('answer', 'LIKE', '%'.$searchTerm.'%')
             ->get();
 
         return Inertia::render('help/searched-helps', [
@@ -382,14 +382,14 @@ class FrontendController extends Controller
             $request->validate([
                 'quest_id' => 'required|integer|exists:quests,id',
                 'image' => 'required',
-                'camera_brand' => "required",
-                'camera_model' => "required",
-                'lens' => "required",
-                'focal_length' => "required",
-                'aperture' => "required",
-                'shutter_speed' => "required",
-                'iso' => "required",
-                'date_captured' => "required",
+                'camera_brand' => 'required',
+                'camera_model' => 'required',
+                'lens' => 'required',
+                'focal_length' => 'required',
+                'aperture' => 'required',
+                'shutter_speed' => 'required',
+                'iso' => 'required',
+                'date_captured' => 'required',
             ]);
         } catch (ValidationException $e) {
             return response()->json([
@@ -437,6 +437,16 @@ class FrontendController extends Controller
         }
 
         $user->decrement('pixel', $questFromDb->entry_coin);
+
+        $lastId = Transaction::max('transaction_id') ?? 1000000000;
+
+        Transaction::create([
+            'transaction_id' => $lastId + 1,
+            'user_id' => $user->id,
+            'transaction_type' => 'join_contest',
+            'amount_type' => 'pixel',
+            'amount' => $questFromDb->entry_coin,
+        ]);
 
         return redirect()->back();
     }

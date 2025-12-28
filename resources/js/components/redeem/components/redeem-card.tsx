@@ -13,6 +13,7 @@ export default function RedeemCard({
     number_of_coin,
     price,
     type,
+    id,
 }: {
     src: string;
     imgClassName?: string;
@@ -20,6 +21,7 @@ export default function RedeemCard({
     number_of_coin?: string;
     price: number;
     type: string;
+    id?: number;
 }) {
     const [reddemModalOpen, setReddemModalOpen] = useState(false);
     const [notEnoughCoinModalOpen, setNotEnoughCoinModalOpen] = useState(false);
@@ -57,8 +59,11 @@ export default function RedeemCard({
             >
                 <RedeemModal
                     image={'/storage/' + src}
-                    quantity={number_of_coin}
+                    quantity={number_of_coin || 1}
                     type={type}
+                    onClose={() => setReddemModalOpen(false)}
+                    vCoin={price}
+                    prizeId={id}
                 />
             </Modal>
             <Modal

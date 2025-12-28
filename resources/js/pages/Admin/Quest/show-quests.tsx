@@ -93,12 +93,12 @@ export default function Index() {
                                 </TableCell>
 
                                 <TableCell className="space-x-2">
-                                    <ViewButton
+                                    {/* <ViewButton
                                         route={route(
                                             'admin.quest.view',
                                             item.id,
                                         )}
-                                    />
+                                    /> */}
 
                                     <EditButton
                                         route={route(

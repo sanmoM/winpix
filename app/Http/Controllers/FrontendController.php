@@ -529,6 +529,7 @@ class FrontendController extends Controller
     {
         $user = auth()->user();
         $isAlreadyFollowing = Follower::where('follower_id', $user->id)->where('followed_id', $request->followed_id)->exists();
+        // return dd($request->followed_id);
         if (auth()->user()->id === $request->followed_id) {
             // Prevent users from following themselves
             return;

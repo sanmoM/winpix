@@ -15,15 +15,15 @@ class PrizeSeeder extends Seeder
         $prizes = [
             [
                 'name' => 'Pixel',
-                'image' => 'uploads/slider/pixel.jpg',
+                'image' => '/static-images/coin.png',
             ],
             [
                 'name' => 'Coin',
-                'image' => 'uploads/slider/coin.jpg',
+                'image' => '/static-images/golden-coin.png',
             ],
             [
                 'name' => 'Cash',
-                'image' => 'uploads/slider/cash.jpg',
+                'image' => '/static-images/cash.png',
             ],
         ];
 

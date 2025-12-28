@@ -27,7 +27,6 @@ export default function Profile({ user, stats, isFollowing }: any) {
     });
   }
 
-  console.log(user)
   return (
     <UserLayout>
       <div className=''>
@@ -35,7 +34,7 @@ export default function Profile({ user, stats, isFollowing }: any) {
           <Creator containerClassName='flex-col-reverse lg:flex-row lg:flex-row-reverse' infoContainerClassName='items-center lg:items-start' imageClassName='w-32 h-32 !border-primary-color lg:w-40 lg:h-40 border-6 p-0.5' followBtnClassName='text-sm px-6 py-1.5' nameClassName='text-3xl'
             btnText={isFollowing ? 'Unfollow' : 'Follow'}
             onClick={handleFollow}
-
+            userFromParent={user}
           >
             <div className='mt-4 flex gap-3 items-center'>
               <div>

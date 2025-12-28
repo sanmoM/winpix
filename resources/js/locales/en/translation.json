@@ -1642,6 +1642,30 @@
                         }
                     ]
                 }
+            },
+            "lead-contest": {
+                "index": {
+                    "title": "Lead Contest",
+                    "breadcrumbs": [
+                        {
+                            "title": "All Lead Contest",
+                            "href": "/admin/lead-contest"
+                        }
+                    ],
+                    "table": {
+                        "headings": [
+                            "#",
+                            "Image",
+                            "Title",
+                            "Actions"
+                        ]
+                    },
+                    "buttons": {
+                        "declearWinner": {
+                            "label": "Declear Winner"
+                        }
+                    }
+                }
             }
         }
     }

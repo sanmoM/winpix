@@ -1,7 +1,8 @@
-import JoinModal from '@/components/quests/single-quest/join-modal/join-modal'
 import LibraryModal from '@/components/quests/single-quest/library-modal'
+import JoinModal from '@/components/quests/single-quest/modals/join-modal/join-modal'
+import NoPixelModalContents from '@/components/quests/single-quest/modals/no-pixel-modal-contents'
+import VoteModal from '@/components/quests/single-quest/modals/vote-modal/vote-modal'
 import Status from '@/components/quests/single-quest/status'
-import VoteModal from '@/components/quests/single-quest/vote-modal/vote-modal'
 import Banner from '@/components/shared/banner'
 import Brief from '@/components/shared/brief'
 import Button from '@/components/shared/buttons/button'
@@ -21,7 +22,7 @@ import UserLayout from '@/layouts/user-layout'
 import { cn } from '@/lib/utils'
 import { AIImageDetector, extractImageMetadata } from '@/utils/detector'
 import { router, useForm, usePage } from '@inertiajs/react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { route } from 'ziggy-js'
 
@@ -29,6 +30,8 @@ export default function SingleQuest() {
 
     const { quest, auth, joinedQuests, questImages, votes, isFollowing, userUploadedImages } = usePage<any>().props;
     const user = auth?.user;
+
+    const [noPixelModalOpen, setNoPixelModalOpen] = useState(false);
 
     const [isImageViewOpen, setIsImageViewOpen] = useState(false);
     const [imageIndex, setImageIndex] = useState(0);
@@ -155,6 +158,7 @@ export default function SingleQuest() {
         }
         getMetaData();
     }, [data?.image])
+
     return (
         <UserLayout>
             <Banner src={"/storage/" + quest?.image} containerClass='lg:h-[70vh]'>
@@ -178,7 +182,14 @@ export default function SingleQuest() {
                                 text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')}
                                 className='px-8 py-2 lg:text-sm disabled:!bg-gray-600'
                                 type='button'
-                                onClick={() => setJoinModalOpen(true)}
+                                onClick={() => {
+                                    console.log(quest?.entry_coin, user?.pixel)
+                                    if (quest?.entry_coin > user?.pixel) {
+                                        setNoPixelModalOpen(true)
+                                    } else {
+                                        setJoinModalOpen(true)
+                                    }
+                                }}
                             />
                         </div>
                     ) : (
@@ -265,6 +276,15 @@ export default function SingleQuest() {
                     isImageViewOpen && <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} data={questImages?.map((item) => ({ image: item?.image, user: item?.user, id: item?.id }))} index={imageIndex} />
                 }
             </Container>
+
+            <Modal
+                isOpen={noPixelModalOpen}
+                onClose={() => setNoPixelModalOpen(false)}
+                title={t("singleQuest.noPixelModal.title")}
+                containerClassName='w-full max-w-lg'
+            >
+                <NoPixelModalContents setIsOpen={setNoPixelModalOpen} pixel={quest?.entry_coin} />
+            </Modal>
         </UserLayout>
     )
 }

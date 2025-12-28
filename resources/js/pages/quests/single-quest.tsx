@@ -183,7 +183,6 @@ export default function SingleQuest() {
                                 className='px-8 py-2 lg:text-sm disabled:!bg-gray-600'
                                 type='button'
                                 onClick={() => {
-                                    console.log(quest?.entry_coin, user?.pixel)
                                     if (quest?.entry_coin > user?.pixel) {
                                         setNoPixelModalOpen(true)
                                     } else {

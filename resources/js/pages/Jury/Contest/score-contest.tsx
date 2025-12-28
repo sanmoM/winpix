@@ -11,7 +11,6 @@ export default function ScoreContest({ questImages }: { questImages: any }) {
         returnObjects: true,
     });
 
-    console.log(questImages)
 
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>

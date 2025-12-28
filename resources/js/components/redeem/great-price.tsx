@@ -13,6 +13,7 @@ export default function GreatPrice({ t, prizes }: { t: any; prizes: any }) {
                         price={prize.price}
                         number_of_coin={prize.number_of_coin}
                         type={prize.prize_type}
+                        id={prize.id}
                     />
                 ))}
             </div>

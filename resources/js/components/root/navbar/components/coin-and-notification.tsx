@@ -44,6 +44,10 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
                 <img src="/images/coin.png" alt="" className="w-4 h-4" />
                 <p>{auth?.user?.pixel}</p>
             </div>
+            <div className="flex items-center gap-2">
+                <img src="/images/cash.png" alt="" className="w-6 h-6" />
+                <p>{auth?.user?.cash}</p>
+            </div>
             <div className="">
                 <button
                     ref={buttonRef}

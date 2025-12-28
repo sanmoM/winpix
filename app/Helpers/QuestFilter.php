@@ -49,7 +49,7 @@ class QuestFilter
 
             'community' =>
                 $query->whereHas('quest_type', fn ($q) =>
-                    $q->where('name', 'community')
+                    $q->where('name', 'Community')
                 ),
 
             default => null

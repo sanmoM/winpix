@@ -10,7 +10,7 @@ import UserLayout from '@/layouts/user-layout'
 import { Link, router } from '@inertiajs/react'
 import { useEffect, useState } from 'react'
 
-export default function active({ series, quests, categories, questTypes }: any) {
+export default function active({ series, quests, categories, questTypes, allQuests }: any) {
     // const params = new URLSearchParams();
     const { t, direction, currentLanguage } = useLocales()
     const [filter, setFilter] = useState({
@@ -68,7 +68,7 @@ export default function active({ series, quests, categories, questTypes }: any) 
 
     return (
         <UserLayout>
-            <ActiveQuestsBanner direction={direction} t={t} quests={quests} currentLanguage={currentLanguage} />
+            <ActiveQuestsBanner direction={direction} t={t} quests={allQuests} currentLanguage={currentLanguage} />
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
                 <ActiveQuestsFilter t={t} handleFilter={handleFilter} filter={filter} setFilter={addFilter} categories={categories} questTypes={questTypes} resetFilter={resetFilter} />
                 {

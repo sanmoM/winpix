@@ -13,7 +13,7 @@ export default function AppPrice({ t, prizes }: { t: any; prizes: any }) {
                         name={prize.name}
                         price={prize.price}
                         number_of_coin={prize.number_of_coin}
-                        type={prize.type}
+                        type={prize.prize_type}
                     />
                 ))}
             </div>

@@ -1,10 +1,18 @@
 import BorderButton from '@/components/shared/buttons/border-button'
 import Button from '@/components/shared/buttons/button'
-import { Link } from '@inertiajs/react'
+import { useForm } from '@inertiajs/react'
+import { route } from 'ziggy-js'
 
 export default function RedeemModal({ image, quantity, type }: { image: string, quantity: number }) {
+    const { post } = useForm({
+        quantity,
+    })
     const handleConfirm = () => {
-
+        if (type === "app_prize") {
+            post(route('add-pixel'))
+        }else if(type === "grand_prize"){
+            post(route('add-vcoin'))
+        }
     }
     return (
         <div>

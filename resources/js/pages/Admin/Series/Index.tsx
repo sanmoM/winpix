@@ -1,4 +1,3 @@
-import DeleteButton from '@/components/shared/table/components/delete-button';
 import EditButton from '@/components/shared/table/components/edit-button';
 import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
@@ -9,7 +8,7 @@ import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { Head, router } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
@@ -47,10 +46,10 @@ export default function SeriesIndex({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
-    const handleDelete = (id: number) => {
-        if (!confirm('Are you sure you want to delete this item?')) return;
-        router.delete(route('admin.series.destroy', id));
-    };
+    // const handleDelete = (id: number) => {
+    //     if (!confirm('Are you sure you want to delete this item?')) return;
+    //     router.delete(route('admin.series.destroy', id));
+    // };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -108,11 +107,11 @@ export default function SeriesIndex({
                                             item.id,
                                         )}
                                     />
-                                    <DeleteButton
+                                    {/* <DeleteButton
                                         handleDelete={() =>
                                             handleDelete(item.id)
                                         }
-                                    />
+                                    /> */}
                                 </TableCell>
                             </TableRow>
                         ))

@@ -94,11 +94,11 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
             >
                 <div
                     className="relative cursor-pointer group overflow-hidden rounded-lg"
-                    onClick={() => handleVote(singleQuestImage.id)}
+                    onClick={() => handleVote(singleQuestImage?.id)}
                 >
                     <img
-                        src={"/storage/" + singleQuestImage.image}
-                        alt={`Photo ${singleQuestImage.id}`}
+                        src={"/storage/" + singleQuestImage?.image}
+                        alt={`Photo ${singleQuestImage?.id}`}
                         className="w-full h-full object-cover rounded-md group-hover:scale-105 duration-300"
                     />
 

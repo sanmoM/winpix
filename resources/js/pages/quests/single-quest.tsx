@@ -98,7 +98,6 @@ export default function SingleQuest() {
     // })
     const votingItems = allItems?.slice(((votes?.length || 0) * 2), allItems?.length)
 
-    console.log(votes)
 
     const setImage = (image: any) => {
         setData('image', image)
@@ -175,6 +174,7 @@ export default function SingleQuest() {
                                 onClick={() => setVoteModalOpen(true)}
                             />
                             <Button
+                                disabled={isDisabled}
                                 text={t(isJoined ? 'singleQuest.banner.addEntryText' : 'singleQuest.banner.joinNowText')}
                                 className='px-8 py-2 lg:text-sm disabled:!bg-gray-600'
                                 type='button'
@@ -207,7 +207,7 @@ export default function SingleQuest() {
                             copyright_requirement={currentLanguage === 'en' ? quest?.copyright_requirement_en : quest?.copyright_requirement_ar}
                         />
                         <div className='className="w-fit lg:w-full md:max-w-md mt-auto mx-auto lg:mx-0'>
-                            <Creator user={quest?.user} onClick={handleFollow} btnText={isFollowing ? t('shared.unfollow') : t('shared.follow')} />
+                            <Creator userFromParent={quest?.user} onClick={handleFollow} btnText={isFollowing ? t('shared.unfollow') : t('shared.follow')} />
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ class FollowController extends Controller
 {
     public function follow(User $user)
     {
-        if (auth()->user()->id === $user->id) {
+        if (auth()->user()->id !== $user->id) {
             // Prevent users from following themselves
             auth()->user()->following()->attach($user->id);
         }
@@ -21,7 +21,7 @@ class FollowController extends Controller
     public function unfollow(User $user)
     {
 
-        if (auth()->user()->id === $user->id) {
+        if (auth()->user()->id !== $user->id) {
             // Prevent users from unfollowing themselves
             auth()->user()->following()->detach($user->id);
         }

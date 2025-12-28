@@ -35,36 +35,6 @@ export default function Dashboard({ stats }: { stats: any }) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head />
             <div className="">
-                {/* <div className="flex h-[70vh] items-center justify-center bg-bg-primary lg:h-[40vh]">
-                    <Creator
-                        containerClassName="flex-col-reverse lg:flex-row lg:flex-row-reverse"
-                        infoContainerClassName="items-center lg:items-start"
-                        imageClassName="w-32 h-32 !border-primary-color lg:w-40 lg:h-40 border-6 p-0.5"
-                        followBtnClassName="text-sm px-6 py-1.5"
-                        nameClassName="text-3xl"
-                        btnText="Edit"
-                        onClick={() => router.get('/settings/profile')}
-                    >
-                        <div className="mt-4 flex items-center gap-3">
-                            <div>
-                                <h6 className="text-sm text-gray-400">
-                                    {t('shared.followers')}
-                                </h6>
-                                <p className="font-semibold dark:text-white">
-                                    {stats.followers}
-                                </p>
-                            </div>
-                            <div>
-                                <h6 className="text-sm text-gray-400">
-                                    {t('shared.following')}
-                                </h6>
-                                <p className="font-semibold dark:text-white">
-                                    {stats.following}
-                                </p>
-                            </div>
-                        </div>
-                    </Creator>
-                </div> */}
                 <div className='flex justify-center items-center bg-bg-primary h-[70vh] lg:h-[40vh]'>
                     <Creator containerClassName='flex-col-reverse lg:flex-row lg:flex-row-reverse' infoContainerClassName='items-center lg:items-start' imageClassName='w-32 h-32 !border-primary-color lg:w-40 lg:h-40 border-6 p-0.5' followBtnClassName='text-sm px-6 py-1.5' nameClassName='text-3xl' hasBtn={false} userFromParent={user} >
                         <div className='mt-4 flex gap-3 items-center'>

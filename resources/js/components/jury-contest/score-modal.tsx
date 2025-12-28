@@ -12,9 +12,10 @@ interface QuestImage {
 
 interface ModalProps {
     questImages: QuestImage[];
+    questId: number;
 }
 
-const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
+const ScoreModal: React.FC<ModalProps> = ({ questImages }) => {
     const [score, setScore] = useState<number | null>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [likedId, setLikedId] = useState<number | null>(null);
@@ -24,13 +25,15 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
         setLikedId(null);
     }, []);
 
-    const handleVote = async (votedImageId: number) => {
+    const handleVote = async (votedImageId: number, questId: number) => {
+        console.log(votedImageId, questId);
+        return;
         setLikedId(votedImageId);
 
         try {
             const response = await axios.post(
-                `/vote/${votedImageId}/${questId}`,
-                { image_id: votedImageId },
+                `/judge/vote/${votedImageId}/${questId}`,
+                { image_id: votedImageId, score, quest_id: questId },
             );
         } catch (error) {
             console.error('❌ Vote failed:', error);
@@ -46,22 +49,22 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
         }, 800);
     };
 
-    const handleSkip = async () => {
-        try {
-            const response = await axios.post(`/skip-vote/${null}/${questId}`);
-        } catch (error) {
-            console.error('❌ Skip failed:', error);
-        }
+    // const handleSkip = async (votedImageId: number) => {
+    //     try {
+    //         const response = await axios.post(`/skip-vote/${votedImageId}/${questId}`, { image_id: votedImageId, score, quest_id: questId });
+    //     } catch (error) {
+    //         console.error('❌ Skip failed:', error);
+    //     }
 
-        setTimeout(() => {
-            setLikedId(null);
-            if (currentIndex + 2 < questImages.length) {
-                setCurrentIndex(currentIndex + 2);
-            } else {
-                window.location.reload();
-            }
-        }, 800);
-    };
+    //     setTimeout(() => {
+    //         setLikedId(null);
+    //         if (currentIndex + 2 < questImages.length) {
+    //             setCurrentIndex(currentIndex + 2);
+    //         } else {
+    //             window.location.reload();
+    //         }
+    //     }, 800);
+    // };
 
     const singleQuestImage = questImages[currentIndex];
 
@@ -75,29 +78,33 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
             {questImages?.length > 0 ? (
                 <div
                     onClick={(e) => e.stopPropagation()}
-                    className="mx-auto my-auto gap-4 overflow-hidden"
+                    className="my-auto gap-4 overflow-hidden h-full"
                 >
                     <div
-                        className="group relative cursor-pointer overflow-hidden rounded-lg"
-                        onClick={() => handleVote(singleQuestImage?.id)}
+                        className="group relative cursor-pointer overflow-hidden rounded-lg flex flex-col w-xl h-full"
+                        onClick={() => handleVote(singleQuestImage?.id, singleQuestImage?.quest_id)}
                     >
-                        <img
-                            src={'/storage/' + singleQuestImage?.image}
-                            alt={`Photo ${singleQuestImage?.id}`}
-                            className="h-full w-full rounded-md object-cover duration-300 group-hover:scale-105"
-                        />
-                        <TextInput
-                            label="Score"
-                            placeholder="Enter score"
-                            type="number"
-                            setValue={setScore}
-                            value={score}
-                        />
-                        <Button
-                            text={'Next'}
-                            onClick={() => handleVote(singleQuestImage.id)}
-                            className="mt-4 px-10 py-1.5 !text-lg"
-                        />
+                        <div className='flex-1 overflow-hidden bg-bg-primary mb-3 rounded-xl'>
+                            <img
+                                src={'/storage/' + singleQuestImage?.image}
+                                alt={`Photo ${singleQuestImage?.id}`}
+                                className="h-full w-full rounded-md object-contain duration-300 group-hover:scale-105"
+                            />
+                        </div>
+                        <div className='mx-3'>
+                            <TextInput
+                                label="Score"
+                                placeholder="Enter score"
+                                type="number"
+                                setValue={setScore}
+                                value={score}
+                            />
+                            <Button
+                                text={'Next'}
+                                onClick={() => handleVote(singleQuestImage.id)}
+                                className="mt-4 px-10 py-1.5 !text-lg"
+                            />
+                        </div>
                     </div>
                 </div>
             ) : (

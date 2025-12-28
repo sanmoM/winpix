@@ -6,8 +6,8 @@ use App\Models\JudgePanel;
 use App\Models\Quest;
 use App\Models\QuestImage;
 use App\Models\Vote;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Request;
 
 class JudgeContestController extends Controller
 {
@@ -36,19 +36,33 @@ class JudgeContestController extends Controller
     public function scoreContest($questId)
     {
         // return dd($questId);
-        $questImages = QuestImage::where('quest_id', $questId)->get();
+        $userId = auth()->user()->id;
+        $imagesNotVoted = QuestImage::where('quest_id', $questId)
+            ->whereDoesntHave('vote', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->get();
         return Inertia::render('Jury/Contest/score-contest', [
-            'questImages' => $questImages,
+            'questImages' => $imagesNotVoted,
         ]);
     }
 
     public function vote(Request $request)
     {
+        $request->validate([
+            'image_id' => 'required',
+            'quest_id' => 'required',
+            'score' => 'required',
+        ]);
+
+        // return dd($request->all());
+
         Vote::create([
             'user_id' => auth()->user()->id,
-            'quest_image_id' => $request->image_id,
+            'image_id' => $request->image_id,
             'quest_id' => $request->quest_id,
             'score' => $request->score,
+            'skip' => null,
         ]);
 
         return redirect()->back();

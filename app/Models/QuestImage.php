@@ -42,7 +42,7 @@ class QuestImage extends Model
 
     public function vote()
     {
-        return $this->hasMany(Vote::class);
+        return $this->hasMany(Vote::class, 'image_id');
     }
 
     public function report()

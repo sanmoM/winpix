@@ -17,7 +17,6 @@ export default function UserLayout({
         <div>
             <Navbar />
             {children}
-            <Toaster />
             <Footer />
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
                 <RedeemModalContents setIsOpen={setIsOpen} />

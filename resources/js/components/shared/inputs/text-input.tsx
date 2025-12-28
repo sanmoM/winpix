@@ -36,7 +36,6 @@ export default function TextInput({
                 </label>
             )}
             <input
-                {...{ id, ...props }}
                 type={type}
                 name={name}
                 placeholder={placeholder}
@@ -45,6 +44,7 @@ export default function TextInput({
                 onChange={(e) => setValue(e.target.value)}
                 dir={dir}
                 className={`w-full rounded-lg border border-gray-200 bg-bg-primary px-4 py-3 text-gray-800 placeholder-gray-400 transition-all focus:border-transparent focus:ring-0 focus:outline-none dark:text-white ${inputClassName}`}
+                {...{ id, ...props }}
             />
             {error && <p className="text-sm text-red-600">{error}</p>}
         </div>

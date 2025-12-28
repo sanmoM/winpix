@@ -10,6 +10,7 @@ class Redeem extends Model
 
         'icon_image',
         'number_of_coin',
+        'name',
         'price',
         'prize_type',
         'status',

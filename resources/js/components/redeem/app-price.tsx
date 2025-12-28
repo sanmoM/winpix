@@ -10,8 +10,9 @@ export default function AppPrice({ t, prizes }: { t: any; prizes: any }) {
                 {prizes.map((prize: any) => (
                     <RedeemCard
                         src={prize.icon_image}
-                        title={prize.title}
-                        description={prize.description}
+                        name={prize.name}
+                        price={prize.price}
+                        number_of_coin={prize.number_of_coin}
                     />
                 ))}
             </div>

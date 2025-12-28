@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
 use App\Models\Redeem;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class RedeemController extends Controller
 {
@@ -16,8 +16,9 @@ class RedeemController extends Controller
     public function index()
     {
         $redeems = Redeem::orderBy('id', 'DESC')->get();
+
         return Inertia::render('Admin/Redeem/Index', [
-            'redeems' => $redeems
+            'redeems' => $redeems,
         ]);
     }
 
@@ -26,7 +27,7 @@ class RedeemController extends Controller
      */
     public function create()
     {
-     return Inertia::render('Admin/Redeem/Create');
+        return Inertia::render('Admin/Redeem/Create');
     }
 
     /**
@@ -37,70 +38,69 @@ class RedeemController extends Controller
         $validated = $request->validate([
 
             'icon_image' => 'required|image|max:2048',
-            'number_of_coin' => 'required',
+            'number_of_coin' => 'nullable',
+            'name' => 'nullable',
             'price' => 'required',
             'prize_type' => 'required',
 
         ]);
 
-       $redeem =new Redeem();
-       $redeem->number_of_coin = $request->number_of_coin;
-       $redeem->price = $request->price;
-       $redeem->prize_type = $request->prize_type;
+        $redeem = new Redeem;
+        $redeem->name = $request->name;
+        $redeem->number_of_coin = $request->number_of_coin;
+        $redeem->price = $request->price;
+        $redeem->prize_type = $request->prize_type;
 
-
-       if ($request->hasFile('icon_image')) {
+        if ($request->hasFile('icon_image')) {
 
             $file = $request->file('icon_image')->store('uploads/redeem', 'public');
             $redeem->icon_image = $file;
         }
 
+        $redeem->save();
 
-       $redeem->save();
-
-       return redirect()->back()->with('success', 'Redeem package saved successfully 🎉');
+        return redirect()->back()->with('success', 'Redeem package saved successfully 🎉');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-       $redeem = Redeem::find($id);
-       return Inertia::render('Admin/Redeem/Edit',[
-            'redeem' => $redeem
-       ]);
+        $redeem = Redeem::find($id);
+
+        return Inertia::render('Admin/Redeem/Edit', [
+            'redeem' => $redeem,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
 
             'icon_image' => 'nullable|image|max:2048',
-            'number_of_coin' => 'required',
+            'number_of_coin' => 'nullable',
+            'name' => 'nullable',
             'price' => 'required',
             'prize_type' => 'required',
         ]);
 
-       $redeem = Redeem::find($id);
-       $redeem->number_of_coin = $request->number_of_coin;
-       $redeem->price = $request->price;
-       $redeem->prize_type = $request->prize_type;
-       $redeem->status = $request->status;
+        $redeem = Redeem::find($id);
+        $redeem->name = $request->name;
+        $redeem->number_of_coin = $request->number_of_coin;
+        $redeem->price = $request->price;
+        $redeem->prize_type = $request->prize_type;
+        $redeem->status = $request->status;
 
-       if ($request->hasFile('icon_image')) {
+        if ($request->hasFile('icon_image')) {
             // Delete old image
             if ($redeem->icon_image && Storage::disk('public')->exists($redeem->icon_image)) {
                 Storage::disk('public')->delete($redeem->icon_image);
@@ -111,9 +111,9 @@ class RedeemController extends Controller
             $redeem->icon_image = $file;
         }
 
-       $redeem->update();
+        $redeem->update();
 
-       return redirect()->route('admin.redeem.index')->with('success', 'Redeem package updated successfully 🎉');
+        return redirect()->route('admin.redeem.index')->with('success', 'Redeem package updated successfully 🎉');
     }
 
     /**

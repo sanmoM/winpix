@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('redeems', function (Blueprint $table) {
             $table->id();
             $table->string('icon_image');
-            $table->integer('number_of_coin');
+            $table->string('name')->nullable();
+            $table->integer('number_of_coin')->nullable();
             $table->integer('price');
             $table->string('prize_type');
             $table->string('status')->default('Active');

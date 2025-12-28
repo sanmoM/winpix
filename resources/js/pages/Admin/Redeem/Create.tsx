@@ -23,6 +23,7 @@ export default function Create({ flash }: Props) {
     const { t } = useLocales();
     const { data, setData, post, processing, reset, errors } = useForm({
         number_of_coin: '',
+        name: '',
         price: '',
         prize_type: 'app_prize',
         icon_image: null as File | null,
@@ -73,28 +74,6 @@ export default function Create({ flash }: Props) {
                     ref={fileInputRef}
                 />
 
-                <TextInput
-                    id="number_of_coin"
-                    value={data.number_of_coin}
-                    setValue={(value) => setData('number_of_coin', value)}
-                    label={t('dashboard.redeem.inputs.number_of_coin.label')}
-                    placeholder={t(
-                        'dashboard.redeem.inputs.number_of_coin.placeholder',
-                    )}
-                    error={errors.number_of_coin}
-                    required
-                />
-
-                <TextInput
-                    id="price"
-                    value={data.price}
-                    setValue={(value) => setData('price', value)}
-                    label={t('dashboard.redeem.inputs.price.label')}
-                    placeholder={t('dashboard.redeem.inputs.price.placeholder')}
-                    error={errors.price}
-                    required
-                />
-
                 <SelectInput
                     id="prize_type"
                     value={data.prize_type}
@@ -107,6 +86,46 @@ export default function Create({ flash }: Props) {
                     required
                     className="max-w-auto w-full"
                     hasOption={false}
+                />
+
+                {data.prize_type !== 'grand_prize' && (
+                    <TextInput
+                        id="number_of_coin"
+                        value={data.number_of_coin}
+                        setValue={(value) => setData('number_of_coin', value)}
+                        label={t(
+                            'dashboard.redeem.inputs.number_of_coin.label',
+                        )}
+                        placeholder={t(
+                            'dashboard.redeem.inputs.number_of_coin.placeholder',
+                        )}
+                        error={errors.number_of_coin}
+                        required
+                    />
+                )}
+
+                {data.prize_type === 'grand_prize' && (
+                    <TextInput
+                        id="name"
+                        value={data.name}
+                        setValue={(value) => setData('name', value)}
+                        label={t('dashboard.redeem.inputs.name.label')}
+                        placeholder={t(
+                            'dashboard.redeem.inputs.name.placeholder',
+                        )}
+                        error={errors.name}
+                        required
+                    />
+                )}
+
+                <TextInput
+                    id="price"
+                    value={data.price}
+                    setValue={(value) => setData('price', value)}
+                    label={t('dashboard.redeem.inputs.price.label')}
+                    placeholder={t('dashboard.redeem.inputs.price.placeholder')}
+                    error={errors.price}
+                    required
                 />
 
                 <SaveAndBackButtons

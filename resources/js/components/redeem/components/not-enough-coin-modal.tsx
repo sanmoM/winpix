@@ -1,17 +1,13 @@
 import BorderButton from '@/components/shared/buttons/border-button'
 import Button from '@/components/shared/buttons/button'
-import { Link } from '@inertiajs/react'
 
-export default function RedeemModal({ image, quantity, type }: { image: string, quantity: number }) {
-    const handleConfirm = () => {
-
-    }
+export default function NotEnoughCoinModal({ quantity, onClose }: { quantity: number, onClose: () => void }) {
     return (
         <div>
 
             {/* Main Heading */}
             <h1 className="text-2xl md:text-3xl font-extrabold  mb-8 !text-center">
-                Are you sure you want to redeem this prize?
+                Not enough V-Coins
             </h1>
 
             {/* Custom Treasure Chest Illustration */}
@@ -19,7 +15,7 @@ export default function RedeemModal({ image, quantity, type }: { image: string, 
                 {/* Animated bounce effect */}
                 <div className="animate-bounce-slow">
                     <img
-                        src={image}
+                        src="/images/golden-coin.png"
                         alt='coin'
                         className="w-20 object-cover"
                     />
@@ -27,10 +23,7 @@ export default function RedeemModal({ image, quantity, type }: { image: string, 
             </div>
             <p className=' mb-6 !text-center mt-3 text-2xl font-black'>X{quantity}</p>
 
-            <div className='grid grid-cols-2 gap-4 w-fit mx-auto'>
-                <BorderButton text='Cancel' className='py-2 px-8' />
-                <Button text='Confirm' className='py-2 px-8' onClick={handleConfirm} />
-            </div>
+            <Button text='Ok' className='py-2 px-20 text-lg' onClick={onClose} />
         </div>
     )
 }

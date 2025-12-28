@@ -1,8 +1,10 @@
 import Button from '@/components/shared/buttons/button';
 import Modal from '@/components/shared/modal';
 import { cn } from '@/lib/utils';
-import { Link } from '@inertiajs/react';
 import { useState } from 'react';
+import NotEnoughCoinModal from './not-enough-coin-modal';
+import RedeemModal from './redeem-modal';
+import { usePage } from '@inertiajs/react';
 
 export default function RedeemCard({
     src,
@@ -10,15 +12,18 @@ export default function RedeemCard({
     name,
     number_of_coin,
     price,
+    type,
 }: {
     src: string;
     imgClassName?: string;
     name?: string;
     number_of_coin?: string;
     price: number;
+    type: string;
 }) {
     const [reddemModalOpen, setReddemModalOpen] = useState(false);
     const [notEnoughCoinModalOpen, setNotEnoughCoinModalOpen] = useState(false);
+    const user = usePage().props.auth.user;
     return (
         <div className="rounded-lg border bg-bg-primary p-4 dark:bg-[#0B1120]">
             <img
@@ -37,25 +42,34 @@ export default function RedeemCard({
                 </h1>
             )}
 
-            <Link href="/redeem">
-                <Button
-                    text={price.toString()}
-                    hasIcon={true}
-                    src="/images/golden-coin.png"
-                    className="mx-auto px-6 py-2"
-                />
-            </Link>
+            {/* <Link href="/redeem"> */}
+            <Button
+                onClick={() => {
+                    console.log(user)
+                    if (user && user.coin < price) {
+                        setNotEnoughCoinModalOpen(true);
+                    } else {
+                        setReddemModalOpen(true);
+                    }
+                }}
+                text={price.toString()}
+                hasIcon={true}
+                src="/images/golden-coin.png"
+                className="mx-auto px-6 py-2"
+            />
+            {/* </Link> */}
             <Modal
                 isOpen={reddemModalOpen}
                 onClose={() => setReddemModalOpen(false)}
             >
-                <ReddemModal />
+                <RedeemModal image={'/storage/' + src} quantity={number_of_coin} type={type} />
             </Modal>
             <Modal
                 isOpen={notEnoughCoinModalOpen}
                 onClose={() => setNotEnoughCoinModalOpen(false)}
+                containerClassName='max-w-lg'
             >
-                <NotEnoughCoinModal />
+                <NotEnoughCoinModal quantity={number_of_coin} onClose={() => setNotEnoughCoinModalOpen(false)} />
             </Modal>
         </div>
     );

@@ -16,7 +16,7 @@ class JudgeContestController extends Controller
 
         $panel = JudgePanel::where('user_id', auth()->user()->id)->with('user')->with('quest')->orderBy('id', 'desc')->get();
 
-        return Inertia::render('Jury/Contest/Index', [
+        return Inertia::render('Jury/contest-pannel/index', [
             'panel' => $panel,
         ]);
 
@@ -25,10 +25,10 @@ class JudgeContestController extends Controller
     public function leadJudge()
     {
 
-        return $panel = Quest::where('lead_judge', auth()->user()->id)->orderBy('id', 'desc')->get();
+        $quests = Quest::where('lead_judge', auth()->user()->id)->orderBy('id', 'desc')->get();
 
-        return Inertia::render('Jury/Contest/Index', [
-            'panel' => $panel,
+        return Inertia::render('Jury/lead-contests/index', [
+            'quests' => $quests,
         ]);
 
     }
@@ -42,7 +42,7 @@ class JudgeContestController extends Controller
                 $query->where('user_id', $userId);
             })
             ->get();
-        return Inertia::render('Jury/Contest/score-contest', [
+        return Inertia::render('Jury/contest-pannel/score-contest', [
             'questImages' => $imagesNotVoted,
         ]);
     }

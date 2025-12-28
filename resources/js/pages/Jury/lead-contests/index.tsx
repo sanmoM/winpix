@@ -42,7 +42,6 @@ export default function Index({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
-    // console.log(items)
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
@@ -54,9 +53,12 @@ export default function Index({
                 </h1>
 
                 <Table
-                    headingItems={t('dashboard.jury.contest.index.table.headings', {
-                        returnObjects: true,
-                    })}
+                    headingItems={t(
+                        'dashboard.jury.contest.index.table.headings',
+                        {
+                            returnObjects: true,
+                        },
+                    )}
                 >
                     {items?.length > 0 ? (
                         items.map((item, index) => (
@@ -77,7 +79,9 @@ export default function Index({
                                     )}
                                 </TableCell>
                                 <TableCell>
-                                    {currentLanguage === 'en' ? item?.title_en : item?.title_ar}
+                                    {currentLanguage === 'en'
+                                        ? item?.title_en
+                                        : item?.title_ar}
                                 </TableCell>
 
                                 {/* <TableCell>{item.email}</TableCell>
@@ -103,10 +107,15 @@ export default function Index({
                                         )}
                                     /> */}
                                     <Link
-                                        href={route('judge.contest.score', item?.id)}
+                                        href={route(
+                                            'judge.contest.score',
+                                            item?.id,
+                                        )}
                                         className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
                                     >
-                                        {t("dashboard.jury.lead-contest.index.buttons.declearWinner.label")}
+                                        {t(
+                                            'dashboard.jury.lead-contest.index.buttons.declearWinner.label',
+                                        )}
                                     </Link>
                                 </TableCell>
                             </TableRow>

@@ -1,10 +1,10 @@
 import Button from '@/components/shared/buttons/button';
 import Modal from '@/components/shared/modal';
 import { cn } from '@/lib/utils';
+import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import NotEnoughCoinModal from './not-enough-coin-modal';
 import RedeemModal from './redeem-modal';
-import { usePage } from '@inertiajs/react';
 
 export default function RedeemCard({
     src,
@@ -33,21 +33,14 @@ export default function RedeemCard({
                 alt="redeem"
                 className={cn(`mx-auto mb-3 w-[75%]`, imgClassName)}
             />
-            {name && (
-                <h1 className="mb-2 !text-center text-sm ">
-                    {name}
-                </h1>
-            )}
+            {name && <h1 className="mb-2 !text-center text-sm">{name}</h1>}
             {number_of_coin && (
-                <h1 className="mb-2 !text-center text-sm ">
-                    X{number_of_coin}
-                </h1>
+                <h1 className="mb-2 !text-center text-sm">X{number_of_coin}</h1>
             )}
 
             {/* <Link href="/redeem"> */}
             <Button
                 onClick={() => {
-                    console.log(user)
                     if (user && user.coin < price) {
                         setNotEnoughCoinModalOpen(true);
                     } else {
@@ -64,14 +57,24 @@ export default function RedeemCard({
                 isOpen={reddemModalOpen}
                 onClose={() => setReddemModalOpen(false)}
             >
-                <RedeemModal image={'/storage/' + src} quantity={number_of_coin || 1} type={type} onClose={() => setReddemModalOpen(false)} vCoin={price} prizeId={id} />
+                <RedeemModal
+                    image={'/storage/' + src}
+                    quantity={number_of_coin || 1}
+                    type={type}
+                    onClose={() => setReddemModalOpen(false)}
+                    vCoin={price}
+                    prizeId={id}
+                />
             </Modal>
             <Modal
                 isOpen={notEnoughCoinModalOpen}
                 onClose={() => setNotEnoughCoinModalOpen(false)}
-                containerClassName='max-w-lg'
+                containerClassName="max-w-lg"
             >
-                <NotEnoughCoinModal quantity={number_of_coin} onClose={() => setNotEnoughCoinModalOpen(false)} />
+                <NotEnoughCoinModal
+                    quantity={number_of_coin}
+                    onClose={() => setNotEnoughCoinModalOpen(false)}
+                />
             </Modal>
         </div>
     );

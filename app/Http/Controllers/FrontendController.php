@@ -240,6 +240,7 @@ class FrontendController extends Controller
             'quests.user',
             'quests.category',
             'quests.images.user',
+            'quests.prizes.prize_pool',
         ])
             ->findOrFail($id);   // get only ONE series
 

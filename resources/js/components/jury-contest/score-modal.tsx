@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { IoIosArrowForward } from "react-icons/io";
+import React, { useEffect, useState } from 'react';
 
-import axios from "axios";
-import TextInput from "../shared/inputs/text-input";
-import Button from "../shared/buttons/button";
-import NoData from "../shared/no-data";
+import axios from 'axios';
+import Button from '../shared/buttons/button';
+import TextInput from '../shared/inputs/text-input';
+import NoData from '../shared/no-data';
 
 interface QuestImage {
     id: number;
@@ -29,9 +28,12 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
         setLikedId(votedImageId);
 
         try {
-            const response = await axios.post(`/vote/${votedImageId}/${questId}`, { image_id: votedImageId });
+            const response = await axios.post(
+                `/vote/${votedImageId}/${questId}`,
+                { image_id: votedImageId },
+            );
         } catch (error) {
-            console.error("❌ Vote failed:", error);
+            console.error('❌ Vote failed:', error);
         }
 
         setTimeout(() => {
@@ -48,7 +50,7 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
         try {
             const response = await axios.post(`/skip-vote/${null}/${questId}`);
         } catch (error) {
-            console.error("❌ Skip failed:", error);
+            console.error('❌ Skip failed:', error);
         }
 
         setTimeout(() => {
@@ -65,34 +67,42 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages, questId }) => {
 
     return (
         <div
-            className="h-[70vh] flex flex-col"
+            className="flex h-[70vh] flex-col"
             aria-labelledby="modal-title"
             role="dialog"
             aria-modal="true"
         >
-            {
-                questImages?.length > 0 ? (
+            {questImages?.length > 0 ? (
+                <div
+                    onClick={(e) => e.stopPropagation()}
+                    className="mx-auto my-auto gap-4 overflow-hidden"
+                >
                     <div
-                        onClick={(e) => e.stopPropagation()}
-                        className="mx-auto my-auto overflow-hidden gap-4"
+                        className="group relative cursor-pointer overflow-hidden rounded-lg"
+                        onClick={() => handleVote(singleQuestImage?.id)}
                     >
-                        <div
-                            className="relative cursor-pointer group overflow-hidden rounded-lg"
-                            onClick={() => handleVote(singleQuestImage?.id)}
-                        >
-                            <img
-                                src={"/storage/" + singleQuestImage?.image}
-                                alt={`Photo ${singleQuestImage?.id}`}
-                                className="w-full h-full object-cover rounded-md group-hover:scale-105 duration-300"
-                            />
-                            <TextInput label="Score" placeholder="Enter score" type="number" setValue={setScore} value={score} />
-                            <Button text={"Next"} onClick={() => handleVote(singleQuestImage.id)} className="mt-4 !text-lg px-10 py-1.5" />
-                        </div>
+                        <img
+                            src={'/storage/' + singleQuestImage?.image}
+                            alt={`Photo ${singleQuestImage?.id}`}
+                            className="h-full w-full rounded-md object-cover duration-300 group-hover:scale-105"
+                        />
+                        <TextInput
+                            label="Score"
+                            placeholder="Enter score"
+                            type="number"
+                            setValue={setScore}
+                            value={score}
+                        />
+                        <Button
+                            text={'Next'}
+                            onClick={() => handleVote(singleQuestImage.id)}
+                            className="mt-4 px-10 py-1.5 !text-lg"
+                        />
                     </div>
-                ) : (
-                    <NoData text="No more images" />
-                )
-            }
+                </div>
+            ) : (
+                <NoData text="No more images" />
+            )}
         </div>
     );
 };

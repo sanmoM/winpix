@@ -12,6 +12,6 @@ class Redeem extends Model
         'number_of_coin',
         'price',
         'prize_type',
-        'status'
+        'status',
     ];
 }

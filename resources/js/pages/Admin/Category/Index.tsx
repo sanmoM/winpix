@@ -1,4 +1,3 @@
-import DeleteButton from '@/components/shared/table/components/delete-button';
 import EditButton from '@/components/shared/table/components/edit-button';
 import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
@@ -9,10 +8,10 @@ import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { Head, router } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
+import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
-import { useEffect } from 'react';
 
 interface QuestCategoryItem {
     id: number;
@@ -44,10 +43,10 @@ export default function Index({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
-    const handleDelete = (id: number) => {
-        if (!confirm(t('dashboard.questCategory.index.confirmDelete'))) return;
-        router.delete(route('admin.questCategory.destroy', id));
-    };
+    // const handleDelete = (id: number) => {
+    //     if (!confirm(t('dashboard.questCategory.index.confirmDelete'))) return;
+    //     router.delete(route('admin.questCategory.destroy', id));
+    // };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
@@ -61,9 +60,12 @@ export default function Index({
                 />
 
                 <Table
-                    headingItems={t('dashboard.questCategory.index.table.headings', {
-                        returnObjects: true,
-                    })}
+                    headingItems={t(
+                        'dashboard.questCategory.index.table.headings',
+                        {
+                            returnObjects: true,
+                        },
+                    )}
                 >
                     {items?.length > 0 ? (
                         items.map((item, index) => (
@@ -85,14 +87,14 @@ export default function Index({
                                     <EditButton
                                         route={route(
                                             'admin.questCategory.edit',
-                                            item.id
+                                            item.id,
                                         )}
                                     />
-                                    <DeleteButton
+                                    {/* <DeleteButton
                                         handleDelete={() =>
                                             handleDelete(item.id)
                                         }
-                                    />
+                                    /> */}
                                 </TableCell>
                             </TableRow>
                         ))

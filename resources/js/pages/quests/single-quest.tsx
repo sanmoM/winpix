@@ -68,7 +68,6 @@ export default function SingleQuest() {
         } else if (votingRights === 'Hybrid') {
             hasVotingRight = true;
         }
-
         // if admin forsed open contest
         if (quest?.manual_override === 'Force_Open') {
             return !hasVotingRight;

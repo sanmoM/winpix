@@ -50,22 +50,20 @@ const VoteModal: React.FC<ModalProps> = ({ isOpen, onClose, questImages, questId
     }, 800);
   };
 
-  const handleSkip = async () => {
+  const handleSkip = async (votedImageId: any, questId: number) => {
     try {
-      const response = await axios.post(`/skip-vote/${null}/${questId}`);
+      const response = await axios.post(`/skip-vote/${votedImageId}/${questId}`);
     } catch (error) {
       console.error("❌ Skip failed:", error);
     }
 
-    setTimeout(() => {
-      setLikedId(null);
-      if (currentIndex + 2 < questImages.length) {
-        setCurrentIndex(currentIndex + 2);
-      } else {
-        onClose();
-        window.location.reload();
-      }
-    }, 800);
+    setLikedId(null);
+    if (currentIndex + 2 < questImages.length) {
+      setCurrentIndex(currentIndex + 2);
+    } else {
+      onClose();
+      window.location.reload();
+    }
   };
 
   return (
@@ -88,7 +86,7 @@ const VoteModal: React.FC<ModalProps> = ({ isOpen, onClose, questImages, questId
         {/* Skip Button */}
         <div
           className="flex items-center mr-[5%] mt-[30px] border w-fit px-6 py-1.5 rounded-full cursor-pointer"
-          onClick={handleSkip}
+          onClick={() => handleSkip(null, questId)}
         >
           {/* <IoIosArrowForward className="text-2xl font-bold rotate-180" /> */}
           <span>Skip</span>

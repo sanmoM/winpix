@@ -8,6 +8,7 @@ use App\Models\BrandMarketing;
 use App\Models\Contact;
 use App\Models\Follower;
 use App\Models\Help;
+use App\Models\JudgePanel;
 use App\Models\MarketingBanner;
 use App\Models\Quest;
 use App\Models\QuestCategory;

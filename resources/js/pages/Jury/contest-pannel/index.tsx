@@ -61,12 +61,12 @@ export default function Index({
                     )}
                 >
                     {panel?.length > 0 ? (
-                        panel.map((item, index) => (
+                        panel?.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
 
                                 <TableCell>
-                                    {item.quest.image ? (
+                                    {item?.quest.image ? (
                                         <img
                                             src={`/storage/${item.quest.image}`}
                                             alt={item.quest.title_en}
@@ -116,6 +116,15 @@ export default function Index({
                                         {t(
                                             'dashboard.jury.contest.index.buttons.score.label',
                                         )}
+                                    </Link>
+                                    <Link
+                                        href={route(
+                                            'judge.show.contest.score',
+                                            item?.quest.id,
+                                        )}
+                                        className="bg-dark cursor-pointer rounded-md bg-slate-800 px-3 py-2 font-medium text-white"
+                                    >
+                                        View Score
                                     </Link>
                                 </TableCell>
                             </TableRow>

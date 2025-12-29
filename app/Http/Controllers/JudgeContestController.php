@@ -49,6 +49,7 @@ class JudgeContestController extends Controller
                 $query->where('user_id', $userId);
             })
             ->get();
+
         return Inertia::render('Jury/contest-pannel/score-contest', [
             'questImages' => $imagesNotVoted,
         ]);
@@ -73,5 +74,25 @@ class JudgeContestController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function showContestScore($questId)
+    {
+        $userId = auth()->user()->id;
+
+        return $showContestScores = Vote::with(['user:id,name', 'quest:id,title_en', 'image'])->where('user_id', $userId)->where('quest_id', $questId)->get();
+
+        return Inertia::render('Jury/lead-contests/show-score-contest', [
+            'showContestScores' => $showContestScores,
+        ]);
+    }
+
+    public function allJudgeContestScore($questId)
+    {
+        return $showAllContestScores = QuestImage::with(['user:id,name', 'quest:id,title_en', 'vote'])->where('quest_id', $questId)->get();
+
+        return Inertia::render('Jury/lead-contests/show-score-contest', [
+            'showAllContestScores' => $showAllContestScores,
+        ]);
     }
 }

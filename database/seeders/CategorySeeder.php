@@ -12,9 +12,24 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        QuestCategory::create([
-            'name' => 'Community',
-            'status' => 'Active',
-        ]);
+
+        $categories = [
+            [
+                'name' => 'Brand & Marketing',
+                'status' => 'Active',
+                'description' => 'Brand & Marketing',
+            ],
+
+            [
+                'name' => 'Community',
+                'status' => 'Active',
+                'description' => 'Community',
+            ],
+        ];
+
+        foreach ($categories as $category) {
+            QuestCategory::create($category);
+        }
+
     }
 }

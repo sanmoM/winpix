@@ -6,7 +6,7 @@ import TextInput from '@/components/shared/inputs/text-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
@@ -75,6 +75,7 @@ export default function EditSeries({ series, flash }: EditProps) {
             onSuccess: () => {
                 reset();
                 if (fileInputRef.current) fileInputRef.current.value = '';
+                router.visit(route('admin.series.index'));
             },
         });
     };
@@ -104,8 +105,8 @@ export default function EditSeries({ series, flash }: EditProps) {
                             data.image
                                 ? URL.createObjectURL(data.image)
                                 : series.image
-                                  ? `/storage/${series.image}`
-                                  : null
+                                    ? `/storage/${series.image}`
+                                    : null
                         }
                         setImage={(value) => setData('image', value)}
                         wrapperClassName="w-full aspect-[2/1]"

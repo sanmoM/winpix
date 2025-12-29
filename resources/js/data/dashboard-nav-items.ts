@@ -253,6 +253,21 @@ export const adminNavItemsEN: NavItem[] = [
                 href: '/admin/report',
                 icon: ServerIcon,
             },
+            {
+                title: 'Favicon',
+                href: '/admin/favicon',
+                icon: ServerIcon,
+            },
+            {
+                title: 'Logo',
+                href: '/admin/logo',
+                icon: ServerIcon,
+            },
+            {
+                title: 'Social Links',
+                href: '/admin/social-links',
+                icon: ServerIcon,
+            }
         ],
     },
 ];

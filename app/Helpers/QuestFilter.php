@@ -15,8 +15,7 @@ class QuestFilter
     public static function init()
     {
         self::$query = Quest::query()
-            ->with(['category', 'user', 'quest_type', 'questSeries'])
-            ->where('status', 'active');
+            ->with(['category', 'user', 'quest_type', 'questSeries']);
 
         return new static;
     }

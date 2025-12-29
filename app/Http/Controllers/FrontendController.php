@@ -110,7 +110,7 @@ class FrontendController extends Controller
     {
         $queryParams = request()->query();
 
-        $filter = $queryParams['filter'] ?? 'discover';
+        $filter = $queryParams['filter'] ?? "discover";
         $questType = $queryParams['questType'] ?? null;
         $category = $queryParams['category'] ?? null;
         $isFree = $queryParams['isFree'] ?? null;
@@ -126,7 +126,7 @@ class FrontendController extends Controller
         QuestFilter::init()
             ->filter($filter)
             ->sort($sort);
-
+        // return response()->json($allQuest);
         // Dynamic filters
         if ($category) {
             QuestFilter::query()->where('category_id', $category);
@@ -465,23 +465,6 @@ class FrontendController extends Controller
 
         return redirect()->back();
     }
-
-    // Old Voting Function
-    // public function vote($imageId, $questId)
-    // {
-    //     $user = auth()->user();
-
-    //     // return response()->json(['user' => $userUnderImage->user], 200);
-    //     Vote::firstOrCreate([
-    //         'image_id' => $imageId,
-    //         'user_id' => $user->id,
-    //         'quest_id' => $questId,
-    //     ]);
-
-    //     $userUnderImage = QuestImage::where('id', $imageId)->where('user_id', $user->id)->first();
-    //     $this->rankingService->castVote($userUnderImage->user);
-    //     return response()->json(['success' => true]);
-    // }
 
     public function skipVote($imageId, $questId)
     {

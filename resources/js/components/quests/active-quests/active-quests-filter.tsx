@@ -60,18 +60,18 @@ const SlidersIcon = () => (
 // --- Data for the filter buttons ---
 
 // --- Main App Component ---
-export default function ActiveQuestsFilter({ t, handleFilter, filter, setFilter, categories, questTypes, resetFilter }: any) {
+export default function ActiveQuestsFilter({ t, handleFilter, filter, setFilter, categories, questTypes, resetFilter, isFilterModalOpen, setIsFilterModalOpen }: any) {
     const queryParams = new URLSearchParams(window.location.search);
     const [activeFilter, setActiveFilter] = useState(queryParams.get("filter") || 'discover');
-    const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+
 
 
     const filters = [
-        { id: 'discover', label: 'Discover', icon: <CompassIcon /> },
-        { id: 'ranked', label: 'Ranked', icon: <BarChartIcon /> },
-        { id: 'free', label: 'Free', icon: <DollarIcon /> },
-        { id: 'premium', label: 'Premium', icon: <CrownIcon /> },
-        { id: 'community', label: 'Community', icon: <UsersIcon /> },
+        { id: 'discover', icon: <CompassIcon /> },
+        { id: 'ranked', icon: <BarChartIcon /> },
+        { id: 'free', icon: <DollarIcon /> },
+        { id: 'premium', icon: <CrownIcon /> },
+        { id: 'community', icon: <UsersIcon /> },
     ].map(filterItem => {
         const params = new URLSearchParams(queryParams.toString()); // clone current query params
         params.set('filter', filterItem.id); // update filter param

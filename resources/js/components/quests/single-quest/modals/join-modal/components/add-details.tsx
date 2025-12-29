@@ -46,22 +46,25 @@ export default function AddDetails({
                     setValue={(val) =>
                         setCameraData({ ...cameraData, focal_length: val })
                     }
+                    type='number'
                 />
                 <TextInput
-                    label="Aperture"
-                    placeholder="Enter your aperture"
+                    label="Aperture (f/)"
+                    placeholder="2.8"
                     value={cameraData.aperture}
                     setValue={(val) =>
                         setCameraData({ ...cameraData, aperture: val })
                     }
+                    type='number'
                 />
                 <TextInput
                     label="Shutter Speed"
-                    placeholder="Enter your shutter speed"
+                    placeholder="1/125"
                     value={cameraData.shutter_speed}
                     setValue={(val) =>
                         setCameraData({ ...cameraData, shutter_speed: val })
                     }
+                    type='number'
                 />
                 <TextInput
                     label="ISO"

@@ -128,20 +128,20 @@ export default function SingleQuest() {
 
     const handleJoinQuest = async (e) => {
         setLoading(true)
-        if (typeof data?.image !== 'string') {
-            const isGenerated = await AIImageDetector(
-                data?.image,
-                quest?.quest_type?.name,
-            );
-            if (isGenerated) {
-                toast.error(
-                    'This image is AI-generated or not in the right category. Please upload a valid image.',
-                );
-                return;
-            }
-        }
 
-        if (quest?.entry_coin < auth?.user?.pixel) {
+        if (quest?.entry_coin <= auth?.user?.pixel) {
+            if (typeof data?.image !== 'string') {
+                const isGenerated = await AIImageDetector(
+                    data?.image,
+                    quest?.quest_type?.name,
+                );
+                if (isGenerated) {
+                    toast.error(
+                        'This image is AI-generated or not in the right category. Please upload a valid image.',
+                    );
+                    return;
+                }
+            }
             post(route('join-quest', quest.id), {
                 onSuccess: () => {
                     toast.success('Join Quest Successfully');

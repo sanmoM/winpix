@@ -44,10 +44,18 @@ class FrontendController extends Controller
         $user = auth()->user();
         $sliders = Slider::all();
         $new_quest = Quest::with(['category', 'user', 'prizes.prize_pool'])
-            // ->where('start_date', '<=', today())
-            // ->where('end_date', '>=', today())
-            // ->where('status', 'active')
-            ->orderBy('created_at', 'desc')->take(8)->get();
+            ->where(function ($query) {
+                $query->where('manual_override', 'Force_Open')
+                    ->orWhere(function ($q) {
+                        $q->whereDate('start_date', '<=', today())
+                            ->whereDate('end_date', '>=', today())
+                            ->where('manual_override', 'None');
+                    });
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
+
         $topImages = Vote::select('image_id')
             ->selectRaw('COUNT(*) as total_votes')
             ->whereHas('image', function ($query) {

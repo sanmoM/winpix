@@ -26,6 +26,7 @@ class DiscoverController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(8)
             ->get();
+
         $topImages = Vote::select('image_id')
             ->selectRaw('COUNT(*) as total_votes')
             ->whereHas('image', function ($query) {
@@ -36,6 +37,7 @@ class DiscoverController extends Controller
             ->take(10)
             ->with(['image.user', 'image.quest'])
             ->get();
+
         $topPlayers = User::with(['followers'])
             ->where('role', 'user')
             ->orderByDesc('level')

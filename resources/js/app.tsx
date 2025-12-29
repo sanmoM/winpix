@@ -1,6 +1,7 @@
 import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/react';
+import axios from 'axios';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
@@ -20,6 +21,15 @@ createInertiaApp({
         ),
     setup({ el, App, props }) {
         const root = createRoot(el);
+        axios.get("/settings")
+            .then(response => {
+                if (response.data?.favicon) {
+                    setFavicon("/storage/"+response?.data?.favicon?.image);
+                }
+            })
+            .catch(() => {
+                console.warn("Failed to load favicon");
+            });
 
         root.render(<StoreProvider>
             <LanguageProvider>
@@ -39,6 +49,7 @@ initializeTheme();
 
 
 function setFavicon(url: string) {
+    console.log(url)
     let link: HTMLLinkElement | null =
         document.querySelector("link[rel~='icon']");
 

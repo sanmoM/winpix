@@ -41,4 +41,6 @@ Route::post('/add-pixel', [FrontendController::class, 'addPixel'])->name('add-pi
 Route::post('/add-cash', [FrontendController::class, 'addCash'])->name('add-cash');
 Route::post('/redeem-digital-product', [FrontendController::class, 'redeemDigitalProduct'])->name('redeem-digital-product');
 
+Route::get('/settings', [FrontendController::class, 'settings'])->name('settings');
+
 

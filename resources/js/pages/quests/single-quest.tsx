@@ -35,6 +35,7 @@ export default function SingleQuest() {
         votes,
         isFollowing,
         userUploadedImages,
+        isUserInJudgePanel,
     } = usePage<any>().props;
     const user = auth?.user;
 
@@ -52,8 +53,10 @@ export default function SingleQuest() {
         ?.map((item: any) => item.quest_id)
         .includes(quest.id);
 
+
     const isDisabled = (() => {
-        if (user?.role === 'admin') return true;
+
+        if (user?.role === 'admin' || isUserInJudgePanel) return true;
         const today = new Date(); // current date
         const startDate = new Date(quest.start_date);
         const endDate = new Date(quest.end_date);

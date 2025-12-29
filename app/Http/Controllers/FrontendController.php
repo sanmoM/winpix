@@ -44,10 +44,18 @@ class FrontendController extends Controller
         $user = auth()->user();
         $sliders = Slider::all();
         $new_quest = Quest::with(['category', 'user', 'prizes.prize_pool'])
-            // ->where('start_date', '<=', today())
-            // ->where('end_date', '>=', today())
-            // ->where('status', 'active')
-            ->orderBy('created_at', 'desc')->take(8)->get();
+            ->where(function ($query) {
+                $query->where('manual_override', 'Force_Open')
+                    ->orWhere(function ($q) {
+                        $q->whereDate('start_date', '<=', today())
+                            ->whereDate('end_date', '>=', today())
+                            ->where('manual_override', 'None');
+                    });
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
+
         $topImages = Vote::select('image_id')
             ->selectRaw('COUNT(*) as total_votes')
             ->whereHas('image', function ($query) {
@@ -102,7 +110,7 @@ class FrontendController extends Controller
     {
         $queryParams = request()->query();
 
-        $filter = $queryParams['filter'] ?? 'discover';
+        $filter = $queryParams['filter'] ?? "discover";
         $questType = $queryParams['questType'] ?? null;
         $category = $queryParams['category'] ?? null;
         $isFree = $queryParams['isFree'] ?? null;
@@ -118,7 +126,7 @@ class FrontendController extends Controller
         QuestFilter::init()
             ->filter($filter)
             ->sort($sort);
-
+        // return response()->json($allQuest);
         // Dynamic filters
         if ($category) {
             QuestFilter::query()->where('category_id', $category);
@@ -216,6 +224,8 @@ class FrontendController extends Controller
 
         $userUploadedImages = QuestImage::where('user_id', $userId)->get();
 
+        $isUserInJudgePanel = JudgePanel::where('quest_id', $quest->id)->where('user_id', $userId)->exists();
+
         return Inertia::render('quests/single-quest', [
             'id' => $id,
             'quest' => $quest,
@@ -224,6 +234,7 @@ class FrontendController extends Controller
             'questImages' => $questImages,
             'isFollowing' => $isFollowing,
             'userUploadedImages' => $userUploadedImages,
+            'isUserInJudgePanel' => $isUserInJudgePanel,
         ]);
     }
 
@@ -455,32 +466,42 @@ class FrontendController extends Controller
         return redirect()->back();
     }
 
-    // Old Voting Function
-    // public function vote($imageId, $questId)
-    // {
-    //     $user = auth()->user();
-
-    //     // return response()->json(['user' => $userUnderImage->user], 200);
-    //     Vote::firstOrCreate([
-    //         'image_id' => $imageId,
-    //         'user_id' => $user->id,
-    //         'quest_id' => $questId,
-    //     ]);
-
-    //     $userUnderImage = QuestImage::where('id', $imageId)->where('user_id', $user->id)->first();
-    //     $this->rankingService->castVote($userUnderImage->user);
-    //     return response()->json(['success' => true]);
-    // }
-
     public function skipVote($imageId, $questId)
     {
-        $userId = auth()->user()->id;
+
+        $user = auth()->user();
+        $userId = $user->id;
+
+        $quest = Quest::findOrFail($questId);
+
+        if ($quest->vote_rights === 'Public') {
+            abort_unless(($user->role === 'user'), 403);
+        }
+
+
+        if ($quest->vote_rights === 'Judges') {
+            abort_unless(
+                !($user->role === 'jury' &&
+                    JudgePanel::where('quest_id', $quest->id)
+                        ->where('user_id', $user->id)
+                        ->exists()),
+                403
+            );
+        }
+
+        if ($quest->vote_rights === 'Hybrid') {
+            abort_unless(
+                (in_array($user->role, ['user', 'jury'])),
+                403
+            );
+        }
+
 
         Vote::firstOrCreate([
-            // 'image_id' => null,
             'user_id' => $userId,
             'quest_id' => $questId,
             'skip' => 2,
+            'score' => 0,
         ]);
 
         return response()->json(['success' => true]);
@@ -495,28 +516,30 @@ class FrontendController extends Controller
             ->where('quest_id', $questId)
             ->firstOrFail();
 
+
         if ($quest->vote_rights === 'Public') {
-            abort_unless($user->role === 'user', 403);
+            abort_unless(($user->role === 'user'), 403);
         }
+
 
         if ($quest->vote_rights === 'Judges') {
             abort_unless(
-                $user->role === 'jury' &&
-                JudgePanel::where('quest_id', $quest->id)
-                    ->where('judge_id', $user->id)
-                    ->exists(),
+                !($user->role === 'jury' &&
+                    JudgePanel::where('quest_id', $quest->id)
+                        ->where('user_id', $user->id)
+                        ->exists()),
                 403
             );
         }
 
         if ($quest->vote_rights === 'Hybrid') {
             abort_unless(
-                in_array($user->role, ['user', 'jury']),
+                (in_array($user->role, ['user', 'jury'])),
                 403
             );
         }
 
-        abort_if($image->user_id === $user->id, 403, 'You cannot vote your own submission');
+        abort_unless($image->user_id !== $user->id, 403, 'You cannot vote your own submission');
 
         Vote::firstOrCreate([
             'image_id' => $imageId,

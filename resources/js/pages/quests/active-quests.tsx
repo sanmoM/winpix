@@ -11,7 +11,7 @@ import { Link, router } from '@inertiajs/react'
 import { useEffect, useState } from 'react'
 
 export default function active({ series, quests, categories, questTypes, allQuests }: any) {
-    // const params = new URLSearchParams();
+    const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const { t, direction, currentLanguage } = useLocales()
     const [filter, setFilter] = useState({
         rank: "All",
@@ -59,18 +59,16 @@ export default function active({ series, quests, categories, questTypes, allQues
             rank: queryParams.get('rank') || null,
             category: parseInt(queryParams.get('category')) || null,
             questType: parseInt(queryParams.get('questType')) || null,
-            isFree: queryParams.get('isFree') === "true" ? true : queryParams.get('isFree') === "false" ? false : null,
+            isFree: queryParams.get('isFree') || null,
             sort: queryParams.get('sort') || null,
         });
-    }, []);
-
-
+    }, [isFilterModalOpen]);
 
     return (
         <UserLayout>
             <ActiveQuestsBanner direction={direction} t={t} quests={allQuests} currentLanguage={currentLanguage} />
             <Container className="space-y-14 md:space-y-20 lg:space-y-28 my-10 md:my-16 lg:my-12">
-                <ActiveQuestsFilter t={t} handleFilter={handleFilter} filter={filter} setFilter={addFilter} categories={categories} questTypes={questTypes} resetFilter={resetFilter} />
+                <ActiveQuestsFilter t={t} handleFilter={handleFilter} filter={filter} setFilter={addFilter} categories={categories} questTypes={questTypes} resetFilter={resetFilter} isFilterModalOpen={isFilterModalOpen} setIsFilterModalOpen={setIsFilterModalOpen} />
                 {
                     series?.length > 0 && (
                         <QuestsSeries title={t("activeQuests.questSeries.title")} series={series} />

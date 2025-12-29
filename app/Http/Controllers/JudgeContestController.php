@@ -33,6 +33,13 @@ class JudgeContestController extends Controller
 
     }
 
+    public function declearWinner($questId)
+    {
+        $quest = QuestImage::where('quest_id', $questId)->orderBy('votes', 'desc')->first();
+        $quest->save();
+        return redirect()->back()->with('success', 'Winner decleared successfully');
+    }
+
     public function scoreContest($questId)
     {
         // return dd($questId);

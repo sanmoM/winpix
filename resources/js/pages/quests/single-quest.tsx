@@ -53,12 +53,12 @@ export default function SingleQuest() {
         .includes(quest.id);
 
     const isDisabled = (() => {
+        if (user?.role === 'admin') return true;
         const today = new Date(); // current date
         const startDate = new Date(quest.start_date);
         const endDate = new Date(quest.end_date);
         // disable if today is before start or after end
         // return today < startDate || today > endDate || !isJoined;
-        // console.log( (today < startDate || today > endDate))
         const votingRights = quest?.vote_rights;
         let hasVotingRight = false;
         if (votingRights === 'Public') {
@@ -73,23 +73,12 @@ export default function SingleQuest() {
         if (quest?.manual_override === 'Force_Open') {
             return !hasVotingRight;
         }
-        console.log(
-            (today > startDate || today < endDate) &&
-            quest?.manual_override === 'None' &&
-            hasVotingRight,
-        );
-
-        // console.log(user?.role === "jury", "hasVotingRight")
-        // console.log(user?.role, "userRole")
-
-        // console.log(hasVotingRight, "hasVotingRight")
         return !(
             (today > startDate || today < endDate) &&
             quest?.manual_override === 'None' &&
             hasVotingRight
         );
     })();
-    // console.log(isDisabled, "isDisabled")
 
     const { post, setData, data, processing } = useForm<any>({
         quest_id: quest.id,
@@ -118,7 +107,7 @@ export default function SingleQuest() {
     // const votingItems = allItems?.slice(((votes?.length || 0) * 2), allItems?.length)?.filter((item: any) => {
     //     return !votes?.map((vote: any) => vote?.image_id)?.includes(item?.id)
     // })
-    const votingItems = allItems?.slice(
+    const votingItems = allItems?.filter(votingItem => votingItem.user.id !== auth?.user?.id)?.slice(
         (votes?.length || 0) * 2,
         allItems?.length,
     );
@@ -167,7 +156,6 @@ export default function SingleQuest() {
         const getMetaData = async () => {
             if (typeof data?.image !== 'string') {
                 const metadata = await extractImageMetadata(data?.image);
-                console.log(metadata, 'metadata');
                 setData('camera_brand', metadata?.camera_brand || '');
                 setData('camera_model', metadata?.camera_model || '');
                 setData('lens', metadata?.lens || '');

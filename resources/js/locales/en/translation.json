@@ -117,13 +117,7 @@
                 "entryFee": "Entry Fee"
             },
             "sortAndFilter": "Sort & Filter",
-            "filterItems": [
-                "All",
-                "Ranked",
-                "Free",
-                "Premium",
-                "Community"
-            ],
+            "filterItems": ["All", "Ranked", "Free", "Premium", "Community"],
             "filterModal": {
                 "title": "Filter",
                 "rank": [
@@ -742,13 +736,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Image",
-                        "Title",
-                        "Status",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Image", "Title", "Status", "Actions"]
                 }
             },
             "edit": {
@@ -1117,13 +1105,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Image",
-                        "Title",
-                        "Status",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Image", "Title", "Status", "Actions"]
                 },
                 "confirm_delete": "Are you sure you want to delete this series?"
             },
@@ -1187,12 +1169,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Name",
-                        "Status",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Name", "Status", "Actions"]
                 }
             },
             "create": {
@@ -1259,12 +1236,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Name",
-                        "Status",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Name", "Status", "Actions"]
                 }
             },
             "create": {
@@ -1474,13 +1446,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Name",
-                        "Email",
-                        "Message",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Name", "Email", "Message", "Actions"]
                 }
             }
         },
@@ -1548,12 +1514,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Image",
-                        "Reason",
-                        "User"
-                    ]
+                    "headings": ["#", "Image", "Reason", "User"]
                 }
             }
         },
@@ -1587,12 +1548,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Image",
-                        "Name",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Image", "Name", "Actions"]
                 }
             },
             "create": {
@@ -1620,12 +1576,7 @@
                         }
                     ],
                     "table": {
-                        "headings": [
-                            "#",
-                            "Image",
-                            "Title",
-                            "Actions"
-                        ]
+                        "headings": ["#", "Image", "Title", "Actions"]
                     },
                     "buttons": {
                         "score": {
@@ -1657,12 +1608,7 @@
                         }
                     ],
                     "table": {
-                        "headings": [
-                            "#",
-                            "Image",
-                            "Title",
-                            "Actions"
-                        ]
+                        "headings": ["#", "Image", "Title", "Actions"]
                     },
                     "buttons": {
                         "declearWinner": {
@@ -1686,9 +1632,10 @@
                         "headings": [
                             "#",
                             "Image",
-                            "User Score",
-                            "Jury Score",
-                            "Total Score",
+                            "User Vote",
+                            "Judge Score",
+                            "Total",
+                            "Rank",
                             "Actions"
                         ]
                     }

@@ -77,7 +77,7 @@ Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {
     Route::get('/judge/contest/{id}', [JudgeContestController::class, 'scoreContest'])->name('judge.contest.score');
     Route::get('/judge/contest/score/{id}', [JudgeContestController::class, 'showContestScore'])->name('judge.show.contest.score');
     Route::get('/lead-judge/contest', [JudgeContestController::class, 'leadJudge'])->name('lead_judge.contest');
-    Route::get('/lead-judge/declear-winner/{id}', [JudgeContestController::class, 'declearWinner'])->name('lead_judge.declearWinner');
+    Route::get('/lead-judge/contest/score/show/{id}', [JudgeContestController::class, 'declearWinner'])->name('lead_judge.declearWinner');
     Route::post('/judge/vote', [JudgeContestController::class, 'vote'])->name('judge.vote');
     Route::get('/lead-judge/contest/score/{id}', [JudgeContestController::class, 'allJudgeContestScore'])->name('lead_judge.allContestScore');
 });

@@ -78,6 +78,8 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
         setState(prev => ({ ...prev, [key]: !prev[key] }));
     };
 
+    console.log(filter, entryFeeOptions)
+
     return (
         <>
             <div className="mx-auto font-sans pb-16">
@@ -97,7 +99,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                 </div>
 
                 {/* Skill Rank Filter */}
-                <FilterSection title={t('activeQuests.filter.labels.rank')}>
+                {/* <FilterSection title={t('activeQuests.filter.labels.rank')}>
 
                     {
                         skillRankOptions.map((item: any, index) => (
@@ -110,7 +112,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                             />
                         ))
                     }
-                </FilterSection>
+                </FilterSection> */}
 
                 {/* Entry Fee Filter */}
                 <FilterSection title={t('activeQuests.filter.labels.entryFee')}>
@@ -128,7 +130,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                 </FilterSection>
 
                 {/* Quest Status Filter */}
-                <FilterSection title={t('activeQuests.filter.labels.status')}>
+                {/* <FilterSection title={t('activeQuests.filter.labels.status')}>
                     {
                         questStatusOptions.map((item: any, index) => (
                             <CheckboxItem
@@ -139,7 +141,7 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
                             />
                         ))
                     }
-                </FilterSection>
+                </FilterSection> */}
 
                 {/* Category Filter */}
                 <FilterSection title={t('activeQuests.filter.labels.category')}>

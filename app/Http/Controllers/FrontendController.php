@@ -216,6 +216,8 @@ class FrontendController extends Controller
 
         $userUploadedImages = QuestImage::where('user_id', $userId)->get();
 
+        $isUserInJudgePanel = JudgePanel::where('quest_id', $quest->id)->where('user_id', $userId)->exists();
+
         return Inertia::render('quests/single-quest', [
             'id' => $id,
             'quest' => $quest,
@@ -224,6 +226,7 @@ class FrontendController extends Controller
             'questImages' => $questImages,
             'isFollowing' => $isFollowing,
             'userUploadedImages' => $userUploadedImages,
+            'isUserInJudgePanel' => $isUserInJudgePanel,
         ]);
     }
 
@@ -474,13 +477,40 @@ class FrontendController extends Controller
 
     public function skipVote($imageId, $questId)
     {
-        $userId = auth()->user()->id;
+
+        $user = auth()->user();
+        $userId = $user->id;
+
+        $quest = Quest::findOrFail($questId);
+
+        if ($quest->vote_rights === 'Public') {
+            abort_unless(($user->role === 'user'), 403);
+        }
+
+
+        if ($quest->vote_rights === 'Judges') {
+            abort_unless(
+                !($user->role === 'jury' &&
+                    JudgePanel::where('quest_id', $quest->id)
+                        ->where('user_id', $user->id)
+                        ->exists()),
+                403
+            );
+        }
+
+        if ($quest->vote_rights === 'Hybrid') {
+            abort_unless(
+                (in_array($user->role, ['user', 'jury'])),
+                403
+            );
+        }
+
 
         Vote::firstOrCreate([
-            // 'image_id' => null,
             'user_id' => $userId,
             'quest_id' => $questId,
             'skip' => 2,
+            'score' => 0,
         ]);
 
         return response()->json(['success' => true]);
@@ -495,28 +525,30 @@ class FrontendController extends Controller
             ->where('quest_id', $questId)
             ->firstOrFail();
 
+
         if ($quest->vote_rights === 'Public') {
-            abort_unless($user->role === 'user', 403);
+            abort_unless(($user->role === 'user'), 403);
         }
+
 
         if ($quest->vote_rights === 'Judges') {
             abort_unless(
-                $user->role === 'jury' &&
-                JudgePanel::where('quest_id', $quest->id)
-                    ->where('judge_id', $user->id)
-                    ->exists(),
+                !($user->role === 'jury' &&
+                    JudgePanel::where('quest_id', $quest->id)
+                        ->where('user_id', $user->id)
+                        ->exists()),
                 403
             );
         }
 
         if ($quest->vote_rights === 'Hybrid') {
             abort_unless(
-                in_array($user->role, ['user', 'jury']),
+                (in_array($user->role, ['user', 'jury'])),
                 403
             );
         }
 
-        abort_if($image->user_id === $user->id, 403, 'You cannot vote your own submission');
+        abort_unless($image->user_id !== $user->id, 403, 'You cannot vote your own submission');
 
         Vote::firstOrCreate([
             'image_id' => $imageId,

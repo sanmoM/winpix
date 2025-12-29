@@ -1694,6 +1694,116 @@
                     }
                 }
             }
+        },
+        "favicon": {
+            "inputs": {
+                "title": {
+                    "label": "Title",
+                    "placeholder": "Enter a title"
+                },
+                "image": {
+                    "label": "Image",
+                    "placeholder": "Upload an image"
+                }
+            },
+            "index": {
+                "title": "Favicon",
+                "breadcrumbs": [
+                    {
+                        "title": "All Favicon",
+                        "href": "/admin/favicon"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Image",
+                        "Title",
+                        "Actions"
+                    ]
+                }
+            },
+            "create": {
+                "title": "Create Favicon",
+                "breadcrumbs": [
+                    {
+                        "title": "All Favicon",
+                        "href": "/admin/favicon"
+                    },
+                    {
+                        "title": "Create Favicon",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "Edit Favicon",
+                "breadcrumbs": [
+                    {
+                        "title": "All Favicon",
+                        "href": "/admin/favicon"
+                    },
+                    {
+                        "title": "Edit Favicon",
+                        "href": ""
+                    }
+                ]
+            }
+        },
+        "logo": {
+            "inputs": {
+                "light-logo": {
+                    "label": "Light Logo",
+                    "placeholder": "Upload an image"
+                },
+                "dark-logo": {
+                    "label": "Dark Logo",
+                    "placeholder": "Upload an image"
+                }
+            },
+            "index": {
+                "title": "Logo",
+                "breadcrumbs": [
+                    {
+                        "title": "All Logo",
+                        "href": "/admin/logo"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Light Logo",
+                        "Dark Logo",
+                        "Actions"
+                    ]
+                }
+            },
+            "create": {
+                "title": "Create Logo",
+                "breadcrumbs": [
+                    {
+                        "title": "All Logo",
+                        "href": "/admin/logo"
+                    },
+                    {
+                        "title": "Create Logo",
+                        "href": ""
+                    }
+                ]
+            },
+            "edit": {
+                "title": "Edit Logo",
+                "breadcrumbs": [
+                    {
+                        "title": "All Logo",
+                        "href": "/admin/logo"
+                    },
+                    {
+                        "title": "Edit Logo",
+                        "href": ""
+                    }
+                ]
+            }
         }
     }
 }

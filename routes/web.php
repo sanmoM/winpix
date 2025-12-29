@@ -17,7 +17,9 @@ use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\FaviconController;
 use App\Http\Controllers\JudgeContestController;
+use App\Http\Controllers\LogoController;
 use App\Http\Controllers\PrizePoolController;
 use App\Http\Controllers\TransactionController;
 use App\Models\Report;
@@ -121,9 +123,11 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     });
     Route::resource('/prize-pools', PrizePoolController::class)->names('admin.prize_pools');
     Route::get('/transactions', [TransactionController::class, 'adminIndex'])->name('admin.transaction');
+    Route::resource('/favicon', FaviconController::class)->names('admin.favicon');
+    Route::resource('/logo', LogoController::class)->names('admin.logo');
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
-require __DIR__.'/frontend.php';
-require __DIR__.'/user-dashboard.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/frontend.php';
+require __DIR__ . '/user-dashboard.php';

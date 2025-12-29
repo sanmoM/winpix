@@ -2,11 +2,12 @@ import Container from "@/components/shared/container";
 import StoreItem from "@/components/store/store-item";
 import useLocales from "@/hooks/useLocales";
 import UserLayout from "@/layouts/user-layout";
+import { cn } from "@/lib/utils";
 import { usePage } from "@inertiajs/react";
 
 export default function StoreModalContents() {
     const { coinsPricing: storeItems } = usePage().props;
-    const { t } = useLocales()
+    const { t, direction } = useLocales()
     return (
         <UserLayout>
             <Container className="my-10">
@@ -20,7 +21,7 @@ export default function StoreModalContents() {
                         {/* <IoLayersSharp className="w-8 h-8 mt-0.5 sm:mt-0 mr-0 sm:mr-3 text-indigo-500 dark:text-indigo-300" /> */}
                         <img src="/images/coin.png"
                             alt="" className="w-16 mr-4 hidden md:block" />
-                        <div className="mt-2 sm:mt-0 !text-center md:text-left">
+                        <div className={cn("mt-2 sm:mt-0 !text-center", direction === "rtl" ? "md:!text-right" : "md:!text-left")}>
                             <h4 className="text-lg sm:text-xl font-bold mb-1 text-gray-900 dark:text-white">
                                 {t('store.title')}
                             </h4>

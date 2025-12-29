@@ -3,10 +3,10 @@ import TextInput from '@/components/shared/inputs/text-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
+import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
-import { useEffect } from 'react';
 
 interface FlashProps {
     success?: string;
@@ -32,7 +32,10 @@ export default function Create({ flash }: Props) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         post(route('admin.questType.store'), {
-            onSuccess: () => reset(),
+            onSuccess: () => {
+                reset();
+                router.visit(route('admin.questType.index'));
+            },
         });
     };
 

@@ -46,6 +46,7 @@ export default function SingleQuest() {
     const [joinModalOpen, setJoinModalOpen] = useState(false);
     const [libraryModalOpen, setLibraryModalOpen] = useState(false);
     const [voteModalOpen, setVoteModalOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const isJoined = joinedQuests
         ?.map((item: any) => item.quest_id)
@@ -74,8 +75,8 @@ export default function SingleQuest() {
         }
         console.log(
             (today > startDate || today < endDate) &&
-                quest?.manual_override === 'None' &&
-                hasVotingRight,
+            quest?.manual_override === 'None' &&
+            hasVotingRight,
         );
 
         // console.log(user?.role === "jury", "hasVotingRight")
@@ -90,7 +91,7 @@ export default function SingleQuest() {
     })();
     // console.log(isDisabled, "isDisabled")
 
-    const { post, setData, data } = useForm<any>({
+    const { post, setData, data, processing } = useForm<any>({
         quest_id: quest.id,
         image: null,
         camera_brand: '',
@@ -122,14 +123,11 @@ export default function SingleQuest() {
         allItems?.length,
     );
 
-    const setImage = (image: any) => {
-        setData('image', image);
-    };
-
     const [activeTab, setActiveTab] = useState('brief');
     const { t, direction, currentLanguage } = useLocales();
 
     const handleJoinQuest = async (e) => {
+        setLoading(true)
         if (typeof data?.image !== 'string') {
             const isGenerated = await AIImageDetector(
                 data?.image,
@@ -156,6 +154,7 @@ export default function SingleQuest() {
             toast.error('Not enough Pixels');
             router.visit('/store');
         }
+        setLoading(false)
     };
 
     const handleFollow = () => {
@@ -355,6 +354,7 @@ export default function SingleQuest() {
                         isJoined={isJoined}
                         setJoinModalOpen={setJoinModalOpen}
                         t={t}
+                        loading={processing || loading}
                     />
                 </Modal>
                 <Modal

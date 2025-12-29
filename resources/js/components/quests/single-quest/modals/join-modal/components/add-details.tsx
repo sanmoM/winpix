@@ -8,6 +8,7 @@ export default function AddDetails({
     setCameraData,
     handleJoinQuest,
     isJoined,
+    loading,
 }: any) {
     const { t } = useLocales();
 
@@ -65,6 +66,7 @@ export default function AddDetails({
                 <TextInput
                     label="ISO"
                     placeholder="Enter your ISO"
+                    type='number'
                     value={cameraData.iso}
                     setValue={(val) =>
                         setCameraData({ ...cameraData, iso: val })
@@ -94,6 +96,7 @@ export default function AddDetails({
                                 : 'singleQuest.banner.joinNowText',
                         )}
                         onClick={handleJoinQuest}
+                        disabled={loading}
                         className="mx-auto mt-4 px-6 text-lg lg:px-14"
                     />
                 )}

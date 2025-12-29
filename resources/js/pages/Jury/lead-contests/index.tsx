@@ -108,7 +108,7 @@ export default function Index({
                                     /> */}
                                     <Link
                                         href={route(
-                                            'lead_judge.allContestScore',
+                                            'lead_judge.declearWinner',
                                             item?.id,
                                         )}
                                         className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"

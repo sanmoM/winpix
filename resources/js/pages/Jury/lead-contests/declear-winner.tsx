@@ -24,16 +24,16 @@ interface FlashProps {
 }
 
 export default function Index({
-    quests: items,
+    images: items,
     flash,
 }: {
-    quests: ContestItem[];
+    images: ContestItem[];
     flash: FlashProps;
 }) {
     const [openModal, setOpenModal] = useState(false);
     const { t, currentLanguage } = useLocales();
 
-    const breadcrumbs = t('dashboard.jury.contest.index.breadcrumbs', {
+    const breadcrumbs = t('dashboard.jury.lead-contest.showContestScore.breadcrumbs', {
         returnObjects: true,
     });
 
@@ -42,19 +42,21 @@ export default function Index({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
+    console.log(items)
+
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
-            <Head title={t('dashboard.jury.contest.index.title')} />
+            <Head title={t('dashboard.jury.lead-contest.showContestScore.title')} />
 
             <TableContainer>
                 <h1 className="mb-4 text-lg font-semibold">
-                    {t('dashboard.jury.contest.index.title')}
+                    {t('dashboard.jury.lead-contest.showContestScore.title')}
                 </h1>
 
                 <Table
                     headingItems={t(
-                        'dashboard.jury.contest.index.table.headings',
+                        'dashboard.jury.lead-contest.showContestScore.table.headings',
                         {
                             returnObjects: true,
                         },
@@ -79,18 +81,20 @@ export default function Index({
                                     )}
                                 </TableCell>
                                 <TableCell>
-                                    {currentLanguage === 'en'
-                                        ? item?.title_en
-                                        : item?.title_ar}
+                                    {
+                                        item?.user_score
+                                    }
                                 </TableCell>
-
-                                {/* <TableCell>{item.email}</TableCell>
-
                                 <TableCell>
-                                    {item.message.length > 50
-                                        ? item.message.substring(0, 50) + '...'
-                                        : item.message}
-                                </TableCell> */}
+                                    {
+                                        item?.jury_score
+                                    }
+                                </TableCell>
+                                <TableCell>
+                                    {
+                                        item?.total_score
+                                    }
+                                </TableCell>
 
                                 <TableCell className="space-x-2">
                                     {/* <ViewButton

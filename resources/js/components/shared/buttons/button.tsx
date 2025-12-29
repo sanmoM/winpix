@@ -2,7 +2,6 @@ import { cn } from '@/lib/utils'
 import { TbLoader2 } from 'react-icons/tb'
 
 export default function Button({ text, className, hasIcon, src, onClick, type = "submit", loading = false, disabled = false }: any) {
-    console.log(loading)
     return (
         <button
             type={type}

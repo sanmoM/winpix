@@ -1,13 +1,13 @@
 import SaveAndBackButtons from '@/components/save-and-back-buttons';
-import TextInput from '@/components/shared/inputs/text-input';
 import TextAreaInput from '@/components/shared/inputs/text-area-input';
+import TextInput from '@/components/shared/inputs/text-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { Head, useForm } from '@inertiajs/react';
+import type { BreadcrumbItem } from '@/types';
+import { Head, router, useForm } from '@inertiajs/react';
+import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
-import { useEffect } from 'react';
-import type { BreadcrumbItem } from '@/types';
 
 interface FlashProps {
     success?: string;
@@ -39,7 +39,10 @@ export default function Create({ flash }: Props) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         post(route('admin.questCategory.store'), {
-            onSuccess: () => reset(),
+            onSuccess: () => {
+                reset();
+                router.visit(route('admin.questCategory.index'));
+            },
         });
     };
 

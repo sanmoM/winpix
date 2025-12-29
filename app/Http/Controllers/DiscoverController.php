@@ -14,12 +14,12 @@ class DiscoverController extends Controller
     public function discover()
     {
         $Ranking = new RankingService();
-        $new_quest = Quest::with(['category', 'user'])
-            ->where('start_date', '<=', today())
+        $new_quest = Quest::with(['category', 'user', 'prizes.prize_pool'])
             ->where(function ($query) {
                 $query->where('manual_override', 'Force_Open')
                     ->orWhere(function ($q) {
-                        $q->where('status', 'Open')
+                        $q->whereDate('start_date', '<=', today())
+                            ->whereDate('end_date', '>=', today())
                             ->where('manual_override', 'None');
                     });
             })

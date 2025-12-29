@@ -16,16 +16,14 @@ return new class extends Migration {
             $table->string('image');
             $table->integer('vote_count')->default(0);
             $table->foreignId('user_id')->constrained('users');
-
             $table->string('camera_brand')->nullable();
             $table->string('camera_model')->nullable();
             $table->string('lens')->nullable();
-            $table->string('focal_length')->nullable();
-            $table->string('aperture')->nullable();
-            $table->string('shutter_speed')->nullable();
-            $table->string('iso')->nullable();
+            $table->decimal('focal_length', 4, 2)->nullable();
+            $table->decimal('aperture', 4, 2)->nullable();
+            $table->decimal('shutter_speed', 8, 4)->nullable();
+            $table->integer('iso')->nullable();
             $table->dateTime('date_captured')->nullable();
-
             $table->timestamps();
         });
     }

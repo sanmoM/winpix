@@ -46,18 +46,19 @@ export default function SingleQuest() {
     const [joinModalOpen, setJoinModalOpen] = useState(false);
     const [libraryModalOpen, setLibraryModalOpen] = useState(false);
     const [voteModalOpen, setVoteModalOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const isJoined = joinedQuests
         ?.map((item: any) => item.quest_id)
         .includes(quest.id);
 
     const isDisabled = (() => {
+        if (user?.role === 'admin') return true;
         const today = new Date(); // current date
         const startDate = new Date(quest.start_date);
         const endDate = new Date(quest.end_date);
         // disable if today is before start or after end
         // return today < startDate || today > endDate || !isJoined;
-        // console.log( (today < startDate || today > endDate))
         const votingRights = quest?.vote_rights;
         let hasVotingRight = false;
         if (votingRights === 'Public') {
@@ -72,25 +73,14 @@ export default function SingleQuest() {
         if (quest?.manual_override === 'Force_Open') {
             return !hasVotingRight;
         }
-        console.log(
-            (today > startDate || today < endDate) &&
-                quest?.manual_override === 'None' &&
-                hasVotingRight,
-        );
-
-        // console.log(user?.role === "jury", "hasVotingRight")
-        // console.log(user?.role, "userRole")
-
-        // console.log(hasVotingRight, "hasVotingRight")
         return !(
             (today > startDate || today < endDate) &&
             quest?.manual_override === 'None' &&
             hasVotingRight
         );
     })();
-    // console.log(isDisabled, "isDisabled")
 
-    const { post, setData, data } = useForm<any>({
+    const { post, setData, data, processing } = useForm<any>({
         quest_id: quest.id,
         image: null,
         camera_brand: '',
@@ -117,33 +107,30 @@ export default function SingleQuest() {
     // const votingItems = allItems?.slice(((votes?.length || 0) * 2), allItems?.length)?.filter((item: any) => {
     //     return !votes?.map((vote: any) => vote?.image_id)?.includes(item?.id)
     // })
-    const votingItems = allItems?.slice(
+    const votingItems = allItems?.filter(votingItem => votingItem.user.id !== auth?.user?.id)?.slice(
         (votes?.length || 0) * 2,
         allItems?.length,
     );
-
-    const setImage = (image: any) => {
-        setData('image', image);
-    };
 
     const [activeTab, setActiveTab] = useState('brief');
     const { t, direction, currentLanguage } = useLocales();
 
     const handleJoinQuest = async (e) => {
-        if (typeof data?.image !== 'string') {
-            const isGenerated = await AIImageDetector(
-                data?.image,
-                quest?.quest_type?.name,
-            );
-            if (isGenerated) {
-                toast.error(
-                    'This image is AI-generated or not in the right category. Please upload a valid image.',
-                );
-                return;
-            }
-        }
+        setLoading(true)
 
-        if (quest?.entry_coin < auth?.user?.pixel) {
+        if (quest?.entry_coin <= auth?.user?.pixel) {
+            if (typeof data?.image !== 'string') {
+                const isGenerated = await AIImageDetector(
+                    data?.image,
+                    quest?.quest_type?.name,
+                );
+                if (isGenerated) {
+                    toast.error(
+                        'This image is AI-generated or not in the right category. Please upload a valid image.',
+                    );
+                    return;
+                }
+            }
             post(route('join-quest', quest.id), {
                 onSuccess: () => {
                     toast.success('Join Quest Successfully');
@@ -156,6 +143,7 @@ export default function SingleQuest() {
             toast.error('Not enough Pixels');
             router.visit('/store');
         }
+        setLoading(false)
     };
 
     const handleFollow = () => {
@@ -168,7 +156,6 @@ export default function SingleQuest() {
         const getMetaData = async () => {
             if (typeof data?.image !== 'string') {
                 const metadata = await extractImageMetadata(data?.image);
-                console.log(metadata, 'metadata');
                 setData('camera_brand', metadata?.camera_brand || '');
                 setData('camera_model', metadata?.camera_model || '');
                 setData('lens', metadata?.lens || '');
@@ -355,6 +342,7 @@ export default function SingleQuest() {
                         isJoined={isJoined}
                         setJoinModalOpen={setJoinModalOpen}
                         t={t}
+                        loading={processing || loading}
                     />
                 </Modal>
                 <Modal

@@ -4,7 +4,7 @@ import TextInput from '@/components/shared/inputs/text-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
@@ -43,7 +43,11 @@ export default function Edit({ item, flash }: EditProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(route('admin.questType.update', item.id));
+        put(route('admin.questType.update', item.id), {
+            onSuccess: () => {
+                router.visit(route('admin.questType.index'));
+            },
+        });
     };
 
     return (

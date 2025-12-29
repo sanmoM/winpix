@@ -284,9 +284,9 @@ const PrizesInput = ({ prizes, setPrizes, prizePools }: any) => {
                 </div>
 
                 {error && (
-                    <div className="mt-4 p-3 bg-red-500/40 border border-red-900 rounded-lg flex items-start">
-                        <AlertTriangle className="w-5 h-5 text-red-900 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-red-900 font-medium text-sm">{error}</span>
+                    <div className="mt-4 p-3 bg-red-300 border border-red-500 rounded-lg flex items-start">
+                        <AlertTriangle className="w-5 h-5 text-red-500 mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-red-500 font-medium text-sm">{error}</span>
                     </div>
                 )}
             </div>

@@ -8,6 +8,7 @@ export default function AddDetails({
     setCameraData,
     handleJoinQuest,
     isJoined,
+    loading,
 }: any) {
     const { t } = useLocales();
 
@@ -45,26 +46,30 @@ export default function AddDetails({
                     setValue={(val) =>
                         setCameraData({ ...cameraData, focal_length: val })
                     }
+                    type='number'
                 />
                 <TextInput
-                    label="Aperture"
-                    placeholder="Enter your aperture"
+                    label="Aperture (f/)"
+                    placeholder="2.8"
                     value={cameraData.aperture}
                     setValue={(val) =>
                         setCameraData({ ...cameraData, aperture: val })
                     }
+                    type='number'
                 />
                 <TextInput
                     label="Shutter Speed"
-                    placeholder="Enter your shutter speed"
+                    placeholder="1/125"
                     value={cameraData.shutter_speed}
                     setValue={(val) =>
                         setCameraData({ ...cameraData, shutter_speed: val })
                     }
+                    type='number'
                 />
                 <TextInput
                     label="ISO"
                     placeholder="Enter your ISO"
+                    type='number'
                     value={cameraData.iso}
                     setValue={(val) =>
                         setCameraData({ ...cameraData, iso: val })
@@ -94,6 +99,7 @@ export default function AddDetails({
                                 : 'singleQuest.banner.joinNowText',
                         )}
                         onClick={handleJoinQuest}
+                        disabled={loading}
                         className="mx-auto mt-4 px-6 text-lg lg:px-14"
                     />
                 )}

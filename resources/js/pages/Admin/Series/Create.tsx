@@ -5,7 +5,7 @@ import TextInput from '@/components/shared/inputs/text-input';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
@@ -60,6 +60,7 @@ export default function CreateSeries({ flash }: Props) {
             onSuccess: () => {
                 reset();
                 if (fileInputRef.current) fileInputRef.current.value = '';
+                router.visit(route('admin.series.index'));
             },
         });
     };
@@ -157,6 +158,7 @@ export default function CreateSeries({ flash }: Props) {
                                 'dashboard.brandMarketingBanner.edit.inputs.title_ar.label',
                             )}
                             required={true}
+                            dir='rtl'
                         />
 
                         <TextAreaInput

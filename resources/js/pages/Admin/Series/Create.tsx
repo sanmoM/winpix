@@ -67,10 +67,10 @@ export default function CreateSeries({ flash }: Props) {
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
-            title: t('dashboard.series.index.title'),
-            href: route('admin.series.index'),
+            title: t('dashboard.favicon.index.title'),
+            href: route('admin.favicon.index'),
         },
-        { title: t('dashboard.series.create.title') },
+        { title: t('dashboard.favicon.create.title') },
     ];
 
     return (

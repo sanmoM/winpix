@@ -6,9 +6,11 @@ use App\Helpers\QuestFilter;
 use App\Models\About;
 use App\Models\BrandMarketing;
 use App\Models\Contact;
+use App\Models\Favicon;
 use App\Models\Follower;
 use App\Models\Help;
 use App\Models\JudgePanel;
+use App\Models\Logo;
 use App\Models\MarketingBanner;
 use App\Models\Quest;
 use App\Models\QuestCategory;
@@ -698,4 +700,14 @@ class FrontendController extends Controller
         return redirect()->back()->with('success', 'Contact form submitted successfully!');
     }
 
+    public function settings()
+    {
+        $favicon = Favicon::first();
+        $logo = Logo::first();
+        return response()->json([
+            'favicon' => $favicon,
+            'logo' => $logo
+        ]);
+
+    }
 }

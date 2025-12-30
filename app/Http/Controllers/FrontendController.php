@@ -153,6 +153,7 @@ class FrontendController extends Controller
         // Fetch finally
         $quests = QuestFilter::query()->get();
         $allQuests = Quest::where("start_date", "<=", today())->where("end_date", ">=", today())->get();
+        // return response()->json($quests);
 
         return Inertia::render('quests/active-quests', [
             'series' => $filter === 'discover' ? $series : [],

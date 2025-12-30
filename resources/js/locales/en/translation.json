@@ -1655,13 +1655,9 @@
                         }
                     ],
                     "table": {
-                        "headings": [
-                            "#",
-                            "Image",
-                            "Judge Score"
-                        ]
+                        "headings": ["#", "Image", "Judge Score"]
                     }
-                }   
+                }
             }
         },
         "website_settings": {
@@ -1714,6 +1710,5 @@
                 }
             }
         }
-        
     }
 }

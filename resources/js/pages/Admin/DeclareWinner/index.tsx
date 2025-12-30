@@ -12,10 +12,10 @@ import { route } from 'ziggy-js';
 
 interface ContestItem {
     id: number;
-    image: string;
-    user_score: string;
-    jury_score: string;
-    total_score: string;
+    image: string | null;
+    title_en: string;
+    email: string;
+    message: string;
 }
 
 interface FlashProps {
@@ -24,21 +24,18 @@ interface FlashProps {
 }
 
 export default function Index({
-    images: items,
+    quests: items,
     flash,
 }: {
-    images: ContestItem[];
+    quests: ContestItem[];
     flash: FlashProps;
 }) {
     const [openModal, setOpenModal] = useState(false);
     const { t, currentLanguage } = useLocales();
 
-    const breadcrumbs = t(
-        'dashboard.jury.lead-contest.showContestScore.breadcrumbs',
-        {
-            returnObjects: true,
-        },
-    );
+    const breadcrumbs = t('dashboard.jury.contest.index.breadcrumbs', {
+        returnObjects: true,
+    });
 
     useEffect(() => {
         if (flash?.success) toast.success(flash.success);
@@ -48,22 +45,16 @@ export default function Index({
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
-            <Head
-                title={t('dashboard.jury.lead-contest.showContestScore.title')}
-            />
+            <Head title={t('dashboard.jury.contest.index.title')} />
 
             <TableContainer>
                 <h1 className="mb-4 text-lg font-semibold">
-                    {t('dashboard.jury.lead-contest.showContestScore.title')}
+                    {t('dashboard.jury.contest.index.title')}
                 </h1>
-                <div className="mb-2 flex justify-end">
-                    <button className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
-                        Declare Winner
-                    </button>
-                </div>
+
                 <Table
                     headingItems={t(
-                        'dashboard.jury.lead-contest.showContestScore.table.headings',
+                        'dashboard.jury.contest.index.table.headings',
                         {
                             returnObjects: true,
                         },
@@ -87,18 +78,28 @@ export default function Index({
                                         </div>
                                     )}
                                 </TableCell>
-                                <TableCell>{item?.user_score}</TableCell>
-                                <TableCell>{item?.jury_score}</TableCell>
-                                <TableCell>{item?.total_score}</TableCell>
-                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>
+                                    {currentLanguage === 'en'
+                                        ? item?.title_en
+                                        : item?.title_ar}
+                                </TableCell>
+
+                                {/* <TableCell>{item.email}</TableCell>
+
+                                <TableCell>
+                                    {item.message.length > 50
+                                        ? item.message.substring(0, 50) + '...'
+                                        : item.message}
+                                </TableCell> */}
+
                                 <TableCell className="space-x-2">
                                     {/* <ViewButton
                                         route={route(
                                             'admin.quest.view',
                                             item.id,
                                         )}
-                                    /> */}
-                                    {/*
+                                    />
+
                                     <EditButton
                                         route={route(
                                             'admin.quest.edit',
@@ -107,12 +108,12 @@ export default function Index({
                                     /> */}
                                     <Link
                                         href={route(
-                                            'judge.contest.score',
+                                            'admin.declareWinner.show',
                                             item?.id,
                                         )}
-                                        className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
+                                        className="bg-dark cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
                                     >
-                                        Change Rank
+                                        All Score
                                     </Link>
                                 </TableCell>
                             </TableRow>

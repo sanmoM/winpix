@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandMarketingController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\ContestWinnerController;
 use App\Http\Controllers\Admin\FollowController;
 use App\Http\Controllers\Admin\HelpController;
 use App\Http\Controllers\Admin\OthersController;
@@ -126,9 +127,15 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('/transactions', [TransactionController::class, 'adminIndex'])->name('admin.transaction');
     Route::resource('/favicon', FaviconController::class)->names('admin.favicon');
     Route::resource('/logo', LogoController::class)->names('admin.logo');
+
+    Route::get('/contest-winner', [ContestWinnerController::class, 'adminContest'])->name('adminContest.show');
+    Route::get('/judge/contest-winner', [ContestWinnerController::class, 'adminJudgeContest'])->name('adminJudgeContest.show');
+    Route::get('/auto/contest-winner', [ContestWinnerController::class, 'adminAutoContest'])->name('adminAutoContest.show');
+    Route::get('/contest-winner/score/show/{id}', [ContestWinnerController::class, 'adminDeclareContestWinner'])->name('admin.declareWinner.show');
+
 });
 
-require __DIR__ . '/settings.php';
-require __DIR__ . '/auth.php';
-require __DIR__ . '/frontend.php';
-require __DIR__ . '/user-dashboard.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/frontend.php';
+require __DIR__.'/user-dashboard.php';

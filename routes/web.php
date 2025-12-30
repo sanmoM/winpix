@@ -83,6 +83,7 @@ Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {
     Route::get('/lead-judge/contest/score/show/{id}', [JudgeContestController::class, 'declearWinner'])->name('lead_judge.declearWinner');
     Route::post('/judge/vote', [JudgeContestController::class, 'vote'])->name('judge.vote');
     Route::get('/lead-judge/contest/score/{id}', [JudgeContestController::class, 'allJudgeContestScore'])->name('lead_judge.allContestScore');
+    Route::get("/lead-judge/contest/lead-judge-score/{imageId}", [JudgeContestController::class, 'leadJudgeScore'])->name('lead_judge.lead_judge_score');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {

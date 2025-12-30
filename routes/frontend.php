@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DiscoverController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\PayPalController;
 
 // this all are get route for frontend
 Route::get('/', [FrontendController::class, 'home'])->name('home');
@@ -42,5 +43,11 @@ Route::post('/add-cash', [FrontendController::class, 'addCash'])->name('add-cash
 Route::post('/redeem-digital-product', [FrontendController::class, 'redeemDigitalProduct'])->name('redeem-digital-product');
 
 Route::get('/settings', [FrontendController::class, 'settings'])->name('settings');
+
+Route::post('/pay', [PayPalController::class, 'pay'])->name('paypal.pay');
+Route::get('/paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
+Route::get('/paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+
+Route::get('/success-payment', [FrontendController::class, 'successPayment'])->name('success-payment');
 
 

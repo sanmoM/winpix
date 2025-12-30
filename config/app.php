@@ -126,4 +126,9 @@ return [
     // gemini api key
     'gemini_api_key' => env('GEMINI_API_KEY'),
 
+    'paypal_client_secret'=> env('PAYPAL_CLIENT_SECRET'),
+    'paypal_client_id'=> env('PAYPAL_CLIENT_ID'),
+    'paypal_base_url'=> env('PAYPAL_URL'),
+    'paypal_mode'=> env('PAYPAL_MODE'),
+
 ];

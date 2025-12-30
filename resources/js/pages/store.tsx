@@ -39,7 +39,7 @@ export default function StoreModalContents() {
                                 key={index}
                                 image={item.icon_image}
                                 quantity={item.number_of_coin}
-                                price={`$ ${item.price}`}
+                                price={item.price}
                                 isBestValue={item.isBestValue ?? false} // default false
                             />
                         ))}

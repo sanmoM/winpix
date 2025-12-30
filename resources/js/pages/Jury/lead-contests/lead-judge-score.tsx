@@ -87,7 +87,7 @@ export default function Edit({ image }: EditProps) {
             <ToastContainer />
 
             <div
-                className="flex h-[70vh] flex-col"
+                className="flex h-[70vh] flex-col p-4"
                 aria-labelledby="modal-title"
                 role="dialog"
                 aria-modal="true"
@@ -103,19 +103,19 @@ export default function Edit({ image }: EditProps) {
                     }}
                     className="my-auto gap-4 overflow-hidden flex h-full flex-col w-xl"
                 >
-                    <ScoreContent singleQuestImage={image?.image} setScore={setScore} score={score} />
+                    <ScoreContent image={image?.image} setScore={setScore} score={score} />
                     <div className='grid grid-cols-2 gap-4 w-fit mx-auto mb-1'>
                         <BorderButton
                             type={"button"}
-                            text={'Skip'}
+                            text={'Back'}
                             onClick={(e) => {
                                 e.preventDefault();
-                                handleSkip(singleQuestImage.id, singleQuestImage.quest_id)
+                                router.back();
                             }}
                             className="mt-4 px-10 py-1.5 !text-lg"
                         />
                         <Button
-                            text={'Next'}
+                            text={'Save'}
                             className="mt-4 px-10 py-1.5 !text-lg"
                         />
                     </div>

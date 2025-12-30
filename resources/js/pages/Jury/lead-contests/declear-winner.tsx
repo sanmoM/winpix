@@ -33,27 +33,34 @@ export default function Index({
     const [openModal, setOpenModal] = useState(false);
     const { t, currentLanguage } = useLocales();
 
-    const breadcrumbs = t('dashboard.jury.lead-contest.showContestScore.breadcrumbs', {
-        returnObjects: true,
-    });
+    const breadcrumbs = t(
+        'dashboard.jury.lead-contest.showContestScore.breadcrumbs',
+        {
+            returnObjects: true,
+        },
+    );
 
     useEffect(() => {
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
-    console.log(items)
-
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
-            <Head title={t('dashboard.jury.lead-contest.showContestScore.title')} />
+            <Head
+                title={t('dashboard.jury.lead-contest.showContestScore.title')}
+            />
 
             <TableContainer>
                 <h1 className="mb-4 text-lg font-semibold">
                     {t('dashboard.jury.lead-contest.showContestScore.title')}
                 </h1>
-
+                <div className="mb-2 flex justify-end">
+                    <button className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
+                        Declare Winner
+                    </button>
+                </div>
                 <Table
                     headingItems={t(
                         'dashboard.jury.lead-contest.showContestScore.table.headings',
@@ -80,30 +87,18 @@ export default function Index({
                                         </div>
                                     )}
                                 </TableCell>
-                                <TableCell>
-                                    {
-                                        item?.user_score
-                                    }
-                                </TableCell>
-                                <TableCell>
-                                    {
-                                        item?.jury_score
-                                    }
-                                </TableCell>
-                                <TableCell>
-                                    {
-                                        item?.total_score
-                                    }
-                                </TableCell>
-
+                                <TableCell>{item?.user_score}</TableCell>
+                                <TableCell>{item?.jury_score}</TableCell>
+                                <TableCell>{item?.total_score}</TableCell>
+                                <TableCell>{index + 1}</TableCell>
                                 <TableCell className="space-x-2">
                                     {/* <ViewButton
                                         route={route(
                                             'admin.quest.view',
                                             item.id,
                                         )}
-                                    />
-
+                                    /> */}
+                                    {/* 
                                     <EditButton
                                         route={route(
                                             'admin.quest.edit',
@@ -117,9 +112,7 @@ export default function Index({
                                         )}
                                         className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
                                     >
-                                        {t(
-                                            'dashboard.jury.lead-contest.index.buttons.declearWinner.label',
-                                        )}
+                                        Change Rank
                                     </Link>
                                 </TableCell>
                             </TableRow>

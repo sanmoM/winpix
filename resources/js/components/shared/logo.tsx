@@ -8,9 +8,11 @@ export default function Logo({ hasBackground, className }: { hasBackground?: boo
     React.useEffect(() => {
         axios.get("/settings")
             .then(response => {
-                if (response.data?.logo) {
-                    console.log(response.data?.logo)
-                    setLogos(response.data?.logo);
+                if (response.data?.dark_logo && response.data?.light_logo) {
+                    setLogos({
+                        dark_logo: response.data?.dark_logo,
+                        light_logo: response.data?.light_logo,
+                    });
                 }
             })
             .catch(() => {

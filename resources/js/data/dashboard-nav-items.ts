@@ -254,13 +254,8 @@ export const adminNavItemsEN: NavItem[] = [
                 icon: ServerIcon,
             },
             {
-                title: 'Favicon',
-                href: '/admin/favicon',
-                icon: ServerIcon,
-            },
-            {
-                title: 'Logo',
-                href: '/admin/logo',
+                title: 'Settings',
+                href: '/admin/others',
                 icon: ServerIcon,
             },
             // {

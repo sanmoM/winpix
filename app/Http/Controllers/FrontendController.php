@@ -12,6 +12,7 @@ use App\Models\Help;
 use App\Models\JudgePanel;
 use App\Models\Logo;
 use App\Models\MarketingBanner;
+use App\Models\Other;
 use App\Models\Quest;
 use App\Models\QuestCategory;
 use App\Models\QuestImage;
@@ -702,12 +703,8 @@ class FrontendController extends Controller
 
     public function settings()
     {
-        $favicon = Favicon::first();
-        $logo = Logo::first();
-        return response()->json([
-            'favicon' => $favicon,
-            'logo' => $logo
-        ]);
+        $settings = Other::first();
+        return response()->json($settings);
 
     }
 }

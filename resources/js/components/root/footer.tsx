@@ -1,8 +1,9 @@
 import useLocales from "@/hooks/useLocales";
-import Container from "../shared/container";
-import SocialIcon from "../shared/social-icon";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import Container from "../shared/container";
+import Logo from "../shared/logo";
+import SocialIcon from "../shared/social-icon";
 
 const Footer = () => {
   const { t } = useLocales()
@@ -36,9 +37,10 @@ const Footer = () => {
 
         {/* Logo/Title */}
         <div className="mb-5 md:mb-8">
-          <span className="text-2xl md:text-5xl lg:text-3xl font-extrabold tracking-wider">
+          {/* <span className="text-2xl md:text-5xl lg:text-3xl font-extrabold tracking-wider">
             Winpix.co
-          </span>
+          </span> */}
+          <Logo/>
         </div>
 
         {/* Navigation Links */}

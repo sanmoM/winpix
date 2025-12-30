@@ -24,7 +24,7 @@ createInertiaApp({
         axios.get("/settings")
             .then(response => {
                 if (response.data?.favicon) {
-                    setFavicon("/storage/"+response?.data?.favicon?.image);
+                    setFaviconAndTitle("/storage/" + response?.data?.favicon?.image, response?.data?.favicon?.title);
                 }
             })
             .catch(() => {
@@ -48,8 +48,8 @@ initializeTheme();
 
 
 
-function setFavicon(url: string) {
-    console.log(url)
+function setFaviconAndTitle(url: string, title: string) {
+    document.title = title;
     let link: HTMLLinkElement | null =
         document.querySelector("link[rel~='icon']");
 

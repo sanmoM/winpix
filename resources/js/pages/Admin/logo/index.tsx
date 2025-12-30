@@ -50,7 +50,6 @@ export default function SeriesIndex({
     //     router.delete(route('admin.series.destroy', id));
     // };
 
-    console.log(logos)
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <ToastContainer />

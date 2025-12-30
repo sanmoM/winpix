@@ -47,7 +47,7 @@ class QuestFilter
                 $query->where('entry_coin', '>', 0),
 
             'community' =>
-                $query->whereHas('quest_type', fn ($q) =>
+                $query->whereHas('category', fn ($q) =>
                     $q->where('name', 'Community')
                 ),
 

@@ -83,6 +83,7 @@ Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {
     Route::get('/lead-judge/contest/score/show/{id}', [JudgeContestController::class, 'declearWinner'])->name('lead_judge.declearWinner');
     Route::post('/judge/vote', [JudgeContestController::class, 'vote'])->name('judge.vote');
     Route::get('/lead-judge/contest/score/{id}', [JudgeContestController::class, 'allJudgeContestScore'])->name('lead_judge.allContestScore');
+    Route::post('/contest/judge-winner-status', [JudgeContestController::class, 'judgeWinnerStatus'])->name('lead_judge.judgeWinnerStatus');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
@@ -132,6 +133,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('/judge/contest-winner', [ContestWinnerController::class, 'adminJudgeContest'])->name('adminJudgeContest.show');
     Route::get('/auto/contest-winner', [ContestWinnerController::class, 'adminAutoContest'])->name('adminAutoContest.show');
     Route::get('/contest-winner/score/show/{id}', [ContestWinnerController::class, 'adminDeclareContestWinner'])->name('admin.declareWinner.show');
+
+    Route::post('/contest/declare-winner', [ContestWinnerController::class, 'winnerStore'])->name('admin.contest.declare-winner');
 
 });
 

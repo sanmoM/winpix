@@ -45,6 +45,8 @@ return new class extends Migration
             $table->enum('manual_override', ['None', 'Force_Open', 'Force_Paused', 'Force_Closed'])->default('None');
             $table->string('winner_declaration', 50)->default('auto');
             $table->foreignId('lead_judge')->nullable()->constrained('users')->onDelete('cascade');
+            $table->enum('winner_status', ['pending', 'judge_submitted', 'admin_approved'])->default('pending');
+            $table->string('winner_approved_at')->nullable();
             $table->timestamps();
         });
     }

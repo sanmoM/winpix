@@ -1662,12 +1662,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Image",
-                        "Title",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Image", "Title", "Actions"]
                 }
             },
             "create": {
@@ -1717,12 +1712,7 @@
                     }
                 ],
                 "table": {
-                    "headings": [
-                        "#",
-                        "Light Logo",
-                        "Dark Logo",
-                        "Actions"
-                    ]
+                    "headings": ["#", "Light Logo", "Dark Logo", "Actions"]
                 }
             },
             "create": {

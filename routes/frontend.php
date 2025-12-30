@@ -44,8 +44,10 @@ Route::post('/redeem-digital-product', [FrontendController::class, 'redeemDigita
 
 Route::get('/settings', [FrontendController::class, 'settings'])->name('settings');
 
-Route::get('/pay', [PayPalController::class, 'pay'])->name('paypal.pay');
+Route::post('/pay', [PayPalController::class, 'pay'])->name('paypal.pay');
 Route::get('/paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
 Route::get('/paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+
+Route::get('/success-payment', [FrontendController::class, 'successPayment'])->name('success-payment');
 
 

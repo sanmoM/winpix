@@ -707,4 +707,9 @@ class FrontendController extends Controller
         return response()->json($settings);
 
     }
+
+    public function successPayment()
+    {
+        return Inertia::render('success-payment');
+    }
 }

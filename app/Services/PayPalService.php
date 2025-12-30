@@ -20,7 +20,7 @@ class PayPalService
         return $response->json()['access_token'];
     }
 
-    public function createOrder($amount)
+    public function createOrder($amount, $id, $userId)
     {
         $token = $this->token();
 
@@ -37,7 +37,7 @@ class PayPalService
                     ]
                 ],
                 'application_context' => [
-                    'return_url' => route('paypal.success'),
+                    'return_url' => route('paypal.success', ['id' => $id, 'user_id' => $userId]),
                     'cancel_url' => route('paypal.cancel'),
                 ]
             ]
@@ -47,7 +47,6 @@ class PayPalService
     public function captureOrder($orderId)
     {
         $token = $this->token();
-        Log::info('orderId ' . $orderId . 'token ' . $token);
         $response = Http::withoutVerifying()->withToken($token)
             ->withBody('', 'application/json') // Empty JSON body
             ->post(config('app.paypal_base_url') . "/v2/checkout/orders/{$orderId}/capture");

@@ -94,8 +94,8 @@ export default function Index({
                                 <TableCell className="space-x-2">
                                     <Link
                                         href={route(
-                                            'lead_judge.lead_judge_score',
-                                            item?.id,
+                                            'lead_judge.lead_judge_score_view',
+                                            item?.id
                                         )}
                                         className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
                                     >

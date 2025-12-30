@@ -1,9 +1,12 @@
 import useLocales from "@/hooks/useLocales";
 import Container from "../shared/container";
 import SocialIcon from "../shared/social-icon";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Footer = () => {
   const { t } = useLocales()
+  const [website_settings, setWebsiteSettings] = useState()
   const navLinks = [
     { name: t("root.footer.navLinks.home"), href: '/' },
     { name: t("root.footer.navLinks.about"), href: '/about-us' },
@@ -16,6 +19,17 @@ const Footer = () => {
     { Icon: InstagramIcon, href: '#instagram', ariaLabel: 'Instagram' },
   ];
 
+  useEffect(() => {
+    axios.get("/settings")
+      .then(response => {
+        if (response.data) {
+          setWebsiteSettings(response.data)
+        }
+      })
+      .catch(() => {
+        console.error("Error fetching logos");
+      });
+  }, []);
   return (
     <footer className="bg-bg-primary dark:bg-bg-primary font-sans p-8 sm:p-12 md:p-16">
       <Container className="flex flex-col items-center justify-center !text-center">
@@ -45,20 +59,24 @@ const Footer = () => {
 
         {/* Social Icons */}
         <div className="flex space-x-4 mb-6 md:mb-12">
-          {socialIcons.map(({ Icon, href, ariaLabel }) => (
-            <SocialIcon Icon={Icon} href={href} ariaLabel={ariaLabel} />
-          ))}
+          {/* {socialIcons.map(({ Icon, href, ariaLabel }) => (
+          ))} */}
+          <SocialIcon Icon={TwitterIcon} href={website_settings?.twitter} ariaLabel={"Twitter"} />
+          <SocialIcon Icon={FacebookIcon} href={website_settings?.facebook} ariaLabel={"Facebook"} />
+          <SocialIcon Icon={InstagramIcon} href={website_settings?.instagram} ariaLabel={"Instagram"} />
         </div>
 
         {/* Copyright and Credits */}
         <div className="text-[6px] md:text-base lg:text-sm text-gray-400 pt-6 border-t border-gray-700 w-full flex items-center justify-center"
-          dangerouslySetInnerHTML={{
-            __html: t('root.footer.copyright', {
-              year: new Date().getFullYear(),
-              heart: '<span class="mx-1 text-primary-color">❤️</span>'
-            })
-          }}
-        />
+        // dangerouslySetInnerHTML={{
+        //   __html: t('root.footer.copyright', {
+        //     year: new Date().getFullYear(),
+        //     heart: '<span class="mx-1 text-primary-color">❤️</span>'
+        //   })
+        // }}
+        >
+          {website_settings?.copyright}
+        </div>
       </Container>
     </footer>
   );

@@ -15,11 +15,11 @@ export const settingsNavItemsEN: NavItem[] = [
         href: "/settings/social-links",
         icon: null,
     },
-    {
-        title: 'Linked Accounts',
-        href: "/settings/link-social-account",
-        icon: null,
-    },
+    // {
+    //     title: 'Linked Accounts',
+    //     href: "/settings/link-social-account",
+    //     icon: null,
+    // },
     {
         title: 'Shipping Address',
         href: "/settings/address",

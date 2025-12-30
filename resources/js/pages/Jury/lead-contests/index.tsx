@@ -111,11 +111,9 @@ export default function Index({
                                             'lead_judge.declearWinner',
                                             item?.id,
                                         )}
-                                        className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
+                                        className="bg-dark cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
                                     >
-                                        {t(
-                                            'dashboard.jury.lead-contest.index.buttons.declearWinner.label',
-                                        )}
+                                        All Score
                                     </Link>
                                 </TableCell>
                             </TableRow>

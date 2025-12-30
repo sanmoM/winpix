@@ -1,16 +1,15 @@
-import ScoreModal from '@/components/jury-contest/score-modal'
-import TableContainer from '@/components/shared/table/table-container'
-import useLocales from '@/hooks/useLocales'
-import AppLayout from '@/layouts/app-layout'
-import { Head } from '@inertiajs/react'
-import { ToastContainer } from 'react-toastify'
+import ScoreModal from '@/components/jury-contest/score-modal';
+import TableContainer from '@/components/shared/table/table-container';
+import useLocales from '@/hooks/useLocales';
+import AppLayout from '@/layouts/app-layout';
+import { Head } from '@inertiajs/react';
+import { ToastContainer } from 'react-toastify';
 
 export default function ScoreContest({ questImages }: { questImages: any }) {
-    const { t } = useLocales()
+    const { t } = useLocales();
     const breadcrumbs = t('dashboard.jury.contest.index.breadcrumbs', {
         returnObjects: true,
     });
-
 
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
@@ -24,5 +23,5 @@ export default function ScoreContest({ questImages }: { questImages: any }) {
                 <ScoreModal questImages={questImages} />
             </TableContainer>
         </AppLayout>
-    )
+    );
 }

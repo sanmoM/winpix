@@ -93,18 +93,18 @@ class JudgeContestController extends Controller
     {
         $userId = auth()->user()->id;
 
-        return $showContestScores = Vote::with(['user:id,name', 'quest:id,title_en', 'image'])->where('user_id', $userId)->where('quest_id', $questId)->get();
+        $showContestScores = Vote::with(['user:id,name', 'quest:id,title_en', 'image'])->where('user_id', $userId)->where('quest_id', $questId)->get();
 
-        return Inertia::render('Jury/lead-contests/show-score-contest', [
+        return Inertia::render('Jury/contest-pannel/view-score', [
             'showContestScores' => $showContestScores,
         ]);
     }
 
     public function allJudgeContestScore($questId)
     {
-        return $showAllContestScores = QuestImage::with(['user:id,name', 'quest:id,title_en', 'vote'])->where('quest_id', $questId)->get();
+        $showAllContestScores = QuestImage::with(['user:id,name', 'quest:id,title_en', 'vote'])->where('quest_id', $questId)->get();
 
-        return Inertia::render('Jury/lead-contests/show-score-contest', [
+        return Inertia::render('Jury/contest-pannel/view-score', [
             'showAllContestScores' => $showAllContestScores,
         ]);
     }

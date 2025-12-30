@@ -1640,6 +1640,28 @@
                         ]
                     }
                 }
+            },
+            "show_score": {
+                "index": {
+                    "title": "Show Score",
+                    "breadcrumbs": [
+                        {
+                            "title": "All Lead Contest",
+                            "href": "/admin/lead-contest"
+                        },
+                        {
+                            "title": "Show Contest Score",
+                            "href": ""
+                        }
+                    ],
+                    "table": {
+                        "headings": [
+                            "#",
+                            "Image",
+                            "Judge Score"
+                        ]
+                    }
+                }   
             }
         },
         "website_settings": {

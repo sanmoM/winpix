@@ -76,8 +76,6 @@ class JudgeContestController extends Controller
             'score' => 'required',
         ]);
 
-        // return dd($request->all());
-
         Vote::create([
             'user_id' => auth()->user()->id,
             'image_id' => $request->image_id,
@@ -106,6 +104,14 @@ class JudgeContestController extends Controller
 
         return Inertia::render('Jury/contest-pannel/view-score', [
             'showAllContestScores' => $showAllContestScores,
+        ]);
+    }
+
+    public function leadJudgeScore($imageId)
+    {
+        $image = QuestImage::findOrFail($imageId);
+        return Inertia::render('Jury/lead-contests/lead-judge-score', [
+            'image' => $image,
         ]);
     }
 }

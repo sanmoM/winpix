@@ -1655,13 +1655,9 @@
                         }
                     ],
                     "table": {
-                        "headings": [
-                            "#",
-                            "Image",
-                            "Judge Score"
-                        ]
+                        "headings": ["#", "Image", "Judge Score"]
                     }
-                }   
+                }
             }
         },
         "website_settings": {
@@ -1676,59 +1672,8 @@
                         "placeholder": "Upload an image"
                     }
                 },
-
-                "image": {
-                    "label": "Image",
-                    "placeholder": "Upload an image"
-                }
-            },
-            "index": {
-                "title": "Favicon",
-                "breadcrumbs": [
-                    {
-                        "title": "All Favicon",
-                        "href": "/admin/favicon"
-                    }
-                ],
-                "table": {
-                    "headings": ["#", "Image", "Title", "Actions"]
-                }
-            },
-            "create": {
-                "title": "Create Favicon",
-                "breadcrumbs": [
-                    {
-                        "title": "All Favicon",
-                        "href": "/admin/favicon"
-                    },
-                    {
-                        "title": "Create Favicon",
-                        "href": ""
-                    }
-                ]
-            },
-            "edit": {
-                "title": "Edit Favicon",
-                "breadcrumbs": [
-                    {
-                        "title": "All Favicon",
-                        "href": "/admin/favicon"
-                    },
-                    {
-                        "title": "Edit Favicon",
-                        "href": ""
-                    }
-                ]
-            }
-        },
-        "logo": {
-            "inputs": {
-                "light-logo": {
-                    "label": "Light Logo",
-
                 "fav_icon": {
                     "label": "Favicon",
-
                     "placeholder": "Upload an image"
                 },
                 "app_name": {
@@ -1765,6 +1710,5 @@
                 }
             }
         }
-        
     }
 }

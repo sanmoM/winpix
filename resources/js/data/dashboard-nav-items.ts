@@ -1,6 +1,7 @@
 import { type NavItem } from '@/types';
 import {
     Airplay,
+    Crown,
     DollarSignIcon,
     Gavel,
     LayoutGrid,
@@ -263,6 +264,27 @@ export const adminNavItemsEN: NavItem[] = [
             //     href: '/admin/social-links',
             //     icon: ServerIcon,
             // }
+        ],
+    },
+    {
+        title: 'Contest Winner',
+        icon: Crown,
+        subItems: [
+            {
+                title: 'Admin Contest Winner',
+                href: route('adminContest.show'),
+                icon: ServerIcon,
+            },
+            {
+                title: 'judge Contact Winner',
+                href: route('adminJudgeContest.show'),
+                icon: ServerIcon,
+            },
+            {
+                title: 'Auto Contact Winner',
+                href: route('adminAutoContest.show'),
+                icon: ServerIcon,
+            },
         ],
     },
 ];

@@ -1640,14 +1640,43 @@
                         ]
                     }
                 }
+            },
+            "show_score": {
+                "index": {
+                    "title": "Show Score",
+                    "breadcrumbs": [
+                        {
+                            "title": "All Lead Contest",
+                            "href": "/admin/lead-contest"
+                        },
+                        {
+                            "title": "Show Contest Score",
+                            "href": ""
+                        }
+                    ],
+                    "table": {
+                        "headings": [
+                            "#",
+                            "Image",
+                            "Judge Score"
+                        ]
+                    }
+                }   
             }
         },
-        "favicon": {
+        "website_settings": {
             "inputs": {
-                "title": {
-                    "label": "Title",
-                    "placeholder": "Enter a title"
+                "logo": {
+                    "light_logo": {
+                        "label": "Light Logo",
+                        "placeholder": "Upload an image"
+                    },
+                    "dark_logo": {
+                        "label": "Dark Logo",
+                        "placeholder": "Upload an image"
+                    }
                 },
+
                 "image": {
                     "label": "Image",
                     "placeholder": "Upload an image"
@@ -1696,51 +1725,46 @@
             "inputs": {
                 "light-logo": {
                     "label": "Light Logo",
+
+                "fav_icon": {
+                    "label": "Favicon",
+
                     "placeholder": "Upload an image"
                 },
-                "dark-logo": {
-                    "label": "Dark Logo",
-                    "placeholder": "Upload an image"
+                "app_name": {
+                    "label": "App Name",
+                    "placeholder": "Enter app name"
+                },
+                "app_description": {
+                    "label": "App Description",
+                    "placeholder": "Enter app description"
+                },
+                "terms_of_service": {
+                    "label": "Terms of Service",
+                    "placeholder": "Enter terms of service"
+                },
+                "privacy_policy": {
+                    "label": "Privacy Policy",
+                    "placeholder": "Enter privacy policy"
+                },
+                "copyright": {
+                    "label": "Copyright",
+                    "placeholder": "Enter copyright"
+                },
+                "facebook": {
+                    "label": "Facebook",
+                    "placeholder": "Enter facebook url"
+                },
+                "twitter": {
+                    "label": "Twitter",
+                    "placeholder": "Enter twitter url"
+                },
+                "instagram": {
+                    "label": "Instagram",
+                    "placeholder": "Enter instagram url"
                 }
-            },
-            "index": {
-                "title": "Logo",
-                "breadcrumbs": [
-                    {
-                        "title": "All Logo",
-                        "href": "/admin/logo"
-                    }
-                ],
-                "table": {
-                    "headings": ["#", "Light Logo", "Dark Logo", "Actions"]
-                }
-            },
-            "create": {
-                "title": "Create Logo",
-                "breadcrumbs": [
-                    {
-                        "title": "All Logo",
-                        "href": "/admin/logo"
-                    },
-                    {
-                        "title": "Create Logo",
-                        "href": ""
-                    }
-                ]
-            },
-            "edit": {
-                "title": "Edit Logo",
-                "breadcrumbs": [
-                    {
-                        "title": "All Logo",
-                        "href": "/admin/logo"
-                    },
-                    {
-                        "title": "Edit Logo",
-                        "href": ""
-                    }
-                ]
             }
         }
+        
     }
 }

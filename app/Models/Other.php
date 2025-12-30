@@ -8,11 +8,17 @@ class Other extends Model
 {
 
     protected $fillable = [
-        'logo',
+        'light_logo',
+        'dark_logo',
         'fav_icon',
+        'app_name',
         'app_description',
         'terms_of_service',
         'privacy_policy',
+        'copyright',
+        'facebook',
+        'twitter',
+        'instagram',
     ];
 
 }

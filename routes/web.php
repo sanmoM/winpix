@@ -111,6 +111,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::resource('type', QuestTypeController::class)->names('admin.questType');
     Route::resource('category', QuestCategoryController::class)->names('admin.questCategory');
     Route::get('others', [OthersController::class, 'index'])->name('admin.others');
+    Route::put('others', [OthersController::class, 'update'])->name('admin.others.update');
     Route::resource('contacts', ContactController::class)->names('admin.contacts');
     Route::get('marketing-banner', [BannerController::class, 'index'])->name('marketing.banner');
     Route::put('marketing-banner/update', [BannerController::class, 'update'])->name('banner.update');

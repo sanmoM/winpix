@@ -23,8 +23,8 @@ createInertiaApp({
         const root = createRoot(el);
         axios.get("/settings")
             .then(response => {
-                if (response.data?.favicon) {
-                    setFavicon("/storage/"+response?.data?.favicon?.image);
+                if (response.data?.fav_icon) {
+                    setFaviconAndTitle("/storage/" + response?.data?.fav_icon, response?.data?.app_name);
                 }
             })
             .catch(() => {
@@ -48,8 +48,8 @@ initializeTheme();
 
 
 
-function setFavicon(url: string) {
-    console.log(url)
+function setFaviconAndTitle(url: string, title: string) {
+    document.title = title;
     let link: HTMLLinkElement | null =
         document.querySelector("link[rel~='icon']");
 

@@ -12,6 +12,7 @@ use App\Models\Help;
 use App\Models\JudgePanel;
 use App\Models\Logo;
 use App\Models\MarketingBanner;
+use App\Models\Other;
 use App\Models\Quest;
 use App\Models\QuestCategory;
 use App\Models\QuestImage;
@@ -152,6 +153,7 @@ class FrontendController extends Controller
         // Fetch finally
         $quests = QuestFilter::query()->get();
         $allQuests = Quest::where("start_date", "<=", today())->where("end_date", ">=", today())->get();
+        // return response()->json($quests);
 
         return Inertia::render('quests/active-quests', [
             'series' => $filter === 'discover' ? $series : [],
@@ -702,12 +704,8 @@ class FrontendController extends Controller
 
     public function settings()
     {
-        $favicon = Favicon::first();
-        $logo = Logo::first();
-        return response()->json([
-            'favicon' => $favicon,
-            'logo' => $logo
-        ]);
+        $settings = Other::first();
+        return response()->json($settings);
 
     }
 }

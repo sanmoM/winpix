@@ -83,7 +83,7 @@ export default function Navbar() {
     >
       <Container>
         <nav className="w-full z-50 relative">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between min-h-16">
 
             {/* === Left Section === */}
             <div className="flex items-center space-x-10">

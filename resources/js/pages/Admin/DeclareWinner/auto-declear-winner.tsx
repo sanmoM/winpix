@@ -5,10 +5,9 @@ import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { route } from 'ziggy-js';
 
 interface ContestItem {
     id: number;
@@ -44,30 +43,6 @@ export default function Index({
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
-    const handleDeclareWinner = () => {
-        const formattedItems = items
-            .slice(0, totalPrizes)
-            .map((item, index) => ({
-                id: item.id,
-                image_id: item.id,
-                quest_id: item.quest.id,
-                user_vote: item.user_score,
-                jury_score: item.jury_score,
-                total_score: item.total_score,
-                rank: index + 1,
-                submitted_by: 'Auto',
-            }));
-
-        router.post(
-            route('admin.contest.declare-winner'),
-            {
-                items: formattedItems,
-            },
-            {
-                preserveScroll: true,
-            },
-        );
-    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
@@ -80,15 +55,6 @@ export default function Index({
                 <h1 className="mb-4 text-lg font-semibold">
                     {t('dashboard.jury.lead-contest.showContestScore.title')}
                 </h1>
-
-                <div className="mb-2 flex justify-end">
-                    <button
-                        onClick={handleDeclareWinner}
-                        className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
-                    >
-                        Declare Winners
-                    </button>
-                </div>
 
                 <Table
                     headingItems={t(

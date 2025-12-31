@@ -30,8 +30,7 @@ export default function Index({
     images: ContestItem[];
     flash: FlashProps;
 }) {
-
-    console.log(items)
+    console.log(items);
     const { t } = useLocales();
 
     const breadcrumbs = t(
@@ -89,7 +88,7 @@ export default function Index({
                     {items?.length > 0 &&
                         items[0]?.quest.winner_status === 'pending' &&
                         new Date(items[0]?.quest.end_date).getTime() <
-                        Date.now() && (
+                            Date.now() && (
                             <button
                                 onClick={handleJudgeDeclareWinner}
                                 className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
@@ -101,12 +100,12 @@ export default function Index({
                     {items?.length > 0 &&
                         items[0]?.quest.winner_status === 'pending' &&
                         new Date(items[0]?.quest.end_date).getTime() >
-                        Date.now() && (
+                            Date.now() && (
                             <button
                                 disabled
                                 className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
                             >
-                                Declare Winner
+                                Contest Not Ended
                             </button>
                         )}
                 </div>
@@ -145,7 +144,7 @@ export default function Index({
                                 <TableCell className="space-x-2">
                                     {item.quest.winner_status !==
                                         'judge_submitted' &&
-                                        item.quest.winner_status !==
+                                    item.quest.winner_status !==
                                         'admin_approved' ? (
                                         <Link
                                             href={route(

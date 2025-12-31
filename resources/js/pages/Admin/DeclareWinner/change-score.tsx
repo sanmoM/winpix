@@ -37,7 +37,7 @@ export default function Edit({ image, vote }: EditProps) {
             return;
         }
         try {
-            await axios.post(route('lead_judge.lead_judge_score', votedImageId), {
+            await axios.post(route('admin.contest.change-score', votedImageId), {
                 image_id: votedImageId,
                 score,
                 quest_id: questId,
@@ -45,7 +45,7 @@ export default function Edit({ image, vote }: EditProps) {
         } catch (error) {
             console.error('❌ Vote failed:', error);
         }
-        router.visit(route('lead_judge.declearWinner', image?.quest_id));
+        router.visit(route('admin.judge.declareWinner.show', image?.quest_id));
     };
 
     const { t } = useLocales()

@@ -7,6 +7,7 @@ use App\Models\ContestWinner;
 use App\Models\Prize;
 use App\Models\Quest;
 use App\Models\QuestImage;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -75,7 +76,7 @@ class ContestWinnerController extends Controller
 
     public function judgeDeclareContestWinner($questId)
     {
-        $images = QuestImage::with('quest:id,title_en,end_date,winner_status,lead_judge')
+        $images = QuestImage::with('quest:id,title_en,end_date,lead_judge')
             ->select(
                 'quest_images.id',
                 'quest_images.quest_id',
@@ -117,6 +118,14 @@ class ContestWinnerController extends Controller
                 ELSE 0
             END
         ) AS user_score,
+
+        SUM(
+            CASE
+                WHEN users.role = "admin"
+                THEN votes.score
+                ELSE 0
+            END
+        ) AS admin_score,
 
         SUM(votes.score) AS total_score
     ')
@@ -212,5 +221,51 @@ class ContestWinnerController extends Controller
 
         return back()->with('success', 'Winners declared successfully!');
 
+    }
+
+    public function adminScoreView($imageId)
+    {
+        $image = QuestImage::findOrFail($imageId);
+        $vote = Vote::where('image_id', $imageId)->where('user_id', auth()->id())->first();
+
+        return Inertia::render('Admin/DeclareWinner/change-score', [
+            'image' => $image,
+            'vote' => $vote,
+        ]);
+    }
+
+    public function adminScore(Request $request)
+    {
+        $request->validate([
+            'image_id' => 'required|exists:quest_images,id',
+            'quest_id' => 'required|exists:quests,id',
+            'score' => 'required|numeric',
+        ]);
+
+        $image = QuestImage::findOrFail($request->image_id);
+
+        // If image owner → update image score
+        if ($image->user_id === auth()->id()) {
+            $image->update([
+                'score' => $request->score,
+            ]);
+
+            return back();
+        }
+
+        // Otherwise → update or create vote
+        Vote::updateOrCreate(
+            [
+                'user_id' => auth()->id(),
+                'image_id' => $image->id,
+            ],
+            [
+                'quest_id' => $request->quest_id,
+                'score' => $request->score,
+                'skip' => false,
+            ]
+        );
+
+        return back();
     }
 }

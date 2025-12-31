@@ -82,9 +82,13 @@ Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {
     Route::get('/lead-judge/contest', [JudgeContestController::class, 'leadJudge'])->name('lead_judge.contest');
     Route::get('/lead-judge/contest/score/show/{id}', [JudgeContestController::class, 'declearWinner'])->name('lead_judge.declearWinner');
     Route::post('/judge/vote', [JudgeContestController::class, 'vote'])->name('judge.vote');
+    
     Route::get('/lead-judge/contest/score/{id}', [JudgeContestController::class, 'allJudgeContestScore'])->name('lead_judge.allContestScore');
+
     Route::post('/contest/judge-winner-status', [JudgeContestController::class, 'judgeWinnerStatus'])->name('lead_judge.judgeWinnerStatus');
+
     Route::get('/lead-judge/contest/lead-judge-score/{imageId}', [JudgeContestController::class, 'leadJudgeScoreView'])->name('lead_judge.lead_judge_score_view');
+
     Route::post('/lead-judge/contest/lead-judge-score/{imageId}', [JudgeContestController::class, 'leadJudgeScore'])->name('lead_judge.lead_judge_score');
 });
 
@@ -140,9 +144,13 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
     Route::post('/contest/declare-winner', [ContestWinnerController::class, 'winnerStore'])->name('admin.contest.declare-winner');
 
+    Route::get('/contest/admin-score/{imageId}', [ContestWinnerController::class, 'adminScoreView'])->name('admin.contest.admin-score-view');
+
+    Route::post('/contest/admin-score/{imageId}', [ContestWinnerController::class, 'adminScore'])->name('admin.contest.change-score');
+
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
-require __DIR__.'/frontend.php';
-require __DIR__.'/user-dashboard.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/frontend.php';
+require __DIR__ . '/user-dashboard.php';

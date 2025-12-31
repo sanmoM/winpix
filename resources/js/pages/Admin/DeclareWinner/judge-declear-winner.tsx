@@ -1,3 +1,226 @@
+// import NoTableItems from '@/components/shared/table/components/no-table-items';
+// import TableCell from '@/components/shared/table/components/table-cell';
+// import TableRow from '@/components/shared/table/components/table-row';
+// import { default as Table } from '@/components/shared/table/table';
+// import TableContainer from '@/components/shared/table/table-container';
+// import useLocales from '@/hooks/useLocales';
+// import AppLayout from '@/layouts/app-layout';
+// import { Head, Link, router } from '@inertiajs/react';
+// import { useEffect } from 'react';
+// import { ToastContainer, toast } from 'react-toastify';
+// import { route } from 'ziggy-js';
+
+// interface ContestItem {
+//     id: number;
+//     image: string;
+//     user_score: string;
+//     jury_score: string;
+//     total_score: string;
+// }
+
+// interface FlashProps {
+//     success?: string;
+//     error?: string;
+// }
+
+// export default function Index({
+//     images: items,
+//     flash,
+// }: {
+//     images: ContestItem[];
+//     flash: FlashProps;
+// }) {
+//     const { t } = useLocales();
+
+//     const breadcrumbs = t(
+//         'dashboard.jury.lead-contest.showContestScore.breadcrumbs',
+//         {
+//             returnObjects: true,
+//         },
+//     );
+
+//     useEffect(() => {
+//         if (flash?.success) toast.success(flash.success);
+//         if (flash?.error) toast.error(flash.error);
+//     }, [flash]);
+//     const handleDeclareWinner = () => {
+//         const formattedItems = items.map((item, index) => ({
+//             id: item.id,
+//             image_id: item.id,
+//             quest_id: item.quest.id,
+//             user_vote: item.user_score,
+//             jury_score: item.jury_score,
+//             total_score: item.total_score,
+//             rank: index + 1,
+//             submitted_by: 'Admin',
+//         }));
+
+//         router.post(
+//             route('admin.contest.declare-winner'),
+//             {
+//                 items: formattedItems,
+//             },
+//             {
+//                 preserveScroll: true,
+//             },
+//         );
+//     };
+
+//     return (
+//         <AppLayout breadcrumbs={breadcrumbs as any}>
+//             <ToastContainer />
+//             <Head
+//                 title={t('dashboard.jury.lead-contest.showContestScore.title')}
+//             />
+
+//             <TableContainer>
+//                 <h1 className="mb-4 text-lg font-semibold">
+//                     {t('dashboard.jury.lead-contest.showContestScore.title')}
+//                 </h1>
+
+//                 <div className="mb-2 flex justify-end">
+//                     {/* Case when lead_judge is either NULL or null */}
+//                     {(items[0]?.quest?.lead_judge === 'NULL' ||
+//                         items[0]?.quest?.lead_judge == null) && (
+//                         <>
+//                             {/* Declare Winners Button (Only if the quest has ended and winner is not approved) */}
+//                             {items?.length > 0 &&
+//                                 items[0]?.quest &&
+//                                 new Date(items[0].quest.end_date).getTime() <
+//                                     Date.now() &&
+//                                 items[0]?.quest?.winner_status !==
+//                                     'admin_approved' && (
+//                                     <button
+//                                         onClick={handleDeclareWinner}
+//                                         className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
+//                                     >
+//                                         Declare Winners
+//                                     </button>
+//                                 )}
+
+//                             {/* "Winners Submitted" Button (If Admin Approved) */}
+//                             {items[0]?.quest?.winner_status ===
+//                                 'admin_approved' && (
+//                                 <button className="disabled cursor-pointer rounded-md bg-green-500 px-4 py-2 text-white">
+//                                     Winners Submitted
+//                                 </button>
+//                             )}
+
+//                             {/* Disabled button (If end date is in the future) */}
+//                             {new Date(items[0].quest.end_date).getTime() >
+//                                 Date.now() && (
+//                                 <button className="disabled cursor-pointer rounded-md bg-yellow-500 px-4 py-2 text-white">
+//                                     Contest Not Ended
+//                                 </button>
+//                             )}
+//                         </>
+//                     )}
+
+//                     {/* Case when lead_judge is not null or not 'NULL' */}
+//                     {items[0]?.quest?.lead_judge != null &&
+//                         items[0]?.quest?.lead_judge !== 'NULL' && (
+//                             <>
+//                                 {/* Submit Winners Button (Only if the winner_status is jury_submitted) */}
+//                                 {items[0]?.quest?.winner_status ===
+//                                     'jury_submitted' && (
+//                                     <button
+//                                         onClick={handleDeclareWinner}
+//                                         className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
+//                                     >
+//                                         Submit Winners
+//                                     </button>
+//                                 )}
+
+//                                 {/* "Submit Winners Pending" Button (If the winner_status is pending) */}
+//                                 {items[0]?.quest?.winner_status ===
+//                                     'pending' && (
+//                                     <button className="disabled cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
+//                                         Submit Winners Pending
+//                                     </button>
+//                                 )}
+
+//                                 {/* "Submit Winners Approved" Button (If the winner_status is admin_approved) */}
+//                                 {items[0]?.quest?.winner_status ===
+//                                     'admin_approved' && (
+//                                     <button className="disabled cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
+//                                         Submit Winners Approved
+//                                     </button>
+//                                 )}
+//                             </>
+//                         )}
+//                 </div>
+
+//                 <Table
+//                     headingItems={t(
+//                         'dashboard.jury.lead-contest.showContestScore.table.headings',
+//                         {
+//                             returnObjects: true,
+//                         },
+//                     )}
+//                 >
+//                     {items?.length > 0 ? (
+//                         items.map((item, index) => {
+//                             const isEnded =
+//                                 new Date(item.quest.end_date).getTime() <
+//                                 Date.now();
+
+//                             return (
+//                                 <TableRow key={item.id}>
+//                                     <TableCell>{index + 1}</TableCell>
+
+//                                     <TableCell>
+//                                         {item.image ? (
+//                                             <img
+//                                                 src={`/storage/${item.image}`}
+//                                                 alt={item.title_en}
+//                                                 className="h-10 w-10 rounded object-cover"
+//                                             />
+//                                         ) : (
+//                                             <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
+//                                                 —
+//                                             </div>
+//                                         )}
+//                                     </TableCell>
+
+//                                     <TableCell>{item.user_score}</TableCell>
+//                                     <TableCell>{item.jury_score}</TableCell>
+//                                     <TableCell>
+//                                         {item?.lead_judge_score}
+//                                     </TableCell>
+//                                     <TableCell>{item.total_score}</TableCell>
+//                                     <TableCell>{index + 1}</TableCell>
+
+//                                     <TableCell className="space-x-2 text-end">
+//                                         <Link
+//                                             href={
+//                                                 isEnded
+//                                                     ? '#'
+//                                                     : route(
+//                                                           'admin.contest.admin-score-view',
+//                                                           item.id,
+//                                                       )
+//                                             }
+//                                             className={`rounded-md px-3 py-2 text-end font-medium text-white ${
+//                                                 isEnded
+//                                                     ? 'pointer-events-none cursor-not-allowed bg-gray-400'
+//                                                     : 'cursor-pointer bg-green-600'
+//                                             }`}
+//                                         >
+//                                             Change Rank
+//                                         </Link>
+//                                     </TableCell>
+//                                 </TableRow>
+//                             );
+//                         })
+//                     ) : (
+//                         <NoTableItems />
+//                     )}
+//                 </Table>
+//             </TableContainer>
+//         </AppLayout>
+//     );
+// }
+
 import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
@@ -30,6 +253,8 @@ export default function Index({
     images: ContestItem[];
     flash: FlashProps;
 }) {
+
+    console.log(items)
     const { t } = useLocales();
 
     const breadcrumbs = t(
@@ -43,20 +268,14 @@ export default function Index({
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
-    const handleDeclareWinner = () => {
+
+    const handleJudgeDeclareWinner = () => {
         const formattedItems = items.map((item, index) => ({
-            id: item.id,
-            image_id: item.id,
             quest_id: item.quest.id,
-            user_vote: item.user_score,
-            jury_score: item.jury_score,
-            total_score: item.total_score,
-            rank: index + 1,
-            submitted_by: 'Admin',
         }));
 
         router.post(
-            route('admin.contest.declare-winner'),
+            route('lead_judge.judgeWinnerStatus'),
             {
                 items: formattedItems,
             },
@@ -77,79 +296,43 @@ export default function Index({
                 <h1 className="mb-4 text-lg font-semibold">
                     {t('dashboard.jury.lead-contest.showContestScore.title')}
                 </h1>
-
                 <div className="mb-2 flex justify-end">
-                    {/* Case when lead_judge is either NULL or null */}
-                    {(items[0]?.quest?.lead_judge === 'NULL' ||
-                        items[0]?.quest?.lead_judge == null) && (
-                        <>
-                            {/* Declare Winners Button (Only if the quest has ended and winner is not approved) */}
-                            {items?.length > 0 &&
-                                items[0]?.quest &&
-                                new Date(items[0].quest.end_date).getTime() <
-                                    Date.now() &&
-                                items[0]?.quest?.winner_status !==
-                                    'admin_approved' && (
-                                    <button
-                                        onClick={handleDeclareWinner}
-                                        className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
-                                    >
-                                        Declare Winners
-                                    </button>
-                                )}
-
-                            {/* "Winners Submitted" Button (If Admin Approved) */}
-                            {items[0]?.quest?.winner_status ===
-                                'admin_approved' && (
-                                <button className="disabled cursor-pointer rounded-md bg-green-500 px-4 py-2 text-white">
-                                    Winners Submitted
-                                </button>
-                            )}
-
-                            {/* Disabled button (If end date is in the future) */}
-                            {new Date(items[0].quest.end_date).getTime() >
-                                Date.now() && (
-                                <button className="disabled cursor-pointer rounded-md bg-yellow-500 px-4 py-2 text-white">
-                                    Contest Not Ended
-                                </button>
-                            )}
-                        </>
+                    {items[0]?.quest.winner_status === 'judge_submitted' && (
+                        <p className="cursor-pointer rounded-md bg-amber-300 px-4 py-2 text-white">
+                            Winner Submitted for Admin Approval
+                        </p>
                     )}
 
-                    {/* Case when lead_judge is not null or not 'NULL' */}
-                    {items[0]?.quest?.lead_judge != null &&
-                        items[0]?.quest?.lead_judge !== 'NULL' && (
-                            <>
-                                {/* Submit Winners Button (Only if the winner_status is jury_submitted) */}
-                                {items[0]?.quest?.winner_status ===
-                                    'jury_submitted' && (
-                                    <button
-                                        onClick={handleDeclareWinner}
-                                        className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
-                                    >
-                                        Submit Winners
-                                    </button>
-                                )}
+                    {items[0]?.quest.winner_status === 'admin_approved' && (
+                        <p className="cursor-pointer rounded-md bg-green-500 px-4 py-2 text-white">
+                            Winner Submitted aproved by Admin
+                        </p>
+                    )}
 
-                                {/* "Submit Winners Pending" Button (If the winner_status is pending) */}
-                                {items[0]?.quest?.winner_status ===
-                                    'pending' && (
-                                    <button className="disabled cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
-                                        Submit Winners Pending
-                                    </button>
-                                )}
+                    {items?.length > 0 &&
+                        items[0]?.quest.winner_status === 'pending' &&
+                        new Date(items[0]?.quest.end_date).getTime() <
+                        Date.now() && (
+                            <button
+                                onClick={handleJudgeDeclareWinner}
+                                className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
+                            >
+                                Declare Winner
+                            </button>
+                        )}
 
-                                {/* "Submit Winners Approved" Button (If the winner_status is admin_approved) */}
-                                {items[0]?.quest?.winner_status ===
-                                    'admin_approved' && (
-                                    <button className="disabled cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
-                                        Submit Winners Approved
-                                    </button>
-                                )}
-                            </>
+                    {items?.length > 0 &&
+                        items[0]?.quest.winner_status === 'pending' &&
+                        new Date(items[0]?.quest.end_date).getTime() >
+                        Date.now() && (
+                            <button
+                                disabled
+                                className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
+                            >
+                                Declare Winner
+                            </button>
                         )}
                 </div>
-
                 <Table
                     headingItems={t(
                         'dashboard.jury.lead-contest.showContestScore.table.headings',
@@ -159,59 +342,54 @@ export default function Index({
                     )}
                 >
                     {items?.length > 0 ? (
-                        items.map((item, index) => {
-                            const isEnded =
-                                new Date(item.quest.end_date).getTime() <
-                                Date.now();
+                        items.map((item, index) => (
+                            <TableRow key={item.id}>
+                                <TableCell>{index + 1}</TableCell>
 
-                            return (
-                                <TableRow key={item.id}>
-                                    <TableCell>{index + 1}</TableCell>
-
-                                    <TableCell>
-                                        {item.image ? (
-                                            <img
-                                                src={`/storage/${item.image}`}
-                                                alt={item.title_en}
-                                                className="h-10 w-10 rounded object-cover"
-                                            />
-                                        ) : (
-                                            <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
-                                                —
-                                            </div>
-                                        )}
-                                    </TableCell>
-
-                                    <TableCell>{item.user_score}</TableCell>
-                                    <TableCell>{item.jury_score}</TableCell>
-                                    <TableCell>
-                                        {item?.lead_judge_score}
-                                    </TableCell>
-                                    <TableCell>{item.total_score}</TableCell>
-                                    <TableCell>{index + 1}</TableCell>
-
-                                    <TableCell className="space-x-2 text-end">
+                                <TableCell>
+                                    {item.image ? (
+                                        <img
+                                            src={`/storage/${item.image}`}
+                                            alt={item.title_en}
+                                            className="h-10 w-10 rounded object-cover"
+                                        />
+                                    ) : (
+                                        <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
+                                            —
+                                        </div>
+                                    )}
+                                </TableCell>
+                                <TableCell>{item?.user_score}</TableCell>
+                                <TableCell>{item?.jury_score}</TableCell>
+                                <TableCell>{item?.lead_judge_score}</TableCell>
+                                <TableCell>{item?.admin_score}</TableCell>
+                                <TableCell>{item?.total_score || 0}</TableCell>
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell className="space-x-2">
+                                    {item.quest.winner_status !==
+                                        'judge_submitted' &&
+                                        item.quest.winner_status !==
+                                        'admin_approved' ? (
                                         <Link
-                                            href={
-                                                isEnded
-                                                    ? '#'
-                                                    : route(
-                                                          'judge.contest.score',
-                                                          item.id,
-                                                      )
-                                            }
-                                            className={`rounded-md px-3 py-2 text-end font-medium text-white ${
-                                                isEnded
-                                                    ? 'pointer-events-none cursor-not-allowed bg-gray-400'
-                                                    : 'cursor-pointer bg-green-600'
-                                            }`}
+                                            href={route(
+                                                'lead_judge.lead_judge_score_view',
+                                                item?.id,
+                                            )}
+                                            className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
                                         >
                                             Change Rank
                                         </Link>
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })
+                                    ) : (
+                                        <button
+                                            disabled
+                                            className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
+                                        >
+                                            Change Rank
+                                        </button>
+                                    )}
+                                </TableCell>
+                            </TableRow>
+                        ))
                     ) : (
                         <NoTableItems />
                     )}

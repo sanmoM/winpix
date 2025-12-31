@@ -10,5 +10,7 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::call(function () {
-    Log::info("Hello World");
+    Log::info('Hello World');
 })->everyMinute();
+
+Schedule::command('contest:declare-winners-automatically')->daily();

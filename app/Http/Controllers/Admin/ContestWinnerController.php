@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContestWinner;
+use App\Models\Prize;
 use App\Models\Quest;
 use App\Models\QuestImage;
 use Illuminate\Http\Request;
@@ -59,8 +60,15 @@ class ContestWinnerController extends Controller
             ->orderByDesc('total_score')
             ->get();
 
+        $totalPrizes = Prize::where('quest_id', $questId)
+            ->get()
+            ->sum(function ($prize) {
+                return $prize->max - $prize->min + 1;
+            });
+
         return Inertia::render('Admin/DeclareWinner/declear-winner', [
             'images' => $images,
+            'totalPrizes' => $totalPrizes,
         ]);
 
     }

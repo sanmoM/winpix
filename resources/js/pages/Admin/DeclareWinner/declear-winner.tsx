@@ -25,6 +25,7 @@ interface FlashProps {
 
 export default function Index({
     images: items,
+    totalPrizes,
     flash,
 }: {
     images: ContestItem[];
@@ -44,7 +45,7 @@ export default function Index({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
     const handleDeclareWinner = () => {
-        const formattedItems = items.map((item, index) => ({
+        const formattedItems = items.slice(0, totalPrizes).map((item, index) => ({
             id: item.id,
             image_id: item.id,
             quest_id: item.quest.id,
@@ -80,41 +81,41 @@ export default function Index({
 
                 <div className="mb-2 flex justify-end">
                     {/* Case when lead_judge is either NULL or null */}
-                    {(items[0]?.quest?.lead_judge === 'NULL' ||
+                    {items?.length > 0 && (items[0]?.quest?.lead_judge === 'NULL' ||
                         items[0]?.quest?.lead_judge == null) && (
-                        <>
-                            {/* Declare Winners Button (Only if the quest has ended and winner is not approved) */}
-                            {items?.length > 0 &&
-                                items[0]?.quest &&
-                                new Date(items[0].quest.end_date).getTime() <
+                            <>
+                                {/* Declare Winners Button (Only if the quest has ended and winner is not approved) */}
+                                {items?.length > 0 &&
+                                    items[0]?.quest &&
+                                    new Date(items[0]?.quest.end_date).getTime() <
                                     Date.now() &&
-                                items[0]?.quest?.winner_status !==
+                                    items[0]?.quest?.winner_status !==
                                     'admin_approved' && (
-                                    <button
-                                        onClick={handleDeclareWinner}
-                                        className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
-                                    >
-                                        Declare Winners
-                                    </button>
-                                )}
+                                        <button
+                                            onClick={handleDeclareWinner}
+                                            className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
+                                        >
+                                            Declare Winners
+                                        </button>
+                                    )}
 
-                            {/* "Winners Submitted" Button (If Admin Approved) */}
-                            {items[0]?.quest?.winner_status ===
-                                'admin_approved' && (
-                                <button className="disabled cursor-pointer rounded-md bg-green-500 px-4 py-2 text-white">
-                                    Winners Submitted
-                                </button>
-                            )}
+                                {/* "Winners Submitted" Button (If Admin Approved) */}
+                                {items[0]?.quest?.winner_status ===
+                                    'admin_approved' && (
+                                        <button className="disabled cursor-pointer rounded-md bg-green-500 px-4 py-2 text-white">
+                                            Winners Submitted
+                                        </button>
+                                    )}
 
-                            {/* Disabled button (If end date is in the future) */}
-                            {new Date(items[0].quest.end_date).getTime() >
-                                Date.now() && (
-                                <button className="disabled cursor-pointer rounded-md bg-yellow-500 px-4 py-2 text-white">
-                                    Contest Not Ended
-                                </button>
-                            )}
-                        </>
-                    )}
+                                {/* Disabled button (If end date is in the future) */}
+                                {new Date(items[0].quest.end_date).getTime() >
+                                    Date.now() && (
+                                        <button className="disabled cursor-pointer rounded-md bg-yellow-500 px-4 py-2 text-white">
+                                            Contest Not Ended
+                                        </button>
+                                    )}
+                            </>
+                        )}
 
                     {/* Case when lead_judge is not null or not 'NULL' */}
                     {items[0]?.quest?.lead_judge != null &&
@@ -123,29 +124,29 @@ export default function Index({
                                 {/* Submit Winners Button (Only if the winner_status is jury_submitted) */}
                                 {items[0]?.quest?.winner_status ===
                                     'jury_submitted' && (
-                                    <button
-                                        onClick={handleDeclareWinner}
-                                        className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
-                                    >
-                                        Submit Winners
-                                    </button>
-                                )}
+                                        <button
+                                            onClick={handleDeclareWinner}
+                                            className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
+                                        >
+                                            Submit Winners
+                                        </button>
+                                    )}
 
                                 {/* "Submit Winners Pending" Button (If the winner_status is pending) */}
                                 {items[0]?.quest?.winner_status ===
                                     'pending' && (
-                                    <button className="disabled cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
-                                        Submit Winners Pending
-                                    </button>
-                                )}
+                                        <button className="disabled cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
+                                            Submit Winners Pending
+                                        </button>
+                                    )}
 
                                 {/* "Submit Winners Approved" Button (If the winner_status is admin_approved) */}
                                 {items[0]?.quest?.winner_status ===
                                     'admin_approved' && (
-                                    <button className="disabled cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
-                                        Submit Winners Approved
-                                    </button>
-                                )}
+                                        <button className="disabled cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
+                                            Submit Winners Approved
+                                        </button>
+                                    )}
                             </>
                         )}
                 </div>
@@ -196,15 +197,14 @@ export default function Index({
                                                 isEnded
                                                     ? '#'
                                                     : route(
-                                                          'judge.contest.score',
-                                                          item.id,
-                                                      )
+                                                        'judge.contest.score',
+                                                        item.id,
+                                                    )
                                             }
-                                            className={`rounded-md px-3 py-2 text-end font-medium text-white ${
-                                                isEnded
-                                                    ? 'pointer-events-none cursor-not-allowed bg-gray-400'
-                                                    : 'cursor-pointer bg-green-600'
-                                            }`}
+                                            className={`rounded-md px-3 py-2 text-end font-medium text-white ${isEnded
+                                                ? 'pointer-events-none cursor-not-allowed bg-gray-400'
+                                                : 'cursor-pointer bg-green-600'
+                                                }`}
                                         >
                                             Change Rank
                                         </Link>

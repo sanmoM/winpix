@@ -23,6 +23,7 @@ use App\Http\Controllers\JudgeContestController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\PrizePoolController;
 use App\Http\Controllers\TransactionController;
+use App\Models\ContestWinner;
 use App\Models\Report;
 use App\Models\User;
 use App\Services\RankingService;
@@ -75,6 +76,15 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
 
 });
 
+Route::middleware(['auth', 'verified', 'role:admin,jury'])->group(function () {
+    Route::get("/view-winners/{questId}", function ($questId) {
+        $winners = ContestWinner::where('quest_id', $questId)->get();
+        return view('contest-winner', [
+            'winners' => $winners,
+        ]);
+    });
+});
+
 Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {
     Route::get('/judge/contest', [JudgeContestController::class, 'index'])->name('judge.contest');
     Route::get('/judge/contest/{id}', [JudgeContestController::class, 'scoreContest'])->name('judge.contest.score');
@@ -82,7 +92,7 @@ Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {
     Route::get('/lead-judge/contest', [JudgeContestController::class, 'leadJudge'])->name('lead_judge.contest');
     Route::get('/lead-judge/contest/score/show/{id}', [JudgeContestController::class, 'declearWinner'])->name('lead_judge.declearWinner');
     Route::post('/judge/vote', [JudgeContestController::class, 'vote'])->name('judge.vote');
-    
+
     Route::get('/lead-judge/contest/score/{id}', [JudgeContestController::class, 'allJudgeContestScore'])->name('lead_judge.allContestScore');
 
     Route::post('/contest/judge-winner-status', [JudgeContestController::class, 'judgeWinnerStatus'])->name('lead_judge.judgeWinnerStatus');

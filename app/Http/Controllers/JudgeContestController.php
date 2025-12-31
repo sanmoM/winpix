@@ -66,27 +66,27 @@ class JudgeContestController extends Controller
             )
             ->selectRaw('
         SUM(
-            CASE 
-                WHEN votes.user_id = quests.lead_judge 
-                THEN votes.score 
-                ELSE 0 
+            CASE
+                WHEN votes.user_id = quests.lead_judge
+                THEN votes.score
+                ELSE 0
             END
         ) AS lead_judge_score,
 
         SUM(
-            CASE 
+            CASE
                 WHEN users.role = "jury"
                  AND votes.user_id != quests.lead_judge
-                THEN votes.score 
-                ELSE 0 
+                THEN votes.score
+                ELSE 0
             END
         ) AS jury_score,
 
         SUM(
-            CASE 
+            CASE
                 WHEN users.role = "user"
-                THEN votes.score 
-                ELSE 0 
+                THEN votes.score
+                ELSE 0
             END
         ) AS user_score,
 

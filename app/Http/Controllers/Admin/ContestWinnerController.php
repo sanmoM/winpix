@@ -7,8 +7,10 @@ use App\Models\ContestWinner;
 use App\Models\Prize;
 use App\Models\Quest;
 use App\Models\QuestImage;
+use App\Models\User;
 use App\Models\Vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ContestWinnerController extends Controller
@@ -267,5 +269,64 @@ class ContestWinnerController extends Controller
         );
 
         return back();
+    }
+
+    public function distributePrizes($questId)
+    {
+        // 1. Use findOrFail. If the ID is wrong, it returns a 404 automatically.
+        // This returns a SINGLE object, not a list.
+        $quest = Quest::findOrFail($questId);
+
+        // 2. Wrap in a transaction for safety
+        DB::transaction(function () use ($quest) {
+
+            $winners = ContestWinner::where('quest_id', $quest->id)->get();
+
+            // Fetch prizes with their type (Coin, Pixel, Cash)
+            $prizes = DB::table('prizes')
+                ->join('prize_pools', 'prizes.prize_pool', '=', 'prize_pools.id')
+                ->where('prizes.quest_id', $quest->id)
+                ->select('prizes.*', 'prize_pools.name as type_name')
+                ->get();
+
+            foreach ($winners as $winner) {
+                // Match Rank to Prize Range (min - max)
+                $matchedPrize = $prizes->first(function ($prize) use ($winner) {
+                    return $winner->rank >= $prize->min && $winner->rank <= $prize->max;
+                });
+
+                if ($matchedPrize && $matchedPrize->coin > 0) {
+
+                    $image = DB::table('quest_images')->find($winner->image_id);
+
+                    if ($image) {
+                        $user = User::find($image->user_id);
+                        $amount = $matchedPrize->coin;
+                        $type = strtolower($matchedPrize->type_name);
+
+                        // DISTRIBUTE BASED ON TYPE
+                        switch ($type) {
+                            case 'coin':
+                                $user->increment('coin', $amount);
+                                break;
+                            case 'pixel':
+                                $user->increment('pixel', $amount);
+                                break;
+                            case 'cash':
+                                $user->increment('cash', $amount);
+                                break;
+                        }
+                    }
+                }
+            }
+
+            // Mark as closed inside the transaction
+            $quest->update([
+                'status' => 'Closed',
+                'winner_approved_at' => now(), // Good practice to track when this happened
+            ]);
+        });
+
+        return back()->with('success', 'Prizes distributed successfully!');
     }
 }

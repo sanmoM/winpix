@@ -1,7 +1,7 @@
 import React from 'react'
 import TextInput from '../shared/inputs/text-input';
 
-export default function ScoreContent({ image, setScore, score, max = 10 }: { image: any, setScore: any, score: any, max?: number }) {
+export default function ScoreContent({ image, setScore, score, max }: { image: any, setScore: any, score: any, max?: number }) {
     return (
         <div className="group relative flex h-full w-xl cursor-pointer flex-col overflow-hidden rounded-lg">
             <div className="mb-3 flex-1 overflow-hidden rounded-xl bg-bg-primary">
@@ -14,7 +14,7 @@ export default function ScoreContent({ image, setScore, score, max = 10 }: { ima
             <div className="mx-3">
                 <TextInput
                     min={1}
-                    max={max}
+                    {...(max ? { max } : {})}
                     label="Score"
                     placeholder="Enter score"
                     type="number"

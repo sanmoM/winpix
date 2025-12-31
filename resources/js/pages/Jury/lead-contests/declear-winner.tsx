@@ -89,7 +89,7 @@ export default function Index({
                     {items?.length > 0 &&
                         items[0]?.quest.winner_status === 'pending' &&
                         new Date(items[0]?.quest.end_date).getTime() <
-                            Date.now() && (
+                        Date.now() && (
                             <button
                                 onClick={handleJudgeDeclareWinner}
                                 className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
@@ -101,7 +101,7 @@ export default function Index({
                     {items?.length > 0 &&
                         items[0]?.quest.winner_status === 'pending' &&
                         new Date(items[0]?.quest.end_date).getTime() >
-                            Date.now() && (
+                        Date.now() && (
                             <button
                                 disabled
                                 className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
@@ -139,12 +139,13 @@ export default function Index({
                                 <TableCell>{item?.user_score}</TableCell>
                                 <TableCell>{item?.jury_score}</TableCell>
                                 <TableCell>{item?.lead_judge_score}</TableCell>
-                                <TableCell>{item?.total_score}</TableCell>
+                                <TableCell>{item?.admin_score}</TableCell>
+                                <TableCell>{item?.total_score || 0}</TableCell>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell className="space-x-2">
                                     {item.quest.winner_status !==
                                         'judge_submitted' &&
-                                    item.quest.winner_status !==
+                                        item.quest.winner_status !==
                                         'admin_approved' ? (
                                         <Link
                                             href={route(

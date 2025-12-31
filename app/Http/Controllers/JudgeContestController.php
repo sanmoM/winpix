@@ -155,12 +155,46 @@ class JudgeContestController extends Controller
 
     public function showContestScore($questId)
     {
-        $userId = auth()->user()->id;
+        // $userId = auth()->user()->id;
 
-        $showContestScores = Vote::with(['user:id,name', 'quest:id,title_en', 'image'])->where('user_id', $userId)->where('quest_id', $questId)->get();
+       $images = QuestImage::with('quest:id,title_en,end_date,lead_judge')
+    ->select(
+        'quest_images.id',
+        'quest_images.quest_id',
+        'quest_images.image',
+        'quest_images.user_id'
+    )
+    ->selectRaw('
+        SUM(
+            CASE
+                WHEN judge_panels.user_id IS NOT NULL
+                THEN votes.score
+                ELSE 0
+            END
+        ) AS judge_score
+    ')
+    ->leftJoin('votes', 'votes.image_id', '=', 'quest_images.id')
+
+    ->leftJoin('judge_panels', function ($join) {
+        $join->on('judge_panels.user_id', '=', 'votes.user_id')
+             ->on('judge_panels.quest_id', '=', 'quest_images.quest_id');
+    })
+
+    ->where('quest_images.quest_id', $questId)
+    ->groupBy(
+        'quest_images.id',
+        'quest_images.quest_id',
+        'quest_images.image',
+        'quest_images.user_id'
+    )
+    ->orderByDesc('judge_score')
+    ->get();
+
+
+
 
         return Inertia::render('Jury/contest-pannel/view-score', [
-            'showContestScores' => $showContestScores,
+            'showContestScores' => $images,
         ]);
     }
 

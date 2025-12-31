@@ -16,6 +16,8 @@ export default function ScoreContest({ showContestScores }: { showContestScores:
     });
 
 
+
+
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
@@ -42,7 +44,7 @@ export default function ScoreContest({ showContestScores }: { showContestScores:
                                 <TableCell>
                                     {item.image ? (
                                         <img
-                                            src={`/storage/${item?.image.image}`}
+                                            src={`/storage/${item?.image}`}
                                             alt={item.title_en}
                                             className="h-10 w-10 rounded object-cover"
                                         />
@@ -53,7 +55,7 @@ export default function ScoreContest({ showContestScores }: { showContestScores:
                                     )}
                                 </TableCell>
                                 <TableCell>
-                                    {item.score}
+                                    {item.judge_score}
                                 </TableCell>
 
                                 {/* <TableCell>{item.email}</TableCell>

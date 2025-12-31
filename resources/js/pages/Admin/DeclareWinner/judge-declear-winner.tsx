@@ -361,8 +361,8 @@ export default function Index({
                                 </TableCell>
                                 <TableCell>{item?.user_score}</TableCell>
                                 <TableCell>{item?.jury_score}</TableCell>
-                                <TableCell>{item?.lead_judge_score}</TableCell>
-                                <TableCell>{item?.admin_score}</TableCell>
+                                <TableCell>{item?.lead_judge_score || 0}</TableCell>
+                                <TableCell>{item?.admin_score || 0}</TableCell>
                                 <TableCell>{item?.total_score || 0}</TableCell>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell className="space-x-2">
@@ -372,7 +372,7 @@ export default function Index({
                                         'admin_approved' ? (
                                         <Link
                                             href={route(
-                                                'lead_judge.lead_judge_score_view',
+                                                'admin.contest.admin-score-view',
                                                 item?.id,
                                             )}
                                             className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"

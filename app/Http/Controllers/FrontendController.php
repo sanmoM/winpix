@@ -6,11 +6,9 @@ use App\Helpers\QuestFilter;
 use App\Models\About;
 use App\Models\BrandMarketing;
 use App\Models\Contact;
-use App\Models\Favicon;
 use App\Models\Follower;
 use App\Models\Help;
 use App\Models\JudgePanel;
-use App\Models\Logo;
 use App\Models\MarketingBanner;
 use App\Models\Other;
 use App\Models\Quest;
@@ -113,7 +111,7 @@ class FrontendController extends Controller
     {
         $queryParams = request()->query();
 
-        $filter = $queryParams['filter'] ?? "discover";
+        $filter = $queryParams['filter'] ?? 'discover';
         $questType = $queryParams['questType'] ?? null;
         $category = $queryParams['category'] ?? null;
         $isFree = $queryParams['isFree'] ?? null;
@@ -152,14 +150,14 @@ class FrontendController extends Controller
 
         // Fetch finally
         $quests = QuestFilter::query()->get();
-        $allQuests = Quest::where("start_date", "<=", today())->where("end_date", ">=", today())->get();
+        $allQuests = Quest::where('start_date', '<=', today())->where('end_date', '>=', today())->get();
 
         return Inertia::render('quests/active-quests', [
             'series' => $filter === 'discover' ? $series : [],
             'quests' => $quests,
             'categories' => $categories,
             'questTypes' => $questTypes,
-            "allQuests" => $allQuests,
+            'allQuests' => $allQuests,
         ]);
     }
 
@@ -219,7 +217,7 @@ class FrontendController extends Controller
         $userId = auth()->user()->id;
         $joinedQuests = QuestJoin::with(['user'])->where('user_id', $userId)->get();
         $quest = Quest::with(['category', 'user', 'prizes.prize_pool', 'images', 'quest_type'])->findOrFail($id);
-        $votes = Vote::where('user_id', $userId)->get();
+        $votes = Vote::where('user_id', $userId)->where('quest_id', $id)->get();
         $questImages = QuestImage::with(['user', 'quest.category', 'quest.user'])
             ->where('quest_id', $id)  // filter only for this quest
             ->get();
@@ -376,8 +374,8 @@ class FrontendController extends Controller
     public function searchedHelps()
     {
         $searchTerm = request()->query('searchTerm');
-        $helps = Help::where('question', 'LIKE', '%' . $searchTerm . '%')
-            ->orWhere('answer', 'LIKE', '%' . $searchTerm . '%')
+        $helps = Help::where('question', 'LIKE', '%'.$searchTerm.'%')
+            ->orWhere('answer', 'LIKE', '%'.$searchTerm.'%')
             ->get();
 
         return Inertia::render('help/searched-helps', [
@@ -481,10 +479,9 @@ class FrontendController extends Controller
             abort_unless(($user->role === 'user'), 403);
         }
 
-
         if ($quest->vote_rights === 'Judges') {
             abort_unless(
-                !($user->role === 'jury' &&
+                ! ($user->role === 'jury' &&
                     JudgePanel::where('quest_id', $quest->id)
                         ->where('user_id', $user->id)
                         ->exists()),
@@ -498,7 +495,6 @@ class FrontendController extends Controller
                 403
             );
         }
-
 
         Vote::firstOrCreate([
             'user_id' => $userId,
@@ -519,15 +515,13 @@ class FrontendController extends Controller
             ->where('quest_id', $questId)
             ->firstOrFail();
 
-
         if ($quest->vote_rights === 'Public') {
             abort_unless(($user->role === 'user'), 403);
         }
 
-
         if ($quest->vote_rights === 'Judges') {
             abort_unless(
-                !($user->role === 'jury' &&
+                ! ($user->role === 'jury' &&
                     JudgePanel::where('quest_id', $quest->id)
                         ->where('user_id', $user->id)
                         ->exists()),
@@ -548,7 +542,7 @@ class FrontendController extends Controller
             'image_id' => $imageId,
             'user_id' => $user->id,
             'quest_id' => $questId,
-            'score' => 1
+            'score' => 1,
         ]);
 
         $this->rankingService->castVote($image->user);
@@ -609,7 +603,7 @@ class FrontendController extends Controller
         User::findOrFail($userId)->increment('pixel', $storeItem->number_of_coin);
         Transaction::create([
             'user_id' => $userId,
-            'transaction_type' => "Pixel",
+            'transaction_type' => 'Pixel',
             'amount' => $storeItem->number_of_coin,
             'payment_method' => 'Paypal',
             'currency' => 'USD',
@@ -703,7 +697,7 @@ class FrontendController extends Controller
             'transaction_type' => 'redeem',
             'reference_id' => $request->prizeId,
             'amount' => $request->coinQuantity,
-            'amount_type' => "V-Coin",
+            'amount_type' => 'V-Coin',
         ]);
         User::findOrFail($userId)->decrement('coin', $request->coinQuantity);
 
@@ -713,6 +707,7 @@ class FrontendController extends Controller
     public function settings()
     {
         $settings = Other::first();
+
         return response()->json($settings);
 
     }

@@ -35,7 +35,7 @@ class JudgeContestController extends Controller
 
     public function declearWinner($questId)
     {
-        $images = QuestImage::select('quest_images.id', 'quest_images.quest_id', 'quest_images.image', 'quest_images.user_id', 'quest_images.camera_brand', 'quest_images.camera_model', 'quest_images.lens', 'quest_images.focal_length', 'quest_images.aperture', 'quest_images.shutter_speed', 'quest_images.iso', 'quest_images.date_captured', 'quest_images.created_at', 'quest_images.updated_at')
+        $images = QuestImage::with('quest:id,title_en,end_date')->select('quest_images.id', 'quest_images.quest_id', 'quest_images.image', 'quest_images.user_id', 'quest_images.camera_brand', 'quest_images.camera_model', 'quest_images.lens', 'quest_images.focal_length', 'quest_images.aperture', 'quest_images.shutter_speed', 'quest_images.iso', 'quest_images.date_captured', 'quest_images.created_at', 'quest_images.updated_at')
             ->selectRaw('
         SUM(CASE WHEN users.role = "jury" THEN votes.score ELSE 0 END) AS jury_score,
         SUM(CASE WHEN users.role = "user" THEN votes.score ELSE 0 END) AS user_score,
@@ -107,15 +107,29 @@ class JudgeContestController extends Controller
         ]);
     }
 
+    public function judgeWinnerStatus(Request $request)
+    {
+
+        $request->validate([
+            'items' => 'required|array',
+            'items.*.quest_id' => 'required|integer',
+        ]);
+
+        $quest = Quest::find($request->items[0]['quest_id']);
+        $quest->winner_status = 'judge_submitted';
+        $quest->update();
+
+        return back()->with('success', 'Winners declared successfully!');
+    }
+
     public function leadJudgeScoreView($imageId)
     {
         $image = QuestImage::findOrFail($imageId);
+
         return Inertia::render('Jury/lead-contests/lead-judge-score', [
             'image' => $image,
         ]);
     }
 
-    public function leadJudgeScore(Request $request){
-        
-    }
+    public function leadJudgeScore(Request $request) {}
 }

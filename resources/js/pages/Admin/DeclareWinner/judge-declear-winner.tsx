@@ -248,6 +248,7 @@ interface FlashProps {
 
 export default function Index({
     images: items,
+    totalPrizes,
     flash,
 }: {
     images: ContestItem[];
@@ -269,13 +270,22 @@ export default function Index({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
-    const handleJudgeDeclareWinner = () => {
-        const formattedItems = items.map((item, index) => ({
-            quest_id: item.quest.id,
-        }));
+    const handleDeclareWinner = () => {
+        const formattedItems = items
+            .slice(0, totalPrizes)
+            .map((item, index) => ({
+                id: item.id,
+                image_id: item.id,
+                quest_id: item.quest.id,
+                user_vote: item.user_score,
+                jury_score: item.jury_score,
+                total_score: item.total_score,
+                rank: index + 1,
+                submitted_by: 'Admin',
+            }));
 
         router.post(
-            route('lead_judge.judgeWinnerStatus'),
+            route('admin.contest.declare-winner'),
             {
                 items: formattedItems,
             },
@@ -297,11 +307,6 @@ export default function Index({
                     {t('dashboard.jury.lead-contest.showContestScore.title')}
                 </h1>
                 <div className="mb-2 flex justify-end">
-                    {items[0]?.quest.winner_status === 'judge_submitted' && (
-                        <p className="cursor-pointer rounded-md bg-amber-300 px-4 py-2 text-white">
-                            Winner Submitted for Admin Approval
-                        </p>
-                    )}
 
                     {items[0]?.quest.winner_status === 'admin_approved' && (
                         <p className="cursor-pointer rounded-md bg-green-500 px-4 py-2 text-white">
@@ -310,23 +315,9 @@ export default function Index({
                     )}
 
                     {items?.length > 0 &&
-                        items[0]?.quest.winner_status === 'pending' &&
-                        new Date(items[0]?.quest.end_date).getTime() <
-                        Date.now() && (
+                        items[0]?.quest.winner_status === 'judge_submitted' && (
                             <button
-                                onClick={handleJudgeDeclareWinner}
-                                className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
-                            >
-                                Declare Winner
-                            </button>
-                        )}
-
-                    {items?.length > 0 &&
-                        items[0]?.quest.winner_status === 'pending' &&
-                        new Date(items[0]?.quest.end_date).getTime() >
-                        Date.now() && (
-                            <button
-                                disabled
+                                onClick={handleDeclareWinner}
                                 className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
                             >
                                 Declare Winner
@@ -361,8 +352,8 @@ export default function Index({
                                 </TableCell>
                                 <TableCell>{item?.user_score}</TableCell>
                                 <TableCell>{item?.jury_score}</TableCell>
-                                <TableCell>{item?.lead_judge_score}</TableCell>
-                                <TableCell>{item?.admin_score}</TableCell>
+                                <TableCell>{item?.lead_judge_score || 0}</TableCell>
+                                <TableCell>{item?.admin_score || 0}</TableCell>
                                 <TableCell>{item?.total_score || 0}</TableCell>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell className="space-x-2">
@@ -372,10 +363,12 @@ export default function Index({
                                         'admin_approved' ? (
                                         <Link
                                             href={route(
-                                                'lead_judge.lead_judge_score_view',
+                                                'admin.contest.admin-score-view',
                                                 item?.id,
                                             )}
                                             className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
+
+                                            disabled
                                         >
                                             Change Rank
                                         </Link>

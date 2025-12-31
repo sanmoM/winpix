@@ -165,9 +165,6 @@ export default function Index({
                 >
                     {items?.length > 0 ? (
                         items.map((item, index) => {
-                            const isEnded =
-                                new Date(item.quest.end_date).getTime() <
-                                Date.now();
 
                             return (
                                 <TableRow key={item.id}>
@@ -187,26 +184,31 @@ export default function Index({
                                         )}
                                     </TableCell>
 
-                                    <TableCell>{item.user_score}</TableCell>
-                                    <TableCell>{item.jury_score}</TableCell>
+                                    <TableCell>{item.user_score || 0}</TableCell>
+                                    <TableCell>{item.jury_score || 0}</TableCell>
                                     <TableCell>
-                                        {item?.lead_judge_score}
+                                        {item?.lead_judge_score || 0}
                                     </TableCell>
-                                    <TableCell>{item.total_score}</TableCell>
+                                    <TableCell>
+                                        {item?.admin_score || 0}
+                                    </TableCell>
+                                    <TableCell>{item.total_score || 0}</TableCell>
                                     <TableCell>{index + 1}</TableCell>
 
                                     <TableCell className="space-x-2 text-end">
                                         <Link
                                             href={
-                                                isEnded
+                                                item.quest.winner_status ===
+                                                'admin_approved'
                                                     ? '#'
                                                     : route(
-                                                          'judge.contest.score',
+                                                          'admin.contest.admin-score-view',
                                                           item.id,
                                                       )
                                             }
                                             className={`rounded-md px-3 py-2 text-end font-medium text-white ${
-                                                isEnded
+                                                item.quest.winner_status ===
+                                                'admin_approved'
                                                     ? 'pointer-events-none cursor-not-allowed bg-gray-400'
                                                     : 'cursor-pointer bg-green-600'
                                             }`}

@@ -36,7 +36,7 @@ class JudgeContestController extends Controller
     public function declearWinner($questId)
     {
 
-        $images = QuestImage::with('quest:id,title_en,end_date,lead_judge')
+        $images = QuestImage::with('quest:id,title_en,end_date,lead_judge,winner_status')
             ->select(
                 'quest_images.id',
                 'quest_images.quest_id',
@@ -157,7 +157,7 @@ class JudgeContestController extends Controller
     {
         // $userId = auth()->user()->id;
 
-       $images = QuestImage::with('quest:id,title_en,end_date,lead_judge')
+       $images = QuestImage::with('quest:id,title_en,end_date,lead_judge,winner_status')
     ->select(
         'quest_images.id',
         'quest_images.quest_id',

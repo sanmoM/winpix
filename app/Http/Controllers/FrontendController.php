@@ -607,6 +607,14 @@ class FrontendController extends Controller
         $storeItem = Store::findOrFail($request->coin_id);
 
         User::findOrFail($userId)->increment('pixel', $storeItem->number_of_coin);
+        Transaction::create([
+            'user_id' => $userId,
+            'transaction_type' => "Pixel",
+            'amount' => $storeItem->number_of_coin,
+            'payment_method' => 'Paypal',
+            'currency' => 'USD',
+            'date' => now(),
+        ]);
 
         return redirect()->back()->with('success', 'Contact form submitted successfully!');
     }

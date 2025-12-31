@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
+import { formatDate } from '@/utils/date';
 import { Head, router, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
@@ -81,15 +82,10 @@ export default function Index() {
                                 <TableCell>{item.user.name}</TableCell>
 
                                 <TableCell>
-                                    <Badge
-                                        className={
-                                            item.status === 'Active'
-                                                ? 'bg-green-400'
-                                                : 'bg-red-400'
-                                        }
-                                    >
-                                        {item.status}
-                                    </Badge>
+                                    {formatDate(item.start_date)}
+                                </TableCell>
+                                <TableCell>
+                                    {formatDate(item.end_date)}
                                 </TableCell>
 
                                 <TableCell className="space-x-2">

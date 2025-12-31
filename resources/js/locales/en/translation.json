@@ -1054,7 +1054,8 @@
                         "Image",
                         "Name",
                         "Creator",
-                        "Status",
+                        "Start Date",
+                        "End Date",
                         "Actions"
                     ]
                 }

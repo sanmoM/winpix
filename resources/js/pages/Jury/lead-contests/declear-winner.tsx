@@ -72,12 +72,41 @@ export default function Index({
                     {t('dashboard.jury.lead-contest.showContestScore.title')}
                 </h1>
                 <div className="mb-2 flex justify-end">
-                    <button
-                        onClick={handleJudgeDeclareWinner}
-                        className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
-                    >
-                        Declare Winner
-                    </button>
+                    {items[0]?.quest.winner_status === 'judge_submitted' && (
+                        <p className="cursor-pointer rounded-md bg-amber-300 px-4 py-2 text-white">
+                            Winner Submitted for Admin Approval
+                        </p>
+                    )}
+
+                    {items[0]?.quest.winner_status === 'admin_approved' && (
+                        <p className="cursor-pointer rounded-md bg-green-500 px-4 py-2 text-white">
+                            Winner Submitted aproved by Admin
+                        </p>
+                    )}
+
+                    {items?.length > 0 &&
+                        items[0]?.quest.winner_status === 'pending' &&
+                        new Date(items[0]?.quest.end_date).getTime() <
+                            Date.now() && (
+                            <button
+                                onClick={handleJudgeDeclareWinner}
+                                className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
+                            >
+                                Declare Winner
+                            </button>
+                        )}
+
+                    {items?.length > 0 &&
+                        items[0]?.quest.winner_status === 'pending' &&
+                        new Date(items[0]?.quest.end_date).getTime() >
+                            Date.now() && (
+                            <button
+                                disabled
+                                className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
+                            >
+                                Declare Winner
+                            </button>
+                        )}
                 </div>
                 <Table
                     headingItems={t(
@@ -110,15 +139,27 @@ export default function Index({
                                 <TableCell>{item?.total_score}</TableCell>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell className="space-x-2">
-                                    <Link
-                                        href={route(
-                                            'lead_judge.lead_judge_score_view',
-                                            item?.id
-                                        )}
-                                        className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
-                                    >
-                                        Change Rank
-                                    </Link>
+                                    {item.quest.winner_status !==
+                                        'judge_submitted' &&
+                                    item.quest.winner_status !==
+                                        'admin_approved' ? (
+                                        <Link
+                                            href={route(
+                                                'lead_judge.lead_judge_score_view',
+                                                item?.id,
+                                            )}
+                                            className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
+                                        >
+                                            Change Rank
+                                        </Link>
+                                    ) : (
+                                        <button
+                                            disabled
+                                            className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
+                                        >
+                                            Change Rank
+                                        </button>
+                                    )}
                                 </TableCell>
                             </TableRow>
                         ))

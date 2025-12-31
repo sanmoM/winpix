@@ -77,77 +77,20 @@ export default function Index({
                 <h1 className="mb-4 text-lg font-semibold">
                     {t('dashboard.jury.lead-contest.showContestScore.title')}
                 </h1>
-
                 <div className="mb-2 flex justify-end">
-                    {/* Case when lead_judge is either NULL or null */}
-                    {(items[0]?.quest?.lead_judge === 'NULL' ||
-                        items[0]?.quest?.lead_judge == null) && (
-                        <>
-                            {/* Declare Winners Button (Only if the quest has ended and winner is not approved) */}
-                            {items?.length > 0 &&
-                                items[0]?.quest &&
-                                new Date(items[0].quest.end_date).getTime() <
-                                    Date.now() &&
-                                items[0]?.quest?.winner_status !==
-                                    'admin_approved' && (
-                                    <button
-                                        onClick={handleDeclareWinner}
-                                        className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
-                                    >
-                                        Declare Winners
-                                    </button>
-                                )}
-
-                            {/* "Winners Submitted" Button (If Admin Approved) */}
-                            {items[0]?.quest?.winner_status ===
-                                'admin_approved' && (
-                                <button className="disabled cursor-pointer rounded-md bg-green-500 px-4 py-2 text-white">
-                                    Winners Submitted
-                                </button>
-                            )}
-
-                            {/* Disabled button (If end date is in the future) */}
-                            {new Date(items[0].quest.end_date).getTime() >
-                                Date.now() && (
-                                <button className="disabled cursor-pointer rounded-md bg-yellow-500 px-4 py-2 text-white">
-                                    Contest Not Ended
-                                </button>
-                            )}
-                        </>
+                    {items[0]?.quest?.winner_status === 'jury_submitted' && (
+                        <button
+                            onClick={handleDeclareWinner}
+                            className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
+                        >
+                            Submit Winners
+                        </button>
                     )}
-
-                    {/* Case when lead_judge is not null or not 'NULL' */}
-                    {items[0]?.quest?.lead_judge != null &&
-                        items[0]?.quest?.lead_judge !== 'NULL' && (
-                            <>
-                                {/* Submit Winners Button (Only if the winner_status is jury_submitted) */}
-                                {items[0]?.quest?.winner_status ===
-                                    'jury_submitted' && (
-                                    <button
-                                        onClick={handleDeclareWinner}
-                                        className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
-                                    >
-                                        Submit Winners
-                                    </button>
-                                )}
-
-                                {/* "Submit Winners Pending" Button (If the winner_status is pending) */}
-                                {items[0]?.quest?.winner_status ===
-                                    'pending' && (
-                                    <button className="disabled cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
-                                        Submit Winners Pending
-                                    </button>
-                                )}
-
-                                {/* "Submit Winners Approved" Button (If the winner_status is admin_approved) */}
-                                {items[0]?.quest?.winner_status ===
-                                    'admin_approved' && (
-                                    <button className="disabled cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
-                                        Submit Winners Approved
-                                    </button>
-                                )}
-                            </>
-                        )}
+                    {items[0]?.quest?.winner_status === 'pending' && (
+                        <button className="disabled cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
+                            Submit Winners
+                        </button>
+                    )}
                 </div>
 
                 <Table

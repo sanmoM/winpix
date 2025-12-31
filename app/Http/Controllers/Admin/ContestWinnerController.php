@@ -46,7 +46,7 @@ class ContestWinnerController extends Controller
 
     public function adminDeclareContestWinner($questId)
     {
-        $images = QuestImage::with('quest:id,title_en,end_date,winner_status')->select('quest_images.id', 'quest_images.quest_id', 'quest_images.image', 'quest_images.user_id', 'quest_images.camera_brand', 'quest_images.camera_model', 'quest_images.lens', 'quest_images.focal_length', 'quest_images.aperture', 'quest_images.shutter_speed', 'quest_images.iso', 'quest_images.date_captured', 'quest_images.created_at', 'quest_images.updated_at')
+        $images = QuestImage::with('quest:id,title_en,end_date,winner_status,lead_judge')->select('quest_images.id', 'quest_images.quest_id', 'quest_images.image', 'quest_images.user_id', 'quest_images.camera_brand', 'quest_images.camera_model', 'quest_images.lens', 'quest_images.focal_length', 'quest_images.aperture', 'quest_images.shutter_speed', 'quest_images.iso', 'quest_images.date_captured', 'quest_images.created_at', 'quest_images.updated_at')
             ->selectRaw('
                 SUM(CASE WHEN users.role = "jury" THEN votes.score ELSE 0 END) AS jury_score,
                 SUM(CASE WHEN users.role = "user" THEN votes.score ELSE 0 END) AS user_score,

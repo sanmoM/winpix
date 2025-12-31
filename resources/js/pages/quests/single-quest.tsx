@@ -53,9 +53,7 @@ export default function SingleQuest() {
         ?.map((item: any) => item.quest_id)
         .includes(quest.id);
 
-
     const isDisabled = (() => {
-
         if (user?.role === 'admin' || isUserInJudgePanel) return true;
         const today = new Date(); // current date
         const startDate = new Date(quest.start_date);
@@ -75,6 +73,7 @@ export default function SingleQuest() {
         if (quest?.manual_override === 'Force_Open') {
             return !hasVotingRight;
         }
+
         return !(
             (today > startDate || today < endDate) &&
             quest?.manual_override === 'None' &&
@@ -109,16 +108,15 @@ export default function SingleQuest() {
     // const votingItems = allItems?.slice(((votes?.length || 0) * 2), allItems?.length)?.filter((item: any) => {
     //     return !votes?.map((vote: any) => vote?.image_id)?.includes(item?.id)
     // })
-    const votingItems = allItems?.filter(votingItem => votingItem.user.id !== auth?.user?.id)?.slice(
-        (votes?.length || 0) * 2,
-        allItems?.length,
-    );
+    const votingItems = allItems
+        ?.filter((votingItem) => votingItem.user.id !== auth?.user?.id)
+        ?.slice((votes?.length || 0) * 2, allItems?.length);
 
     const [activeTab, setActiveTab] = useState('brief');
     const { t, direction, currentLanguage } = useLocales();
 
     const handleJoinQuest = async (e) => {
-        setLoading(true)
+        setLoading(true);
 
         if (quest?.entry_coin <= auth?.user?.pixel) {
             if (typeof data?.image !== 'string') {
@@ -145,7 +143,7 @@ export default function SingleQuest() {
             toast.error('Not enough Pixels');
             router.visit('/store');
         }
-        setLoading(false)
+        setLoading(false);
     };
 
     const handleFollow = () => {

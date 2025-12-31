@@ -13,7 +13,7 @@ export default function ScoreContent({ image, setScore, score, max }: { image: a
             </div>
             <div className="mx-3">
                 <TextInput
-                    min={1}
+                    min={5}
                     {...(max ? { max } : {})}
                     label="Score"
                     placeholder="Enter score"

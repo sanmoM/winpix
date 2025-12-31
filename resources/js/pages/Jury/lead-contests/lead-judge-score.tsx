@@ -27,21 +27,17 @@ interface EditProps {
     flash?: FlashProps;
 }
 
-export default function Edit({ image }: EditProps) {
-    const [score, setScore] = useState<number | null>(1);
-    const [currentIndex, setCurrentIndex] = useState(0);
+export default function Edit({ image, vote }: EditProps) {
+    const [score, setScore] = useState<number | null>(vote?.score ?? 1);
 
-    useEffect(() => {
-        setCurrentIndex(0);
-    }, []);
-
+    
     const handleVote = async (votedImageId: number, questId: number) => {
         if (score === null || isNaN(score)) {
             toast.error('Please enter a score');
             return;
         }
         try {
-            const response = await axios.post(route('judge.vote'), {
+            await axios.post(route('lead_judge.lead_judge_score', votedImageId), {
                 image_id: votedImageId,
                 score,
                 quest_id: questId,
@@ -49,30 +45,7 @@ export default function Edit({ image }: EditProps) {
         } catch (error) {
             console.error('❌ Vote failed:', error);
         }
-
-        if (currentIndex + 1 < questImages.length) {
-            setCurrentIndex(currentIndex + 1);
-        } else {
-            router.visit('/judge/contest');
-        }
-    };
-
-    const handleSkip = async (votedImageId: number, questId: number) => {
-        try {
-            const response = await axios.post(route('judge.vote'), {
-                image_id: votedImageId,
-                score: 0,
-                quest_id: questId,
-            });
-        } catch (error) {
-            console.error('❌ Vote failed:', error);
-        }
-
-        if (currentIndex + 1 < questImages.length) {
-            setCurrentIndex(currentIndex + 1);
-        } else {
-            router.visit('/judge/contest');
-        }
+        router.visit(route('lead_judge.declearWinner', image?.quest_id));
     };
 
     const { t } = useLocales()
@@ -96,9 +69,10 @@ export default function Edit({ image }: EditProps) {
                     // onClick={(e) => e.stopPropagation()}
                     onSubmit={(e) => {
                         e.preventDefault();
+                        // console.log("first")
                         handleVote(
-                            singleQuestImage.id,
-                            singleQuestImage.quest_id,
+                            image?.id,
+                            image?.quest_id,
                         );
                     }}
                     className="my-auto gap-4 overflow-hidden flex h-full flex-col w-xl"
@@ -110,7 +84,7 @@ export default function Edit({ image }: EditProps) {
                             text={'Back'}
                             onClick={(e) => {
                                 e.preventDefault();
-                                router.back();
+                                // router.back();
                             }}
                             className="mt-4 px-10 py-1.5 !text-lg"
                         />

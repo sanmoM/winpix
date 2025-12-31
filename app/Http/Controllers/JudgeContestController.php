@@ -35,16 +35,84 @@ class JudgeContestController extends Controller
 
     public function declearWinner($questId)
     {
-        $images = QuestImage::with('quest:id,title_en,end_date,winner_status')->select('quest_images.id', 'quest_images.quest_id', 'quest_images.image', 'quest_images.user_id', 'quest_images.camera_brand', 'quest_images.camera_model', 'quest_images.lens', 'quest_images.focal_length', 'quest_images.aperture', 'quest_images.shutter_speed', 'quest_images.iso', 'quest_images.date_captured', 'quest_images.created_at', 'quest_images.updated_at')
+        //     $images = QuestImage::with('quest:id,title_en,end_date')->select('quest_images.id', 'quest_images.quest_id', 'quest_images.image', 'quest_images.user_id', 'quest_images.camera_brand', 'quest_images.camera_model', 'quest_images.lens', 'quest_images.focal_length', 'quest_images.aperture', 'quest_images.shutter_speed', 'quest_images.iso', 'quest_images.date_captured', 'quest_images.created_at', 'quest_images.updated_at')
+        //         ->selectRaw('
+        //     SUM(CASE WHEN users.role = "jury" THEN votes.score ELSE 0 END) AS jury_score,
+        //     SUM(CASE WHEN users.role = "user" THEN votes.score ELSE 0 END) AS user_score,
+        //     SUM(votes.score) AS total_score
+        // ')
+        //         ->leftJoin('votes', 'votes.image_id', '=', 'quest_images.id')
+        //         ->leftJoin('users', 'users.id', '=', 'votes.user_id')
+        //         ->where('quest_images.quest_id', $questId)
+        //         ->groupBy('quest_images.id', 'quest_images.quest_id', 'quest_images.image', 'quest_images.user_id', 'quest_images.camera_brand', 'quest_images.camera_model', 'quest_images.lens', 'quest_images.focal_length', 'quest_images.aperture', 'quest_images.shutter_speed', 'quest_images.iso', 'quest_images.date_captured', 'quest_images.created_at', 'quest_images.updated_at')
+        //         ->orderByDesc('total_score')
+        //         ->get();
+        $images = QuestImage::with('quest:id,title_en,end_date,lead_judge')
+            ->select(
+                'quest_images.id',
+                'quest_images.quest_id',
+                'quest_images.image',
+                'quest_images.user_id',
+                'quest_images.camera_brand',
+                'quest_images.camera_model',
+                'quest_images.lens',
+                'quest_images.focal_length',
+                'quest_images.aperture',
+                'quest_images.shutter_speed',
+                'quest_images.iso',
+                'quest_images.date_captured',
+                'quest_images.created_at',
+                'quest_images.updated_at'
+            )
             ->selectRaw('
-        SUM(CASE WHEN users.role = "jury" THEN votes.score ELSE 0 END) AS jury_score,
-        SUM(CASE WHEN users.role = "user" THEN votes.score ELSE 0 END) AS user_score,
+        SUM(
+            CASE
+                WHEN votes.user_id = quests.lead_judge
+                THEN votes.score
+                ELSE 0
+            END
+        ) AS lead_judge_score,
+
+        SUM(
+            CASE
+                WHEN users.role = "jury"
+                 AND votes.user_id != quests.lead_judge
+                THEN votes.score
+                ELSE 0
+            END
+        ) AS jury_score,
+
+        SUM(
+            CASE
+                WHEN users.role = "user"
+                THEN votes.score
+                ELSE 0
+            END
+        ) AS user_score,
+
         SUM(votes.score) AS total_score
     ')
             ->leftJoin('votes', 'votes.image_id', '=', 'quest_images.id')
             ->leftJoin('users', 'users.id', '=', 'votes.user_id')
+            ->leftJoin('quests', 'quests.id', '=', 'quest_images.quest_id')
             ->where('quest_images.quest_id', $questId)
-            ->groupBy('quest_images.id', 'quest_images.quest_id', 'quest_images.image', 'quest_images.user_id', 'quest_images.camera_brand', 'quest_images.camera_model', 'quest_images.lens', 'quest_images.focal_length', 'quest_images.aperture', 'quest_images.shutter_speed', 'quest_images.iso', 'quest_images.date_captured', 'quest_images.created_at', 'quest_images.updated_at')
+            ->groupBy(
+                'quest_images.id',
+                'quest_images.quest_id',
+                'quest_images.image',
+                'quest_images.user_id',
+                'quest_images.camera_brand',
+                'quest_images.camera_model',
+                'quest_images.lens',
+                'quest_images.focal_length',
+                'quest_images.aperture',
+                'quest_images.shutter_speed',
+                'quest_images.iso',
+                'quest_images.date_captured',
+                'quest_images.created_at',
+                'quest_images.updated_at',
+                'quests.lead_judge'
+            )
             ->orderByDesc('total_score')
             ->get();
 
@@ -125,11 +193,46 @@ class JudgeContestController extends Controller
     public function leadJudgeScoreView($imageId)
     {
         $image = QuestImage::findOrFail($imageId);
+        $vote = Vote::where('image_id', $imageId)->where('user_id', auth()->id())->first();
 
         return Inertia::render('Jury/lead-contests/lead-judge-score', [
             'image' => $image,
+            'vote' => $vote,
         ]);
     }
 
-    public function leadJudgeScore(Request $request) {}
+    public function leadJudgeScore(Request $request)
+    {
+        $request->validate([
+            'image_id' => 'required|exists:quest_images,id',
+            'quest_id' => 'required|exists:quests,id',
+            'score' => 'required|numeric',
+        ]);
+
+        $image = QuestImage::findOrFail($request->image_id);
+
+        // If image owner → update image score
+        if ($image->user_id === auth()->id()) {
+            $image->update([
+                'score' => $request->score,
+            ]);
+
+            return back();
+        }
+
+        // Otherwise → update or create vote
+        Vote::updateOrCreate(
+            [
+                'user_id' => auth()->id(),
+                'image_id' => $image->id,
+            ],
+            [
+                'quest_id' => $request->quest_id,
+                'score' => $request->score,
+                'skip' => false,
+            ]
+        );
+
+        return back();
+    }
 }

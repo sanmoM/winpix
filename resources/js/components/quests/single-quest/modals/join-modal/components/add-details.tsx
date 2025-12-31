@@ -100,6 +100,7 @@ export default function AddDetails({
                         )}
                         onClick={handleJoinQuest}
                         disabled={loading}
+                        loading={loading}
                         className="mx-auto mt-4 px-6 text-lg lg:px-14"
                     />
                 )}

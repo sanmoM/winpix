@@ -30,6 +30,8 @@ export default function Index({
     images: ContestItem[];
     flash: FlashProps;
 }) {
+
+    console.log(items)
     const { t } = useLocales();
 
     const breadcrumbs = t(
@@ -107,6 +109,7 @@ export default function Index({
                                 </TableCell>
                                 <TableCell>{item?.user_score}</TableCell>
                                 <TableCell>{item?.jury_score}</TableCell>
+                                <TableCell>{item?.lead_judge_score}</TableCell>
                                 <TableCell>{item?.total_score}</TableCell>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell className="space-x-2">

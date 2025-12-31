@@ -18,8 +18,8 @@ class DeclareWinnersAutomatically extends Command
     public function handle()
     {
         $quests = Quest::where('winner_declaration', 'auto')
-            // ->where('end_date', '>', Carbon::today())
-            // ->where('winner_status', 'pending')
+            ->where('end_date', '>', Carbon::today())
+            ->where('winner_status', 'pending')
             ->get();
 
         foreach ($quests as $quest) {

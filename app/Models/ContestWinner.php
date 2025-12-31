@@ -16,4 +16,9 @@ class ContestWinner extends Model
         'rank',
         'submitted_by',
     ];
+
+    public function image()
+    {
+        return $this->belongsTo(QuestImage::class);
+    }
 }

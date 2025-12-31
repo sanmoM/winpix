@@ -326,7 +326,7 @@ export default function Index({
                 </div>
                 <Table
                     headingItems={t(
-                        'dashboard.jury.lead-contest.showContestScore.table.headings',
+                        'dashboard.admin.judge_contest_winner.index.table.headings',
                         {
                             returnObjects: true,
                         },
@@ -350,10 +350,10 @@ export default function Index({
                                         </div>
                                     )}
                                 </TableCell>
-                                <TableCell>{item?.user_score}</TableCell>
-                                <TableCell>{item?.jury_score}</TableCell>
+                                <TableCell>{item?.user_score || 0}</TableCell>
+                                <TableCell>{item?.jury_score || 0}</TableCell>
                                 <TableCell>{item?.lead_judge_score || 0}</TableCell>
-                                <TableCell>{item?.admin_score || 0}</TableCell>
+                                {/* <TableCell>{item?.admin_score || 0}</TableCell> */}
                                 <TableCell>{item?.total_score || 0}</TableCell>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell className="space-x-2">

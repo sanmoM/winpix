@@ -29,12 +29,8 @@ interface EditProps {
 
 export default function Edit({ image, vote }: EditProps) {
     const [score, setScore] = useState<number | null>(vote?.score ?? 1);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    console.log(vote)
-    useEffect(() => {
-        setCurrentIndex(0);
-    }, []);
 
+    
     const handleVote = async (votedImageId: number, questId: number) => {
         if (score === null || isNaN(score)) {
             toast.error('Please enter a score');

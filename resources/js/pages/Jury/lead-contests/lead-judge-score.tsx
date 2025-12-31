@@ -1,25 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { router } from '@inertiajs/react';
+import ScoreContent from '@/components/jury-contest/score-content';
+import BorderButton from '@/components/shared/buttons/border-button';
+import Button from '@/components/shared/buttons/button';
+import NoData from '@/components/shared/no-data';
+import useLocales from '@/hooks/useLocales';
+import AppLayout from '@/layouts/app-layout';
+import { Head, router } from '@inertiajs/react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { ToastContainer } from 'react-toastify';
 import { route } from 'ziggy-js';
-import Button from '../shared/buttons/button';
-import TextInput from '../shared/inputs/text-input';
-import NoData from '../shared/no-data';
-import BorderButton from '../shared/buttons/border-button';
-import ScoreContent from './score-content';
 
-interface QuestImage {
-    id: number;
-    image: string;
+interface FlashProps {
+    success?: string;
+    error?: string;
 }
 
-interface ModalProps {
-    questImages: QuestImage[];
+interface EditProps {
+    item: {
+        id: number;
+        name: string;
+        description: string;
+        status: string;
+    };
+    flash?: FlashProps;
 }
 
-const ScoreModal: React.FC<ModalProps> = ({ questImages }) => {
+export default function Edit({ image }: EditProps) {
     const [score, setScore] = useState<number | null>(1);
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -67,16 +75,23 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages }) => {
         }
     };
 
-    const singleQuestImage = questImages[currentIndex];
+    const { t } = useLocales()
+
+    const breadcrumbs = t('dashboard.questCategory.edit.breadcrumbs', {
+        returnObjects: true,
+    });
 
     return (
-        <div
-            className="flex h-[70vh] flex-col"
-            aria-labelledby="modal-title"
-            role="dialog"
-            aria-modal="true"
-        >
-            {questImages?.length > 0 ? (
+        <AppLayout breadcrumbs={breadcrumbs as any}>
+            <Head title={t('dashboard.questCategory.edit.title')} />
+            <ToastContainer />
+
+            <div
+                className="flex h-[70vh] flex-col p-4"
+                aria-labelledby="modal-title"
+                role="dialog"
+                aria-modal="true"
+            >
                 <form
                     // onClick={(e) => e.stopPropagation()}
                     onSubmit={(e) => {
@@ -88,48 +103,25 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages }) => {
                     }}
                     className="my-auto gap-4 overflow-hidden flex h-full flex-col w-xl"
                 >
-                    {/* <div className="group relative flex h-full w-xl cursor-pointer flex-col overflow-hidden rounded-lg">
-                        <div className="mb-3 flex-1 overflow-hidden rounded-xl bg-bg-primary">
-                            <img
-                                src={'/storage/' + singleQuestImage?.image}
-                                alt={`Photo ${singleQuestImage?.id}`}
-                                className="h-full w-full rounded-md object-contain duration-300 group-hover:scale-105"
-                            />
-                        </div>
-                        <div className="mx-3">
-                            <TextInput
-                                min={1}
-                                max={10}
-                                label="Score"
-                                placeholder="Enter score"
-                                type="number"
-                                setValue={(value) => setScore(parseInt(value))}
-                                value={score}
-                            />
-                        </div>
-                    </div> */}
-                    <ScoreContent image={singleQuestImage?.image} setScore={setScore} score={score} />
+                    <ScoreContent image={image?.image} setScore={setScore} score={score} />
                     <div className='grid grid-cols-2 gap-4 w-fit mx-auto mb-1'>
                         <BorderButton
                             type={"button"}
-                            text={'Skip'}
+                            text={'Back'}
                             onClick={(e) => {
                                 e.preventDefault();
-                                handleSkip(singleQuestImage.id, singleQuestImage.quest_id)
+                                router.back();
                             }}
                             className="mt-4 px-10 py-1.5 !text-lg"
                         />
                         <Button
-                            text={'Next'}
+                            text={'Save'}
                             className="mt-4 px-10 py-1.5 !text-lg"
                         />
                     </div>
                 </form>
-            ) : (
-                <NoData text="No more images" />
-            )}
-        </div>
-    );
-};
 
-export default ScoreModal;
+            </div>
+        </AppLayout>
+    );
+}

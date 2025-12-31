@@ -76,8 +76,6 @@ class JudgeContestController extends Controller
             'score' => 'required',
         ]);
 
-        // return dd($request->all());
-
         Vote::create([
             'user_id' => auth()->user()->id,
             'image_id' => $request->image_id,
@@ -122,6 +120,16 @@ class JudgeContestController extends Controller
         $quest->update();
 
         return back()->with('success', 'Winners declared successfully!');
+
+    public function leadJudgeScoreView($imageId)
+    {
+        $image = QuestImage::findOrFail($imageId);
+        return Inertia::render('Jury/lead-contests/lead-judge-score', [
+            'image' => $image,
+        ]);
+    }
+
+    public function leadJudgeScore(Request $request){
 
     }
 }

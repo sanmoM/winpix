@@ -110,23 +110,10 @@ export default function Index({
                                 <TableCell>{item?.total_score}</TableCell>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell className="space-x-2">
-                                    {/* <ViewButton
-                                        route={route(
-                                            'admin.quest.view',
-                                            item.id,
-                                        )}
-                                    /> */}
-                                    {/*
-                                    <EditButton
-                                        route={route(
-                                            'admin.quest.edit',
-                                            item.id,
-                                        )}
-                                    /> */}
                                     <Link
                                         href={route(
-                                            'judge.contest.score',
-                                            item?.id,
+                                            'lead_judge.lead_judge_score_view',
+                                            item?.id
                                         )}
                                         className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
                                     >

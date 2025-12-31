@@ -1,10 +1,10 @@
+import { router, usePage } from "@inertiajs/react";
+import { useEffect, useState } from "react";
 import { IoLayersSharp } from "react-icons/io5";
+import { route } from "ziggy-js";
 import Button from "../shared/buttons/button";
 import Modal from "../shared/modal";
-import { useState } from "react";
-import { router } from "@inertiajs/react";
-import { route } from "ziggy-js";
-import toast from "react-hot-toast";
+import axios from "axios";
 
 <IoLayersSharp className="w-8 h-8 mt-0.5 sm:mt-0 mr-0 sm:mr-3 text-indigo-500 dark:text-indigo-300" />
 
@@ -27,17 +27,32 @@ const StoreItem: React.FC<StoreItemProps> = ({
     coinId
 }) => {
     const [isOpen, setIsOpen] = useState(false);
-
+    const { props } = usePage();
     const handlePayment = () => {
         const fromData = new FormData();
-        fromData.append('coin_id', coinId);
-        router.post(route('handle-payment'), fromData, {
-            onSuccess: () => {
-                toast.success('Payment Successfully!');
+        fromData.append('price', price);
+        fromData.append('id', coinId)
+        // router.post(route('paypal.pay'), fromData, {
+        //     onSuccess: (response) => {
+        //         console.log(response);
+        //         // if (response.redirect_url) {
+        //         //     window.location.href = response.redirect_url;
+        //         // }
+
+        //         setIsOpen(false);
+        //     },
+
+        // });
+        axios.post(route('paypal.pay'), fromData).then((response) => {
+            console.log(response);
+            if (response.data.paypal_redirect) {
+                window.location.href = response.data.paypal_redirect;
                 setIsOpen(false);
             }
         });
-    }
+    };
+
+
     return (
         <div
             className={`relative flex flex-col items-center justify-center p-4 sm:p-6 rounded-lg shadow-lg border-2 transition-all duration-200 cursor-pointer
@@ -58,7 +73,7 @@ const StoreItem: React.FC<StoreItemProps> = ({
             <p className="text-xl md:text-2xl font-extrabold text-gray-900 dark:text-white mb-1 sm:mb-2">
                 x{quantity}
             </p>
-            <Button text={price} className="px-6 mt-2" onClick={() => setIsOpen(true)} />
+            <Button text={`$ ${price}`} className="px-6 mt-2" onClick={() => setIsOpen(true)} />
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
                 <div>
                     <p className="mb-6">Payment</p>

@@ -120,16 +120,16 @@ class JudgeContestController extends Controller
         $quest->update();
 
         return back()->with('success', 'Winners declared successfully!');
+    }
 
     public function leadJudgeScoreView($imageId)
     {
         $image = QuestImage::findOrFail($imageId);
+
         return Inertia::render('Jury/lead-contests/lead-judge-score', [
             'image' => $image,
         ]);
     }
 
-    public function leadJudgeScore(Request $request){
-
-    }
+    public function leadJudgeScore(Request $request) {}
 }

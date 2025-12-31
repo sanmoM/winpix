@@ -5,10 +5,9 @@ import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { route } from 'ziggy-js';
 
 interface ContestItem {
     id: number;
@@ -40,8 +39,6 @@ export default function Index({
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
-
-    console.log(items)
 
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>

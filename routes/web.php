@@ -77,8 +77,9 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified', 'role:admin,jury'])->group(function () {
-    Route::get("/view-winners/{questId}", function ($questId) {
-        $winners = ContestWinner::with("image.user")->where('quest_id', $questId)->get();
+    Route::get('/view-winners/{questId}', function ($questId) {
+        $winners = ContestWinner::with('image.user')->where('quest_id', $questId)->get();
+
         return Inertia::render('contest-winner', [
             'winners' => $winners,
         ]);
@@ -157,10 +158,11 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('/contest/admin-score/{imageId}', [ContestWinnerController::class, 'adminScoreView'])->name('admin.contest.admin-score-view');
 
     Route::post('/contest/admin-score/{imageId}', [ContestWinnerController::class, 'adminScore'])->name('admin.contest.change-score');
+    Route::post('/contest/distributePrizes/{questId}', [ContestWinnerController::class, 'distributePrizes'])->name('admin.distributePrizes');
 
 });
 
-require __DIR__ . '/settings.php';
-require __DIR__ . '/auth.php';
-require __DIR__ . '/frontend.php';
-require __DIR__ . '/user-dashboard.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/frontend.php';
+require __DIR__.'/user-dashboard.php';

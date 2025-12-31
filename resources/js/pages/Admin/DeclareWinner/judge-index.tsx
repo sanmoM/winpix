@@ -6,6 +6,7 @@ import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
+import axios from 'axios';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
@@ -41,6 +42,14 @@ export default function Index({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
+    const handleDistribute = async (id: number) => {
+        try {
+            await axios.post(route('admin.distributePrizes', id));
+            toast.success('Prizes Distributed Successfully');
+        } catch (error) {
+            toast.error('Something went wrong');
+        }
+    };
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
@@ -105,8 +114,8 @@ export default function Index({
                                             item.id,
                                         )}
                                     /> */}
-                                    {
-                                        item.winner_status === 'admin_approved' ? <Link
+                                    {item.winner_status === 'admin_approved' ? (
+                                        <Link
                                             href={route(
                                                 'view-winners',
                                                 item?.id,
@@ -114,7 +123,9 @@ export default function Index({
                                             className="bg-dark cursor-pointer rounded-md bg-green-500 px-3 py-2 font-medium text-white"
                                         >
                                             View Winners
-                                        </Link> : <Link
+                                        </Link>
+                                    ) : (
+                                        <Link
                                             href={route(
                                                 'admin.judge.declareWinner.show',
                                                 item?.id,
@@ -123,8 +134,16 @@ export default function Index({
                                         >
                                             All Score
                                         </Link>
-                                    }
+                                    )}
 
+                                    <button
+                                        onClick={() =>
+                                            handleDistribute(item.id)
+                                        }
+                                        className="bg-dark cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
+                                    >
+                                        Distribute Prizes
+                                    </button>
                                 </TableCell>
                             </TableRow>
                         ))

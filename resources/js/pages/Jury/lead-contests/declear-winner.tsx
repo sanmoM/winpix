@@ -5,8 +5,8 @@ import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { Head, Link, router } from '@inertiajs/react';
+import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
 
@@ -30,8 +30,7 @@ export default function Index({
     images: ContestItem[];
     flash: FlashProps;
 }) {
-    const [openModal, setOpenModal] = useState(false);
-    const { t, currentLanguage } = useLocales();
+    const { t } = useLocales();
 
     const breadcrumbs = t(
         'dashboard.jury.lead-contest.showContestScore.breadcrumbs',
@@ -45,6 +44,22 @@ export default function Index({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
+    const handleJudgeDeclareWinner = () => {
+        const formattedItems = items.map((item, index) => ({
+            quest_id: item.quest.id,
+        }));
+
+        router.post(
+            route('lead_judge.judgeWinnerStatus'),
+            {
+                items: formattedItems,
+            },
+            {
+                preserveScroll: true,
+            },
+        );
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
@@ -57,7 +72,10 @@ export default function Index({
                     {t('dashboard.jury.lead-contest.showContestScore.title')}
                 </h1>
                 <div className="mb-2 flex justify-end">
-                    <button className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
+                    <button
+                        onClick={handleJudgeDeclareWinner}
+                        className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
+                    >
                         Declare Winner
                     </button>
                 </div>
@@ -108,9 +126,6 @@ export default function Index({
                         <NoTableItems />
                     )}
                 </Table>
-                {/* <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-                    <ScoreModal isOpen={openModal} onClose={() => setOpenModal(false)} questImages={[]} />
-                </Modal> */}
             </TableContainer>
         </AppLayout>
     );

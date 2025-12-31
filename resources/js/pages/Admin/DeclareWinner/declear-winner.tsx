@@ -5,8 +5,8 @@ import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { Head, Link, router } from '@inertiajs/react';
+import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
 
@@ -30,8 +30,7 @@ export default function Index({
     images: ContestItem[];
     flash: FlashProps;
 }) {
-    const [openModal, setOpenModal] = useState(false);
-    const { t, currentLanguage } = useLocales();
+    const { t } = useLocales();
 
     const breadcrumbs = t(
         'dashboard.jury.lead-contest.showContestScore.breadcrumbs',
@@ -44,6 +43,28 @@ export default function Index({
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
+    const handleDeclareWinner = () => {
+        const formattedItems = items.map((item, index) => ({
+            id: item.id,
+            image_id: item.id,
+            quest_id: item.quest.id,
+            user_vote: item.user_score,
+            jury_score: item.jury_score,
+            total_score: item.total_score,
+            rank: index + 1,
+            submitted_by: 'Admin',
+        }));
+
+        router.post(
+            route('admin.contest.declare-winner'),
+            {
+                items: formattedItems,
+            },
+            {
+                preserveScroll: true,
+            },
+        );
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
@@ -57,10 +78,20 @@ export default function Index({
                     {t('dashboard.jury.lead-contest.showContestScore.title')}
                 </h1>
                 <div className="mb-2 flex justify-end">
-                    <button className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white">
-                        Declare Winner
-                    </button>
+                    {items?.length > 0 &&
+                        items[0]?.quest &&
+                        new Date(items[0].quest.end_date).getTime() <
+                            Date.now() &&
+                        items[0]?.quest?.winner_status !== 'admin_approved' && (
+                            <button
+                                onClick={handleDeclareWinner}
+                                className="cursor-pointer rounded-md bg-[#e23882] px-4 py-2 text-white"
+                            >
+                                Submit Winners
+                            </button>
+                        )}
                 </div>
+
                 <Table
                     headingItems={t(
                         'dashboard.jury.lead-contest.showContestScore.table.headings',
@@ -70,60 +101,60 @@ export default function Index({
                     )}
                 >
                     {items?.length > 0 ? (
-                        items.map((item, index) => (
-                            <TableRow key={item.id}>
-                                <TableCell>{index + 1}</TableCell>
+                        items.map((item, index) => {
+                            const isEnded =
+                                new Date(item.quest.end_date).getTime() <
+                                Date.now();
 
-                                <TableCell>
-                                    {item.image ? (
-                                        <img
-                                            src={`/storage/${item.image}`}
-                                            alt={item.title_en}
-                                            className="h-10 w-10 rounded object-cover"
-                                        />
-                                    ) : (
-                                        <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
-                                            —
-                                        </div>
-                                    )}
-                                </TableCell>
-                                <TableCell>{item?.user_score}</TableCell>
-                                <TableCell>{item?.jury_score}</TableCell>
-                                <TableCell>{item?.total_score}</TableCell>
-                                <TableCell>{index + 1}</TableCell>
-                                <TableCell className="space-x-2">
-                                    {/* <ViewButton
-                                        route={route(
-                                            'admin.quest.view',
-                                            item.id,
+                            return (
+                                <TableRow key={item.id}>
+                                    <TableCell>{index + 1}</TableCell>
+
+                                    <TableCell>
+                                        {item.image ? (
+                                            <img
+                                                src={`/storage/${item.image}`}
+                                                alt={item.title_en}
+                                                className="h-10 w-10 rounded object-cover"
+                                            />
+                                        ) : (
+                                            <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
+                                                —
+                                            </div>
                                         )}
-                                    /> */}
-                                    {/*
-                                    <EditButton
-                                        route={route(
-                                            'admin.quest.edit',
-                                            item.id,
-                                        )}
-                                    /> */}
-                                    <Link
-                                        href={route(
-                                            'judge.contest.score',
-                                            item?.id,
-                                        )}
-                                        className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
-                                    >
-                                        Change Rank
-                                    </Link>
-                                </TableCell>
-                            </TableRow>
-                        ))
+                                    </TableCell>
+
+                                    <TableCell>{item.user_score}</TableCell>
+                                    <TableCell>{item.jury_score}</TableCell>
+                                    <TableCell>{item.total_score}</TableCell>
+                                    <TableCell>{index + 1}</TableCell>
+
+                                    <TableCell className="space-x-2">
+                                        <Link
+                                            href={
+                                                isEnded
+                                                    ? '#'
+                                                    : route(
+                                                          'judge.contest.score',
+                                                          item.id,
+                                                      )
+                                            }
+                                            className={`rounded-md px-3 py-2 font-medium text-white ${
+                                                isEnded
+                                                    ? 'pointer-events-none cursor-not-allowed bg-gray-400'
+                                                    : 'cursor-pointer bg-green-600'
+                                            }`}
+                                        >
+                                            Change Rank
+                                        </Link>
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })
                     ) : (
                         <NoTableItems />
                     )}
                 </Table>
-                {/* <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-                    <ScoreModal isOpen={openModal} onClose={() => setOpenModal(false)} questImages={[]} />
-                </Modal> */}
             </TableContainer>
         </AppLayout>
     );

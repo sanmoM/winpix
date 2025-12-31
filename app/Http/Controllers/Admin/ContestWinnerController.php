@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContestWinner;
 use App\Models\Quest;
 use App\Models\QuestImage;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ContestWinnerController extends Controller
@@ -44,12 +46,12 @@ class ContestWinnerController extends Controller
 
     public function adminDeclareContestWinner($questId)
     {
-        $images = QuestImage::select('quest_images.id', 'quest_images.quest_id', 'quest_images.image', 'quest_images.user_id', 'quest_images.camera_brand', 'quest_images.camera_model', 'quest_images.lens', 'quest_images.focal_length', 'quest_images.aperture', 'quest_images.shutter_speed', 'quest_images.iso', 'quest_images.date_captured', 'quest_images.created_at', 'quest_images.updated_at')
+        $images = QuestImage::with('quest:id,title_en,end_date,winner_status')->select('quest_images.id', 'quest_images.quest_id', 'quest_images.image', 'quest_images.user_id', 'quest_images.camera_brand', 'quest_images.camera_model', 'quest_images.lens', 'quest_images.focal_length', 'quest_images.aperture', 'quest_images.shutter_speed', 'quest_images.iso', 'quest_images.date_captured', 'quest_images.created_at', 'quest_images.updated_at')
             ->selectRaw('
-        SUM(CASE WHEN users.role = "jury" THEN votes.score ELSE 0 END) AS jury_score,
-        SUM(CASE WHEN users.role = "user" THEN votes.score ELSE 0 END) AS user_score,
-        SUM(votes.score) AS total_score
-    ')
+                SUM(CASE WHEN users.role = "jury" THEN votes.score ELSE 0 END) AS jury_score,
+                SUM(CASE WHEN users.role = "user" THEN votes.score ELSE 0 END) AS user_score,
+                SUM(votes.score) AS total_score
+            ')
             ->leftJoin('votes', 'votes.image_id', '=', 'quest_images.id')
             ->leftJoin('users', 'users.id', '=', 'votes.user_id')
             ->where('quest_images.quest_id', $questId)
@@ -60,6 +62,36 @@ class ContestWinnerController extends Controller
         return Inertia::render('Admin/DeclareWinner/declear-winner', [
             'images' => $images,
         ]);
+
+    }
+
+    public function winnerStore(Request $request)
+    {
+
+        $request->validate([
+            'items' => 'required|array',
+            'items.*.quest_id' => 'required|integer',
+            'items.*.image_id' => 'required|integer',
+        ]);
+
+        foreach ($request->items as $item) {
+            ContestWinner::create([
+                'quest_id' => $item['quest_id'],
+                'image_id' => $item['image_id'],
+                'user_vote' => $item['user_vote'],
+                'jury_score' => $item['jury_score'],
+                'total_score' => $item['total_score'],
+                'rank' => $item['rank'],
+                'submitted_by' => $item['submitted_by'],
+            ]);
+        }
+
+        $quest = Quest::find($request->items[0]['quest_id']);
+        $quest->winner_status = 'admin_approved';
+        $quest->winner_approved_at = now();
+        $quest->update();
+
+        return back()->with('success', 'Winners declared successfully!');
 
     }
 }

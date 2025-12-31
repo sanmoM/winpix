@@ -6,7 +6,7 @@ import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
 
@@ -30,7 +30,6 @@ export default function Index({
     quests: ContestItem[];
     flash: FlashProps;
 }) {
-    const [openModal, setOpenModal] = useState(false);
     const { t, currentLanguage } = useLocales();
 
     const breadcrumbs = t('dashboard.jury.contest.index.breadcrumbs', {

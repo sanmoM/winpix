@@ -28,7 +28,7 @@ interface EditProps {
 }
 
 export default function Edit({ image, vote }: EditProps) {
-    const [score, setScore] = useState<number | null>(vote?.score ?? 1);
+    const [score, setScore] = useState<number | null>(vote?.score ?? 5);
     console.log(vote)
 
     const handleVote = async (votedImageId: number, questId: number) => {

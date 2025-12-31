@@ -110,12 +110,45 @@ class JudgeContestController extends Controller
     public function leadJudgeScoreView($imageId)
     {
         $image = QuestImage::findOrFail($imageId);
+        $vote = Vote::where('image_id', $imageId)->where('user_id', auth()->id())->first();
         return Inertia::render('Jury/lead-contests/lead-judge-score', [
             'image' => $image,
+            'vote' => $vote,
         ]);
     }
 
-    public function leadJudgeScore(Request $request){
-        
+    public function leadJudgeScore(Request $request)
+    {
+        $request->validate([
+            'image_id' => 'required|exists:quest_images,id',
+            'quest_id' => 'required|exists:quests,id',
+            'score' => 'required|numeric',
+        ]);
+
+        $image = QuestImage::findOrFail($request->image_id);
+
+        // If image owner → update image score
+        if ($image->user_id === auth()->id()) {
+            $image->update([
+                'score' => $request->score,
+            ]);
+
+            return back();
+        }
+
+        // Otherwise → update or create vote
+        Vote::updateOrCreate(
+            [
+                'user_id' => auth()->id(),
+                'image_id' => $image->id,
+            ],
+            [
+                'quest_id' => $request->quest_id,
+                'score' => $request->score,
+                'skip' => false,
+            ]
+        );
+
+        return back();
     }
 }

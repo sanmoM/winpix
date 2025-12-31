@@ -108,7 +108,7 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages }) => {
                             />
                         </div>
                     </div> */}
-                    <ScoreContent image={singleQuestImage?.image} setScore={setScore} score={score} />
+                    <ScoreContent image={singleQuestImage?.image} setScore={setScore} score={score} max={10} />
                     <div className='grid grid-cols-2 gap-4 w-fit mx-auto mb-1'>
                         <BorderButton
                             type={"button"}

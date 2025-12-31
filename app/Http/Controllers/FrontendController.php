@@ -548,6 +548,7 @@ class FrontendController extends Controller
             'image_id' => $imageId,
             'user_id' => $user->id,
             'quest_id' => $questId,
+            'score' => 1
         ]);
 
         $this->rankingService->castVote($image->user);

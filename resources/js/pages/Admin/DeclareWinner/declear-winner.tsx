@@ -184,10 +184,13 @@ export default function Index({
 
                                     <TableCell>{item.user_score}</TableCell>
                                     <TableCell>{item.jury_score}</TableCell>
+                                    <TableCell>
+                                        {item?.lead_judge_score}
+                                    </TableCell>
                                     <TableCell>{item.total_score}</TableCell>
                                     <TableCell>{index + 1}</TableCell>
 
-                                    <TableCell className="space-x-2">
+                                    <TableCell className="space-x-2 text-end">
                                         <Link
                                             href={
                                                 isEnded
@@ -197,7 +200,7 @@ export default function Index({
                                                           item.id,
                                                       )
                                             }
-                                            className={`rounded-md px-3 py-2 font-medium text-white ${
+                                            className={`rounded-md px-3 py-2 text-end font-medium text-white ${
                                                 isEnded
                                                     ? 'pointer-events-none cursor-not-allowed bg-gray-400'
                                                     : 'cursor-pointer bg-green-600'

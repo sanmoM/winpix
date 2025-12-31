@@ -135,6 +135,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('/judge/contest-winner', [ContestWinnerController::class, 'adminJudgeContest'])->name('adminJudgeContest.show');
     Route::get('/auto/contest-winner', [ContestWinnerController::class, 'adminAutoContest'])->name('adminAutoContest.show');
     Route::get('/contest-winner/score/show/{id}', [ContestWinnerController::class, 'adminDeclareContestWinner'])->name('admin.declareWinner.show');
+    Route::get('/judge/contest-winner/score/show/{id}', [ContestWinnerController::class, 'judgeDeclareContestWinner'])->name('admin.judge.declareWinner.show');
 
     Route::post('/contest/declare-winner', [ContestWinnerController::class, 'winnerStore'])->name('admin.contest.declare-winner');
 

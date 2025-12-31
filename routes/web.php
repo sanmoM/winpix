@@ -78,11 +78,11 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
 
 Route::middleware(['auth', 'verified', 'role:admin,jury'])->group(function () {
     Route::get("/view-winners/{questId}", function ($questId) {
-        $winners = ContestWinner::where('quest_id', $questId)->get();
-        return view('contest-winner', [
+        $winners = ContestWinner::with("image.user")->where('quest_id', $questId)->get();
+        return Inertia::render('contest-winner', [
             'winners' => $winners,
         ]);
-    });
+    })->name('view-winners');
 });
 
 Route::middleware(['auth', 'verified', 'role:jury'])->group(function () {

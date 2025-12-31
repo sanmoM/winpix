@@ -24,7 +24,7 @@ interface FlashProps {
 }
 
 export default function Index({
-    quests: items,
+    winners: items,
     flash,
 }: {
     quests: ContestItem[];
@@ -40,7 +40,7 @@ export default function Index({
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
-
+    console.log(items)
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
@@ -53,7 +53,7 @@ export default function Index({
 
                 <Table
                     headingItems={t(
-                        'dashboard.jury.contest.index.table.headings',
+                        'dashboard.contest-winner.index.table.headings',
                         {
                             returnObjects: true,
                         },
@@ -67,7 +67,7 @@ export default function Index({
                                 <TableCell>
                                     {item.image ? (
                                         <img
-                                            src={`/storage/${item.image}`}
+                                            src={`/storage/${item?.image.image}`}
                                             alt={item.title_en}
                                             className="h-10 w-10 rounded object-cover"
                                         />
@@ -78,32 +78,10 @@ export default function Index({
                                     )}
                                 </TableCell>
                                 <TableCell>
-                                    {currentLanguage === 'en'
-                                        ? item?.title_en
-                                        : item?.title_ar}
+                                    {item?.image?.user?.name}
                                 </TableCell>
-
-                                <TableCell className="space-x-2">
-                                    {
-                                        item.winner_status === 'admin_approved' ? <Link
-                                            href={route(
-                                                'view-winners',
-                                                item?.id,
-                                            )}
-                                            className="bg-dark cursor-pointer rounded-md bg-green-500 px-3 py-2 font-medium text-white"
-                                        >
-                                            View Winners
-                                        </Link> : <Link
-                                            href={route(
-                                                'admin.auto.declareWinner.show',
-                                                item?.id,
-                                            )}
-                                            className="bg-dark cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
-                                        >
-                                            All Score
-                                        </Link>
-                                    }
-
+                                <TableCell>
+                                    {item?.image?.user?.email}
                                 </TableCell>
                             </TableRow>
                         ))

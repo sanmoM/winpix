@@ -1558,6 +1558,25 @@
                 }
             }
         },
+        "contest-winner": {
+            "index": {
+                "title": "Contest Winner",
+                "breadcrumbs": [
+                    {
+                        "title": "All Contest Winner",
+                        "href": "/admin/contest-winner"
+                    }
+                ],
+                "table": {
+                    "headings": [
+                        "#",
+                        "Image",
+                        "User Name",
+                        "User Email"
+                    ]
+                }
+            }
+        },
         "prizePool": {
             "inputs": {
                 "name": {
@@ -1770,6 +1789,32 @@
                     "placeholder": "Enter instagram url"
                 }
             }
+        },
+        "admin": {
+            "judge_contest_winner": {
+                "index": {
+                    "title": "Contest Winner",
+                    "breadcrumbs": [
+                        {
+                            "title": "All Contest Winner",
+                            "href": "/admin/contest-winner"
+                        }
+                    ],
+                    "table": {
+                        "headings": [
+                            "#",
+                            "Image",
+                            "User Vote",
+                            "Judge Score",
+                            "Lead Judge Score",
+                            "Total",
+                            "Rank",
+                            "Actions"
+                        ]
+                    }
+                }
+            }
+            
         }
     }
 }

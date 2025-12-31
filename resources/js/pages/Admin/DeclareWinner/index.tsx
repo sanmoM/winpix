@@ -105,15 +105,25 @@ export default function Index({
                                             item.id,
                                         )}
                                     /> */}
-                                    <Link
-                                        href={route(
-                                            'admin.declareWinner.show',
-                                            item?.id,
-                                        )}
-                                        className="bg-dark cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
-                                    >
-                                        All Score
-                                    </Link>
+                                    {
+                                        item.winner_status === 'admin_approved' ? <Link
+                                            href={route(
+                                                'view-winners',
+                                                item?.id,
+                                            )}
+                                            className="bg-dark cursor-pointer rounded-md bg-green-500 px-3 py-2 font-medium text-white"
+                                        >
+                                            View Winners
+                                        </Link> : <Link
+                                            href={route(
+                                                'admin.declareWinner.show',
+                                                item?.id,
+                                            )}
+                                            className="bg-dark cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
+                                        >
+                                            All Score
+                                        </Link>
+                                    }
                                 </TableCell>
                             </TableRow>
                         ))

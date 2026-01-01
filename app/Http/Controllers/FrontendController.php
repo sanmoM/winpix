@@ -373,8 +373,8 @@ class FrontendController extends Controller
     public function searchedHelps()
     {
         $searchTerm = request()->query('searchTerm');
-        $helps = Help::where('question', 'LIKE', '%'.$searchTerm.'%')
-            ->orWhere('answer', 'LIKE', '%'.$searchTerm.'%')
+        $helps = Help::where('question', 'LIKE', '%' . $searchTerm . '%')
+            ->orWhere('answer', 'LIKE', '%' . $searchTerm . '%')
             ->get();
 
         return Inertia::render('help/searched-helps', [
@@ -478,7 +478,7 @@ class FrontendController extends Controller
 
         if ($quest->vote_rights === 'Judges') {
             abort_unless(
-                ! ($user->role === 'jury' &&
+                !($user->role === 'jury' &&
                     JudgePanel::where('quest_id', $quest->id)
                         ->where('user_id', $user->id)
                         ->exists()),
@@ -518,7 +518,7 @@ class FrontendController extends Controller
 
         if ($quest->vote_rights === 'Judges') {
             abort_unless(
-                ! ($user->role === 'jury' &&
+                !($user->role === 'jury' &&
                     JudgePanel::where('quest_id', $quest->id)
                         ->where('user_id', $user->id)
                         ->exists()),

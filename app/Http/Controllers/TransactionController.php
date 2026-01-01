@@ -11,7 +11,8 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::with('user:id,name')
             ->latest()
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Transaction/Index', [
             'transactions' => $transactions,

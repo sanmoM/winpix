@@ -9,7 +9,9 @@ class TransactionController extends Controller
 {
     public function index()
     {
+        $userId = auth()->user()->id;
         $transactions = Transaction::with('user:id,name')
+            ->where('user_id', $userId)
             ->latest()
             ->paginate(12)
             ->withQueryString();

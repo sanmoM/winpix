@@ -14,15 +14,15 @@ return new class extends Migration {
             $table->id();
             $table->string('light_logo');
             $table->string('dark_logo');
-            $table->string('fav_icon');
-            $table->string('app_name');
-            $table->text('app_description');
-            $table->longText('terms_of_service');
-            $table->longText('privacy_policy');
-            $table->longText('copyright');
-            $table->longText('facebook');
-            $table->longText('twitter');
-            $table->longText('instagram');
+            $table->string('fav_icon')->nullable();
+            $table->string('app_name')->nullable();
+            $table->text('app_description')->nullable();
+            $table->longText('terms_of_service')->nullable();
+            $table->longText('privacy_policy')->nullable();
+            $table->longText('copyright')->nullable();
+            $table->longText('facebook')->nullable();
+            $table->longText('twitter')->nullable();
+            $table->longText('instagram')->nullable();
             $table->timestamps();
         });
     }

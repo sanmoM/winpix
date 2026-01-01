@@ -1,6 +1,7 @@
 import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
+import Pagination from '@/components/shared/table/Pagination';
 import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
@@ -73,21 +74,21 @@ export default function Index({
                     {t('dashboard.jury.lead-contest.showContestScore.title')}
                 </h1>
                 <div className="mb-2 flex justify-end">
-                    {items[0]?.quest.winner_status === 'judge_submitted' && (
+                    {items?.data[0]?.quest.winner_status === 'judge_submitted' && (
                         <p className="cursor-pointer rounded-md bg-amber-300 px-4 py-2 text-white">
                             Winner Submitted for Admin Approval
                         </p>
                     )}
 
-                    {items[0]?.quest.winner_status === 'admin_approved' && (
+                    {items?.data[0]?.quest.winner_status === 'admin_approved' && (
                         <p className="cursor-pointer rounded-md bg-green-500 px-4 py-2 text-white">
                             Winner Submitted aproved by Admin
                         </p>
                     )}
 
-                    {items?.length > 0 &&
-                        items[0]?.quest.winner_status === 'pending' &&
-                        new Date(items[0]?.quest.end_date).getTime() <
+                    {items?.data?.length > 0 &&
+                        items?.data[0]?.quest.winner_status === 'pending' &&
+                        new Date(items?.data[0]?.quest.end_date).getTime() <
                             Date.now() && (
                             <button
                                 onClick={handleJudgeDeclareWinner}
@@ -97,9 +98,9 @@ export default function Index({
                             </button>
                         )}
 
-                    {items?.length > 0 &&
-                        items[0]?.quest.winner_status === 'pending' &&
-                        new Date(items[0]?.quest.end_date).getTime() >
+                    {items?.data?.length > 0 &&
+                        items?.data[0]?.quest.winner_status === 'pending' &&
+                        new Date(items?.data[0]?.quest.end_date).getTime() >
                             Date.now() && (
                             <button
                                 disabled
@@ -117,8 +118,8 @@ export default function Index({
                         },
                     )}
                 >
-                    {items?.length > 0 ? (
-                        items.map((item, index) => (
+                    {items?.data?.length > 0 ? (
+                        items?.data.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
 
@@ -158,7 +159,7 @@ export default function Index({
                                     ) : (
                                         <button
                                             disabled
-                                            className="bg-dark cursor-pointer rounded-md bg-green-600 px-3 py-2 font-medium text-white"
+                                            className="bg-dark cursor-pointer rounded-md bg-gray-400 px-3 py-2 font-medium text-white"
                                         >
                                             Change Rank
                                         </button>
@@ -170,6 +171,7 @@ export default function Index({
                         <NoTableItems />
                     )}
                 </Table>
+                <Pagination links={items.links} />
             </TableContainer>
         </AppLayout>
     );

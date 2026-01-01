@@ -15,7 +15,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $stores = Store::orderBy('id', 'DESC')->get();
+        $stores = Store::latest()
+            ->paginate(12)->withQueryString();
 
         return Inertia::render('Admin/Store/Index', [
             'stores' => $stores,

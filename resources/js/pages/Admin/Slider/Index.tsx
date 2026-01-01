@@ -4,12 +4,13 @@ import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
 import TableTopSection from '@/components/shared/table/components/table-top-section/table-top-section';
+import Pagination from '@/components/shared/table/Pagination';
 import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
@@ -29,11 +30,18 @@ interface FlashProps {
     error?: string;
 }
 
+interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
 export default function Index({
     sliders,
     flash,
 }: {
-    sliders: SliderItem[];
+
+    sliders:{ data: SliderItem[], links: PaginationLink[] };
     flash: FlashProps;
 }) {
     const { t } = useLocales();
@@ -66,8 +74,8 @@ export default function Index({
                 <Table
                     headingItems={t('dashboard.slider.index.table.headings', { returnObjects: true })}
                 >
-                    {sliders?.length > 0 ? (
-                        sliders?.map((item, index) => (
+                    {sliders?.data.length > 0 ? (
+                        sliders?.data.map((item, index) => (
                             <TableRow
                                 key={item.id}
                             >
@@ -114,6 +122,7 @@ export default function Index({
                         <NoTableItems />
                     )}
                 </Table>
+                <Pagination links={sliders?.links} />
             </TableContainer>
         </AppLayout>
     );

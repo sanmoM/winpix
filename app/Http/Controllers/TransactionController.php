@@ -13,7 +13,7 @@ class TransactionController extends Controller
         $transactions = Transaction::with('user:id,name')
             ->where('user_id', $userId)
             ->latest()
-            ->paginate(10)
+            ->paginate(12)
             ->withQueryString();
 
         return Inertia::render('Transaction/Index', [

@@ -26,7 +26,10 @@ class SliderController extends Controller
         //     })
         //     ->orderBy('created_at', 'desc')
         //     ->get();
-        $sliders = Slider::all();
+        $sliders = Slider::latest()
+            ->paginate(12
+            )
+            ->withQueryString();
 
         return Inertia::render('Admin/Slider/Index', [
             'sliders' => $sliders,

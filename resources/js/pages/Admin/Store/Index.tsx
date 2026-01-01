@@ -1,9 +1,10 @@
-import EditButton from '@/components/shared/table/components/edit-button';
 import DeleteButton from '@/components/shared/table/components/delete-button';
+import EditButton from '@/components/shared/table/components/edit-button';
 import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
 import TableTopSection from '@/components/shared/table/components/table-top-section/table-top-section';
+import Pagination from '@/components/shared/table/Pagination';
 import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
@@ -27,7 +28,12 @@ interface FlashProps {
     error?: string;
 }
 
-export default function Index({ stores, flash }: { stores: StoreItem[]; flash: FlashProps }) {
+interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+export default function Index({ stores, flash }: { stores: {data:StoreItem[];links:PaginationLink[]}; flash: FlashProps }) {
     const { t } = useLocales();
 
     useEffect(() => {
@@ -50,8 +56,8 @@ export default function Index({ stores, flash }: { stores: StoreItem[]; flash: F
             <TableContainer>
                 <TableTopSection href={route('admin.store.create')} title={t('dashboard.store.index.title')} />
                 <Table headingItems={t('dashboard.store.index.table.headings', { returnObjects: true })}>
-                    {stores?.length > 0 ? (
-                        stores.map((item, index) => (
+                    {stores?.data.length > 0 ? (
+                        stores?.data.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>
@@ -78,6 +84,7 @@ export default function Index({ stores, flash }: { stores: StoreItem[]; flash: F
                         <NoTableItems />
                     )}
                 </Table>
+                <Pagination links={stores?.links} />
             </TableContainer>
         </AppLayout>
     );

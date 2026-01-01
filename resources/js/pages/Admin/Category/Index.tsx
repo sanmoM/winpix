@@ -3,6 +3,7 @@ import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
 import TableTopSection from '@/components/shared/table/components/table-top-section/table-top-section';
+import Pagination from '@/components/shared/table/Pagination';
 import Table from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
@@ -24,11 +25,18 @@ interface FlashProps {
     error?: string;
 }
 
+    interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
+
 export default function Index({
     items,
     flash,
 }: {
-    items: QuestCategoryItem[];
+    items: { data: QuestCategoryItem[]; links: PaginationLink[] };
     flash: FlashProps;
 }) {
     const { t } = useLocales();
@@ -67,8 +75,8 @@ export default function Index({
                         },
                     )}
                 >
-                    {items?.length > 0 ? (
-                        items.map((item, index) => (
+                    {items?.data.length > 0 ? (
+                        items.data.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>{item.name}</TableCell>
@@ -103,6 +111,7 @@ export default function Index({
                     )}
                 </Table>
             </TableContainer>
+            <Pagination links={items.links} />
         </AppLayout>
     );
 }

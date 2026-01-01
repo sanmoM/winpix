@@ -4,6 +4,7 @@ import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
 import TableTopSection from '@/components/shared/table/components/table-top-section/table-top-section';
+import Pagination from '@/components/shared/table/Pagination';
 import Table from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
@@ -23,7 +24,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Index() {
-    const { quests: items, flash } = usePage<any>().props;
+    const { quests: items, flash } = usePage().props;
     const { t } = useLocales();
     useEffect(() => {
         if (flash?.success) {
@@ -57,8 +58,8 @@ export default function Index() {
                         returnObjects: true,
                     })}
                 >
-                    {items?.length > 0 ? (
-                        items.map((item, index) => (
+                    {items?.data.length > 0 ? (
+                        items?.data.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
 
@@ -109,6 +110,8 @@ export default function Index() {
                         <NoTableItems />
                     )}
                 </Table>
+
+                <Pagination links={items?.links} />
             </TableContainer>
         </AppLayout>
     );

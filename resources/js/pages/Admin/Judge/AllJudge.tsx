@@ -5,6 +5,7 @@ import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
 import TableTopSection from '@/components/shared/table/components/table-top-section/table-top-section';
 import ViewButton from '@/components/shared/table/components/view-button';
+import Pagination from '@/components/shared/table/Pagination';
 import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
@@ -28,11 +29,18 @@ interface FlashProps {
     error?: string;
 }
 
+    interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
+
 export default function AllJudge({
     judges,
     flash,
 }: {
-    judges: Judge[];
+    judges: {data:Judge[];  links:PaginationLink[]};
     flash: FlashProps;
 }) {
     const { t } = useLocales();
@@ -66,8 +74,8 @@ export default function AllJudge({
                         returnObjects: true,
                     })}
                 >
-                    {judges?.length > 0 ? (
-                        judges.map((judge, index) => (
+                    {judges?.data.length > 0 ? (
+                        judges?.data.map((judge, index) => (
                             <TableRow key={judge.id}>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>{judge.name}</TableCell>
@@ -111,6 +119,7 @@ export default function AllJudge({
                     )}
                 </Table>
             </TableContainer>
+            <Pagination links={judges?.links} />
         </AppLayout>
     );
 }

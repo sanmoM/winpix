@@ -14,7 +14,9 @@ class QuestCategoryController extends Controller
      */
     public function index()
     {
-        $items = QuestCategory::orderBy('id', 'DESC')->get();
+        $items = QuestCategory::latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Admin/Category/Index', [
             'items' => $items,

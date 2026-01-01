@@ -4,6 +4,7 @@ import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
 import ViewButton from '@/components/shared/table/components/view-button';
+import Pagination from '@/components/shared/table/Pagination';
 import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
@@ -27,11 +28,18 @@ interface FlashProps {
     error?: string;
 }
 
+    interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
+
 export default function UsersIndex({
     users,
     flash,
 }: {
-    users: User[];
+    users: { data: User[]; links: PaginationLink[] };
     flash: FlashProps;
 }) {
     const { t } = useLocales();
@@ -65,8 +73,8 @@ export default function UsersIndex({
                         returnObjects: true,
                     })}
                 >
-                    {users?.length > 0 ? (
-                        users.map((user, index) => (
+                    {users?.data.length > 0 ? (
+                        users?.data.map((user, index) => (
                             <TableRow key={user.id}>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>{user.name}</TableCell>
@@ -109,6 +117,8 @@ export default function UsersIndex({
                         <NoTableItems />
                     )}
                 </Table>
+
+                <Pagination links={users?.links} />
             </TableContainer>
         </AppLayout>
     );

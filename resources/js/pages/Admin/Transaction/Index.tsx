@@ -37,12 +37,12 @@ export default function Index({
     transactions,
     flash,
 }: {
-    
-         transactions: {
+
+    transactions: {
         data: TransactionItem[];
         links: PaginationLink[];
     };
-    
+
     flash: FlashProps;
 }) {
     const { t } = useLocales();

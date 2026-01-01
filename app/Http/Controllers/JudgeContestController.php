@@ -14,7 +14,11 @@ class JudgeContestController extends Controller
     public function index()
     {
 
-        $panel = JudgePanel::where('user_id', auth()->user()->id)->with('user')->with('quest')->orderBy('id', 'desc')->get();
+        $panel = JudgePanel::where('user_id', auth()->id())
+            ->with(['user', 'quest'])
+            ->orderBy('id', 'desc')
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Jury/contest-pannel/index', [
             'panel' => $panel,
@@ -25,7 +29,7 @@ class JudgeContestController extends Controller
     public function leadJudge()
     {
 
-        $quests = Quest::where('lead_judge', auth()->user()->id)->orderBy('id', 'desc')->get();
+        $quests = Quest::where('lead_judge', auth()->user()->id)->orderBy('id', 'desc')->paginate(10)->withQueryString();
 
         return Inertia::render('Jury/lead-contests/index', [
             'quests' => $quests,
@@ -111,8 +115,8 @@ class JudgeContestController extends Controller
                 'quests.lead_judge'
             )
             ->orderByDesc('total_score')
-            ->get();
-
+            ->paginate(10)
+            ->withQueryString();
         return Inertia::render('Jury/lead-contests/declear-winner', [
             'images' => $images,
         ]);
@@ -185,8 +189,8 @@ class JudgeContestController extends Controller
                 'quest_images.user_id'
             )
             ->orderByDesc('judge_score')
-            ->get();
-
+            ->paginate(10)
+            ->withQueryString();
         return Inertia::render('Jury/contest-pannel/view-score', [
             'showContestScores' => $images,
         ]);

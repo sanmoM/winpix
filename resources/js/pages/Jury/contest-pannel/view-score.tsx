@@ -1,6 +1,7 @@
 import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
+import Pagination from '@/components/shared/table/Pagination';
 import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
@@ -35,8 +36,8 @@ export default function ScoreContest({ showContestScores }: { showContestScores:
                         },
                     )}
                 >
-                    {showContestScores?.length > 0 ? (
-                        showContestScores.map((item, index) => (
+                    {showContestScores?.data?.length > 0 ? (
+                        showContestScores?.data.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
 
@@ -62,6 +63,7 @@ export default function ScoreContest({ showContestScores }: { showContestScores:
                         <NoTableItems />
                     )}
                 </Table>
+                <Pagination links={showContestScores.links} />
             </TableContainer>
         </AppLayout>
     )

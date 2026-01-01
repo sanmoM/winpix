@@ -1,6 +1,7 @@
 import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
+import Pagination from '@/components/shared/table/Pagination';
 import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
@@ -25,13 +26,23 @@ interface FlashProps {
     error?: string;
 }
 
+
+interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
 export default function Index({
     transactions,
     flash,
 }: {
-    transactions: {
+    
+         transactions: {
         data: TransactionItem[];
+        links: PaginationLink[];
     };
+    
     flash: FlashProps;
 }) {
     const { t } = useLocales();
@@ -68,12 +79,12 @@ export default function Index({
                         transactions?.data?.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
-                                <TableCell>{item.transaction_id}</TableCell>
-                                <TableCell>{item.user.name}</TableCell>
-                                <TableCell>{item.reference_id}</TableCell>
-                                <TableCell>{item.amount}</TableCell>
-                                <TableCell>{item.payment_method}</TableCell>
-                                <TableCell>{item.transaction_type}</TableCell>
+                                <TableCell>{item.transaction_id ?? "-"}</TableCell>
+                                <TableCell>{item.user.name ?? "-"}</TableCell>
+                                <TableCell>{item.reference_id ?? "-"}</TableCell>
+                                <TableCell>{item.amount ?? "-"}</TableCell>
+                                <TableCell>{item.payment_method ?? "-"}</TableCell>
+                                <TableCell>{item.transaction_type ?? "-"}</TableCell>
                                 <TableCell>
                                     {new Date(item.created_at).toLocaleString(
                                         undefined,
@@ -92,6 +103,7 @@ export default function Index({
                         <NoTableItems />
                     )}
                 </Table>
+                <Pagination links={transactions.links} />
             </TableContainer>
         </AppLayout>
     );

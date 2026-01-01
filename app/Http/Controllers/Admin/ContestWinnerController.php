@@ -344,6 +344,6 @@ class ContestWinnerController extends Controller
 
         });
 
-        return back()->with('success', 'Prizes distributed successfully!');
+        return redirect()->back()->with('success', 'Prizes distributed successfully!');
     }
 }

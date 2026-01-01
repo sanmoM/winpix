@@ -84,28 +84,7 @@ export default function Index({
                                         : item?.title_ar}
                                 </TableCell>
 
-                                {/* <TableCell>{item.email}</TableCell>
-
-                                <TableCell>
-                                    {item.message.length > 50
-                                        ? item.message.substring(0, 50) + '...'
-                                        : item.message}
-                                </TableCell> */}
-
                                 <TableCell className="space-x-2">
-                                    {/* <ViewButton
-                                        route={route(
-                                            'admin.quest.view',
-                                            item.id,
-                                        )}
-                                    />
-
-                                    <EditButton
-                                        route={route(
-                                            'admin.quest.edit',
-                                            item.id,
-                                        )}
-                                    /> */}
                                     <Link
                                         href={route(
                                             'lead_judge.declearWinner',
@@ -122,9 +101,6 @@ export default function Index({
                         <NoTableItems />
                     )}
                 </Table>
-                {/* <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-                    <ScoreModal isOpen={openModal} onClose={() => setOpenModal(false)} questImages={[]} />
-                </Modal> */}
             </TableContainer>
         </AppLayout>
     );

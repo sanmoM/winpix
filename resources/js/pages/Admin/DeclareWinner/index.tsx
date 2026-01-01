@@ -6,6 +6,7 @@ import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
+import axios from 'axios';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
@@ -40,6 +41,16 @@ export default function Index({
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
+
+    const handleDistribute = async (id: number) => {
+        try {
+            await axios.post(route('admin.distributePrizes', id));
+            toast.success('Prizes Distributed Successfully');
+            window.location.reload();
+        } catch (error) {
+            toast.error('Something went wrong');
+        }
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
@@ -83,38 +94,30 @@ export default function Index({
                                         : item?.title_ar}
                                 </TableCell>
 
-                                {/* <TableCell>{item.email}</TableCell>
-
-                                <TableCell>
-                                    {item.message.length > 50
-                                        ? item.message.substring(0, 50) + '...'
-                                        : item.message}
-                                </TableCell> */}
-
                                 <TableCell className="space-x-2">
-                                    {/* <ViewButton
-                                        route={route(
-                                            'admin.quest.view',
-                                            item.id,
-                                        )}
-                                    />
-
-                                    <EditButton
-                                        route={route(
-                                            'admin.quest.edit',
-                                            item.id,
-                                        )}
-                                    /> */}
                                     {
-                                        item.winner_status === 'admin_approved' ? <Link
-                                            href={route(
-                                                'view-winners',
-                                                item?.id,
-                                            )}
-                                            className="bg-dark cursor-pointer rounded-md bg-green-500 px-3 py-2 font-medium text-white"
-                                        >
-                                            View Winners
-                                        </Link> : <Link
+                                        item.winner_status === 'admin_approved' ? (
+                                            <>
+                                                <Link
+                                                    href={route(
+                                                        'view-winners',
+                                                        item?.id,
+                                                    )}
+                                                    className="bg-dark cursor-pointer rounded-md bg-green-500 px-3 py-2 font-medium text-white"
+                                                >
+                                                    View Winners
+                                                </Link>
+                                                <button
+                                                    disabled={item.status === "Closed"}
+                                                    onClick={() =>
+                                                        handleDistribute(item.id)
+                                                    }
+                                                    className="bg-dark disabled:bg-gray-400 cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
+                                                >
+                                                    Distribute Prizes
+                                                </button>
+                                            </>
+                                        ) : <Link
                                             href={route(
                                                 'admin.declareWinner.show',
                                                 item?.id,
@@ -131,9 +134,6 @@ export default function Index({
                         <NoTableItems />
                     )}
                 </Table>
-                {/* <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-                    <ScoreModal isOpen={openModal} onClose={() => setOpenModal(false)} questImages={[]} />
-                </Modal> */}
             </TableContainer>
         </AppLayout>
     );

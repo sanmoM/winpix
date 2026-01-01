@@ -1,19 +1,20 @@
+import Button from '@/components/shared/buttons/button';
 import DeleteButton from '@/components/shared/table/components/delete-button';
 import EditButton from '@/components/shared/table/components/edit-button';
 import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
 import TableTopSection from '@/components/shared/table/components/table-top-section/table-top-section';
+import Pagination from '@/components/shared/table/Pagination';
 import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
-import Button from '@/components/shared/buttons/button';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { Head, router } from '@inertiajs/react';
+import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
-import { useEffect } from 'react';
 
 interface HelpItem {
     id: number;
@@ -60,8 +61,8 @@ export default function HelpIndex({ items, flash }: { items: HelpItem[]; flash: 
                 <Table
                     headingItems={t('dashboard.help.index.table.headings', { returnObjects: true })}
                 >
-                    {items?.length > 0 ? (
-                        items.map((item, index) => (
+                    {items?.data?.length > 0 ? (
+                        items?.data.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>{item.section}</TableCell>
@@ -82,6 +83,7 @@ export default function HelpIndex({ items, flash }: { items: HelpItem[]; flash: 
                         <NoTableItems />
                     )}
                 </Table>
+                <Pagination links={items.links} />
             </TableContainer>
         </AppLayout>
     );

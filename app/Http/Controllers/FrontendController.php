@@ -127,8 +127,7 @@ class FrontendController extends Controller
         QuestFilter::init()
             ->filter($filter)
             ->sort($sort);
-        // return response()->json($allQuest);
-        // Dynamic filters
+
         if ($category) {
             QuestFilter::query()->where('category_id', $category);
         }
@@ -388,7 +387,6 @@ class FrontendController extends Controller
         return Inertia::render('contact-us');
     }
 
-    // this all are the functional controller for handle user interaction
     public function joinQuest(Request $request, $id)
     {
         $user = auth()->user();
@@ -425,7 +423,6 @@ class FrontendController extends Controller
 
         $questFromDb = Quest::findOrFail($id);
 
-        // Deduct user's pixels only if they haven't joined before
         QuestJoin::firstOrCreate(
             [
                 'quest_id' => $id,

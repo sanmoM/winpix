@@ -4,10 +4,8 @@ import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
 import TableTopSection from '@/components/shared/table/components/table-top-section/table-top-section';
-import ViewButton from '@/components/shared/table/components/view-button';
 import Table from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
-import { Badge } from '@/components/ui/badge';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
@@ -95,13 +93,16 @@ export default function Index() {
                                             item.id,
                                         )}
                                     /> */}
+                                    {item.status === 'Closed' && (
+    
+                                        <EditButton
+                                            route={route(
+                                                'admin.quest.edit',
+                                                item.id,
+                                            )}
+                                        />
 
-                                    <EditButton
-                                        route={route(
-                                            'admin.quest.edit',
-                                            item.id,
-                                        )}
-                                    />
+                                    )}
                                     <DeleteButton
                                         handleDelete={() =>
                                             handleDelete(item.id)

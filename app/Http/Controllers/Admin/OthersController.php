@@ -25,21 +25,23 @@ class OthersController extends Controller
 
     public function update(Request $request)
     {
-        $dataFromDB = Other::first();
 
         $request->validate([
             'light_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'dark_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'fav_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'app_name' => 'required|string|max:255',
-            'app_description' => 'required|string',
-            'terms_of_service' => 'required|string',
-            'privacy_policy' => 'required|string',
-            'copyright' => 'required|string',
-            'facebook' => 'required|string',
-            'twitter' => 'required|string',
-            'instagram' => 'required|string',
+            'app_name' => 'nullable|string|max:255',
+            'app_description' => 'nullable|string',
+            'terms_of_service' => 'nullable|string',
+            'privacy_policy' => 'nullable|string',
+            'copyright' => 'nullable|string',
+            'facebook' => 'nullable|string',
+            'twitter' => 'nullable|string',
+            'instagram' => 'nullable|string',
         ]);
+
+        $dataFromDB = Other::first();
+
         $light_logo = $dataFromDB->light_logo;
         $dark_logo = $dataFromDB->dark_logo;
         $fav_icon = $dataFromDB->fav_icon;
@@ -54,35 +56,23 @@ class OthersController extends Controller
             $fav_icon = $request->file('fav_icon')->store('uploads/website_settings', 'public');
         }
 
-        if ($dataFromDB) {
-            $dataFromDB->update([
-                'light_logo' => $light_logo,
-                'dark_logo' => $dark_logo,
-                'fav_icon' => $fav_icon,
-                'app_name' => $request->app_name,
-                'app_description' => $request->app_description,
-                'terms_of_service' => $request->terms_of_service,
-                'privacy_policy' => $request->privacy_policy,
-                'copyright' => $request->copyright,
-                'facebook' => $request->facebook,
-                'twitter' => $request->twitter,
-                'instagram' => $request->instagram,
-            ]);
-        } else {
-            Other::create([
-                'light_logo' => $light_logo,
-                'dark_logo' => $dark_logo,
-                'fav_icon' => $fav_icon,
-                'app_name' => $request->app_name,
-                'app_description' => $request->app_description,
-                'terms_of_service' => $request->terms_of_service,
-                'privacy_policy' => $request->privacy_policy,
-                'copyright' => $request->copyright,
-                'facebook' => $request->facebook,
-                'twitter' => $request->twitter,
-                'instagram' => $request->instagram,
-            ]);
-        }
+
+        // return dd($dataFromDB);
+
+
+        $dataFromDB->update([
+            'light_logo' => $light_logo,
+            'dark_logo' => $dark_logo,
+            'fav_icon' => $fav_icon,
+            'app_name' => $request->app_name,
+            'app_description' => $request->app_description,
+            'terms_of_service' => $request->terms_of_service,
+            'privacy_policy' => $request->privacy_policy,
+            'copyright' => $request->copyright,
+            'facebook' => $request->facebook,
+            'twitter' => $request->twitter,
+            'instagram' => $request->instagram,
+        ]);
 
         return redirect()->back()->with('success', 'Website settings updated successfully 🎉');
     }

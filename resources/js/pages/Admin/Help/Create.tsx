@@ -49,7 +49,7 @@ export default function Create({ flash }: Props) {
             onSuccess: () => reset(),
         });
     };
-
+    console.log(data)
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <ToastContainer />

@@ -19,7 +19,7 @@ class ContestWinnerController extends Controller
     public function adminContest()
     {
 
-        $quests = Quest::where('winner_declaration', 'admin')->orderBy('id', 'desc')->get();
+        $quests = Quest::where('winner_declaration', 'admin')->orderBy('id', 'desc')->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/DeclareWinner/index', [
             'quests' => $quests,
@@ -30,7 +30,7 @@ class ContestWinnerController extends Controller
     public function adminJudgeContest()
     {
 
-        $quests = Quest::where('winner_declaration', 'judges')->orderBy('id', 'desc')->get();
+        $quests = Quest::where('winner_declaration', 'judges')->orderBy('id', 'desc')->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/DeclareWinner/judge-index', [
             'quests' => $quests,
@@ -41,7 +41,7 @@ class ContestWinnerController extends Controller
     public function adminAutoContest()
     {
 
-        $quests = Quest::where('winner_declaration', 'auto')->orderBy('id', 'desc')->get();
+        $quests = Quest::where('winner_declaration', 'auto')->orderBy('id', 'desc')->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/DeclareWinner/auto-index', [
             'quests' => $quests,
@@ -181,7 +181,8 @@ class ContestWinnerController extends Controller
             ->where('quest_images.quest_id', $questId)
             ->groupBy('quest_images.id', 'quest_images.quest_id', 'quest_images.image', 'quest_images.user_id', 'quest_images.camera_brand', 'quest_images.camera_model', 'quest_images.lens', 'quest_images.focal_length', 'quest_images.aperture', 'quest_images.shutter_speed', 'quest_images.iso', 'quest_images.date_captured', 'quest_images.created_at', 'quest_images.updated_at')
             ->orderByDesc('total_score')
-            ->get();
+            ->paginate(10)
+            ->withQueryString();
 
         $totalPrizes = Prize::where('quest_id', $questId)
             ->get()
@@ -317,17 +318,17 @@ class ContestWinnerController extends Controller
 
 
                         Transaction::create([
-                            'user_id'          => $user->id,
-                            'reference_id'     => $quest->id,
+                            'user_id' => $user->id,
+                            'reference_id' => $quest->id,
                             'transaction_type' => 'contest_prize',
-                            'amount'           => $amount,
-                            'amount_type'      => $type,
-                            'currency'         => $type,
-                            'payment_method'   => 'system',
-                            'status'           => 'completed',
-                            'details'          => json_encode([
-                                'rank'       => $winner->rank,
-                                'quest_id'   => $quest->id,
+                            'amount' => $amount,
+                            'amount_type' => $type,
+                            'currency' => $type,
+                            'payment_method' => 'system',
+                            'status' => 'completed',
+                            'details' => json_encode([
+                                'rank' => $winner->rank,
+                                'quest_id' => $quest->id,
                                 'prize_type' => $type
                             ]),
                         ]);

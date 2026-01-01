@@ -87,14 +87,8 @@ export default function Index() {
                                 </TableCell>
 
                                 <TableCell className="space-x-2">
-                                    {/* <ViewButton
-                                        route={route(
-                                            'admin.quest.view',
-                                            item.id,
-                                        )}
-                                    /> */}
-                                    {item.status === 'Closed' && (
-    
+                                    {item.status !== 'Closed' && (
+
                                         <EditButton
                                             route={route(
                                                 'admin.quest.edit',

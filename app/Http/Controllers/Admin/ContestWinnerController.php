@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContestWinner;
+use App\Models\Transaction;
 use App\Models\Prize;
 use App\Models\Quest;
 use App\Models\QuestImage;
@@ -273,8 +274,6 @@ class ContestWinnerController extends Controller
 
     public function distributePrizes($questId)
     {
-        // 1. Use findOrFail. If the ID is wrong, it returns a 404 automatically.
-        // This returns a SINGLE object, not a list.
         $quest = Quest::findOrFail($questId);
 
         // 2. Wrap in a transaction for safety
@@ -290,7 +289,7 @@ class ContestWinnerController extends Controller
                 ->get();
 
             foreach ($winners as $winner) {
-                // Match Rank to Prize Range (min - max)
+
                 $matchedPrize = $prizes->first(function ($prize) use ($winner) {
                     return $winner->rank >= $prize->min && $winner->rank <= $prize->max;
                 });
@@ -304,7 +303,6 @@ class ContestWinnerController extends Controller
                         $amount = $matchedPrize->coin;
                         $type = strtolower($matchedPrize->type_name);
 
-                        // DISTRIBUTE BASED ON TYPE
                         switch ($type) {
                             case 'coin':
                                 $user->increment('coin', $amount);
@@ -316,15 +314,34 @@ class ContestWinnerController extends Controller
                                 $user->increment('cash', $amount);
                                 break;
                         }
+
+
+                        Transaction::create([
+                            'user_id'          => $user->id,
+                            'reference_id'     => $quest->id,
+                            'transaction_type' => 'contest_prize',
+                            'amount'           => $amount,
+                            'amount_type'      => $type,
+                            'currency'         => $type,
+                            'payment_method'   => 'system',
+                            'status'           => 'completed',
+                            'details'          => json_encode([
+                                'rank'       => $winner->rank,
+                                'quest_id'   => $quest->id,
+                                'prize_type' => $type
+                            ]),
+                        ]);
+
+
                     }
                 }
             }
 
-            // Mark as closed inside the transaction
             $quest->update([
                 'status' => 'Closed',
-                'winner_approved_at' => now(), // Good practice to track when this happened
+                'winner_approved_at' => now(),
             ]);
+
         });
 
         return back()->with('success', 'Prizes distributed successfully!');

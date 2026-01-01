@@ -14,7 +14,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::all();
+        $contacts = Contact::orderBy('id', 'desc')
+            ->paginate(10)
+            ->withQueryString();
         return Inertia::render('Admin/Contact/Index', [
             'items' => $contacts,
         ]);

@@ -78,7 +78,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
 
 Route::middleware(['auth', 'verified', 'role:admin,jury'])->group(function () {
     Route::get('/view-winners/{questId}', function ($questId) {
-        $winners = ContestWinner::with('image.user')->where('quest_id', $questId)->get();
+        $winners = ContestWinner::with('image.user')->where('quest_id', $questId)->paginate(10)->withQueryString();
 
         return Inertia::render('contest-winner', [
             'winners' => $winners,
@@ -135,7 +135,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::put('marketing-banner/update', [BannerController::class, 'update'])->name('banner.update');
     Route::resource('brand-marketing', BrandMarketingController::class)->names('admin.brand_marketing');
     Route::get('/report', function () {
-        $reports = Report::with(['image.user'])->get();
+        $reports = Report::with(['image.user'])->orderBy('id', 'desc')->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/Report/index', [
             'reports' => $reports,
@@ -162,7 +162,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
-require __DIR__.'/frontend.php';
-require __DIR__.'/user-dashboard.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/frontend.php';
+require __DIR__ . '/user-dashboard.php';

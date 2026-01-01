@@ -15,7 +15,7 @@ class HelpController extends Controller
 {
     public function index()
     {
-        $items = Help::orderBy('id', 'desc')->get();
+        $items = Help::orderBy('id', 'desc')->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/Help/Index', [
             'items' => $items,

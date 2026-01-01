@@ -5,9 +5,8 @@ import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { ToastContainer } from 'react-toastify';
-import { route } from 'ziggy-js';
 
 export default function ScoreContest({ showContestScores }: { showContestScores: any }) {
     const { t } = useLocales()
@@ -57,35 +56,12 @@ export default function ScoreContest({ showContestScores }: { showContestScores:
                                 <TableCell>
                                     {item.judge_score}
                                 </TableCell>
-
-                                {/* <TableCell>{item.email}</TableCell>
-        
-                                        <TableCell>
-                                            {item.message.length > 50
-                                                ? item.message.substring(0, 50) + '...'
-                                                : item.message}
-                                        </TableCell> */}
-
-                                {/* <TableCell className="space-x-2">
-                                    <Link
-                                        href={route(
-                                            'lead_judge.declearWinner',
-                                            item?.id,
-                                        )}
-                                        className="bg-dark cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
-                                    >
-                                        All Score
-                                    </Link>
-                                </TableCell> */}
                             </TableRow>
                         ))
                     ) : (
                         <NoTableItems />
                     )}
                 </Table>
-                {/* <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-                            <ScoreModal isOpen={openModal} onClose={() => setOpenModal(false)} questImages={[]} />
-                        </Modal> */}
             </TableContainer>
         </AppLayout>
     )

@@ -112,9 +112,6 @@ export default function Index({
                         <NoTableItems />
                     )}
                 </Table>
-                {/* <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-                    <ScoreModal isOpen={openModal} onClose={() => setOpenModal(false)} questImages={[]} />
-                </Modal> */}
             </TableContainer>
         </AppLayout>
     );

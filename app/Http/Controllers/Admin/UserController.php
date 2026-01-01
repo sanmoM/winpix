@@ -13,7 +13,9 @@ class UserController extends Controller
 {
     public function allUsers(Request $request)
     {
-        $users = User::where('role', 'user')->get();
+        $users = User::where('role', 'user')->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Admin/Users/AllUsers', ['users' => $users]);
     }
@@ -61,7 +63,9 @@ class UserController extends Controller
 
     public function allJudge(Request $request)
     {
-        $judges = User::where('role', 'jury')->get();
+        $judges = User::where('role', 'jury')->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Admin/Judge/AllJudge', ['judges' => $judges]);
     }
@@ -76,7 +80,7 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 

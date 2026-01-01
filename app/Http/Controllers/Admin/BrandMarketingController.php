@@ -20,7 +20,9 @@ class BrandMarketingController extends Controller
     public function index()
     {
 
-        $brand_marketings = BrandMarketing::all();
+        $brand_marketings = BrandMarketing::latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Admin/BrandMarketing/Index', [
             'brand_marketings' => $brand_marketings,

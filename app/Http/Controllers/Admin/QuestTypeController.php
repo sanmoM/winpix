@@ -14,7 +14,9 @@ class QuestTypeController extends Controller
      */
     public function index()
     {
-        $items = QuestType::orderBy('id', 'DESC')->get();
+        $items = QuestType::latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Admin/Type/Index', [
             'items' => $items,

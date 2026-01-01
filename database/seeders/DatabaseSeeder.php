@@ -76,6 +76,7 @@ class DatabaseSeeder extends Seeder
             PrizeSeeder::class,
             BannerSeeder::class,
             OthersSeeder::class,
+            CategorySeeder::class,
         ]);
 
     }

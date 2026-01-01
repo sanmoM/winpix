@@ -19,7 +19,9 @@ class QuestController extends Controller
      */
     public function index()
     {
-        $quests = Quest::with(['prizes', 'user:id,name'])->get();
+        $quests = Quest::with(['prizes', 'user:id,name'])->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Admin/Quest/show-quests', [
             'quests' => $quests,
@@ -141,7 +143,9 @@ class QuestController extends Controller
 
     public function ContestLogs()
     {
-        $loges = VotingOverrideLog::with('quest:id,title_en', 'admin:id,name')->get();
+        $loges = VotingOverrideLog::with('quest:id,title_en', 'admin:id,name')->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Admin/Quest/quest-log', [
             'loges' => $loges,

@@ -3,6 +3,8 @@
 use App\Http\Controllers\DiscoverController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PayPalController;
+use App\Models\Transaction;
+use Inertia\Inertia;
 
 // this all are get route for frontend
 Route::get('/', [FrontendController::class, 'home'])->name('home');

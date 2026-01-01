@@ -20,7 +20,7 @@ export default function Pagination({
                     preserveScroll
                     preserveState
                     className={`px-3 py-1 border rounded text-sm
-                        ${link.active ? 'bg-primary text-white' : ''}
+                        ${link.active ? 'bg-primary-color ' : ''}
                         ${!link.url ? 'text-gray-400 cursor-not-allowed' : ''}
                     `}
                     dangerouslySetInnerHTML={{ __html: link.label }}

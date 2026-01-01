@@ -113,7 +113,6 @@ class JudgeContestController extends Controller
             ->orderByDesc('total_score')
             ->get();
 
-
         return Inertia::render('Jury/lead-contests/declear-winner', [
             'images' => $images,
         ]);
@@ -157,14 +156,14 @@ class JudgeContestController extends Controller
     {
         // $userId = auth()->user()->id;
 
-       $images = QuestImage::with('quest:id,title_en,end_date,lead_judge,winner_status')
-    ->select(
-        'quest_images.id',
-        'quest_images.quest_id',
-        'quest_images.image',
-        'quest_images.user_id'
-    )
-    ->selectRaw('
+        $images = QuestImage::with('quest:id,title_en,end_date,lead_judge,winner_status')
+            ->select(
+                'quest_images.id',
+                'quest_images.quest_id',
+                'quest_images.image',
+                'quest_images.user_id'
+            )
+            ->selectRaw('
         SUM(
             CASE
                 WHEN judge_panels.user_id IS NOT NULL
@@ -173,25 +172,20 @@ class JudgeContestController extends Controller
             END
         ) AS judge_score
     ')
-    ->leftJoin('votes', 'votes.image_id', '=', 'quest_images.id')
-
-    ->leftJoin('judge_panels', function ($join) {
-        $join->on('judge_panels.user_id', '=', 'votes.user_id')
-             ->on('judge_panels.quest_id', '=', 'quest_images.quest_id');
-    })
-
-    ->where('quest_images.quest_id', $questId)
-    ->groupBy(
-        'quest_images.id',
-        'quest_images.quest_id',
-        'quest_images.image',
-        'quest_images.user_id'
-    )
-    ->orderByDesc('judge_score')
-    ->get();
-
-
-
+            ->leftJoin('votes', 'votes.image_id', '=', 'quest_images.id')
+            ->leftJoin('judge_panels', function ($join) {
+                $join->on('judge_panels.user_id', '=', 'votes.user_id')
+                    ->on('judge_panels.quest_id', '=', 'quest_images.quest_id');
+            })
+            ->where('quest_images.quest_id', $questId)
+            ->groupBy(
+                'quest_images.id',
+                'quest_images.quest_id',
+                'quest_images.image',
+                'quest_images.user_id'
+            )
+            ->orderByDesc('judge_score')
+            ->get();
 
         return Inertia::render('Jury/contest-pannel/view-score', [
             'showContestScores' => $images,

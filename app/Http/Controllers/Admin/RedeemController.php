@@ -15,7 +15,9 @@ class RedeemController extends Controller
      */
     public function index()
     {
-        $redeems = Redeem::orderBy('id', 'DESC')->get();
+        $redeems = Redeem::latest()
+            ->paginate(12)
+            ->withQueryString();
 
         return Inertia::render('Admin/Redeem/Index', [
             'redeems' => $redeems,

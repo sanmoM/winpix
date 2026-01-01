@@ -4,16 +4,17 @@ import NoTableItems from '@/components/shared/table/components/no-table-items';
 import TableCell from '@/components/shared/table/components/table-cell';
 import TableRow from '@/components/shared/table/components/table-row';
 import TableTopSection from '@/components/shared/table/components/table-top-section/table-top-section';
+import Pagination from '@/components/shared/table/Pagination';
 import { default as Table } from '@/components/shared/table/table';
 import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
-import AppLayout from '@/layouts/app-layout';
-import { Head, router } from '@inertiajs/react';
 import useLocales from '@/hooks/useLocales';
+import AppLayout from '@/layouts/app-layout';
+import { type BreadcrumbItem } from '@/types';
+import { Head, router } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
-import { type BreadcrumbItem } from '@/types';
 
 interface RedeemItem {
     id: number;
@@ -29,10 +30,18 @@ interface FlashProps {
     error?: string;
 }
 
+interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
+
 interface Props {
-    redeems: RedeemItem[];
+    redeems: { data: RedeemItem[]; links: PaginationLink[] } ;
     flash?: FlashProps;
 }
+
 
 export default function Index({ redeems, flash }: Props) {
     const { t } = useLocales();
@@ -64,8 +73,8 @@ export default function Index({ redeems, flash }: Props) {
                 <Table
                     headingItems={t('dashboard.redeem.index.table.headings', { returnObjects: true })}
                 >
-                    {redeems.length > 0 ? (
-                        redeems.map((item, index) => (
+                    {redeems?.data.length > 0 ? (
+                        redeems?.data.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>
@@ -105,6 +114,9 @@ export default function Index({ redeems, flash }: Props) {
                         <NoTableItems colSpan={7} />
                     )}
                 </Table>
+
+                <Pagination links={redeems.links} />
+
             </TableContainer>
         </AppLayout>
     );

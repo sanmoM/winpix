@@ -75,6 +75,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PrizeSeeder::class,
             BannerSeeder::class,
+            OthersSeeder::class,
         ]);
 
     }

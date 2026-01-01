@@ -15,7 +15,10 @@ class SeriesController extends Controller
      */
     public function index()
     {
-        $series = Series::orderBy('id', 'DESC')->get();
+        $series = Series::latest()
+            ->paginate(12
+            )
+            ->withQueryString();
 
         return Inertia::render('Admin/Series/Index', [
             'series' => $series,

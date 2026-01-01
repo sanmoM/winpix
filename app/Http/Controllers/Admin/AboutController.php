@@ -19,7 +19,10 @@ class AboutController extends Controller
      */
     public function index()
     {
-        $items = About::all();
+        $items = About::latest()
+            ->paginate(12
+            )
+            ->withQueryString();
 
         return Inertia::render('Admin/About/Index', [
             'items' => $items,
@@ -51,13 +54,13 @@ class AboutController extends Controller
             // Step 1: Translate
             $translations = $this->translateData($validatedData['title'], $validatedData['content']);
 
-            if (!is_array($translations) || empty($translations)) {
+            if (! is_array($translations) || empty($translations)) {
                 $translations = [
                     [
                         'lang' => 'en',
                         'title' => $validatedData['title'],
                         'content' => $validatedData['content'],
-                    ]
+                    ],
                 ];
             }
 
@@ -77,7 +80,7 @@ class AboutController extends Controller
             return Redirect::route('admin.about.index')->with('success', 'About page created successfully.');
 
         } catch (\Exception $e) {
-            Log::error('Gemini API Translation Failed: ' . $e->getMessage());
+            Log::error('Gemini API Translation Failed: '.$e->getMessage());
 
             return back()->with('error', 'Translation failed. Please try again.');
         }
@@ -90,7 +93,7 @@ class AboutController extends Controller
     {
         $apiKey = config('app.gemini_api_key');
 
-        if (!$apiKey) {
+        if (! $apiKey) {
             throw new \Exception('Gemini API key is not set');
         }
 
@@ -121,8 +124,8 @@ class AboutController extends Controller
 
         $response = Http::withoutVerifying()->post($apiUrl, $payload);
 
-        if (!$response->ok()) {
-            Log::error('Gemini API Error: ' . $response->body());
+        if (! $response->ok()) {
+            Log::error('Gemini API Error: '.$response->body());
 
             return null;
         }
@@ -130,8 +133,8 @@ class AboutController extends Controller
         $result = $response->json();
         $text = $result['candidates'][0]['content']['parts'][0]['text'] ?? null;
 
-        if (!$text) {
-            Log::error('Gemini Response Malformed: ' . $response->body());
+        if (! $text) {
+            Log::error('Gemini Response Malformed: '.$response->body());
 
             return null;
         }
@@ -139,8 +142,8 @@ class AboutController extends Controller
         $text = trim(str_replace(['```json', '```', "\n"], '', $text));
         $translatedArray = json_decode($text, true);
 
-        if (!is_array($translatedArray)) {
-            Log::warning('Gemini JSON Parse Failed, using fallback: ' . $text);
+        if (! is_array($translatedArray)) {
+            Log::warning('Gemini JSON Parse Failed, using fallback: '.$text);
 
             return null;
         }
@@ -188,8 +191,8 @@ class AboutController extends Controller
 
         if ($request->hasFile('picture')) {
             // Delete old image
-            if ($about->picture && file_exists(public_path('storage/' . $about->picture))) {
-                unlink(public_path('storage/' . $about->picture));
+            if ($about->picture && file_exists(public_path('storage/'.$about->picture))) {
+                unlink(public_path('storage/'.$about->picture));
             }
 
             // Store new image
@@ -214,8 +217,8 @@ class AboutController extends Controller
     public function destroy($id)
     {
         $about = About::findOrFail($id);
-        if ($about->picture && file_exists(public_path('storage/' . $about->picture))) {
-            unlink(public_path('storage/' . $about->picture));
+        if ($about->picture && file_exists(public_path('storage/'.$about->picture))) {
+            unlink(public_path('storage/'.$about->picture));
         }
 
         $about->delete();

@@ -13,7 +13,10 @@ class PrizePoolController extends Controller
      */
     public function index()
     {
-        $items = PrizePool::orderBy('id', 'DESC')->get();
+        $items = PrizePool::latest()
+             ->paginate(12)
+            ->withQueryString();
+
         return Inertia::render('Admin/PrizePool/index', [
             'items' => $items,
         ]);
@@ -33,8 +36,8 @@ class PrizePoolController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "name" => "required|string|max:255",
-            "image" => "required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048",
+            'name' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         $imagePath = null;
@@ -44,8 +47,8 @@ class PrizePoolController extends Controller
         }
 
         PrizePool::create([
-            "name" => $request->name,
-            "image" => $imagePath,
+            'name' => $request->name,
+            'image' => $imagePath,
         ]);
 
         return redirect()->route('admin.prize_pools.index')

@@ -115,19 +115,30 @@ export default function SingleQuest() {
     const [activeTab, setActiveTab] = useState('brief');
     const { t, direction, currentLanguage } = useLocales();
 
+
+    function formatDateForInput(date: Date | string) {
+        if (!date) return '';
+        return new Date(date).toISOString().split('T')[0];
+    }
+
+    console.log(quest)
     const handleJoinQuest = async (e) => {
+        e.preventDefault();
+
         setLoading(true);
 
         if (quest?.entry_coin <= auth?.user?.pixel) {
             if (typeof data?.image !== 'string') {
                 const isGenerated = await AIImageDetector(
                     data?.image,
-                    quest?.quest_type?.name,
+                    quest?.category?.description,
                 );
                 if (isGenerated) {
                     toast.error(
-                        'This image is AI-generated or not in the right category. Please upload a valid image.',
+                        `This image is invalid. ${quest?.category?.description}`,
                     );
+                    setLoading(false);
+                    setJoinModalOpen(false);
                     return;
                 }
             }
@@ -153,6 +164,7 @@ export default function SingleQuest() {
     };
 
     useEffect(() => {
+        console.log(data, "data?.image")
         const getMetaData = async () => {
             if (typeof data?.image !== 'string') {
                 const metadata = await extractImageMetadata(data?.image);
@@ -163,7 +175,7 @@ export default function SingleQuest() {
                 setData('aperture', metadata?.aperture || '');
                 setData('shutter_speed', metadata?.shutter_speed || '');
                 setData('iso', metadata?.iso || '');
-                setData('date_captured', metadata?.date_captured || '');
+                setData('date_captured', metadata?.date_captured ? formatDateForInput(metadata?.date_captured) : '');
             }
         };
         getMetaData();

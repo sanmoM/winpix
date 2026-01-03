@@ -14,6 +14,7 @@ export default function ImageInput({
     error,
     label,
     required,
+    imageClassName,
 }: {
     image: string | File | null;
     setImage: (image: string | File | null) => void;
@@ -24,6 +25,7 @@ export default function ImageInput({
     label?: string;
     required?: boolean;
     name?: string;
+    imageClassName?: string;
 }) {
     const inputId = useId(); // ✅ unique ID per component instance
 
@@ -106,7 +108,7 @@ export default function ImageInput({
                         <img
                             src={imgSrc}
                             alt="Selected"
-                            className="h-full w-full object-cover"
+                            className={cn("h-full w-full object-cover", imageClassName)}
                         />
                     )}
                 </label>

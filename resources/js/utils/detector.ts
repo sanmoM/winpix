@@ -209,8 +209,13 @@ export const AIImageDetector = async (imageFile: File, category: string): Promis
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
     // 4️⃣ Define prompt
+    // const prompt = `
+    //   you will receive an image. Check whether the content of the image matches the ${category} category; if it does not match, reply only with "True". If the image matches the category, analyze it to determine whether it is AI-generated and reply with only one word: "True" if the image is AI-generated or "False" if it is not. Do not provide explanations, extra text, or confidence levels. Your output must be exactly "True" or "False" only.
+    // `;
+
+
     const prompt = `
-      you will receive an image. Check whether the content of the image matches the ${category} category; if it does not match, reply only with "True". If the image matches the category, analyze it to determine whether it is AI-generated and reply with only one word: "True" if the image is AI-generated or "False" if it is not. Do not provide explanations, extra text, or confidence levels. Your output must be exactly "True" or "False" only.
+      you will receive an image. Check whether the content of the image matches this description ${category}; if it does not match, reply only with "True". If the image matches the category, analyze it to determine whether it is AI-generated and reply with only one word: "True" if the image is AI-generated or "False" if it is not. Do not provide explanations, extra text, or confidence levels. Your output must be exactly "True" or "False" only.
     `;
 
     // 5️⃣ Construct request payload

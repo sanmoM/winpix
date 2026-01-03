@@ -390,8 +390,6 @@ class FrontendController extends Controller
     public function joinQuest(Request $request, $id)
     {
         $user = auth()->user();
-
-        // return dd($request->all());
         try {
             $request->validate([
                 'quest_id' => 'required|integer|exists:quests,id',

@@ -12,9 +12,10 @@ export default function AddDetails({
 }: any) {
     const { t } = useLocales();
 
+
     return (
         <div>
-            <div className="grid grid-cols-1 gap-4 space-y-2 lg:grid-cols-2">
+            <form className="grid grid-cols-1 gap-4 space-y-2 lg:grid-cols-2" onSubmit={handleJoinQuest}>
                 <TextInput
                     label="Camera Brand"
                     placeholder="Enter your camera brand"
@@ -47,6 +48,8 @@ export default function AddDetails({
                         setCameraData({ ...cameraData, focal_length: val })
                     }
                     type='number'
+                    min={0}
+                    max={99.99}
                 />
                 <TextInput
                     label="Aperture (f/)"
@@ -56,6 +59,9 @@ export default function AddDetails({
                         setCameraData({ ...cameraData, aperture: val })
                     }
                     type='number'
+                    step={0.1}
+                    min={0.7}
+                    max={64}
                 />
                 <TextInput
                     label="Shutter Speed"
@@ -65,6 +71,9 @@ export default function AddDetails({
                         setCameraData({ ...cameraData, shutter_speed: val })
                     }
                     type='number'
+                    step={0.0001}
+                    min={0.0001}
+                    max={30}
                 />
                 <TextInput
                     label="ISO"
@@ -83,27 +92,28 @@ export default function AddDetails({
                     }
                     label="Date Captured"
                 />
-            </div>
-            {cameraData.camera_brand &&
-                cameraData.camera_model &&
-                cameraData.lens &&
-                cameraData.focal_length &&
-                cameraData.aperture &&
-                cameraData.shutter_speed &&
-                cameraData.iso &&
-                cameraData.date_captured && (
-                    <Button
-                        text={t(
-                            isJoined
-                                ? 'singleQuest.banner.addEntryText'
-                                : 'singleQuest.banner.joinNowText',
-                        )}
-                        onClick={handleJoinQuest}
-                        disabled={loading}
-                        loading={loading}
-                        className="mx-auto mt-4 px-6 text-lg lg:px-14"
-                    />
-                )}
+                {cameraData.camera_brand &&
+                    cameraData.camera_model &&
+                    cameraData.lens &&
+                    cameraData.focal_length &&
+                    cameraData.aperture &&
+                    cameraData.shutter_speed &&
+                    cameraData.iso &&
+                    cameraData.date_captured && (
+                        <Button
+                            type="submit"
+                            text={t(
+                                isJoined
+                                    ? 'singleQuest.banner.addEntryText'
+                                    : 'singleQuest.banner.joinNowText',
+                            )}
+                            // onClick={handleJoinQuest}
+                            disabled={loading}
+                            loading={loading}
+                            className="mx-auto mt-4 px-6 text-lg lg:px-14 col-span-2"
+                        />
+                    )}
+            </form>
         </div>
     );
 }

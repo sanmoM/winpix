@@ -152,7 +152,7 @@ export default function Dashboard() {
             <div className="px-4 py-6">
                 <form
                     onSubmit={handleSubmit}
-                    className="max-w-6xl space-y-6"
+                    className="max-w-4xl space-y-6"
                     encType="multipart/form-data"
                 >
                     <ImageInput
@@ -160,9 +160,10 @@ export default function Dashboard() {
                         required
                         image={data.image}
                         setImage={(value) => setData('image', value)}
-                        wrapperClassName="w-full aspect-[2/1]"
+                        wrapperClassName="w-1/2 aspect-[3/2]  !object-contain"
                         iconClassName="w-[20%]"
                         error={errors.image}
+                        imageClassName='object-contain'
                     />
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-6">

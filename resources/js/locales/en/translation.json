@@ -900,7 +900,7 @@
         "quest": {
             "inputs": {
                 "image": {
-                    "label": "Image"
+                    "label": "Image (Ratio: 3/2)"
                 },
                 "level_requirement": {
                     "label": "Level Requirement",
@@ -1083,7 +1083,7 @@
         "series": {
             "inputs": {
                 "image": {
-                    "label": "Image",
+                    "label": "Image (Ratio: 3/2)",
                     "placeholder": "Select an image"
                 },
                 "title": {

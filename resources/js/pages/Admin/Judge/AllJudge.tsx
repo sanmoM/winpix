@@ -118,8 +118,8 @@ export default function AllJudge({
                         <NoTableItems />
                     )}
                 </Table>
-            </TableContainer>
             <Pagination links={judges?.links} />
+            </TableContainer>
         </AppLayout>
     );
 }

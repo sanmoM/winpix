@@ -4,6 +4,7 @@ import { TbTrophyFilled } from 'react-icons/tb';
 import CardActions from './count-actions';
 
 export default function Card({ item, isSeries = false }: any) {
+    console.log(item?.quests, "iem")
     const { currentLanguage } = useLocales();
     return (
         <div className="group relative block w-full cursor-pointer overflow-hidden rounded-2xl">
@@ -44,19 +45,26 @@ export default function Card({ item, isSeries = false }: any) {
                             <span className="text-sm font-medium">
                                 {isSeries
                                     ? item?.quests?.reduce((acc, current) => {
-                                          acc += current?.entry_coin;
-                                          return acc;
-                                      }, 0)
+                                        //   acc += current?.entry_coin;
+                                        const total = current?.prizes?.reduce((acc, current) => {
+                                            if (current?.prize_pool?.name?.toLowerCase() === 'cash') {
+                                                acc += current?.coin;
+                                            }
+                                            return acc;
+                                        }, 0)
+                                        acc += total;
+                                        return acc;
+                                    }, 0)
                                     : item?.prizes?.reduce((acc, current) => {
-                                          // acc += current?.prize
-                                          if (
-                                              current?.prize_pool?.name?.toLowerCase() ===
-                                              'cash'
-                                          ) {
-                                              acc += current?.coin;
-                                          }
-                                          return acc;
-                                      }, 0)}{' '}
+                                        // acc += current?.prize
+                                        if (
+                                            current?.prize_pool?.name?.toLowerCase() ===
+                                            'cash'
+                                        ) {
+                                            acc += current?.coin;
+                                        }
+                                        return acc;
+                                    }, 0)}{' '}
                                 USD
                             </span>
                         </div>

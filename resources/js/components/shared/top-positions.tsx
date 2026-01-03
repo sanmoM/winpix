@@ -55,7 +55,7 @@ const podiumData = [
         medalColor: `text-black dark:text-white`,
         medalBorder: 'border-black dark:border-white',
         medalPos: '-top-7 -left-7',
-        avatarSize: 'w-32 h-32',
+        avatarSize: 'w-24 h-24',
         medalSize: 'w-16 h-16',
         medalText: 'text-3xl',
         cardPadding: 'p-8',
@@ -101,13 +101,8 @@ export default function TopPositions({ topPositions }) {
                                     <img
                                         src={user?.image ? "/storage/" + user?.image : podiumData[index].avatar}
                                         alt={`Rank ${user.rank} User`}
-                                        className={`${user.avatarSize} rounded-full mx-auto ${user.avatarMargin} border-4 border-white shadow-lg`}
+                                        className={`${user.avatarSize} rounded-full mx-auto ${user.avatarMargin} border-4 border-white shadow-lg  aspect-square object-cover w-20 h-20 ${index === 1 && 'w-32 h-32'}`}
                                     />
-
-                                    {/* Medal */}
-                                    {/* <div className={`absolute ${user.medalPos} ${user.medalSize} ${user.medalBg} rounded-full flex items-center justify-center ${user.medalText} font-bold ${user.medalColor} shadow-inner border-2 ${user.medalBorder}`}>
-                                {user.rank}
-                            </div> */}
 
                                     {/* User Info */}
                                     <h3 className={`text-xl !text-center font-semibold mt-4 ${user.rank === 1 ? 'text-2xl text-yellow-600' : ''}`}>

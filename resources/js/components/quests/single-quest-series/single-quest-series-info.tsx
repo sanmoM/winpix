@@ -25,6 +25,7 @@ const MetricItem: React.FC<MetricItemProps> = ({
     </div>
 );
 const SingleQuestSeriesInfo: React.FC = ({ t, series, currentLanguage, }) => {
+    console.log(series)
     return (
         <div className="w-full flex flex-col overflow-hidden">
             {/* <CustomSlider mobileView={1} tabletView={1} desktopView={1}>
@@ -54,7 +55,16 @@ const SingleQuestSeriesInfo: React.FC = ({ t, series, currentLanguage, }) => {
                 <div className="grid grid-cols-3 gap-6 items-center space-x-4  p-4 md:p-6 lg:p-8 rounded-lg bg-bg-primary">
                     <MetricItem
                         icon={<FaTrophy />}
-                        value={`${series?.total_coins} USD`}
+                        value={`${series?.quests?.reduce((acc, current) => {
+                            const total = current?.prizes?.reduce((acc, current) => {
+                                if (current?.prize_pool?.name?.toLowerCase() === 'cash') {
+                                    acc += current?.coin;
+                                }
+                                return acc;
+                            }, 0)
+                            acc += total;
+                            return acc;
+                        }, 0)} USD`}
                         label={t("singleQuestSeries.stats.prizeLabel")}
                         bgColor="bg-orange-100"
                     />

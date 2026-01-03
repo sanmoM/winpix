@@ -15,7 +15,7 @@ Route::get('/quests/single-quest/{id}', [FrontendController::class, 'singleQuest
 Route::get('/quests/quest-series', [FrontendController::class, 'questSeries'])->name('quest-series')->middleware('auth');
 Route::get('/quests/single-quest-series/{id}', [FrontendController::class, 'singleQuestSeries'])->name('single-quest-series')->middleware('auth');
 Route::get('/quests/entered-quests', [FrontendController::class, 'enteredQuests'])->name('entered-quests')->middleware('auth');
-Route::get('/quests/ended-quests', [FrontendController::class, 'endedQuests'])->name('ended-quests')->middleware('auth');
+Route::get('/quests/ended-quests/{userId}', [FrontendController::class, 'endedQuests'])->name('ended-quests')->middleware('auth');
 Route::get('/profile/{id}', [FrontendController::class, 'profile'])->name('profile')->middleware('auth');
 Route::get('/all-help-categories', [FrontendController::class, 'allHelpCategories'])->name('all-help-categories');
 Route::get('/single-category-helps/{section}', [FrontendController::class, 'singleCategoryHelps'])->name('single-category-helps');

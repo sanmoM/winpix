@@ -86,7 +86,7 @@ const StoreItem: React.FC<StoreItemProps> = ({
                         <p className="text-xl md:text-2xl font-extrabold text-gray-900 dark:text-white mb-1 sm:mb-2">
                             x{quantity}
                         </p>
-                        <p>Price: {price}</p>
+                        <p>Price: $ {price}</p>
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-6">

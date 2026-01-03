@@ -95,7 +95,7 @@ export default function EditSeries({ series, flash }: EditProps) {
 
             <form
                 onSubmit={handleSubmit}
-                className="max-w-6xl space-y-6 p-6"
+                className="max-w-4xl space-y-6 p-6"
                 encType="multipart/form-data"
             >
                 {/* IMAGE UPLOAD */}
@@ -109,7 +109,7 @@ export default function EditSeries({ series, flash }: EditProps) {
                                     : null
                         }
                         setImage={(value) => setData('image', value)}
-                        wrapperClassName="w-full aspect-[2/1]"
+                        wrapperClassName="w-1/2 aspect-[3/2]"
                         iconClassName="w-[20%]"
                         error={errors.image}
                         label={t('dashboard.series.inputs.image.label')}

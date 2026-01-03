@@ -274,7 +274,7 @@ export default function EditQuest() {
                                 : data.image
                         }
                         setImage={(value) => setData('image', value)}
-                        wrapperClassName="w-full aspect-[2/1]"
+                        wrapperClassName="w-1/2 aspect-[3/2]"
                         iconClassName="w-[20%]"
                     />
 

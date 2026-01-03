@@ -247,7 +247,7 @@ export default function EditQuest() {
         router.post(route('user-dashboard.quest.update', data.id), formData, {
             forceFormData: true,
             preserveScroll: true,
-            onSuccess: () => {},
+            onSuccess: () => { },
             onError: (errors) => {
                 console.error('Validation errors:', errors);
             },
@@ -274,8 +274,9 @@ export default function EditQuest() {
                                 : data.image
                         }
                         setImage={(value) => setData('image', value)}
-                        wrapperClassName="w-1/2 aspect-[3/2]"
+                        wrapperClassName="w-1/2 aspect-[3/2]  !object-contain"
                         iconClassName="w-[20%]"
+                        imageClassName='object-contain'
                     />
 
                     {/* Title */}
@@ -657,9 +658,9 @@ export default function EditQuest() {
                                             const currentLead = data.lead_judge;
                                             const newLead =
                                                 currentLead &&
-                                                newJudges.includes(
-                                                    Number(currentLead),
-                                                )
+                                                    newJudges.includes(
+                                                        Number(currentLead),
+                                                    )
                                                     ? currentLead
                                                     : '';
 

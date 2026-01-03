@@ -88,7 +88,8 @@ export default function CreateSeries({ flash }: Props) {
                     <ImageInput
                         image={data.image}
                         setImage={(value) => setData('image', value)}
-                        wrapperClassName="w-1/2 aspect-[3/2]"
+                        wrapperClassName="w-1/2 aspect-[3/2] !object-contain"
+                        imageClassName='object-contain'
                         iconClassName="w-[20%]"
                         error={errors.image}
                         label={t('dashboard.series.inputs.image.label')}

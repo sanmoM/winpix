@@ -160,9 +160,10 @@ export default function Dashboard() {
                         required
                         image={data.image}
                         setImage={(value) => setData('image', value)}
-                        wrapperClassName="w-1/2 aspect-[3/2]"
+                        wrapperClassName="w-1/2 aspect-[3/2]  !object-contain"
                         iconClassName="w-[20%]"
                         error={errors.image}
+                        imageClassName='object-contain'
                     />
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-6">

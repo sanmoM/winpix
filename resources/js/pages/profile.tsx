@@ -8,6 +8,7 @@ import SectionHeading from '@/components/shared/SectionHeading'
 import useLocales from '@/hooks/useLocales'
 import UserLayout from '@/layouts/user-layout'
 import { router, type PageProps as InertiaPageProps } from '@inertiajs/core'
+import { Link } from '@inertiajs/react'
 import { useState } from 'react'
 import { FaTrophy } from 'react-icons/fa'
 import { RiFolderUploadFill } from 'react-icons/ri'
@@ -56,7 +57,9 @@ export default function Profile({ user, stats, isFollowing }: any) {
             <CoinCard item={{ src: "/images/cash.png", count: user.cash }} />
           </div>
           <div className='flex gap-4 mt-4'>
-            <StatsCard item={{ icon: <FaTrophy className='w-6 h-6 lg:w-8 lg:h-8 text-white' />, label: user.joined_quests?.length }} />
+            <Link href={route("ended-quests", user.id)} className='block w-full'>
+              <StatsCard item={{ icon: <FaTrophy className='w-6 h-6 lg:w-8 lg:h-8 text-white' />, label: user.joined_quests?.length }} />
+            </Link>
             <StatsCard item={{ icon: <RiFolderUploadFill className='w-6 h-6 lg:w-8 lg:h-8 text-white' />, label: user?.votes_cast }} />
           </div>
         </Container>

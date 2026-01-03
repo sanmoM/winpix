@@ -9,9 +9,10 @@ import SectionHeading from '@/components/shared/SectionHeading';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { FaTrophy } from 'react-icons/fa';
 import { RiFolderUploadFill } from 'react-icons/ri';
+import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -107,14 +108,16 @@ export default function ViewUser() {
                         />
                     </div>
                     <div className="mt-4 flex gap-4">
-                        <StatsCard
-                            item={{
-                                icon: (
-                                    <FaTrophy className="h-6 w-6 text-white lg:h-8 lg:w-8" />
-                                ),
-                                label: user.joined_quests?.length,
-                            }}
-                        />
+                        <Link href={route("ended-quests", user.id)} className='block w-full'>
+                            <StatsCard
+                                item={{
+                                    icon: (
+                                        <FaTrophy className="h-6 w-6 text-white lg:h-8 lg:w-8" />
+                                    ),
+                                    label: user.joined_quests?.length,
+                                }}
+                            />
+                        </Link>
                         <StatsCard
                             item={{
                                 icon: (

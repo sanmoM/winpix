@@ -44,7 +44,7 @@ export default function Navbar() {
         { name: t("root.navbar.navLinks.quests.submenu.activeQuests"), href: "/quests/active-quests" },
         { name: t("root.navbar.navLinks.quests.submenu.questSeries"), href: "/quests/quest-series" },
         { name: t("root.navbar.navLinks.quests.submenu.enteredQuests"), href: "/quests/entered-quests" },
-        { name: t("root.navbar.navLinks.quests.submenu.endedQuests"), href: "/quests/ended-quests" },
+        { name: t("root.navbar.navLinks.quests.submenu.endedQuests"), href: `/quests/ended-quests/${user?.id}` },
       ],
     },
     { name: t("root.navbar.navLinks.store"), href: "/store" },

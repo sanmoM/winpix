@@ -199,7 +199,7 @@
     },
     "endedQuests": {
         "tab": {
-            "myQuests": "My Contests",
+            "myQuests": "Running Contests",
             "ended": "Ended contests",
             "inactive": "Inactive series"
         }
@@ -1813,7 +1813,6 @@
                     }
                 }
             }
-            
         }
     }
 }

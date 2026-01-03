@@ -280,24 +280,27 @@ class FrontendController extends Controller
         ]);
     }
 
-    public function endedQuests()
+    public function endedQuests($userId)
     {
-        $user = auth()->user();
-        $userId = $user->id;
-        $myQuests = Quest::with(['category', 'user'])
+        $runningQuests = Quest::with(['category', 'user', 'prizes.prize_pool'])
             ->where('user_id', $userId)
-            ->where('end_date', '<', Carbon::now())
+            ->where('status', '!=', 'Closed') // fetch quests NOT Closed
             ->orderBy('created_at', 'desc')
             ->get();
-        $recentlyEnded = $recentlyEnded = Quest::with(['category', 'user'])
-            ->whereDate('end_date', Carbon::yesterday())
-            ->orderBy('end_date', 'desc')
+        $endedQuests = Quest::with(['category', 'user', "prizes.prize_pool"])
+            ->where('user_id', $userId)
+            ->where('status', 'Closed')
+            ->orderBy('created_at', 'desc')
             ->get();
+        // $recentlyEnded = $recentlyEnded = Quest::with(['category', 'user'])
+        //     ->whereDate('end_date', Carbon::yesterday())
+        //     ->orderBy('end_date', 'desc')
+        //     ->get();
         $inactiveSeries = Series::with('quests.user', 'quests.category', 'user')->where('status', 'inactive')->get();
 
         return Inertia::render('quests/ended-quests', [
-            'myQuests' => $myQuests,
-            'recentlyEnded' => $recentlyEnded,
+            'runningQuests' => $runningQuests,
+            'endedQuests' => $endedQuests,
             'inactiveSeries' => $inactiveSeries,
         ]);
     }

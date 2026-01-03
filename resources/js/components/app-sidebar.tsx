@@ -92,7 +92,7 @@ export function AppSidebar() {
             <SidebarFooter>
                 <NavUser />
                 <Link
-                    className="w-full flex items-center text-sm font-semibold text-white justify-center rounded-lg bg-red-500 py-2 px-4"
+                    className="w-full flex items-center text-sm font-semibold cursor-pointer text-white justify-center rounded-lg bg-red-500 py-2 px-4"
                     href={logout()}
                     as="button"
                     onClick={handleLogout}

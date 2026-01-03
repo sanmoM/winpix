@@ -20,7 +20,7 @@ class RoleMiddleware
             if ($request->inertia()) {
 
                 if (Auth::user()->role === 'user' || Auth::user()->role === 'jury') {
-                    return redirect()->route('dashboard');
+                    return redirect()->route('home');
                 } elseif (Auth::user()->role === 'admin') {
                     return redirect()->route('admin.dashboard');
                 } else {

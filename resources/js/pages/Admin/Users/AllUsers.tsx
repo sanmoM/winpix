@@ -1,3 +1,4 @@
+import ChangePasswordButton from '@/components/shared/table/components/change-password-button';
 import DeleteButton from '@/components/shared/table/components/delete-button';
 import EditButton from '@/components/shared/table/components/edit-button';
 import NoTableItems from '@/components/shared/table/components/no-table-items';
@@ -28,12 +29,11 @@ interface FlashProps {
     error?: string;
 }
 
-    interface PaginationLink {
+interface PaginationLink {
     url: string | null;
     label: string;
     active: boolean;
 }
-
 
 export default function UsersIndex({
     users,
@@ -95,6 +95,13 @@ export default function UsersIndex({
                                     <ViewButton
                                         route={route(
                                             'admin.view-user',
+                                            user.id,
+                                        )}
+                                    />
+
+                                    <ChangePasswordButton
+                                        route={route(
+                                            'admin.ChangePasswordUsers',
                                             user.id,
                                         )}
                                     />

@@ -11,10 +11,11 @@ import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { FaTrophy } from 'react-icons/fa';
 import { RiFolderUploadFill } from 'react-icons/ri';
+import { route } from 'ziggy-js';
 
 export default function Dashboard({ stats }: { stats: any }) {
     // const user = usePage().props.auth.user;
@@ -92,14 +93,16 @@ export default function Dashboard({ stats }: { stats: any }) {
                         />
                     </div>
                     <div className="mt-4 flex gap-4">
-                        <StatsCard
-                            item={{
-                                icon: (
-                                    <FaTrophy className="h-6 w-6 text-white lg:h-8 lg:w-8" />
-                                ),
-                                label: user.joined_quests?.length,
-                            }}
-                        />
+                        <Link className='block w-full' href={route("ended-quests", user.id)}>
+                            <StatsCard
+                                item={{
+                                    icon: (
+                                        <FaTrophy className="h-6 w-6 text-white lg:h-8 lg:w-8" />
+                                    ),
+                                    label: user.joined_quests?.length,
+                                }}
+                            />
+                        </Link>
                         <StatsCard
                             item={{
                                 icon: (

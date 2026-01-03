@@ -7,7 +7,7 @@ export default function NoData({ text, containerClassName }: { text: string, con
             <img
                 src="/images/empty-data.png"
                 alt="No order items"
-                className="w-1/2"
+                className="w-[20%]"
                 width={320}
                 height={320}
             />

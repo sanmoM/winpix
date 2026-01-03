@@ -282,15 +282,35 @@ class FrontendController extends Controller
 
     public function endedQuests($userId)
     {
-        $runningQuests = Quest::with(['category', 'user', 'prizes.prize_pool'])
+        // $runningQuests = QuestJoin::with(["quest", 'quest.category', 'user', 'quest.prizes.prize_pool'])
+        //     ->where('user_id', $userId)->get();
+        // ->where('quest.status', '!=', 'Closed') // fetch quests NOT Closed
+        // ->orderBy('quest.created_at', 'desc')
+        // ->get();
+        $runningQuests = QuestJoin::with([
+            'quest',
+            'quest.category',
+            'quest.prizes.prize_pool',
+            'user'
+        ])
             ->where('user_id', $userId)
-            ->where('status', '!=', 'Closed') // fetch quests NOT Closed
-            ->orderBy('created_at', 'desc')
+            ->whereHas('quest', function ($query) {
+                $query->where('status', '!=', 'Closed'); // directly check for non-closed quests
+            })
             ->get();
-        $endedQuests = Quest::with(['category', 'user', "prizes.prize_pool"])
+
+        // dd($runningQuests);
+        // return response()->json($runningQuests);
+        $endedQuests = QuestJoin::with([
+            'quest',
+            'quest.category',
+            'quest.prizes.prize_pool',
+            'user'
+        ])
             ->where('user_id', $userId)
-            ->where('status', 'Closed')
-            ->orderBy('created_at', 'desc')
+            ->whereHas('quest', function ($query) {
+                $query->where('status', 'Closed'); // directly check for non-closed quests
+            })
             ->get();
         // $recentlyEnded = $recentlyEnded = Quest::with(['category', 'user'])
         //     ->whereDate('end_date', Carbon::yesterday())

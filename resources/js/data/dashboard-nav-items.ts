@@ -30,11 +30,6 @@ export const userNavItemsEN: NavItem[] = [
                 href: route('transaction'),
                 icon: LayoutGrid,
             },
-            // {
-            //   title: 'Create Contest',
-            //   href: route('user-dashboard.quest.index'),
-            //   icon: LayoutGrid,
-            // },
             {
                 title: 'About Us',
                 href: route('about-us'),
@@ -59,16 +54,6 @@ export const userNavItemsAR: NavItem[] = [
                 href: route('dashboard'),
                 icon: LayoutGrid,
             },
-            // {
-            //   title: 'الصفحة الرئيسية',
-            //   href: route('home'),
-            //   icon: LayoutGrid,
-            // },
-            // {
-            //   title: 'إنشاء مهمة',
-            //   href: route('user-dashboard.quest.index'),
-            //   icon: LayoutGrid,
-            // },
             {
                 title: 'معلومات عنا',
                 href: route('about-us'),

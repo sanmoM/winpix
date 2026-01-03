@@ -129,7 +129,7 @@ export default function Edit({ slider, flash }: EditProps) {
                     value={data?.status}
                     options={t('dashboard.slider.inputs.status.options', { returnObjects: true }) as any}
                     onChange={(value) => setData('status', value)}
-                    className="max-w-auto w-full"
+                    // className="max-w-auto w-full"
                 />
 
 

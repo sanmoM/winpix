@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\QuestImage;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -22,9 +26,10 @@ class UserController extends Controller
 
     public function EditUsers($id)
     {
-        $user = User::select('id', 'name', 'email', 'status')->find($id);
+        $user = User::find($id);
+        $countries = Country::all();
 
-        return Inertia::render('Admin/Users/Edit', ['user' => $user]);
+        return Inertia::render('Admin/Users/Edit', ['user' => $user, 'countries' => $countries]);
     }
 
     public function updateUsers(Request $request, string $id)
@@ -32,8 +37,20 @@ class UserController extends Controller
         $item = User::findOrFail($id);
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'status' => 'required',
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($item->id),
+            ],
+            'number' => 'nullable|string|max:50',
+            'coin' => 'nullable|numeric|min:0',
+            'pixel' => 'nullable|numeric|min:0',
+            'cash' => 'nullable|numeric|min:0',
+            'country_id' => 'nullable|string',
+            'status' => 'required|string',
         ]);
 
         $item->update($validated);
@@ -42,6 +59,30 @@ class UserController extends Controller
             ->route('admin.allUsers')
             ->with('success', 'User updated successfully 🎉');
 
+    }
+
+    public function ChangePasswordUsers($id)
+    {
+        $user = User::select('id', 'password')->find($id);
+
+        return Inertia::render('Admin/Users/ChangePassword', ['user' => $user]);
+    }
+
+    public function PasswordUpdate(Request $request, string $id)
+    {
+        $item = User::findOrFail($id);
+
+        $validated = $request->validate([
+            'password' => ['required', 'confirmed', Password::defaults()],
+        ]);
+
+        $item->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect()
+            ->route('admin.allUsers')
+            ->with('success', 'Password updated successfully 🎉');
     }
 
     public function show($id)

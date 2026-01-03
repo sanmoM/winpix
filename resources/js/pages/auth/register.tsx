@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
 
-export default function Register() {
+export default function Register({ countries }: { countries: any[] }) {
     return (
         <AuthLayout title="Create an account">
             <Head title="Register" />
@@ -54,6 +54,43 @@ export default function Register() {
                                 />
                                 <InputError message={errors.email} />
                             </div>
+                            {/* Number */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="number">Number</Label>
+                                <Input
+                                    id="number"
+                                    type="number"
+                                    required
+                                    name="number"
+                                    placeholder="Enter your number"
+                                />
+                                <InputError message={errors.number} />
+                            </div>
+
+                            {/* Country */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="county_id">Country</Label>
+                                <select
+                                    id="country_id"
+                                    name="country_id"
+                                    required
+                                    className="rounded border px-3 py-2"
+                                >
+                                    <option value="">
+                                        Select your country
+                                    </option>
+                                    {countries?.map((country: any) => (
+                                        <option
+                                            key={country.country_name}
+                                            value={country.country_name}
+                                        >
+                                            {country.country_name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <InputError message={errors.country} />
+                            </div>
+
                             <div className="grid gap-2">
                                 <Label htmlFor="password">Password</Label>
                                 <Input

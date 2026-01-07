@@ -25,7 +25,6 @@ const MetricItem: React.FC<MetricItemProps> = ({
     </div>
 );
 const SingleQuestSeriesInfo: React.FC = ({ t, series, currentLanguage, }) => {
-    console.log(series)
     return (
         <div className="w-full flex flex-col overflow-hidden">
             {/* <CustomSlider mobileView={1} tabletView={1} desktopView={1}>

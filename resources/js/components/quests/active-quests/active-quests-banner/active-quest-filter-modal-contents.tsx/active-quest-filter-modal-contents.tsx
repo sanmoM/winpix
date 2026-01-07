@@ -78,7 +78,6 @@ export default function ActiveQuestFilterModalContents({ handleFilter, filter, s
         setState(prev => ({ ...prev, [key]: !prev[key] }));
     };
 
-    console.log(filter, entryFeeOptions)
 
     return (
         <>

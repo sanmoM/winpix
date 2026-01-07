@@ -121,7 +121,6 @@ export default function SingleQuest() {
         return new Date(date).toISOString().split('T')[0];
     }
 
-    console.log(quest)
     const handleJoinQuest = async (e) => {
         e.preventDefault();
 
@@ -164,7 +163,6 @@ export default function SingleQuest() {
     };
 
     useEffect(() => {
-        console.log(data, "data?.image")
         const getMetaData = async () => {
             if (typeof data?.image !== 'string') {
                 const metadata = await extractImageMetadata(data?.image);

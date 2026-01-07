@@ -19,7 +19,6 @@ export default function RedeemModal({ image, quantity, type, onClose, vCoin, pri
         }, 1000)
     }
     const handleConfirm = () => {
-        console.log("first")
         if (type === "app_prize") {
             post(route('add-pixel'), {
                 onSuccess: handleOnSuccess

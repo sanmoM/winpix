@@ -4,7 +4,6 @@ import { TbTrophyFilled } from 'react-icons/tb';
 import CardActions from './count-actions';
 
 export default function Card({ item, isSeries = false }: any) {
-    console.log(item?.quests, "iem")
     const { currentLanguage } = useLocales();
     return (
         <div className="group relative block w-full cursor-pointer overflow-hidden rounded-2xl">

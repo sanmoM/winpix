@@ -15,8 +15,7 @@ class QuestFilter
     public static function init()
     {
         self::$query = Quest::query()
-            ->with(['category', 'user', 'quest_type', 'questSeries']);
-
+            ->with(['category', 'user', 'quest_type', 'questSeries', 'images.user', 'prizes', 'prizes.prize_pool'])->where('status', '!=', 'Closed');
         return new static;
     }
 

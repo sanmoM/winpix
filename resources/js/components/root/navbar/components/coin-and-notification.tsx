@@ -61,7 +61,7 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
                 </button>
                 <div className={cn("absolute rounded-lg border top-[110%] lg:top-[200%] bg-bg-primary h-[300px] w-[calc(100vw-32px)] md:w-[350px]", notifyOpen ? "block" : "hidden", direction === "right" ? "left-0" : "right-0")} ref={menuRef}>
                     <div>
-                        <SecondarySectionHeading className="border-b pb-4 !text-center mt-4 mb-0 md:mb-0 lg:mb-0" title={t('root.navbar.notifications.title')} />
+                        <SecondarySectionHeading className="border-b pb-4 !text-center mt-4 mb-0 md:mb-0 lg:mb-0  text-black dark:text-white" title={t('root.navbar.notifications.title')} />
                         <div className="w-full max-w-sm">
                             {/* Flex container for icon and text */}
                             <div className="flex items-center space-x-4 p-4 border-b last:border-0 cursor-pointer">
@@ -76,7 +76,7 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
 
                                 {/* Text Content */}
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-base truncate">
+                                    <p className="text-base truncate text-black dark:text-white">
                                         Join <span className="font-bold text-primary-color">"Change Your View"</span> now!
                                     </p>
                                     <p className="text-sm text-gray-500 mt-1">
@@ -88,7 +88,6 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }

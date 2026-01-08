@@ -31,7 +31,6 @@ export default function Index({
     images: ContestItem[];
     flash: FlashProps;
 }) {
-    console.log(items);
     const { t } = useLocales();
 
     const breadcrumbs = t(

@@ -1,98 +1,7 @@
-// import toast from 'react-hot-toast';
-
-// const fileToBase64 = (file) => {
-//     return new Promise((resolve, reject) => {
-//         const reader = new FileReader();
-//         reader.readAsDataURL(file);
-//         reader.onload = () => {
-//             // The result includes the mime type prefix, so we split it off
-//             const base64Data = reader.result.split(',')[1];
-//             resolve(base64Data);
-//         };
-//         reader.onerror = (error) => reject(error);
-//     });
-// };
-
-// export const AIImageDetector = async (imageFile) => {
-//     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-//     if (!imageFile) {
-//         toast.error('Please upload an image first.');
-//         return;
-//     }
-
-//     try {
-//         // 1. Convert the image to base64
-//         const base64Data = await fileToBase64(imageFile);
-//         const mimeType = imageFile.type;
-
-//         // 2. Set up the API call
-//         // DO NOT add your API key here. The environment will provide it.
-//         const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-//         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-
-//         // 3. Define the prompt for the model
-//         const prompt = `
-//         Analyze the provided image to determine if it is AI-generated.
-//         Respond with only one word: "True" if it is AI-generated, or "False" if it is not.
-//         Do not provide any explanation, just the single word "True" or "False".
-//       `;
-
-//         // 4. Construct the request payload
-//         const payload = {
-//             contents: [
-//                 {
-//                     role: 'user',
-//                     parts: [
-//                         { text: prompt },
-//                         {
-//                             inlineData: {
-//                                 mimeType: mimeType,
-//                                 data: base64Data,
-//                             },
-//                         },
-//                     ],
-//                 },
-//             ],
-//         };
-
-//         // 5. Make the API call
-//         const response = await fetch(apiUrl, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(payload),
-//         });
-
-//         if (!response.ok) {
-//             const errorData = await response.json();
-//             throw new Error(
-//                 errorData.error?.message || 'An unknown error occurred.',
-//             );
-//         }
-
-//         const result = await response.json();
-
-//         // 6. Process the response
-//         const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-//         if (text) {
-//             // We'll trim any whitespace just in case
-//             return true;
-//         } else {
-//             throw new Error('No valid analysis found in the API response.');
-//         }
-//     } catch (err) {
-//         console.error(err);
-//         toast.error(`Failed to analyze image: ${err.message}`);
-//     }
-// };
-
 import * as exifr from 'exifr';
 import toast from 'react-hot-toast';
 
-/**
- * Convert File object to Base64 string
- */
+
 const fileToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -105,11 +14,8 @@ const fileToBase64 = (file: File): Promise<string> => {
   });
 };
 
-/**
- * Check if image is SVG or edited/AI-generated based on Exif
- */
+
 const isBlockedImage = async (file: File): Promise<boolean> => {
-  // Reject SVG
   if (file.type === 'image/svg+xml') {
     toast.error('SVG files are not allowed.');
     return true;
@@ -159,7 +65,8 @@ export async function extractImageMetadata(image) {
         "FNumber",
         "ExposureTime",
         "ISO",
-        "DateTimeOriginal"
+        "DateTimeOriginal",
+        "software",
       ]
     });
 
@@ -187,47 +94,52 @@ export async function extractImageMetadata(image) {
  * Main AI Image Detector
  * Returns true if AI-generated, false otherwise
  */
-export const AIImageDetector = async (imageFile: File, category: string): Promise<boolean | undefined> => {
-  // if (!imageFile) {
-  //   toast.error('Please upload an image first.');
-  //   return true;
-  // }
-
-
-  // // 1️⃣ Check if file is blocked
-  // const blocked = await isBlockedImage(imageFile);
-  // // console.log(blocked)
-  // if (blocked) return true;
-
+export const AIImageDetector = async (
+  imageFile: File,
+  category: string
+): Promise<boolean | undefined> => {
   try {
-    // 2️⃣ Convert to Base64
+    // 1️⃣ Convert image to Base64
     const base64Data = await fileToBase64(imageFile);
     const mimeType = imageFile.type;
 
-    // 3️⃣ Gemini API key and endpoint
+    // 2️⃣ Gemini API config
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-    // 4️⃣ Define prompt
-    // const prompt = `
-    //   you will receive an image. Check whether the content of the image matches the ${category} category; if it does not match, reply only with "True". If the image matches the category, analyze it to determine whether it is AI-generated and reply with only one word: "True" if the image is AI-generated or "False" if it is not. Do not provide explanations, extra text, or confidence levels. Your output must be exactly "True" or "False" only.
-    // `;
-
-
+    // 3️⃣ Clear, unambiguous prompt
     const prompt = `
-      you will receive an image. Check whether the content of the image matches this description ${category}; if it does not match, reply only with "True". If the image matches the category, analyze it to determine whether it is AI-generated and reply with only one word: "True" if the image is AI-generated or "False" if it is not. Do not provide explanations, extra text, or confidence levels. Your output must be exactly "True" or "False" only.
-    `;
+You will receive an image.
 
-    // 5️⃣ Construct request payload
+Step 1:
+Determine whether the image matches this category:
+"${category}"
+
+If the image does NOT match the category, reply exactly:
+MISMATCH
+
+Step 2:
+If the image DOES match the category, determine whether it is AI-generated.
+
+Reply with exactly ONE word:
+AI     → image is AI-generated
+REAL   → image is a real photograph
+
+Do not provide explanations, extra text, or formatting.
+Your output must be exactly one of:
+MISMATCH, AI, REAL
+`;
+
+    // 4️⃣ Request payload
     const payload = {
       contents: [
         {
-          role: 'user',
+          role: "user",
           parts: [
             { text: prompt },
             {
               inlineData: {
-                mimeType: mimeType,
+                mimeType,
                 data: base64Data,
               },
             },
@@ -236,27 +148,39 @@ export const AIImageDetector = async (imageFile: File, category: string): Promis
       ],
     };
 
-    // 6️⃣ Call Gemini API
+    // 5️⃣ API call
     const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.error?.message || 'Unknown error from API.');
+      throw new Error(errorData.error?.message || "Gemini API error");
     }
 
     const result = await response.json();
-    const text = result.candidates?.[0]?.content?.parts?.[0]?.text?.trim().toLowerCase();
+    const text =
+      result?.candidates?.[0]?.content?.parts?.[0]?.text
+        ?.trim()
+        ?.toUpperCase();
 
-    if (text === 'true') return true;
-    if (text === 'false') return false;
 
-    throw new Error('Unexpected API response.');
+    // 6️⃣ Deterministic output handling
+    // if (text === "AI") return true;
+    // if (text === "MISMATCH") return undefined;
+    if (text === "REAL") {
+      return false
+    } else {
+      return true
+    }
+
+    // throw new Error("Unexpected Gemini response");
   } catch (err: any) {
-    console.error(err);
+    console.error("AIImageDetector error:", err);
     toast.error(`Failed to analyze image: ${err.message}`);
+    return undefined;
   }
 };
+

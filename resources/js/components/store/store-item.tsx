@@ -44,7 +44,6 @@ const StoreItem: React.FC<StoreItemProps> = ({
 
         // });
         axios.post(route('paypal.pay'), fromData).then((response) => {
-            console.log(response);
             if (response.data.paypal_redirect) {
                 window.location.href = response.data.paypal_redirect;
                 setIsOpen(false);

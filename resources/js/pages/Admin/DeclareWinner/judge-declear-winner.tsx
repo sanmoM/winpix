@@ -255,7 +255,6 @@ export default function Index({
     flash: FlashProps;
 }) {
 
-    console.log(items)
     const { t } = useLocales();
 
     const breadcrumbs = t(

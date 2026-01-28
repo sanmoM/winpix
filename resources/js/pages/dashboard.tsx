@@ -30,6 +30,8 @@ export default function Dashboard({ stats }: { stats: any }) {
         },
     ];
 
+    console.log(stats)
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head />
@@ -147,12 +149,12 @@ export default function Dashboard({ stats }: { stats: any }) {
                             <Gallery
                                 galleryImages={stats?.questImages?.map(
                                     (item) => ({
-                                        id: item?.image?.id,
+                                        id: item?.id,
                                         image: item?.image,
                                         user,
                                     }),
                                 )}
-                                hasImageView={false}
+                                hasImageView={true}
                             />
                         ) : (
                             <NoData text="No photos uploaded yet" />
@@ -162,12 +164,12 @@ export default function Dashboard({ stats }: { stats: any }) {
                             <Gallery
                                 galleryImages={stats?.likedImages?.map(
                                     (item) => ({
-                                        id: item?.image?.id,
+                                        id: item?.id,
                                         image: item?.image?.image,
                                         user,
                                     }),
                                 )}
-                                hasImageView={false}
+                                hasImageView={true}
                             />
                         ) : (
                             <NoData text="No liked photos yet" />

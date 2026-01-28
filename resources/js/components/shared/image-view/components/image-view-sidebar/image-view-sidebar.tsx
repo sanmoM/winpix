@@ -16,7 +16,7 @@ const ImageViewSidebar = ({ data }: any) => {
             setImageHistory(resData)
         };
         fetchData();
-    }, []);
+    }, [data]);
 
 
     const positions = {}
@@ -81,23 +81,6 @@ const ImageViewSidebar = ({ data }: any) => {
                                                     {
                                                         imageHistory?.active_quest?.map((item: any) => (
                                                             <Link href={`/quests/single-quest/${item?.id}`} key={item?.id} className="block ">
-                                                                {/* <div className=" flex justify-center items-center overflow-hidden h-[20vh]">
-                                                                    <img
-                                                                        key={item?.id}
-                                                                        src={`/storage/${item?.image}`}
-                                                                        alt="Old Crane in Gdansk at Night"
-                                                                        className="w-full rounded-lg h-full object-cover absolute inset-0"
-                                                                        onError={(e) => {
-                                                                            // Fallback in case the image path is incorrect
-                                                                            (e.target as HTMLImageElement).src =
-                                                                                'https://placehold.co/1600x900/000000/333333?text=image_05841a.jpg';
-                                                                        }}
-                                                                    />
-                                                                    <div className="absolute inset-0 z-[20] w-full h-full bg-black/30" />
-                                                                    <p
-                                                                        className="absolute bottom-4 left-4 z-50 font-black text-lg"
-                                                                    >{currentLanguage === 'en' ? item?.title_en : item?.title_ar}</p>
-                                                                </div> */}
                                                                 <Card item={item} />
                                                             </Link>
                                                         ))

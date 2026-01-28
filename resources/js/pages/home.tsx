@@ -24,6 +24,7 @@ export default function Home() {
                         image: item?.image?.image,
                         user: item?.image?.user
                     }))}
+                
                 />
             </Container>
             <GetApp t={t} />

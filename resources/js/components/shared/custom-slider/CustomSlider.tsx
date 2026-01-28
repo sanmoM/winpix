@@ -15,6 +15,8 @@ interface CustomSliderProps {
     btnContainerClassName?: string;
     hasButton?: boolean;
     index?: number;
+    handleNextFunc?: () => void;
+    handlePrevFunc?: () => void;
 }
 
 export default function CustomSlider({
@@ -25,15 +27,19 @@ export default function CustomSlider({
     btnContainerClassName = "",
     hasButton = false,
     index = 0,
+    handleNextFunc,
+    handlePrevFunc,
 }: CustomSliderProps) {
     const swiperRef = useRef<SwiperType | null>(null);
 
     const handlePrev = () => {
         swiperRef.current?.slidePrev();
+        handlePrevFunc?.();
     };
 
     const handleNext = () => {
         swiperRef.current?.slideNext();
+        handleNextFunc?.();
     };
 
 

@@ -42,7 +42,7 @@ export default function Gallery({ title, galleryImages, hasImageView = true }: a
             </div>
 
             {
-                isImageViewOpen && hasImageView && <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} data={galleryImages?.map((item) => ({ image: item?.image, user: item?.user, id: item?.id }))} index={imageIndex} />
+                isImageViewOpen && hasImageView && <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} data={galleryImages?.map((item) => ({ image: item?.image, user: item?.user, id: item?.id }))} index={imageIndex} setImageIndex={setImageIndex} />
             }
         </div>
     );

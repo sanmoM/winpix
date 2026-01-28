@@ -58,8 +58,9 @@ class PayPalController extends Controller
             User::findOrFail($userId)->increment('pixel', $storeItem->number_of_coin);
             Transaction::create([
                 'user_id' => $userId,
-                'transaction_type' => 'Pixel',
+                'transaction_type' => 'Buy Pixel',
                 'amount' => $storeItem->number_of_coin,
+                'amount_type' => 'pixel',
                 'payment_method' => 'Paypal',
                 'currency' => 'USD',
                 'date' => now(),

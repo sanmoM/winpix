@@ -676,6 +676,14 @@ class FrontendController extends Controller
         User::findOrFail($userId)->increment('pixel', $request->quantity);
         User::findOrFail($userId)->decrement('coin', $request->coinQuantity);
 
+        Transaction::create([
+            'user_id' => $userId,
+            'transaction_type' => 'Redeem',
+            'amount' => $request->quantity,
+            'amount_type' => 'pixel',
+            'date' => now(),
+        ]);
+
         return redirect()->back()->with('success', 'Contact form submitted successfully!');
     }
 

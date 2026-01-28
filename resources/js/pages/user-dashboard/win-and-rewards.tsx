@@ -75,11 +75,11 @@ export default function WalletTransaction({
                         transactions?.data?.map((item, index) => (
                             <TableRow key={item.id}>
                                 <TableCell>{index + 1}</TableCell>
-                                <TableCell>{item.transaction_id}</TableCell>
-                                <TableCell>{item.user.name}</TableCell>
-                                <TableCell>{item.amount}</TableCell>
-                                <TableCell>{item.amount_type}</TableCell>
-                                <TableCell>{item.transaction_type}</TableCell>
+                                <TableCell>{item.transaction_id || "N/A"}</TableCell>
+                                <TableCell>{item.user.name || "N/A"}</TableCell>
+                                <TableCell>{item.amount || "N/A"}</TableCell>
+                                <TableCell>{item.amount_type || "N/A"}</TableCell>
+                                <TableCell>{item.transaction_type || "N/A"}</TableCell>
                                 <TableCell>
                                     {new Date(item.created_at).toLocaleString(
                                         undefined,

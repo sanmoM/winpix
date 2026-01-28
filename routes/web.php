@@ -127,6 +127,24 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
         ]);
     })->name('wallet-transactions');
 
+    Route::get('billing-invoice', function () {
+        $userId = auth()->user()->id;
+        $transactions = Transaction::with('user:id,name')
+            ->where('payment_method', '!=', null)
+            ->where('user_id', $userId)
+            ->latest()
+            ->paginate(12)
+            ->withQueryString();
+
+        return Inertia::render('user-dashboard/billing-invoice', [
+            'transactions' => $transactions,
+            'flash' => [
+                'success' => session('success'),
+                'error' => session('error'),
+            ],
+        ]);
+    })->name('billing-invoices');
+
     Route::get('my-contests', function () {
         $joinedQuests = QuestJoin::with(['quest', 'quest.user', 'quest.category'])->where('user_id', auth()->user()->id)->get();
 

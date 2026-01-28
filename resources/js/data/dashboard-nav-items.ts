@@ -63,7 +63,7 @@ export const userNavItemsEN: NavItem[] = [
             },
             {
                 title: 'Billing & Invoices',
-                href: route('all-help-categories'),
+                href: route('billing-invoices'),
                 icon: LayoutGrid,
             },
         ],

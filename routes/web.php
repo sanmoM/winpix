@@ -24,7 +24,9 @@ use App\Http\Controllers\LogoController;
 use App\Http\Controllers\PrizePoolController;
 use App\Http\Controllers\TransactionController;
 use App\Models\ContestWinner;
+use App\Models\QuestJoin;
 use App\Models\Report;
+use App\Models\Transaction;
 use App\Models\User;
 use App\Services\RankingService;
 use Illuminate\Support\Facades\Artisan;
@@ -62,6 +64,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
 
         return Inertia::render('dashboard', ['stats' => $stats, 'user' => $user]);
     })->name('dashboard');
+
     // follow unfollow
     Route::post('/users/{user}/follow', [FollowController::class, 'follow'])->name('users.follow');
     Route::delete('/users/{user}/unfollow', [FollowController::class, 'unfollow'])->name('users.unfollow');
@@ -73,6 +76,68 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
     Route::post('/ranking/cast-votes', [RankingController::class, 'castVote'])->name('ranking.vote');
 
     Route::get('transactions', [TransactionController::class, 'index'])->name('transaction');
+
+    Route::get('coin-history', function () {
+        $userId = auth()->user()->id;
+        $transactions = Transaction::with('user:id,name')
+            ->where('user_id', $userId)
+            ->latest()
+            ->paginate(12)
+            ->withQueryString();
+        return Inertia::render('user-dashboard/coin-history', [
+            'transactions' => $transactions,
+            'flash' => [
+                'success' => session('success'),
+                'error' => session('error'),
+            ],
+        ]);
+    })->name('coin-history');
+
+    Route::get('win-and-rewards', function () {
+        $userId = auth()->user()->id;
+        $transactions = Transaction::with('user:id,name')
+            ->where('transaction_type', '!=', 'join_contest')
+            ->where('user_id', $userId)
+            ->latest()
+            ->paginate(12)
+            ->withQueryString();
+        return Inertia::render('user-dashboard/win-and-rewards', [
+            'transactions' => $transactions,
+            'flash' => [
+                'success' => session('success'),
+                'error' => session('error'),
+            ],
+        ]);
+    })->name('win-and-rewards');
+
+    Route::get('wallet-transactions', function () {
+        $userId = auth()->user()->id;
+        $transactions = Transaction::with('user:id,name')
+            ->where('user_id', $userId)
+            ->latest()
+            ->paginate(12)
+            ->withQueryString();
+
+        return Inertia::render('user-dashboard/wallet-transaction', [
+            'transactions' => $transactions,
+            'flash' => [
+                'success' => session('success'),
+                'error' => session('error'),
+            ],
+        ]);
+    })->name('wallet-transactions');
+
+    Route::get('my-contests', function () {
+        $joinedQuests = QuestJoin::with(['quest', 'quest.user', 'quest.category'])->where('user_id', auth()->user()->id)->get();
+
+        return Inertia::render('user-dashboard/my-contests', [
+            'quests' => $joinedQuests,
+            'flash' => [
+                'success' => session('success'),
+                'error' => session('error'),
+            ],
+        ]);
+    })->name('my-contests');
 
 });
 

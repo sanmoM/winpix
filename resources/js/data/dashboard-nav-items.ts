@@ -26,17 +26,43 @@ export const userNavItemsEN: NavItem[] = [
                 icon: LayoutGrid,
             },
             {
-                title: 'Transaction',
-                href: route('transaction'),
-                icon: LayoutGrid,
-            },
-            {
                 title: 'About Us',
                 href: route('about-us'),
                 icon: LayoutGrid,
             },
             {
                 title: 'Help',
+                href: route('all-help-categories'),
+                icon: LayoutGrid,
+            },
+        ],
+    },
+    {
+        title: 'My Account',
+        icon: User,
+        subItems: [
+            {
+                title: 'Wallet & Transactions',
+                href: route('wallet-transactions'),
+                icon: LayoutGrid,
+            },
+            {
+                title: 'PX / V-Coin History',
+                href: route('coin-history'),
+                icon: LayoutGrid,
+            },
+            {
+                title: 'My Contests',
+                href: route('my-contests'),
+                icon: LayoutGrid,
+            },
+            {
+                title: 'Wins & Rewards',
+                href: route('win-and-rewards'),
+                icon: LayoutGrid,
+            },
+            {
+                title: 'Billing & Invoices',
                 href: route('all-help-categories'),
                 icon: LayoutGrid,
             },

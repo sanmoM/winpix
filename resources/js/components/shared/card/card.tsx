@@ -5,6 +5,22 @@ import CardActions from './count-actions';
 
 export default function Card({ item, isSeries = false }: any) {
     const { currentLanguage } = useLocales();
+    const getPrizeLabel = (prize) => {
+        if (!prize) return "";
+
+        switch (prize?.toLowerCase()) {
+            case "cash":
+                return `USD`;
+
+            case "pixel":
+                return `PX`;
+
+            case "coin":
+                return ` V-Coin`;
+            default:
+                return prize;
+        }
+    };
     return (
         <div className="group relative block w-full cursor-pointer overflow-hidden rounded-2xl">
             {/* Background Image */}
@@ -53,6 +69,21 @@ export default function Card({ item, isSeries = false }: any) {
                                         }, 0)
                                         acc += total;
                                         return acc;
+                                    }, 0) + " USD"
+                                    : item?.prizes?.[0]?.coin + " " + getPrizeLabel(item?.prizes?.[0]?.prize_pool?.name)}
+                            </span>
+                            {/* <span className="text-sm font-medium">
+                                {isSeries
+                                    ? item?.quests?.reduce((acc, current) => {
+                                        //   acc += current?.entry_coin;
+                                        const total = current?.prizes?.reduce((acc, current) => {
+                                            if (current?.prize_pool?.name?.toLowerCase() === 'cash') {
+                                                acc += current?.coin;
+                                            }
+                                            return acc;
+                                        }, 0)
+                                        acc += total;
+                                        return acc;
                                     }, 0)
                                     : item?.prizes?.reduce((acc, current) => {
                                         // acc += current?.prize
@@ -65,7 +96,7 @@ export default function Card({ item, isSeries = false }: any) {
                                         return acc;
                                     }, 0)}{' '}
                                 USD
-                            </span>
+                            </span> */}
                         </div>
                     </div>
                     <div className="flex flex-col items-center">

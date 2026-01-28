@@ -426,6 +426,7 @@ class FrontendController extends Controller
             ], 422);
         }
 
+
         // Handle uploaded image
         $image = null;
         if ($request->hasFile('image')) {

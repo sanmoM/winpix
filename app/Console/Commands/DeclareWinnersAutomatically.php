@@ -6,8 +6,11 @@ use App\Models\ContestWinner;
 use App\Models\Prize;
 use App\Models\Quest;
 use App\Models\QuestImage;
+use App\Models\Transaction;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class DeclareWinnersAutomatically extends Command
 {
@@ -70,6 +73,76 @@ class DeclareWinnersAutomatically extends Command
             $this->info("Winners declared for Quest: {$quest->title_en}");
         }
 
-        $this->info('Automatic winner declaration completed!'.$quests);
+        $quest = Quest::findOrFail($quest->id);
+
+        // 2. Wrap in a transaction for safety
+        DB::transaction(function () use ($quest) {
+
+            $winners = ContestWinner::where('quest_id', $quest->id)->get();
+
+            // Fetch prizes with their type (Coin, Pixel, Cash)
+            $prizes = DB::table('prizes')
+                ->join('prize_pools', 'prizes.prize_pool', '=', 'prize_pools.id')
+                ->where('prizes.quest_id', $quest->id)
+                ->select('prizes.*', 'prize_pools.name as type_name')
+                ->get();
+
+            foreach ($winners as $winner) {
+
+                $matchedPrize = $prizes->first(function ($prize) use ($winner) {
+                    return $winner->rank >= $prize->min && $winner->rank <= $prize->max;
+                });
+
+                if ($matchedPrize && $matchedPrize->coin > 0) {
+
+                    $image = DB::table('quest_images')->find($winner->image_id);
+
+                    if ($image) {
+                        $user = User::find($image->user_id);
+                        $amount = $matchedPrize->coin;
+                        $type = strtolower($matchedPrize->type_name);
+
+                        switch ($type) {
+                            case 'coin':
+                                $user->increment('coin', $amount);
+                                break;
+                            case 'pixel':
+                                $user->increment('pixel', $amount);
+                                break;
+                            case 'cash':
+                                $user->increment('cash', $amount);
+                                break;
+                        }
+
+
+                        Transaction::create([
+                            'user_id' => $user->id,
+                            'reference_id' => $quest->id,
+                            'transaction_type' => 'contest_prize',
+                            'amount' => $amount,
+                            'amount_type' => $type,
+                            'currency' => $type,
+                            'payment_method' => 'system',
+                            'status' => 'completed',
+                            'details' => json_encode([
+                                'rank' => $winner->rank,
+                                'quest_id' => $quest->id,
+                                'prize_type' => $type
+                            ]),
+                        ]);
+
+
+                    }
+                }
+            }
+
+            $quest->update([
+                'status' => 'Closed',
+                'winner_approved_at' => now(),
+            ]);
+
+        });
+
+        $this->info('Automatic winner declaration completed!' . $quests);
     }
 }

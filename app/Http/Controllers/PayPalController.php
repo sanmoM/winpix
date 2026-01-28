@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Store;
+use App\Models\Transaction;
 use App\Models\User;
 use App\Services\PayPalService;
 use Illuminate\Http\Request;
@@ -55,6 +56,14 @@ class PayPalController extends Controller
             $storeItem = Store::findOrFail($id);
 
             User::findOrFail($userId)->increment('pixel', $storeItem->number_of_coin);
+            Transaction::create([
+                'user_id' => $userId,
+                'transaction_type' => 'Pixel',
+                'amount' => $storeItem->number_of_coin,
+                'payment_method' => 'Paypal',
+                'currency' => 'USD',
+                'date' => now(),
+            ]);
             return redirect(config("app.url") . "/success-payment");
         }
 

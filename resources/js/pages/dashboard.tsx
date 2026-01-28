@@ -18,8 +18,8 @@ import { RiFolderUploadFill } from 'react-icons/ri';
 import { route } from 'ziggy-js';
 
 export default function Dashboard({ stats }: { stats: any }) {
-    // const user = usePage().props.auth.user;
-    const user = usePage().props.user;
+    const user = usePage().props.auth.user;
+
 
     const { t } = useLocales();
     const [activeTab, setActiveTab] = useState('my-photos');

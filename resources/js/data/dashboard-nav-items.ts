@@ -52,16 +52,6 @@ export const userNavItemsEN: NavItem[] = [
                 icon: LayoutGrid,
             },
             {
-                title: 'My Contests',
-                href: route('my-contests'),
-                icon: LayoutGrid,
-            },
-            {
-                title: 'My Photos',
-                href: route('my-photos'),
-                icon: LayoutGrid,
-            },
-            {
                 title: 'Wins & Rewards',
                 href: route('win-and-rewards'),
                 icon: LayoutGrid,
@@ -69,6 +59,16 @@ export const userNavItemsEN: NavItem[] = [
             {
                 title: 'Billing & Invoices',
                 href: route('billing-invoices'),
+                icon: LayoutGrid,
+            },
+            {
+                title: 'My Contests',
+                href: route('my-contests'),
+                icon: LayoutGrid,
+            },
+            {
+                title: 'My Photos',
+                href: route('my-photos'),
                 icon: LayoutGrid,
             },
         ],

@@ -47,9 +47,6 @@ export default function AddDetails({
                     setValue={(val) =>
                         setCameraData({ ...cameraData, focal_length: val })
                     }
-                    type='number'
-                    min={0}
-                    max={99.99}
                 />
                 <TextInput
                     label="Aperture (f/)"
@@ -58,10 +55,6 @@ export default function AddDetails({
                     setValue={(val) =>
                         setCameraData({ ...cameraData, aperture: val })
                     }
-                    type='number'
-                    step={0.1}
-                    min={0.7}
-                    max={64}
                 />
                 <TextInput
                     label="Shutter Speed"
@@ -70,15 +63,10 @@ export default function AddDetails({
                     setValue={(val) =>
                         setCameraData({ ...cameraData, shutter_speed: val })
                     }
-                    type='number'
-                    step={0.0001}
-                    min={0.0001}
-                    max={30}
                 />
                 <TextInput
                     label="ISO"
                     placeholder="Enter your ISO"
-                    type='number'
                     value={cameraData.iso}
                     setValue={(val) =>
                         setCameraData({ ...cameraData, iso: val })
@@ -92,27 +80,25 @@ export default function AddDetails({
                     }
                     label="Date Captured"
                 />
-                {cameraData.camera_brand &&
-                    cameraData.camera_model &&
-                    cameraData.lens &&
-                    cameraData.focal_length &&
-                    cameraData.aperture &&
-                    cameraData.shutter_speed &&
-                    cameraData.iso &&
-                    cameraData.date_captured && (
-                        <Button
-                            type="submit"
-                            text={t(
-                                isJoined
-                                    ? 'singleQuest.banner.addEntryText'
-                                    : 'singleQuest.banner.joinNowText',
-                            )}
-                            // onClick={handleJoinQuest}
-                            disabled={loading}
-                            loading={loading}
-                            className="mx-auto mt-4 px-6 text-lg lg:px-14 col-span-2"
-                        />
+                <Button
+                    type="submit"
+                    text={t(
+                        isJoined
+                            ? 'singleQuest.banner.addEntryText'
+                            : 'singleQuest.banner.joinNowText',
                     )}
+                    // onClick={handleJoinQuest}
+                    disabled={loading || !(cameraData.camera_brand &&
+                        cameraData.camera_model &&
+                        cameraData.lens &&
+                        cameraData.focal_length &&
+                        cameraData.aperture &&
+                        cameraData.shutter_speed &&
+                        cameraData.iso &&
+                        cameraData.date_captured)}
+                    loading={loading}
+                    className="mx-auto mt-4 px-6 text-lg lg:px-14 col-span-2"
+                />
             </form>
         </div>
     );

@@ -167,14 +167,15 @@ class FrontendController extends Controller
         $imagePath = $questImage->image;
 
         // Active quests
-        $activeQuest = Quest::with('category', 'user')
+        $activeQuest = Quest::with('category', 'user', 'prizes.prize_pool')
             ->where('id', $questImage->quest_id)
             ->where('start_date', '<=', today())
             ->where('end_date', '>=', today())
             ->get();
 
         // Ended quests (can be 1 or many)
-        $endedQuests = Quest::where('id', $questImage->quest_id)
+        $endedQuests = Quest::with('prizes.prize_pool')
+            ->where('id', $questImage->quest_id)
             ->where('end_date', '<=', today())
             ->get();
 

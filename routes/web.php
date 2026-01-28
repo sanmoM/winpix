@@ -56,7 +56,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
             'currentLevel' => auth()->user()->level,
             'followers' => auth()->user()->followers()->count(),
             'following' => auth()->user()->following()->count(),
-            'questImages' => QuestImage::with(['quest', 'user'])
+            'questImages' => QuestImage::with(['quest.prizes.prize_pool', 'user'])
                 ->withCount([
                     'vote as total_votes' => function ($query) {
                         $query->whereNull('skip');
@@ -65,7 +65,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
                 ->where('user_id', auth()->id())
                 ->orderByDesc('total_votes')
                 ->get(),
-            'likedImages' => QuestImage::with(['quest', 'user'])
+            'likedImages' => QuestImage::with(['quest.prizes.prize_pool', 'user'])
                 ->withCount([
                     'vote as total_votes' => function ($query) {
                         $query->whereNull('skip');

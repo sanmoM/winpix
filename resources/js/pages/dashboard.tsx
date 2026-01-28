@@ -165,7 +165,7 @@ export default function Dashboard({ stats }: { stats: any }) {
                                 galleryImages={stats?.likedImages?.map(
                                     (item) => ({
                                         id: item?.id,
-                                        image: item?.image?.image,
+                                        image: item?.image,
                                         user,
                                     }),
                                 )}

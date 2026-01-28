@@ -57,6 +57,11 @@ export const userNavItemsEN: NavItem[] = [
                 icon: LayoutGrid,
             },
             {
+                title: 'My Photos',
+                href: route('my-photos'),
+                icon: LayoutGrid,
+            },
+            {
                 title: 'Wins & Rewards',
                 href: route('win-and-rewards'),
                 icon: LayoutGrid,

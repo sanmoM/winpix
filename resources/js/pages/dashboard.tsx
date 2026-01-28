@@ -115,7 +115,7 @@ export default function Dashboard({ stats }: { stats: any }) {
                         />
                     </div>
                 </Container>
-                <Container className="my-10 space-y-4 md:space-y-8 lg:mx-6 lg:mt-20 lg:mb-32 lg:space-y-10">
+                {/* <Container className="my-10 space-y-4 md:space-y-8 lg:mx-6 lg:mt-20 lg:mb-32 lg:space-y-10">
                     <div className="mx-auto w-fit">
                         <Tab
                             options={[
@@ -174,7 +174,7 @@ export default function Dashboard({ stats }: { stats: any }) {
                         ) : (
                             <NoData text="No liked photos yet" />
                         ))}
-                </Container>
+                </Container> */}
             </div>
         </AppLayout>
     );

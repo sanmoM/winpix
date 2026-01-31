@@ -1,9 +1,11 @@
 import BorderButton from "@/components/shared/buttons/border-button";
+import useBackground from "@/hooks/useBackground";
 import useLocales from "@/hooks/useLocales";
 import { cn } from "@/lib/utils";
 import { dashboard, login, register } from "@/routes";
 import { type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
@@ -12,7 +14,6 @@ import Container from "../../shared/container";
 import Logo from "../../shared/logo";
 import CoinAndNotification from "./components/coin-and-notification";
 import NavItem from "./components/nav-item";
-import useBackground from "@/hooks/useBackground";
 
 // const differentNavUrls = [
 //   "/",
@@ -24,7 +25,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { auth } = usePage<SharedData>().props;
   const { t, direction } = useLocales()
-
+  
   const user = auth?.user
 
   const menuRef = useRef<HTMLDivElement>(null);
@@ -52,7 +53,7 @@ export default function Navbar() {
     // { name: t("root.navbar.navLinks.aboutUs"), href: "/about-us" },
     // { name: t("root.navbar.navLinks.help"), href: "/all-help-categories" },
   ];
-
+  
   useEffect(() => {
     const handleClickOutside = (event: Event) => {
       if (
@@ -73,6 +74,7 @@ export default function Navbar() {
       document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [isMenuOpen]);
+
 
   return (
     <div

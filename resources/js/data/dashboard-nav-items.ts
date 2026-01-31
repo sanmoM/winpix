@@ -78,27 +78,63 @@ export const userNavItemsEN: NavItem[] = [
 
 export const userNavItemsAR: NavItem[] = [
     {
-        title: 'ملفي الشخصي',
+        title: 'الملف الشخصي',
+        href: route('dashboard'),
+        icon: AiOutlineProfile,
+    },
+    {
+        title: 'من نحن',
+        href: route('about-us'),
+        icon: IoMdInformationCircleOutline,
+    },
+    {
+        title: 'المساعدة',
+        href: route('all-help-categories'),
+        icon: IoMdHelpCircleOutline,
+    },
+    {
+        title: 'حسابي',
         icon: User,
         subItems: [
             {
-                title: 'الملف الشخصي',
-                href: route('dashboard'),
+                title: 'المحفظة والمعاملات',
+                href: route('wallet-transactions'),
                 icon: LayoutGrid,
             },
             {
-                title: 'معلومات عنا',
-                href: route('about-us'),
+                title: 'سجل PX / V-Coin',
+                href: route('coin-history'),
                 icon: LayoutGrid,
             },
             {
-                title: 'المساعدة',
-                href: route('all-help-categories'),
+                title: 'الفوز والمكافآت',
+                href: route('win-and-rewards'),
+                icon: LayoutGrid,
+            },
+            {
+                title: 'الفواتير والدفع',
+                href: route('billing-invoices'),
+                icon: LayoutGrid,
+            },
+            {
+                title: 'مسابقاتي',
+                href: route('my-contests'),
+                icon: LayoutGrid,
+            },
+            {
+                title: 'صوري',
+                href: route('my-photos'),
                 icon: LayoutGrid,
             },
         ],
     },
+    {
+        title: 'التفاعل والمجتمع',
+        href: route('engagement-and-community'),
+        icon: User,
+    }
 ];
+
 
 export const judgeNavItemsEN: NavItem[] = [
     {
@@ -122,17 +158,23 @@ export const judgeNavItemsEN: NavItem[] = [
 
 export const judgeNavItemsAR: NavItem[] = [
     {
-        title: 'المسابقة',
+        title: 'المسابقات',
         icon: Scale,
         subItems: [
             {
-                title: 'المسابقة',
+                title: 'مسابقات لجنة التحكيم',
                 href: route('judge.contest'),
-                icon: LayoutGrid,
+                icon: Scale,
+            },
+            {
+                title: 'مسابقات كبير الحكام',
+                href: route('lead_judge.contest'),
+                icon: Scale,
             },
         ],
     },
 ];
+
 
 export const adminNavItemsEN: NavItem[] = [
     {
@@ -323,7 +365,7 @@ export const adminNavItemsAR: NavItem[] = [
                 icon: UserPlus,
             },
             {
-                title: 'الصور المتحركة (Slider)',
+                title: 'السلايدر',
                 href: route('admin.slider.index'),
                 icon: UserPlus,
             },
@@ -333,7 +375,7 @@ export const adminNavItemsAR: NavItem[] = [
                 icon: Store,
             },
             {
-                title: 'استبدال النقاط',
+                title: 'الاستبدال',
                 href: route('admin.redeem.index'),
                 icon: Store,
             },
@@ -343,6 +385,11 @@ export const adminNavItemsAR: NavItem[] = [
         title: 'المسابقات',
         icon: Trophy,
         subItems: [
+            {
+                title: 'مجموع الجوائز',
+                href: route('admin.prize_pools.index'),
+                icon: ServerIcon,
+            },
             {
                 title: 'السلاسل',
                 href: route('admin.series.index'),
@@ -363,6 +410,11 @@ export const adminNavItemsAR: NavItem[] = [
                 href: route('admin.quest'),
                 icon: ServerIcon,
             },
+            {
+                title: 'سجل المسابقات',
+                href: route('admin.contestLogs'),
+                icon: ServerIcon,
+            },
         ],
     },
     {
@@ -370,19 +422,46 @@ export const adminNavItemsAR: NavItem[] = [
         icon: Airplay,
         subItems: [
             {
-                title: 'Banner',
+                title: 'البانر',
                 href: route('marketing.banner'),
+                icon: ServerIcon,
+            },
+            {
+                title: 'التسويق',
+                href: route('admin.brand_marketing.index'),
                 icon: ServerIcon,
             },
         ],
     },
     {
-        title: 'المستخدمين',
+        title: 'الحكام',
+        icon: Gavel,
+        subItems: [
+            {
+                title: 'جميع الحكام',
+                href: route('admin.allJudge'),
+                icon: ServerIcon,
+            },
+        ],
+    },
+    {
+        title: 'المستخدمون',
         icon: UserPlus,
         subItems: [
             {
                 title: 'جميع المستخدمين',
                 href: route('admin.allUsers'),
+                icon: ServerIcon,
+            },
+        ],
+    },
+    {
+        title: 'المعاملات',
+        icon: DollarSignIcon,
+        subItems: [
+            {
+                title: 'المعاملات',
+                href: route('admin.transaction'),
                 icon: ServerIcon,
             },
         ],
@@ -401,6 +480,38 @@ export const adminNavItemsAR: NavItem[] = [
                 href: route('admin.contacts.index'),
                 icon: ServerIcon,
             },
+            {
+                title: 'التقارير',
+                href: '/admin/report',
+                icon: ServerIcon,
+            },
+            {
+                title: 'الإعدادات',
+                href: '/admin/others',
+                icon: ServerIcon,
+            },
+        ],
+    },
+    {
+        title: 'الفائزون بالمسابقات',
+        icon: Crown,
+        subItems: [
+            {
+                title: 'فائز الإدارة',
+                href: route('adminContest.show'),
+                icon: ServerIcon,
+            },
+            {
+                title: 'فائز لجنة التحكيم',
+                href: route('adminJudgeContest.show'),
+                icon: ServerIcon,
+            },
+            {
+                title: 'فائز تلقائي',
+                href: route('adminAutoContest.show'),
+                icon: ServerIcon,
+            },
         ],
     },
 ];
+

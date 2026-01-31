@@ -12,6 +12,7 @@ import {
     SidebarMenuSubButton,
     SidebarMenuSubItem
 } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 import { type NavItem } from '@/types';
 import { normalizePath } from '@/utils/url';
 import { Link, usePage } from '@inertiajs/react';
@@ -31,6 +32,15 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                         currentPath.startsWith(normalizePath(subItem?.href)),
                     );
 
+                    const normalizedHref = normalizePath(item?.href)
+                    const isActive =
+                        currentPath === normalizedHref ||
+                        `${normalizedHref}`.startsWith(currentPath);
+
+                    console.log("href", item?.href)
+                    console.log('currentPath', currentPath);
+                    console.log('normalizedHref', normalizedHref);
+                    console.log('isActive', isActive);
                     return (
                         <Collapsible
                             key={item.title}
@@ -51,7 +61,9 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                                         </CollapsibleTrigger>
                                     ) : (
                                         <Link href={item.href} className='cursor-pointer'>
-                                            <SidebarMenuButton tooltip={item.title} className='cursor-pointer'>
+                                            <SidebarMenuButton
+
+                                                tooltip={item.title} className={cn('cursor-pointer', isActive && "text-primary-color")}>
                                                 {item.icon && <item.icon />}
                                                 <span>{item.title}</span>
                                             </SidebarMenuButton>

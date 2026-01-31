@@ -13,30 +13,32 @@ import {
     UserPlus,
     WashingMachine,
 } from 'lucide-react';
+import { AiOutlineProfile } from 'react-icons/ai';
+import { IoMdHelpCircleOutline, IoMdInformationCircleOutline } from 'react-icons/io';
 import { route } from 'ziggy-js';
 
 export const userNavItemsEN: NavItem[] = [
+    // {
+    //     title: 'My Profile',
+    //     icon: User,
+    //     subItems: [
     {
-        title: 'My Profile',
-        icon: User,
-        subItems: [
-            {
-                title: 'Profile',
-                href: route('dashboard'),
-                icon: LayoutGrid,
-            },
-            {
-                title: 'About Us',
-                href: route('about-us'),
-                icon: LayoutGrid,
-            },
-            {
-                title: 'Help',
-                href: route('all-help-categories'),
-                icon: LayoutGrid,
-            },
-        ],
+        title: 'Profile',
+        href: route('dashboard'),
+        icon: AiOutlineProfile,
     },
+    {
+        title: 'About Us',
+        href: route('about-us'),
+        icon: IoMdInformationCircleOutline,
+    },
+    {
+        title: 'Help',
+        href: route('all-help-categories'),
+        icon: IoMdHelpCircleOutline,
+    },
+    //     ],
+    // },
     {
         title: 'My Account',
         icon: User,

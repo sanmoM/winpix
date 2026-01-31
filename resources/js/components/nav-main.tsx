@@ -5,13 +5,12 @@ import {
 } from '@/components/ui/collapsible';
 import {
     SidebarGroup,
-    SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarMenuSub,
     SidebarMenuSubButton,
-    SidebarMenuSubItem,
+    SidebarMenuSubItem
 } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { normalizePath } from '@/utils/url';
@@ -41,13 +40,24 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                         >
                             <SidebarMenuItem>
                                 {/* --- Main Menu Item --- */}
-                                <CollapsibleTrigger asChild>
-                                    <SidebarMenuButton tooltip={item.title}>
-                                        {item.icon && <item.icon />}
-                                        <span>{item.title}</span>
-                                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                                    </SidebarMenuButton>
-                                </CollapsibleTrigger>
+                                {
+                                    item.subItems && item.subItems.length > 0 ? (
+                                        <CollapsibleTrigger asChild className='cursor-pointer'>
+                                            <SidebarMenuButton tooltip={item.title} className='cursor-pointer'>
+                                                {item.icon && <item.icon />}
+                                                <span>{item.title}</span>
+                                                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                            </SidebarMenuButton>
+                                        </CollapsibleTrigger>
+                                    ) : (
+                                        <Link href={item.href} className='cursor-pointer'>
+                                            <SidebarMenuButton tooltip={item.title} className='cursor-pointer'>
+                                                {item.icon && <item.icon />}
+                                                <span>{item.title}</span>
+                                            </SidebarMenuButton>
+                                        </Link>
+                                    )
+                                }
 
                                 {/* --- Submenu Items --- */}
                                 {item?.subItems &&

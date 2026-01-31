@@ -22,6 +22,7 @@ export default function Tab({
     ],
     value,
     onChange,
+    containerClassName,
 }: TabProps) {
     const {direction} = useLocales()
     const activeIndex = options.findIndex((opt) => opt.value === value);
@@ -36,7 +37,7 @@ export default function Tab({
 
     // --- Tailwind styles
     const containerStyles = `
-     relative items-center grid w-fit grid-cols-3 rounded-full overflow-hidden bg-bg-primary
+     relative items-center grid w-fit grid-cols-3 rounded-full overflow-hidden bg-bg-primary ${containerClassName}
   `;
 
     const sliderWidth = `${100 / options.length}%`;

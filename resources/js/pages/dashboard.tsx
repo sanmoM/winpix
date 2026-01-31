@@ -141,7 +141,7 @@ export default function Dashboard({ stats }: { stats: any }) {
                         ))}
                 </Container> */}
             </div>
-            <Container className="mx-auto mt-4 w-full lg:w-fit lg:min-w-lg">
+            <Container className="mx-auto mt-4 w-full lg:w-fit lg:min-w-lg pb-6">
                 <LevelProgress
                     displayValue={user.level}
                     level={user.level}
@@ -190,6 +190,18 @@ export default function Dashboard({ stats }: { stats: any }) {
                     />
                 </div>
 
+                <div className='grid grid-cols-2 gap-4 py-4 mt-4'>
+                    <Link href={"/store"}>
+                        <Button text="Buy Pixel" className="w-full py-2.5" />
+                    </Link>
+                    <Link href={"/redeem"}>
+                        <Button text="Redeem" className="w-full py-2.5" />
+                    </Link>
+                </div>
+                <Link href={"/wallet-transactions"}>
+                    <BorderButton text="View Transactions" className=' py-2.5 hover:!scale-100' />
+                </Link>
+
             </Container>
         </AppLayout>
     );
@@ -204,6 +216,8 @@ import {
     Info,
     Phone
 } from 'lucide-react';
+import Button from '@/components/shared/buttons/button';
+import BorderButton from '@/components/shared/buttons/border-button';
 
 const KeyValueRow = ({ label, value, icon: Icon, isLast, canCopy, type = 'text' }) => {
     const [copied, setCopied] = useState(false);

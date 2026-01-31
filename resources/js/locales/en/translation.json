@@ -824,6 +824,10 @@
                 "email": {
                     "label": "Email address",
                     "placeholder": "Email address"
+                },
+                "number": {
+                    "label": "Phone number",
+                    "placeholder": "Enter your phone number"
                 }
             }
         },

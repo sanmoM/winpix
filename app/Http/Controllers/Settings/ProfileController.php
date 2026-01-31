@@ -32,8 +32,11 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
+        // dd($request->validated()['number']);
+
         // Update only allowed fields (e.g., name)
         $user->name = $request->validated()['name'] ?? $user->name;
+        $user->number = $request['number'] ?? $user->number;
 
         // Handle image upload using your File helper
         if ($request->hasFile('image')) {
@@ -46,6 +49,7 @@ class ProfileController extends Controller
             $user->image = File::uploadFile($request->file('image'), 'users');
         }
 
+        // return dd($user['number']);
         $user->save();
 
         return to_route('profile.edit')->with('success', 'Profile updated successfully!');

@@ -2,6 +2,7 @@ import SecondarySectionHeading from "@/components/shared/secondary-section-headi
 import { cn } from "@/lib/utils";
 import { dashboard } from "@/routes";
 import { Link, usePage } from "@inertiajs/react";
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { FaRocket } from "react-icons/fa";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -11,6 +12,16 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const { auth } = usePage<any>().props
+
+    const [notifications, setNotifications] = useState<any[]>([]);
+    useEffect(() => {
+        const fetchNotifications = async () => {
+            const response = await axios.get("/notifications");
+            setNotifications(response.data.notifications);
+        };
+
+        fetchNotifications();
+    }, []);
 
     useEffect(() => {
         const handleClickOutside = (event: Event) => {
@@ -64,26 +75,37 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
                         <SecondarySectionHeading className="border-b pb-4 !text-center mt-4 mb-0 md:mb-0 lg:mb-0  text-black dark:text-white" title={t('root.navbar.notifications.title')} />
                         <div className="w-full max-w-sm">
                             {/* Flex container for icon and text */}
-                            <div className="flex items-center space-x-4 p-4 border-b last:border-0 cursor-pointer">
+                            {
+                                notifications.length > 0 && notifications.map((notification, index) => (
+                                    <div key={index} className="flex items-center gap-2 py-4 px-6 hover:bg-bg-secondary hover:text-white">
+                                        <div className="flex-shrink-0">
+                                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary-color">
+                                                {/* <RocketIcon /> */}
+                                                <FaRocket className="w-6 h-6 text-white" />
+                                            </div>
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-base truncate text-black dark:text-white"
+                                                dangerouslySetInnerHTML={
+                                                    {
+                                                        __html: notification.title
+                                                    }
+                                                }
+                                            >
+                                            </p>
+                                            <p className="text-sm text-gray-500 mt-1"
+                                                dangerouslySetInnerHTML={
+                                                    {
+                                                        __html: notification.message
+                                                    }
+                                                }
+                                            >
 
-                                {/* Icon */}
-                                <div className="flex-shrink-0">
-                                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary-color">
-                                        {/* <RocketIcon /> */}
-                                        <FaRocket className="w-6 h-6 text-white" />
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-
-                                {/* Text Content */}
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-base truncate text-black dark:text-white">
-                                        Join <span className="font-bold text-primary-color">"Change Your View"</span> now!
-                                    </p>
-                                    <p className="text-sm text-gray-500 mt-1">
-                                        20 hours ago
-                                    </p>
-                                </div>
-                            </div>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>
@@ -91,3 +113,6 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
         </div>
     )
 }
+
+
+

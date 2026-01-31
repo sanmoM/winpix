@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->text('message');
-            $table->string('type');
+            $table->string('type')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->boolean('is_read')->default(false);
             $table->string('link')->nullable();

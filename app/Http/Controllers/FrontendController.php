@@ -439,12 +439,26 @@ class FrontendController extends Controller
 
         $questFromDb = Quest::findOrFail($id);
 
-        QuestJoin::firstOrCreate(
+        $isAlreadyJoin = QuestJoin::firstOrCreate(
             [
                 'quest_id' => $id,
                 'user_id' => $user->id,
             ]
         );
+
+        if (!$isAlreadyJoin) {
+            Notification::create([
+                'user_id' => $user->id,
+                'title' => 'Join Quest',
+                'message' => $user->name . ' has joined your quest: ' . $questFromDb->title,
+            ]);
+        } else {
+            Notification::create([
+                'user_id' => $user->id,
+                'title' => 'Image submited to Quest',
+                'message' => $user->name . ' has submitted an image to quest: ' . $questFromDb->title,
+            ]);
+        }
 
         QuestImage::create([
             'quest_id' => $id,
@@ -477,11 +491,7 @@ class FrontendController extends Controller
             'amount' => $questFromDb->entry_coin,
         ]);
 
-        Notification::create([
-            'user_id' => $user->id,
-            'title' => 'Join Quest',
-            'message' => $user->name . ' has joined your quest: ' . $questFromDb->title,
-        ]);
+
 
         return redirect()->back();
     }

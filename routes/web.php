@@ -228,13 +228,12 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
     //         'subtitle' => 'required|string',
     //         'user_id' => 'required|integer|exists:users,id',
     //     ]);
-
-        
     //     return Inertia::render('user-dashboard/create-notification', [
     //         'redirectTo' => $request->input('redirectTo', null),
     //     ]);
 
     // })->name('create-notification');
+    
     Route::get('/notifications', function () {
         $user = auth()->user();
         $notifications = $user->notifications()->orderBy('created_at', 'desc')->get();
@@ -262,6 +261,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
             return response()->json(['message' => 'Notification not found.'], 404);
         }
     })->name('mark-as-read');
+    
 });
 
 Route::middleware(['auth', 'verified', 'role:admin,jury'])->group(function () {

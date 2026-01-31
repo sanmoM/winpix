@@ -25,8 +25,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { auth } = usePage<SharedData>().props;
   const { t, direction } = useLocales()
-  const [notifications, setNotifications] = useState<any[]>([]);
-
+  
   const user = auth?.user
 
   const menuRef = useRef<HTMLDivElement>(null);
@@ -54,7 +53,7 @@ export default function Navbar() {
     // { name: t("root.navbar.navLinks.aboutUs"), href: "/about-us" },
     // { name: t("root.navbar.navLinks.help"), href: "/all-help-categories" },
   ];
-
+  
   useEffect(() => {
     const handleClickOutside = (event: Event) => {
       if (
@@ -76,14 +75,6 @@ export default function Navbar() {
     };
   }, [isMenuOpen]);
 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      const response = await axios.get("/notifications");
-      setNotifications(response.data.notifications);
-    };
-
-    fetchNotifications();
-  }, []);
 
   return (
     <div

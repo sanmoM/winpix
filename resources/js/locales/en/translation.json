@@ -809,6 +809,28 @@
                 }
             }
         },
+        "engagement-and-community": {
+            "tab": {
+                "likedPhotos": "Liked Photos",
+                "reportedPhotos": "Reported Photos"
+            },
+            "likedTable": {
+                "headings": [
+                    "#",
+                    "Image",
+                    "User",
+                    "Date"
+                ]
+            },
+            "reportedTable": {
+                "headings": [
+                    "#",
+                    "Image",
+                    "Reason",
+                    "Date"
+                ]
+            }
+        },
         "profile": {
             "heading": "Profile",
             "tab": {
@@ -824,6 +846,10 @@
                 "email": {
                     "label": "Email address",
                     "placeholder": "Email address"
+                },
+                "number": {
+                    "label": "Phone number",
+                    "placeholder": "Enter your phone number"
                 }
             }
         },

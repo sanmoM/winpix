@@ -18,10 +18,6 @@ import { IoMdHelpCircleOutline, IoMdInformationCircleOutline } from 'react-icons
 import { route } from 'ziggy-js';
 
 export const userNavItemsEN: NavItem[] = [
-    // {
-    //     title: 'My Profile',
-    //     icon: User,
-    //     subItems: [
     {
         title: 'Profile',
         href: route('dashboard'),
@@ -37,8 +33,6 @@ export const userNavItemsEN: NavItem[] = [
         href: route('all-help-categories'),
         icon: IoMdHelpCircleOutline,
     },
-    //     ],
-    // },
     {
         title: 'My Account',
         icon: User,
@@ -75,6 +69,11 @@ export const userNavItemsEN: NavItem[] = [
             },
         ],
     },
+    {
+        title: 'Engagement & Community',
+        href: route('engagement-and-community'),
+        icon: User,
+    }
 ];
 
 export const userNavItemsAR: NavItem[] = [

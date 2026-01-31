@@ -22,6 +22,7 @@ const Creator = ({ containerClassName, infoContainerClassName, imageClassName, f
                 <span className={cn("text-2xl font-semibold text-black dark:text-white", nameClassName)}>
                     {user?.name}
                 </span>
+                <p className='my-2'>{user?.email}</p>
                 <div className="flex space-x-4 mt-1 md:mt-2">
                     {socialIcons.map(({ Icon, href, ariaLabel }) => (
                         <SocialIcon Icon={Icon} href={href} ariaLabel={ariaLabel} containerClassName="w-8 h-8" />

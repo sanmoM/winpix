@@ -18,6 +18,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    protected $with = ['country'];
     protected $fillable = [
         'name',
         'email',
@@ -114,5 +115,10 @@ class User extends Authenticatable
     public function questImages()
     {
         return $this->hasMany(QuestImage::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
     }
 }

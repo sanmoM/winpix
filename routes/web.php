@@ -29,6 +29,7 @@ use App\Models\QuestJoin;
 use App\Models\Report;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Vote;
 use App\Services\RankingService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -174,7 +175,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
             ],
         ]);
     })->name('my-photos');
-    
+
     Route::get('my-contests', function () {
         $joinedQuests = QuestJoin::with(['quest', 'quest.user', 'quest.category'])->where('user_id', auth()->user()->id)->get();
 
@@ -186,6 +187,40 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
             ],
         ]);
     })->name('my-contests');
+
+    Route::get('/engagement-and-community', function () {
+        $likedImages = Vote::with([
+            'image.quest',
+            'user' // voter info
+        ])
+            ->whereHas('image', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->orderByDesc('created_at')
+            ->paginate(12)
+            ->withQueryString();
+
+
+        $reportedImages = Report::with([
+            'image.quest',
+            'image.user' // voter info
+        ])
+            ->whereHas('image', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->orderByDesc('created_at')
+            ->paginate(12)
+            ->withQueryString();
+
+        return Inertia::render('user-dashboard/engagement-and-community', [
+            'likedImages' => $likedImages,
+            'reportedImages' => $reportedImages,
+            'flash' => [
+                'success' => session('success'),
+                'error' => session('error'),
+            ],
+        ]);
+    })->name('engagement-and-community');
 
 });
 

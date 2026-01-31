@@ -14,7 +14,7 @@ export default function TableCell({
     return (
         <td
             className={cn(
-                "px-4 py-3 font-medium text-gray-700 dark:text-gray-200",
+                "px-4 py-3 font-medium text-gray-700 dark:text-gray-200 text-nowrap",
 
                 // LTR mode (default)
                 !isRTL && "first:!text-left last:!text-right",

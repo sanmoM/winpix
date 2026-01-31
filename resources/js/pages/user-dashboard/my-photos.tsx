@@ -48,7 +48,7 @@ export default function WalletTransaction({
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
             <Head title="Translation" />
-            <div className='m-4'>
+            {/* <div className='m-4'>
                 <Tab
                 options={[
                     // {
@@ -68,8 +68,8 @@ export default function WalletTransaction({
                 ]}
                 onChange={(val) => setActiveTab(val)}
             />
-            </div>
-            <div className='mx-4'>
+            </div> */}
+            {/* <div className='mx-4'>
                 {activeTab === 'my-photos' &&
                     (stats?.questImages?.length > 0 ? (
                         <Gallery
@@ -84,7 +84,8 @@ export default function WalletTransaction({
                         />
                     ) : (
                         <NoData text="No photos uploaded yet" />
-                    ))}
+                    ))
+                }
                 {activeTab === 'liked-photos' &&
                     (stats?.likedImages?.length > 0 ? (
                         <Gallery
@@ -100,7 +101,27 @@ export default function WalletTransaction({
                     ) : (
                         <NoData text="No liked photos yet" />
                     ))}
+            </div> */}
+
+            <div className='p-4'>
+                {
+                    (stats?.questImages?.length > 0 ? (
+                        <Gallery
+                            galleryImages={stats?.questImages?.map(
+                                (item) => ({
+                                    id: item?.id,
+                                    image: item?.image,
+                                    user,
+                                }),
+                            )}
+                            hasImageView={true}
+                        />
+                    ) : (
+                        <NoData text="No photos uploaded yet" />
+                    ))
+                }
             </div>
+
         </AppLayout>
     );
 }

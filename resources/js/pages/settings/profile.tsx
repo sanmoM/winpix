@@ -68,7 +68,6 @@ export default function Profile({
                                         className="mt-1 block w-full"
                                         defaultValue={auth.user.name}
                                         name="name"
-                                        required
                                         autoComplete="name"
                                         placeholder={t('dashboard.profile.inputs.name.placeholder')}
                                     />
@@ -86,11 +85,10 @@ export default function Profile({
                                         id="email"
                                         type="email"
                                         className="mt-1 block w-full"
-                                        value={auth.user.email}
-                                        onChange={() => { }}
+                                        defaultValue={auth.user.email}
                                         // disabled
+                                        readOnly
                                         name="email"
-                                        required
                                         autoComplete="username"
                                         placeholder={t('dashboard.profile.inputs.email.placeholder')}
                                     />
@@ -98,6 +96,26 @@ export default function Profile({
                                     <InputError
                                         className="mt-2"
                                         message={errors.email}
+                                    />
+                                </div>
+
+                                <div className="grid gap-2">
+                                    <Label htmlFor="number">{t('dashboard.profile.inputs.number.label')}</Label>
+
+                                    <Input
+                                        id="number"
+                                        type="text"
+                                        className="mt-1 block w-full"
+                                        defaultValue={auth.user.number}
+                                        // disabled
+                                        name="number"
+                                        autoComplete="tel"
+                                        placeholder={t('dashboard.profile.inputs.number.placeholder')}
+                                    />
+
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.number}
                                     />
                                 </div>
 

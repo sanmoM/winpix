@@ -15,7 +15,7 @@ export default function Table({ children, headingItems }: { children: React.Reac
                                 <th
                                     key={index}
                                     className={cn(
-                                        "px-4 py-3",
+                                        "px-4 py-3 text-nowrap",
 
                                         // LTR (default)
                                         !isRTL && "first:!text-left last:!text-right",

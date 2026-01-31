@@ -74,7 +74,7 @@ export default function Register({ countries }: { countries: any[] }) {
                                     id="country_id"
                                     name="country_id"
                                     required
-                                    className="rounded border px-3 py-2"
+                                    className="rounded border px-3 py-2 bg-bg-primary"
                                 >
                                     <option value="">
                                         Select your country
@@ -82,7 +82,7 @@ export default function Register({ countries }: { countries: any[] }) {
                                     {countries?.map((country: any) => (
                                         <option
                                             key={country.country_name}
-                                            value={country.country_name}
+                                            value={country.id}
                                         >
                                             {country.country_name}
                                         </option>

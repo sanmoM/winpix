@@ -24,6 +24,7 @@ use App\Http\Controllers\LogoController;
 use App\Http\Controllers\PrizePoolController;
 use App\Http\Controllers\TransactionController;
 use App\Models\ContestWinner;
+use App\Models\QuestImage;
 use App\Models\QuestJoin;
 use App\Models\Report;
 use App\Models\Transaction;
@@ -55,8 +56,6 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
             'currentLevel' => auth()->user()->level,
             'followers' => auth()->user()->followers()->count(),
             'following' => auth()->user()->following()->count(),
-            'questImages' => User::with('followers', 'following', 'joinedQuests', 'questImages', 'votes')->findOrFail(auth()->id())->questImages,
-            'likedImages' => auth()->user()->votes()->with('image')->get(),
             'rank' => RankingService::getRank(auth()->user()->level),
         ];
 
@@ -145,6 +144,37 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
         ]);
     })->name('billing-invoices');
 
+    Route::get('my-photos', function () {
+        return Inertia::render('user-dashboard/my-photos', [
+            'stats' => [
+                'questImages' => QuestImage::with(['quest.prizes.prize_pool', 'user'])
+                    ->withCount([
+                        'vote as total_votes' => function ($query) {
+                            $query->whereNull('skip');
+                        }
+                    ])
+                    ->where('user_id', auth()->id())
+                    ->orderByDesc('total_votes')
+                    ->get(),
+                'likedImages' => QuestImage::with(['quest.prizes.prize_pool', 'user'])
+                    ->withCount([
+                        'vote as total_votes' => function ($query) {
+                            $query->whereNull('skip');
+                        }
+                    ])
+                    ->whereHas('vote', function ($query) {
+                        $query->where('user_id', auth()->id())
+                            ->whereNull('skip');
+                    })
+                    ->get(),
+            ],
+            'flash' => [
+                'success' => session('success'),
+                'error' => session('error'),
+            ],
+        ]);
+    })->name('my-photos');
+    
     Route::get('my-contests', function () {
         $joinedQuests = QuestJoin::with(['quest', 'quest.user', 'quest.category'])->where('user_id', auth()->user()->id)->get();
 

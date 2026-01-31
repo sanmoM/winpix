@@ -30,6 +30,8 @@ export default function Dashboard({ stats }: { stats: any }) {
         },
     ];
 
+    console.log(stats)
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head />
@@ -113,7 +115,7 @@ export default function Dashboard({ stats }: { stats: any }) {
                         />
                     </div>
                 </Container>
-                <Container className="my-10 space-y-4 md:space-y-8 lg:mx-6 lg:mt-20 lg:mb-32 lg:space-y-10">
+                {/* <Container className="my-10 space-y-4 md:space-y-8 lg:mx-6 lg:mt-20 lg:mb-32 lg:space-y-10">
                     <div className="mx-auto w-fit">
                         <Tab
                             options={[
@@ -147,12 +149,12 @@ export default function Dashboard({ stats }: { stats: any }) {
                             <Gallery
                                 galleryImages={stats?.questImages?.map(
                                     (item) => ({
-                                        id: item?.image?.id,
+                                        id: item?.id,
                                         image: item?.image,
                                         user,
                                     }),
                                 )}
-                                hasImageView={false}
+                                hasImageView={true}
                             />
                         ) : (
                             <NoData text="No photos uploaded yet" />
@@ -162,17 +164,17 @@ export default function Dashboard({ stats }: { stats: any }) {
                             <Gallery
                                 galleryImages={stats?.likedImages?.map(
                                     (item) => ({
-                                        id: item?.image?.id,
-                                        image: item?.image?.image,
+                                        id: item?.id,
+                                        image: item?.image,
                                         user,
                                     }),
                                 )}
-                                hasImageView={false}
+                                hasImageView={true}
                             />
                         ) : (
                             <NoData text="No liked photos yet" />
                         ))}
-                </Container>
+                </Container> */}
             </div>
         </AppLayout>
     );

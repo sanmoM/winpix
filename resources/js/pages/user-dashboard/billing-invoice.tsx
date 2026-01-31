@@ -72,7 +72,11 @@ export default function WalletTransaction({
                                 <TableCell>{item.transaction_id || "N/A"}</TableCell>
                                 <TableCell>{item.user.name}</TableCell>
                                 <TableCell>{item.reference_id || "N/A"}</TableCell>
-                                <TableCell>{item.amount}</TableCell>
+                                <TableCell
+                                    className={item.transaction_type === "join_contest" ? '!text-red-500' : '!text-green-500'}
+                                >
+                                    {item.transaction_type === "join_contest" ? "- " : "+ "}{item.amount || "N/A"}
+                                </TableCell>
                                 <TableCell>{item.amount_type || "N/A"}</TableCell>
                                 <TableCell>{item.payment_method || "N/A"}</TableCell>
                                 <TableCell>{item.transaction_type}</TableCell>

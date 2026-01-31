@@ -5,11 +5,17 @@ import ImageActionButton from "../../image-action-button";
 import { useEffect, useState } from "react";
 
 // --- Image Panel Component ---
-const ImagePanel = ({ setIsOpen, data, index, hasClose = true }: any) => {
+const ImagePanel = ({ setIsOpen, data, index, hasClose = true, setImageIndex }: any) => {
 
     return (
         <div className="relative h-full bg-[var(--background)]">
-            <CustomSlider mobileView={1} desktopView={1} tabletView={1} hasButton={data.length > 1} index={index}>
+            <CustomSlider mobileView={1} desktopView={1} tabletView={1} hasButton={data.length > 1} index={index}
+                handleNextFunc={() => {
+                    setImageIndex((prev: number) => (prev + 1) % data.length)
+                }}
+                handlePrevFunc={() => {
+                    setImageIndex((prev: number) => (prev - 1 + data.length) % data.length)
+                }}>
                 {
                     data.map((item, index) => (
                         <div className="flex justify-center items-center overflow-hidden h-[50vh] lg:h-screen">

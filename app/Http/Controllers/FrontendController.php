@@ -167,14 +167,15 @@ class FrontendController extends Controller
         $imagePath = $questImage->image;
 
         // Active quests
-        $activeQuest = Quest::with('category', 'user')
+        $activeQuest = Quest::with('category', 'user', 'prizes.prize_pool')
             ->where('id', $questImage->quest_id)
             ->where('start_date', '<=', today())
             ->where('end_date', '>=', today())
             ->get();
 
         // Ended quests (can be 1 or many)
-        $endedQuests = Quest::where('id', $questImage->quest_id)
+        $endedQuests = Quest::with('prizes.prize_pool')
+            ->where('id', $questImage->quest_id)
             ->where('end_date', '<=', today())
             ->get();
 
@@ -675,6 +676,14 @@ class FrontendController extends Controller
 
         User::findOrFail($userId)->increment('pixel', $request->quantity);
         User::findOrFail($userId)->decrement('coin', $request->coinQuantity);
+
+        Transaction::create([
+            'user_id' => $userId,
+            'transaction_type' => 'Redeem',
+            'amount' => $request->quantity,
+            'amount_type' => 'pixel',
+            'date' => now(),
+        ]);
 
         return redirect()->back()->with('success', 'Contact form submitted successfully!');
     }

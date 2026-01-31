@@ -222,19 +222,27 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
         ]);
     })->name('engagement-and-community');
 
-    Route::get('/create-notification', function ($request) {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'subtitle' => 'required|string',
-            'user_id' => 'required|integer|exists:users,id',
-        ]);
+    // Route::get('/create-notification', function ($request) {
+    //     $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'subtitle' => 'required|string',
+    //         'user_id' => 'required|integer|exists:users,id',
+    //     ]);
 
         
-        return Inertia::render('user-dashboard/create-notification', [
-            'redirectTo' => $request->input('redirectTo', null),
-        ]);
+    //     return Inertia::render('user-dashboard/create-notification', [
+    //         'redirectTo' => $request->input('redirectTo', null),
+    //     ]);
 
-    })->name('create-notification');
+    // })->name('create-notification');
+    Route::get('/notifications', function () {
+        $user = auth()->user();
+        $notifications = $user->notifications()->orderBy('created_at', 'desc')->get();
+
+        return response()->json([
+            'notifications' => $notifications,
+        ]);
+    })->name('notifications');
 
     Route::post('/mark-as-read', function ($request) {
         $request->validate([

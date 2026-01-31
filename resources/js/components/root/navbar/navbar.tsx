@@ -1,9 +1,11 @@
 import BorderButton from "@/components/shared/buttons/border-button";
+import useBackground from "@/hooks/useBackground";
 import useLocales from "@/hooks/useLocales";
 import { cn } from "@/lib/utils";
 import { dashboard, login, register } from "@/routes";
 import { type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
@@ -12,7 +14,6 @@ import Container from "../../shared/container";
 import Logo from "../../shared/logo";
 import CoinAndNotification from "./components/coin-and-notification";
 import NavItem from "./components/nav-item";
-import useBackground from "@/hooks/useBackground";
 
 // const differentNavUrls = [
 //   "/",
@@ -24,6 +25,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { auth } = usePage<SharedData>().props;
   const { t, direction } = useLocales()
+  const [notifications, setNotifications] = useState<any[]>([]);
 
   const user = auth?.user
 
@@ -73,6 +75,15 @@ export default function Navbar() {
       document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      const response = await axios.get("/notifications");
+      setNotifications(response.data.notifications);
+    };
+
+    fetchNotifications();
+  }, []);
 
   return (
     <div

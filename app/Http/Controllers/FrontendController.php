@@ -10,6 +10,7 @@ use App\Models\Follower;
 use App\Models\Help;
 use App\Models\JudgePanel;
 use App\Models\MarketingBanner;
+use App\Models\Notification;
 use App\Models\Other;
 use App\Models\Quest;
 use App\Models\QuestCategory;
@@ -474,6 +475,12 @@ class FrontendController extends Controller
             'transaction_type' => 'join_contest',
             'amount_type' => 'pixel',
             'amount' => $questFromDb->entry_coin,
+        ]);
+
+        Notification::create([
+            'user_id' => $user->id,
+            'title' => 'Join Quest',
+            'message' => $user->name . ' has joined your quest: ' . $questFromDb->title,
         ]);
 
         return redirect()->back();

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('instagram')->nullable();
             $table->string('facebook')->nullable();
             $table->string('x')->nullable();
-            $table->string('country_id')->nullable();
+            $table->foreignId('country_id')->nullable()->constrained('countries');
             $table->string('city')->nullable();
             $table->text('full_address')->nullable();
             $table->timestamp('email_verified_at')->nullable();

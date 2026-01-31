@@ -222,6 +222,38 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
         ]);
     })->name('engagement-and-community');
 
+    Route::get('/create-notification', function ($request) {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'subtitle' => 'required|string',
+            'user_id' => 'required|integer|exists:users,id',
+        ]);
+
+        
+        return Inertia::render('user-dashboard/create-notification', [
+            'redirectTo' => $request->input('redirectTo', null),
+        ]);
+
+    })->name('create-notification');
+
+    Route::post('/mark-as-read', function ($request) {
+        $request->validate([
+            'notification_ids' => 'required|array',
+            'notification_ids.*' => 'required|string',
+        ]);
+
+        $notificationId = $request->input('notification_id');
+        $user = auth()->user();
+
+        $notification = $user->notifications()->where('id', $notificationId)->first();
+
+        if ($notification) {
+            $notification->markAsRead();
+            return response()->json(['message' => 'Notification marked as read.'], 200);
+        } else {
+            return response()->json(['message' => 'Notification not found.'], 404);
+        }
+    })->name('mark-as-read');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin,jury'])->group(function () {

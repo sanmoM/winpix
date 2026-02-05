@@ -495,7 +495,7 @@
         "store": {
             "inputs": {
                 "number_of_coin": {
-                    "label": "Number Of Coin",
+                    "label": "Number Of Pixel",
                     "placeholder": "Enter number of coin"
                 },
                 "price": {
@@ -562,7 +562,7 @@
                     "headings": [
                         "#",
                         "Icon",
-                        "Number Of Coin",
+                        "Number Of Pixel",
                         "Price",
                         "Status",
                         "Actions"

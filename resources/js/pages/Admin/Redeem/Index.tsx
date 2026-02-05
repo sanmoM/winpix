@@ -38,7 +38,7 @@ interface PaginationLink {
 
 
 interface Props {
-    redeems: { data: RedeemItem[]; links: PaginationLink[] } ;
+    redeems: { data: RedeemItem[]; links: PaginationLink[] };
     flash?: FlashProps;
 }
 
@@ -90,7 +90,8 @@ export default function Index({ redeems, flash }: Props) {
                                         </div>
                                     )}
                                 </TableCell>
-                                <TableCell>{item.number_of_coin}</TableCell>
+                                <TableCell>{item.name || "N/A"}</TableCell>
+                                <TableCell>{item.number_of_coin || "N/A"}</TableCell>
                                 <TableCell>{item.price}</TableCell>
                                 <TableCell>{item.prize_type}</TableCell>
                                 <TableCell>

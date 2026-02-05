@@ -57,7 +57,8 @@ class RegisteredUserController extends Controller
         $request->session()->regenerate();
 
         // return redirect()->intended(Auth::user()->getDashboardRoute());
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended('/');
+
 
     }
 }

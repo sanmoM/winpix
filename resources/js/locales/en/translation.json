@@ -663,6 +663,7 @@
                     "headings": [
                         "#",
                         "Icon",
+                        "Name",
                         "Number Of Coin",
                         "Price",
                         "Prize Type",

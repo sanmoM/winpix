@@ -67,7 +67,7 @@ export default function Index({ stores, flash }: { stores: { data: StoreItem[]; 
                                         <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">—</div>
                                     )}
                                 </TableCell>
-                                <TableCell>{item.number_of_coin || "N/A"}</TableCell>}
+                                <TableCell>{item.number_of_coin || "N/A"}</TableCell>
                                 <TableCell>{item.price}</TableCell>
                                 <TableCell>
                                     <Badge className={item.status === 'Active' ? 'bg-green-400' : 'bg-red-400'}>

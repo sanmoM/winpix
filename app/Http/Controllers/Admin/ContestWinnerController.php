@@ -183,6 +183,7 @@ class ContestWinnerController extends Controller
             ->orderByDesc('total_score')
             ->paginate(10)
             ->withQueryString();
+        $quest = Quest::find($questId);
 
         $totalPrizes = Prize::where('quest_id', $questId)
             ->get()
@@ -193,6 +194,7 @@ class ContestWinnerController extends Controller
         return Inertia::render('Admin/DeclareWinner/auto-declear-winner', [
             'images' => $images,
             'totalPrizes' => $totalPrizes,
+            'quest' => $quest,
         ]);
 
     }

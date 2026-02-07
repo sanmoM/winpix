@@ -7,11 +7,9 @@ import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
-import axios from 'axios';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
-
 interface ContestItem {
     id: number;
     image: string | null;
@@ -42,17 +40,6 @@ export default function Index({
         if (flash?.success) toast.success(flash.success);
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
-
-    const handleDistribute = async (id: number) => {
-        try {
-            await axios.post(route('admin.distributePrizes', id));
-            toast.success('Prizes Distributed Successfully');
-            window.location.reload();
-        } catch (error) {
-            toast.error('Something went wrong');
-        }
-    };
-
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
@@ -96,38 +83,15 @@ export default function Index({
                                 </TableCell>
 
                                 <TableCell className="space-x-2">
-                                    {
-                                        new Date(item?.end_date).getTime() <
-                                            Date.now() ? (<>
-
-                                                <Link
-                                                    href={route(
-                                                        'view-winners',
-                                                        item?.id,
-                                                    )}
-                                                    className="bg-dark cursor-pointer rounded-md bg-green-500 px-3 py-2 font-medium text-white"
-                                                >
-                                                    View Winners
-                                                </Link>
-                                                <button
-                                                    disabled={item.status === "Closed"}
-                                                    onClick={() =>
-                                                        handleDistribute(item.id)
-                                                    }
-                                                    className="bg-dark disabled:bg-gray-400 cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
-                                                >
-                                                    Distribute Prizes
-                                                </button>
-                                            </>) : <Link
-                                                href={route(
-                                                    'admin.auto.declareWinner.show',
-                                                    item?.id,
-                                                )}
-                                                className="bg-dark cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
-                                            >
-                                            All Score
-                                        </Link>
-                                    }
+                                    <Link
+                                        href={route(
+                                            'admin.auto.declareWinner.show',
+                                            item?.id,
+                                        )}
+                                        className="bg-dark cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
+                                    >
+                                        All Score
+                                    </Link>
 
                                 </TableCell>
                             </TableRow>

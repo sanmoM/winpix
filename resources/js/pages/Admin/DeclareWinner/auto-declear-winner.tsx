@@ -7,8 +7,10 @@ import TableContainer from '@/components/shared/table/table-container';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
+import axios from 'axios';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { route } from 'ziggy-js';
 
 interface ContestItem {
     id: number;
@@ -26,12 +28,14 @@ interface FlashProps {
 export default function Index({
     images: items,
     totalPrizes,
+    quest,
     flash,
 }: {
     images: ContestItem[];
     flash: FlashProps;
 }) {
     const { t } = useLocales();
+    // const axios = u();
 
     const breadcrumbs = t(
         'dashboard.jury.lead-contest.showContestScore.breadcrumbs',
@@ -45,6 +49,16 @@ export default function Index({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
+    const handleDistribute = async (id: number) => {
+        try {
+            await axios.post(route('admin.distributePrizes', id));
+            toast.success('Prizes Distributed Successfully');
+            window.location.reload();
+        } catch (error) {
+            toast.error('Something went wrong');
+        }
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>
             <ToastContainer />
@@ -53,9 +67,20 @@ export default function Index({
             />
 
             <TableContainer>
-                <h1 className="mb-4 text-lg font-semibold">
-                    {t('dashboard.jury.lead-contest.showContestScore.title')}
-                </h1>
+                <div className='flex justify-between items-center mb-4'>
+                    <h1 className="mb-4 text-lg font-semibold">
+                        {t('dashboard.jury.lead-contest.showContestScore.title')}
+                    </h1>
+                    <button
+                        disabled={quest.status === "Closed"}
+                        onClick={() =>
+                            handleDistribute(quest.id)
+                        }
+                        className="bg-dark disabled:bg-gray-400 cursor-pointer rounded-md bg-slate-950 px-3 py-2 font-medium text-white"
+                    >
+                        Distribute Prizes
+                    </button>
+                </div>
 
                 <Table
                     headingItems={t(

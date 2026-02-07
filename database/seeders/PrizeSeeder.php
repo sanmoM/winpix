@@ -18,7 +18,7 @@ class PrizeSeeder extends Seeder
                 'image' => '/static-images/coin.png',
             ],
             [
-                'name' => 'Coin',
+                'name' => 'V-Coin',
                 'image' => '/static-images/golden-coin.png',
             ],
             [

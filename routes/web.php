@@ -84,6 +84,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
             ->latest()
             ->paginate(12)
             ->withQueryString();
+
         return Inertia::render('user-dashboard/coin-history', [
             'transactions' => $transactions,
             'flash' => [
@@ -101,6 +102,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
             ->latest()
             ->paginate(12)
             ->withQueryString();
+
         return Inertia::render('user-dashboard/win-and-rewards', [
             'transactions' => $transactions,
             'flash' => [
@@ -152,7 +154,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
                     ->withCount([
                         'vote as total_votes' => function ($query) {
                             $query->whereNull('skip');
-                        }
+                        },
                     ])
                     ->where('user_id', auth()->id())
                     ->orderByDesc('total_votes')
@@ -161,7 +163,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
                     ->withCount([
                         'vote as total_votes' => function ($query) {
                             $query->whereNull('skip');
-                        }
+                        },
                     ])
                     ->whereHas('vote', function ($query) {
                         $query->where('user_id', auth()->id())
@@ -191,7 +193,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
     Route::get('/engagement-and-community', function () {
         $likedImages = Vote::with([
             'image.quest',
-            'user' // voter info
+            'user', // voter info
         ])
             ->whereHas('image', function ($query) {
                 $query->where('user_id', auth()->id());
@@ -200,10 +202,9 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
             ->paginate(12)
             ->withQueryString();
 
-
         $reportedImages = Report::with([
             'image.quest',
-            'image.user' // voter info
+            'image.user', // voter info
         ])
             ->whereHas('image', function ($query) {
                 $query->where('user_id', auth()->id());
@@ -233,7 +234,7 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
     //     ]);
 
     // })->name('create-notification');
-    
+
     Route::get('/notifications', function () {
         $user = auth()->user();
         $notifications = $user->notifications()->orderBy('created_at', 'desc')->get();
@@ -256,12 +257,13 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
 
         if ($notification) {
             $notification->markAsRead();
+
             return response()->json(['message' => 'Notification marked as read.'], 200);
         } else {
             return response()->json(['message' => 'Notification not found.'], 404);
         }
     })->name('mark-as-read');
-    
+
 });
 
 Route::middleware(['auth', 'verified', 'role:admin,jury'])->group(function () {
@@ -352,7 +354,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
 });
 
-require __DIR__ . '/settings.php';
-require __DIR__ . '/auth.php';
-require __DIR__ . '/frontend.php';
-require __DIR__ . '/user-dashboard.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/frontend.php';
+require __DIR__.'/user-dashboard.php';

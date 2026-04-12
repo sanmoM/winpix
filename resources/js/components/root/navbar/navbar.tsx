@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { dashboard, login, register } from "@/routes";
 import { type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
-import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
@@ -50,7 +49,7 @@ export default function Navbar() {
     },
     { name: t("root.navbar.navLinks.store"), href: "/store" },
     { name: t("root.navbar.navLinks.redeem"), href: "/redeem" },
-    // { name: t("root.navbar.navLinks.aboutUs"), href: "/about-us" },
+    { name: t("root.navbar.navLinks.aboutUs"), href: "/about-us" },
     // { name: t("root.navbar.navLinks.help"), href: "/all-help-categories" },
   ];
   

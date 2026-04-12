@@ -26,7 +26,7 @@ interface EditProps {
         pixel: number;
         coin: number;
         cash: number;
-        country_id: string;
+        country_id: number;
         level: number;
     };
     countries: any[];
@@ -92,7 +92,7 @@ export default function Edit({ user, countries }: EditProps) {
                     <Label htmlFor="number">Number</Label>
                     <Input
                         id="number"
-                        type="text" // Changed to text to handle symbols like '+' if needed
+                        type="text"
                         value={data.number}
                         onChange={(e) => setData('number', e.target.value)}
                         placeholder="Enter number"
@@ -117,7 +117,7 @@ export default function Edit({ user, countries }: EditProps) {
                         {countries?.map((country) => (
                             <option
                                 key={country.id || country.country_name}
-                                value={country.country_name}
+                                value={country.id || country.country_name}
                             >
                                 {country.country_name}
                             </option>

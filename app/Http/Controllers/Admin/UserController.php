@@ -9,9 +9,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class UserController extends Controller
 {
@@ -49,7 +49,7 @@ class UserController extends Controller
             'coin' => 'nullable|numeric|min:0',
             'pixel' => 'nullable|numeric|min:0',
             'cash' => 'nullable|numeric|min:0',
-            'country_id' => 'nullable|string',
+            'country_id' => 'nullable',
             'status' => 'required|string',
         ]);
 
@@ -90,7 +90,7 @@ class UserController extends Controller
      * Show the form for editing the given user.
      *
      * @param  int  $id
-     * @return \Inertia\Response
+     * @return Response
      */
     {
         // $user = User::find($id);
@@ -122,7 +122,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', Password::defaults()],
         ]);
 
         $user = User::create([

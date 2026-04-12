@@ -4,7 +4,6 @@ import RedeemModalContents from '@/components/root/redeem-modal-contents';
 import Modal from '@/components/shared/modal';
 import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import { Toaster } from 'react-hot-toast';
 
 export default function UserLayout({
     children,

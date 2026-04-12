@@ -14,7 +14,7 @@ import {
     WashingMachine,
 } from 'lucide-react';
 import { AiOutlineProfile } from 'react-icons/ai';
-import { IoMdHelpCircleOutline, IoMdInformationCircleOutline } from 'react-icons/io';
+import { IoMdHelpCircleOutline } from 'react-icons/io';
 import { route } from 'ziggy-js';
 
 export const userNavItemsEN: NavItem[] = [
@@ -23,11 +23,11 @@ export const userNavItemsEN: NavItem[] = [
         href: route('dashboard'),
         icon: AiOutlineProfile,
     },
-    {
-        title: 'About Us',
-        href: route('about-us'),
-        icon: IoMdInformationCircleOutline,
-    },
+    // {
+    //     title: 'About Us',
+    //     href: route('about-us'),
+    //     icon: IoMdInformationCircleOutline,
+    // },
     {
         title: 'Help',
         href: route('all-help-categories'),
@@ -82,11 +82,11 @@ export const userNavItemsAR: NavItem[] = [
         href: route('dashboard'),
         icon: AiOutlineProfile,
     },
-    {
-        title: 'من نحن',
-        href: route('about-us'),
-        icon: IoMdInformationCircleOutline,
-    },
+    // {
+    //     title: 'من نحن',
+    //     href: route('about-us'),
+    //     icon: IoMdInformationCircleOutline,
+    // },
     {
         title: 'المساعدة',
         href: route('all-help-categories'),

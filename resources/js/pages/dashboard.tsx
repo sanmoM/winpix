@@ -181,68 +181,70 @@ export default function Dashboard({ countries }: { countries: any[] }) {
                     {isEdit && <Button text={"save"} className="mt-4 px-10 py-1.5 !text-lg" onClick={handleUpdate} loading={loading} disabled={loading} />}
                 </div>
             </div>
-            <Container className="mx-auto mt-4 w-full lg:w-fit lg:min-w-lg pb-6">
-                <LevelProgress
-                    displayValue={user.level}
-                    level={user.level}
-                    max={100}
-                    current={user.level}
-                    containerClassName=""
-                />
-                <div className="mt-4 grid flex-1 grid-cols-3 gap-4">
-                    <CoinCard
-                        item={{
-                            src: '/images/coin.png',
-                            count: user?.pixel || 0,
-                        }}
+            {
+                user?.role !== "admin" && user?.role !== "jury" && <Container className="mx-auto mt-4 w-full lg:w-fit lg:min-w-lg pb-6">
+                    <LevelProgress
+                        displayValue={user.level}
+                        level={user.level}
+                        max={100}
+                        current={user.level}
+                        containerClassName=""
                     />
-                    <CoinCard
-                        item={{
-                            src: '/images/golden-coin.png',
-                            count: user?.coin || 0,
-                        }}
-                    />
-                    <CoinCard
-                        item={{
-                            src: '/images/cash.png',
-                            count: user?.cash || 0,
-                        }}
-                    />
-                </div>
-                <div className="mt-4 flex gap-4">
-                    <Link className='block w-full' href={route("ended-quests", user.id)}>
+                    <div className="mt-4 grid flex-1 grid-cols-3 gap-4">
+                        <CoinCard
+                            item={{
+                                src: '/images/coin.png',
+                                count: user?.pixel || 0,
+                            }}
+                        />
+                        <CoinCard
+                            item={{
+                                src: '/images/golden-coin.png',
+                                count: user?.coin || 0,
+                            }}
+                        />
+                        <CoinCard
+                            item={{
+                                src: '/images/cash.png',
+                                count: user?.cash || 0,
+                            }}
+                        />
+                    </div>
+                    <div className="mt-4 flex gap-4">
+                        <Link className='block w-full' href={route("ended-quests", user.id)}>
+                            <StatsCard
+                                item={{
+                                    icon: (
+                                        <FaTrophy className="h-6 w-6 text-white lg:h-8 lg:w-8" />
+                                    ),
+                                    label: user.joined_quests?.length || 0,
+                                }}
+                            />
+                        </Link>
                         <StatsCard
                             item={{
                                 icon: (
-                                    <FaTrophy className="h-6 w-6 text-white lg:h-8 lg:w-8" />
+                                    <RiFolderUploadFill className="h-6 w-6 text-white lg:h-8 lg:w-8" />
                                 ),
-                                label: user.joined_quests?.length || 0,
+                                label: user.votes?.length || 0,
                             }}
                         />
-                    </Link>
-                    <StatsCard
-                        item={{
-                            icon: (
-                                <RiFolderUploadFill className="h-6 w-6 text-white lg:h-8 lg:w-8" />
-                            ),
-                            label: user.votes?.length || 0,
-                        }}
-                    />
-                </div>
+                    </div>
 
-                <div className='grid grid-cols-2 gap-4 py-4 mt-4'>
-                    <Link href={"/store"}>
-                        <Button text="Buy Pixel" className="w-full py-2.5" />
+                    <div className='grid grid-cols-2 gap-4 py-4 mt-4'>
+                        <Link href={"/store"}>
+                            <Button text="Buy Pixel" className="w-full py-2.5" />
+                        </Link>
+                        <Link href={"/redeem"}>
+                            <Button text="Redeem" className="w-full py-2.5" />
+                        </Link>
+                    </div>
+                    <Link href={"/wallet-transactions"}>
+                        <BorderButton text="View Transactions" className=' py-2.5 hover:!scale-100' />
                     </Link>
-                    <Link href={"/redeem"}>
-                        <Button text="Redeem" className="w-full py-2.5" />
-                    </Link>
-                </div>
-                <Link href={"/wallet-transactions"}>
-                    <BorderButton text="View Transactions" className=' py-2.5 hover:!scale-100' />
-                </Link>
 
-            </Container>
+                </Container>
+            }
         </AppLayout>
     );
 }

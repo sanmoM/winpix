@@ -41,7 +41,7 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
             document.removeEventListener("mousedown", handleClickOutside);
             document.removeEventListener("touchstart", handleClickOutside);
         };
-    }, []); // ✅ no dependency needed
+    }, []);
 
 
 
@@ -49,15 +49,17 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
         <div className="flex gap-4 items-center">
             <div className="flex items-center gap-2">
                 <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
-                <p>{auth?.user?.coin}</p>
+                 <Link href={dashboard()}>
+                   {auth?.user?.coin}
+                </Link>
             </div>
             <div className="flex items-center gap-2">
                 <img src="/images/coin.png" alt="" className="w-4 h-4" />
-                <p>{auth?.user?.pixel}</p>
+                <Link href={dashboard()}>{auth?.user?.pixel}</Link>
             </div>
             <div className="flex items-center gap-2">
                 <img src="/images/cash.png" alt="" className="w-6 h-6" />
-                <p>{auth?.user?.cash}</p>
+                <Link href={dashboard()}> {auth?.user?.cash} </Link>
             </div>
             <div className="">
                 <button

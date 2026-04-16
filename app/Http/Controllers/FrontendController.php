@@ -26,7 +26,6 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Vote;
 use App\Services\RankingService;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
@@ -68,9 +67,9 @@ class FrontendController extends Controller
             ->take(10)
             ->with(['image.user', 'image.quest'])
             ->get();
-        if ($user) {
-            return redirect('/discover');
-        }
+        // if ($user) {
+        //     return redirect('/discover');
+        // }
 
         return Inertia::render('home', [
             'sliders' => $sliders,
@@ -242,7 +241,7 @@ class FrontendController extends Controller
 
     public function questSeries()
     {
-        $series = Series::with("quests", 'quests.user', 'quests.prizes', 'quests.prizes.prize_pool', 'quests.category', 'user')->get();
+        $series = Series::with('quests', 'quests.user', 'quests.prizes', 'quests.prizes.prize_pool', 'quests.category', 'user')->get();
 
         return Inertia::render('quests/quest-series', [
             'series' => $series,
@@ -289,7 +288,7 @@ class FrontendController extends Controller
             'quest',
             'quest.category',
             'quest.prizes.prize_pool',
-            'user'
+            'user',
         ])
             ->where('user_id', $userId)
             ->whereHas('quest', function ($query) {
@@ -303,7 +302,7 @@ class FrontendController extends Controller
             'quest',
             'quest.category',
             'quest.prizes.prize_pool',
-            'user'
+            'user',
         ])
             ->where('user_id', $userId)
             ->whereHas('quest', function ($query) {
@@ -390,8 +389,8 @@ class FrontendController extends Controller
     public function searchedHelps()
     {
         $searchTerm = request()->query('searchTerm');
-        $helps = Help::where('question', 'LIKE', '%' . $searchTerm . '%')
-            ->orWhere('answer', 'LIKE', '%' . $searchTerm . '%')
+        $helps = Help::where('question', 'LIKE', '%'.$searchTerm.'%')
+            ->orWhere('answer', 'LIKE', '%'.$searchTerm.'%')
             ->get();
 
         return Inertia::render('help/searched-helps', [
@@ -428,7 +427,6 @@ class FrontendController extends Controller
             ], 422);
         }
 
-
         // Handle uploaded image
         $image = null;
         if ($request->hasFile('image')) {
@@ -446,17 +444,17 @@ class FrontendController extends Controller
             ]
         );
 
-        if (!$isAlreadyJoin) {
+        if (! $isAlreadyJoin) {
             Notification::create([
                 'user_id' => $user->id,
                 'title' => 'Join Quest',
-                'message' => $user->name . ' has joined your quest: ' . $questFromDb->title,
+                'message' => $user->name.' has joined your quest: '.$questFromDb->title,
             ]);
         } else {
             Notification::create([
                 'user_id' => $user->id,
                 'title' => 'Image submited to Quest',
-                'message' => $user->name . ' has submitted an image to quest: ' . $questFromDb->title,
+                'message' => $user->name.' has submitted an image to quest: '.$questFromDb->title,
             ]);
         }
 
@@ -491,8 +489,6 @@ class FrontendController extends Controller
             'amount' => $questFromDb->entry_coin,
         ]);
 
-
-
         return redirect()->back();
     }
 
@@ -510,7 +506,7 @@ class FrontendController extends Controller
 
         if ($quest->vote_rights === 'Judges') {
             abort_unless(
-                !($user->role === 'jury' &&
+                ! ($user->role === 'jury' &&
                     JudgePanel::where('quest_id', $quest->id)
                         ->where('user_id', $user->id)
                         ->exists()),
@@ -550,7 +546,7 @@ class FrontendController extends Controller
 
         if ($quest->vote_rights === 'Judges') {
             abort_unless(
-                !($user->role === 'jury' &&
+                ! ($user->role === 'jury' &&
                     JudgePanel::where('quest_id', $quest->id)
                         ->where('user_id', $user->id)
                         ->exists()),

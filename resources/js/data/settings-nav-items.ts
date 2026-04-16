@@ -10,16 +10,16 @@ export const settingsNavItemsEN: NavItem[] = [
         title: 'Settings',
         icon: Settings,
         subItems: [
-            {
-                title: 'Edit Profile',
-                href: edit(),
-                icon: null,
-            },
-            {
-                title: 'Social Links',
-                href: "/settings/social-links",
-                icon: null,
-            },
+            // {
+            //     title: 'Edit Profile',
+            //     href: edit(),
+            //     icon: null,
+            // },
+            // {
+            //     title: 'Social Links',
+            //     href: "/settings/social-links",
+            //     icon: null,
+            // },
             {
                 title: 'Shipping Address',
                 href: "/settings/address",
@@ -52,45 +52,51 @@ export const settingsNavItemsEN: NavItem[] = [
 ];
 
 export const settingsNavItemsAR: NavItem[] = [
+    // {
+    //     title: 'تعديل الملف الشخصي',
+    //     href: edit(),
+    //     icon: null,
+    // },
+    // {
+    //     title: 'روابط التواصل الاجتماعي',
+    //     href: "/settings/social-links",
+    //     icon: null,
+    // },
+    // {
+    //     title: 'الحسابات المرتبطة',
+    //     href: "/settings/link-social-account",
+    //     icon: null,
+    // },
     {
-        title: 'تعديل الملف الشخصي',
-        href: edit(),
-        icon: null,
-    },
-    {
-        title: 'روابط التواصل الاجتماعي',
-        href: "/settings/social-links",
-        icon: null,
-    },
-    {
-        title: 'الحسابات المرتبطة',
-        href: "/settings/link-social-account",
-        icon: null,
-    },
-    {
-        title: 'عنوان الشحن',
-        href: "/settings/address",
-        icon: null,
-    },
-    {
-        title: 'كلمة المرور',
-        href: editPassword(),
-        icon: null,
-    },
-    {
-        title: 'المصادقة الثنائية',
-        href: show(),
-        icon: null,
-    },
-    {
-        title: 'المظهر',
-        href: editAppearance(),
-        icon: null,
-    },
-    {
-        title: 'اللغة',
-        href: '/settings/language',
-        icon: null,
-        access: "user",
-    },
+        title: 'الإعدادات',
+        icon: Settings,
+        subItems: [
+            {
+                title: 'عنوان الشحن',
+                href: "/settings/address",
+                icon: null,
+            },
+            {
+                title: 'كلمة المرور',
+                href: editPassword(),
+                icon: null,
+            },
+            {
+                title: 'المصادقة الثنائية',
+                href: show(),
+                icon: null,
+            },
+            {
+                title: 'المظهر',
+                href: editAppearance(),
+                icon: null,
+            },
+            {
+                title: 'اللغة',
+                href: '/settings/language',
+                icon: null,
+                access: "user",
+            },
+        ]
+    }
 ];

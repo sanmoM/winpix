@@ -24,6 +24,7 @@ use App\Http\Controllers\LogoController;
 use App\Http\Controllers\PrizePoolController;
 use App\Http\Controllers\TransactionController;
 use App\Models\ContestWinner;
+use App\Models\Country;
 use App\Models\QuestImage;
 use App\Models\QuestJoin;
 use App\Models\Report;
@@ -49,7 +50,7 @@ Route::get('auth-error', function () {
     return view('error');
 })->name('auth.error');
 
-Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:user,jury,admin'])->group(function () {
     Route::get('dashboard', function () {
         $stats = [
             'totalQuests' => auth()->user()->joinedQuests()->count(),
@@ -60,10 +61,16 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
             'rank' => RankingService::getRank(auth()->user()->level),
         ];
 
+        $countries = Country::all();
+
         $user = User::with('followers', 'following', 'joinedQuests', 'questImages', 'votes')->findOrFail(auth()->user()->id);
 
-        return Inertia::render('dashboard', ['stats' => $stats, 'user' => $user]);
+        return Inertia::render('dashboard', ['stats' => $stats, 'user' => $user, 'countries' => $countries]);
     })->name('dashboard');
+
+});
+
+Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
 
     // follow unfollow
     Route::post('/users/{user}/follow', [FollowController::class, 'follow'])->name('users.follow');
@@ -354,7 +361,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
-require __DIR__.'/frontend.php';
-require __DIR__.'/user-dashboard.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/frontend.php';
+require __DIR__ . '/user-dashboard.php';

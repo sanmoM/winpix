@@ -2,20 +2,20 @@ import BorderButton from '@/components/shared/buttons/border-button';
 import { cn } from '@/lib/utils';
 import React from 'react'
 
-export default function PrizeCard({ number, title, amount, containerClassName, hasBadge = false, image }: any) {
+export default function PrizeCard({ number, title, amount, containerClassName, hasBadge = false, image, type }: any) {
     return (
         <div className={cn("w-full rounded-lg bg-bg-primary py-5 relative", containerClassName)}>
 
             <h2 className=" text-xl !text-center font-semibold mb-4">
                 {title}
             </h2>
-            <img src={"/storage/" + image} alt="" className="size-20 mx-auto object-cover" />
+            <img src={"/storage/" + image} alt="" className="size-20 mx-auto object-contain" />
             {/* Top section: Icon + Title */}
             <div className="flex items-center justify-center gap-3">
                 {hasBadge && <MedalIcon number={number} size={40} title="Medal" />}
             </div>
 
-            <p className='text-xl !text-center font-semibold mt-4'>Quantity : {amount}</p>
+            <p className='text-xl !text-center font-semibold mt-4'>{type !== "Cash" && "Quantity :  "} {amount} {type === "Cash" ? "$" : ""} </p>
 
 
             {/* <BorderButton text={`${amount}`} className='w-fit mx-auto mt-4 py-1.5 lg:py-2 px-6 lg:px-10 text-sm lg:text-base' hasIcon={true} /> */}

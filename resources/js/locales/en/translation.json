@@ -298,7 +298,8 @@
                 "daysLeft": "days left"
             },
             "vote": {
-                "title": "Vote"
+                "title": "Vote",
+                "votes": "votes"
             }
         }
     },
@@ -979,8 +980,8 @@
                     "placeholder": "Select manual override"
                 },
                 "category": {
-                    "label": "Tag",
-                    "placeholder": "Select a tag"
+                    "label": "Category",
+                    "placeholder": "Select a category"
                 },
                 "series": {
                     "label": "Series",

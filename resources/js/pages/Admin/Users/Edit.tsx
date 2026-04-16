@@ -111,7 +111,7 @@ export default function Edit({ user, countries }: EditProps) {
                         id="country_id"
                         value={data.country_id}
                         onChange={(e) => setData('country_id', e.target.value)}
-                        className="rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-amber-600 focus:outline-none"
+                        className="rounded-lg border border-gray-300 p-2  focus:outline-none bg-bg-primary"
                     >
                         <option value="">Select Country</option>
                         {countries?.map((country) => (
@@ -190,7 +190,7 @@ export default function Edit({ user, countries }: EditProps) {
                         id="status"
                         value={data.status}
                         onChange={(e) => setData('status', e.target.value)}
-                        className="rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-amber-600 focus:outline-none"
+                        className="rounded-lg border border-gray-300 p-2 bg-bg-primary focus:outline-none"
                     >
                         <option value="active">Active</option>
                         <option value="inactive">InActive</option>
@@ -205,9 +205,8 @@ export default function Edit({ user, countries }: EditProps) {
                     <button
                         type="submit"
                         disabled={processing}
-                        className={`cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white shadow transition ease-in-out ${
-                            processing && 'cursor-not-allowed opacity-60'
-                        }`}
+                        className={`cursor-pointer rounded-lg bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] px-6 py-2 font-semibold text-white shadow transition ease-in-out ${processing && 'cursor-not-allowed opacity-60'
+                            }`}
                     >
                         {processing ? 'Updating...' : 'Update'}
                     </button>

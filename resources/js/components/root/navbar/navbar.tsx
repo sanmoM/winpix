@@ -69,7 +69,7 @@ export default function Navbar() {
     };
   }, [isMenuOpen]);
 
-
+  const dashboardUrl = user?.role === 'admin' ? "/admin/dashboard" : user?.role === 'user' || user?.role === 'jury' ? dashboard() : "/"
   return (
     <div
       className={cn(
@@ -112,8 +112,8 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center space-x-2 lg:space-x-4 relative">
               {auth?.user ? (
                 <>
-                  <CoinAndNotification hasBackground={hasBackground} direction={direction} t={t} />
-                  <Link href={dashboard()} className={cn("font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
+                  <CoinAndNotification hasBackground={hasBackground} direction={direction} t={t} dashboardUrl={dashboardUrl} />
+                  <Link href={dashboardUrl} className={cn("font-medium", hasBackground ? "hover:text-primary-color" : "hover:opacity-70")}>
                     {t("root.navbar.navLinks.dashboard")}
                   </Link>
                 </>

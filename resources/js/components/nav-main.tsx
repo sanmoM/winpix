@@ -36,11 +36,6 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                     const isActive =
                         currentPath === normalizedHref ||
                         `${normalizedHref}`.startsWith(currentPath);
-
-                    console.log("href", item?.href)
-                    console.log('currentPath', currentPath);
-                    console.log('normalizedHref', normalizedHref);
-                    console.log('isActive', isActive);
                     return (
                         <Collapsible
                             key={item.title}

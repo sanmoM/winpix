@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaRocket } from "react-icons/fa";
 import { IoMdNotificationsOutline } from "react-icons/io";
 
-export default function CoinAndNotification({ hasBackground, direction, t }: { hasBackground: boolean, direction: string, t: (key: string) => string }) {
+export default function CoinAndNotification({ hasBackground, direction, t, dashboardUrl }: any) {
     const [notifyOpen, setNotifyOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -47,20 +47,24 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
 
     return (
         <div className="flex gap-4 items-center">
-            <div className="flex items-center gap-2">
-                <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
-                 <Link href={dashboard()}>
-                   {auth?.user?.coin}
-                </Link>
-            </div>
-            <div className="flex items-center gap-2">
-                <img src="/images/coin.png" alt="" className="w-4 h-4" />
-                <Link href={dashboard()}>{auth?.user?.pixel}</Link>
-            </div>
-            <div className="flex items-center gap-2">
-                <img src="/images/cash.png" alt="" className="w-6 h-6" />
-                <Link href={dashboard()}> {auth?.user?.cash} </Link>
-            </div>
+            <Link href={dashboardUrl}>
+                <div className="flex items-center gap-2">
+                    <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
+                    {auth?.user?.coin}
+                </div>
+            </Link>
+            <Link href={dashboardUrl}>
+                <div className="flex items-center gap-2">
+                    <img src="/images/coin.png" alt="" className="w-4 h-4" />
+                    {auth?.user?.pixel}
+                </div>
+            </Link>
+            <Link href={dashboardUrl}>
+                <div className="flex items-center gap-1">
+                    <img src="/images/cash.png" alt="" className="w-5 h-5" />
+                    {auth?.user?.cash}
+                </div>
+            </Link>
             <div className="">
                 <button
                     ref={buttonRef}

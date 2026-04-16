@@ -63,7 +63,6 @@ export default function active({ series, quests, categories, questTypes, allQues
             sort: queryParams.get('sort') || null,
         });
     }, [isFilterModalOpen]);
-console.log(quests)
     return (
         <UserLayout>
             <ActiveQuestsBanner direction={direction} t={t} quests={allQuests} currentLanguage={currentLanguage} />

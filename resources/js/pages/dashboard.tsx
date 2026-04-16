@@ -26,7 +26,16 @@ export default function Dashboard({ countries }: { countries: any[] }) {
     const [facebook, setFacebook] = useState(user?.facebook || null);
     const [instagram, setInstagram] = useState(user?.instagram || null);
     const [twitter, setTwitter] = useState(user?.x || null);
-    const isEdit = name !== user?.name || email !== user?.email || country !== user?.country?.id || phone !== user?.number || image !== `/storage/${user?.image}` || facebook != user?.facebook || instagram != user?.instagram || twitter != user?.x;
+    const isEdit = name !== user?.name || email !== user?.email || country !== user?.country?.id || phone !== user?.number || image !== (user?.image ? `/storage/${user?.image}` : null) || facebook != user?.facebook || instagram != user?.instagram || twitter != user?.x;
+
+    // console.log(name !== user?.name)
+    // console.log(email !== user?.email)
+    // console.log(country !== user?.country?.id)
+    // console.log(phone !== user?.number)
+    console.log(image, user?.image)
+    // console.log(facebook, user?.facebook)
+    // console.log(instagram, user?.instagram)
+    // console.log(twitter, user?.x)
 
     const { t } = useLocales();
     const breadcrumbs: BreadcrumbItem[] = [
@@ -58,7 +67,7 @@ export default function Dashboard({ countries }: { countries: any[] }) {
                 data: formData,
             });
             toast.success('Profile updated successfully');
-            router.reload();
+            window.location.reload();
         } catch (error) {
             console.error(error);
         } finally {

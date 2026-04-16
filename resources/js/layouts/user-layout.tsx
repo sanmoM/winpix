@@ -17,7 +17,7 @@ export default function UserLayout({
             <Navbar />
             {children}
             <Footer />
-            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <Modal isOpen={isOpen && user?.role !== 'admin' && user?.role !== 'jury'} onClose={() => setIsOpen(false)}>
                 <RedeemModalContents setIsOpen={setIsOpen} />
             </Modal>
         </div>

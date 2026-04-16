@@ -59,7 +59,7 @@ export function AppSidebar() {
     if (userRole === 'admin') {
         roleBaseNavItems = [...adminNavItems, ...settingsNavItems];
     } else if (userRole === 'jury') {
-        roleBaseNavItems = [...roleBaseNavItems, ...juryNavItems];
+        roleBaseNavItems = [...juryNavItems];
     } else {
         roleBaseNavItems = [...roleBaseNavItems];
     }

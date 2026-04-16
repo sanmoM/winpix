@@ -15,7 +15,7 @@ export default function PrizeCard({ number, title, amount, containerClassName, h
                 {hasBadge && <MedalIcon number={number} size={40} title="Medal" />}
             </div>
 
-            <p className='text-xl !text-center font-semibold mt-4'>{amount} {type === "Cash" ? "Dollars" : type}</p>
+            <p className='text-xl !text-center font-semibold mt-4'>{type !== "Cash" && "Quantity :  "} {amount} {type === "Cash" ? "$" : ""} </p>
 
 
             {/* <BorderButton text={`${amount}`} className='w-fit mx-auto mt-4 py-1.5 lg:py-2 px-6 lg:px-10 text-sm lg:text-base' hasIcon={true} /> */}

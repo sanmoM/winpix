@@ -82,6 +82,10 @@ export default function SingleQuest() {
         if (!contestOpen) {
             return 'Contest is closed';
         }
+
+        if (quest?.manual_override === 'Force_Closed') {
+            return 'Contest is forced closed by the organizer';
+        }
     })()
 
     const { post, setData, data, processing } = useForm<any>({
@@ -123,20 +127,6 @@ export default function SingleQuest() {
     }
 
     const handleJoinQuest = async (e) => {
-        if (user?.role === 'admin' || isUserInJudgePanel) {
-            toast.error('You are not allowed to join this contest');
-            return;
-        }
-
-        if (votingRights) {
-            toast.error('You are not allowed to join this contest');
-            return;
-        }
-
-        if (!contestOpen) {
-            toast.error('Contest is closed');
-            return;
-        }
 
         e.preventDefault();
 
@@ -144,18 +134,18 @@ export default function SingleQuest() {
 
         if (quest?.entry_coin <= auth?.user?.pixel) {
             if (typeof data?.image !== 'string') {
-                const isGenerated = await AIImageDetector(
-                    data?.image,
-                    quest?.category?.description,
-                );
-                if (isGenerated) {
-                    toast.error(
-                        `This image is invalid. ${quest?.category?.description}`,
-                    );
-                    setLoading(false);
-                    setJoinModalOpen(false);
-                    return;
-                }
+                // const isGenerated = await AIImageDetector(
+                //     data?.image,
+                //     quest?.category?.description,
+                // );
+                // if (isGenerated) {
+                //     toast.error(
+                //         `This image is invalid. ${quest?.category?.description}`,
+                //     );
+                //     setLoading(false);
+                //     setJoinModalOpen(false);
+                //     return;
+                // }
             }
             post(route('join-quest', quest.id), {
                 onSuccess: () => {
@@ -231,6 +221,9 @@ export default function SingleQuest() {
                                     }
                                     if (votingItems?.length === 0) {
                                         return toast.error("No items to vote");
+                                    }
+                                    if (!isJoined) {
+                                        return toast.error("You have to join the contest to vote");
                                     }
                                     setVoteModalOpen(true);
                                 }}

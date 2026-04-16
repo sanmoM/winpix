@@ -39,6 +39,8 @@ export default function SingleQuest() {
     } = usePage<any>().props;
     const user = auth?.user;
 
+    // console.log(votes)
+
     const [noPixelModalOpen, setNoPixelModalOpen] = useState(false);
 
     const [isImageViewOpen, setIsImageViewOpen] = useState(false);
@@ -105,9 +107,7 @@ export default function SingleQuest() {
 
     // Voting items logic starts
     const allItems = questImages;
-    // const votingItems = allItems?.slice(((votes?.length || 0) * 2), allItems?.length)?.filter((item: any) => {
-    //     return !votes?.map((vote: any) => vote?.image_id)?.includes(item?.id)
-    // })
+
     const votingItems = allItems
         ?.filter((votingItem) => votingItem.user.id !== auth?.user?.id)
         ?.slice((votes?.length || 0) * 2, allItems?.length);
@@ -255,7 +255,7 @@ export default function SingleQuest() {
                         activeTab !== 'brief' && 'hidden',
                     )}
                 >
-                    <Status t={t} direction={direction} />
+                    <Status t={t} direction={direction} quest={quest} votes={votes.length} />
                     <Brief
                         title={t('singleQuestDetails.brief.title')}
                         text={

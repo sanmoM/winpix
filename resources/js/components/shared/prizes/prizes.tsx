@@ -27,6 +27,8 @@ export default function Prizes({ t, prizes }: { t: any, prizes: any[] }) {
         return () => window.removeEventListener('resize', updateVisibleCount);
     }, []);
 
+    console.log(prizes)
+
     return (
         <div>
             <SecondarySectionHeading title={t('shared.prizes.title')} />
@@ -41,6 +43,7 @@ export default function Prizes({ t, prizes }: { t: any, prizes: any[] }) {
                         amount={prize.coin}
                         image={prize.prize_pool?.image}
                         containerClassName='w-full'
+                        type={prize?.prize_pool?.name}
                     />
                 ))}
             </div>

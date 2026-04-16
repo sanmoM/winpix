@@ -10,7 +10,6 @@ export function UserInfo({
     showEmail?: boolean;
 }) {
     const getInitials = useInitials();
-    console.log(user)
     return (
         <>
             <Avatar className="h-10 w-10 overflow-hidden rounded-full">

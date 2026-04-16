@@ -60,8 +60,8 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
                 </div>
             </Link>
             <Link href={dashboard()}>
-                <div className="flex items-center gap-2">
-                    <img src="/images/cash.png" alt="" className="w-6 h-6" />
+                <div className="flex items-center gap-1">
+                    <img src="/images/cash.png" alt="" className="w-5 h-5" />
                     {auth?.user?.cash}
                 </div>
             </Link>

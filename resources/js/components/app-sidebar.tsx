@@ -70,14 +70,13 @@ export function AppSidebar() {
             : userRole === 'user' || userRole === 'jury'
                 ? '/dashboard'
                 : '/';
-
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboardHref} prefetch>
+                            <Link href={dashboardHref || "/"} prefetch>
                                 <Logo hasBackground={hasBackground} />
                             </Link>
                         </SidebarMenuButton>

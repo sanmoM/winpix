@@ -23,11 +23,10 @@ export default function Dashboard({ countries }: { countries: any[] }) {
     const [country, setCountry] = useState(user?.country?.id);
     const [phone, setPhone] = useState(user?.number);
     const [image, setImage] = useState(user?.image ? `/storage/${user?.image}` : null);
-    const [facebook, setFacebook] = useState(user?.facebook || "");
-    const [instagram, setInstagram] = useState(user?.instagram || "");
-    const [twitter, setTwitter] = useState(user?.x || "");
-    const isEdit = name !== user?.name || email !== user?.email || country !== user?.country?.country_name || phone !== user?.number || image !== user?.image || facebook !== user?.facebook || instagram !== user?.instagram || twitter !== user?.x;
-
+    const [facebook, setFacebook] = useState(user?.facebook || null);
+    const [instagram, setInstagram] = useState(user?.instagram || null);
+    const [twitter, setTwitter] = useState(user?.x || null);
+    const isEdit = name !== user?.name || email !== user?.email || country !== user?.country?.id || phone !== user?.number || image !== `/storage/${user?.image}` || facebook != user?.facebook || instagram != user?.instagram || twitter != user?.x;
 
     const { t } = useLocales();
     const breadcrumbs: BreadcrumbItem[] = [
@@ -48,9 +47,9 @@ export default function Dashboard({ countries }: { countries: any[] }) {
             formData.append('number', phone);
             formData.append('country_id', country);
             formData.append('image', image);
-            formData.append('facebook', facebook);
-            formData.append('instagram', instagram);
-            formData.append('x', twitter);
+            if (facebook) formData.append('facebook', facebook);
+            if (instagram) formData.append('instagram', instagram);
+            if (twitter) formData.append('x', twitter);
 
 
             await axios({
@@ -81,7 +80,7 @@ export default function Dashboard({ countries }: { countries: any[] }) {
                             nameClassName="text-3xl"
                             hasBtn={false}
                             userFromParent={user}
-
+                            hasSocialIcons={false}
                             image={image}
                             setImage={setImage}
                             type='image-input'

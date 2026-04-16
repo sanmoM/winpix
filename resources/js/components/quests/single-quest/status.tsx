@@ -5,7 +5,7 @@ import { AiOutlineGlobal } from "react-icons/ai";
 import { GiVote } from "react-icons/gi";
 
 export default function Status({ t, direction, quest, votes }: { t: any, direction?: string, quest: any, votes: any }) {
-  const startDate = new Date("2026-04-05");
+  const startDate = new Date(quest?.start_date);
   const currentDate = new Date(); // today
 
   const diffTime = currentDate - startDate;
@@ -29,7 +29,7 @@ export default function Status({ t, direction, quest, votes }: { t: any, directi
         <div className='flex gap-2 items-center mt-1 ml-2'>
           <GiVote className='text-primary-color text-2xl' />
           <p className='text-lg'>{t('singleQuestDetails.status.vote.title')}</p>
-          <sub className='text-xs text-gray-500'>{votes?.length || 0}</sub>
+          <sub className='text-xs text-gray-500'>{votes?.length || 0} {t('singleQuestDetails.status.vote.votes')}</sub>
         </div>
       </div>
     </div>

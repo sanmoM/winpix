@@ -55,13 +55,7 @@ export default function SingleQuest() {
         ?.map((item: any) => item.quest_id)
         .includes(quest.id);
 
-    const isDisabled = (() => {
-        if (user?.role === 'admin' || isUserInJudgePanel) return true;
-        const today = new Date(); // current date
-        const startDate = new Date(quest.start_date);
-        const endDate = new Date(quest.end_date);
-        // disable if today is before start or after end
-        // return today < startDate || today > endDate || !isJoined;
+    const votingRights = (() => {
         const votingRights = quest?.vote_rights;
         let hasVotingRight = false;
         if (votingRights === 'Public') {
@@ -71,17 +65,24 @@ export default function SingleQuest() {
         } else if (votingRights === 'Hybrid') {
             hasVotingRight = true;
         }
-        // if admin forsed open contest
-        if (quest?.manual_override === 'Force_Open') {
-            return !hasVotingRight;
-        }
+        return hasVotingRight;
+    })()
 
-        return !(
-            (today > startDate || today < endDate) &&
-            quest?.manual_override === 'None' &&
-            hasVotingRight
-        );
-    })();
+    const contestOpen = (() => {
+        const today = new Date(); // current date
+        const startDate = new Date(quest.start_date);
+        const endDate = new Date(quest.end_date);
+        return today > startDate || today < endDate;
+    })()
+
+    const errorText = (() => {
+        if (!votingRights || user?.role === 'admin' || isUserInJudgePanel) {
+            return 'You are not allowed to join or vote this contest';
+        }
+        if (!contestOpen) {
+            return 'Contest is closed';
+        }
+    })()
 
     const { post, setData, data, processing } = useForm<any>({
         quest_id: quest.id,
@@ -122,6 +123,21 @@ export default function SingleQuest() {
     }
 
     const handleJoinQuest = async (e) => {
+        if (user?.role === 'admin' || isUserInJudgePanel) {
+            toast.error('You are not allowed to join this contest');
+            return;
+        }
+
+        if (votingRights) {
+            toast.error('You are not allowed to join this contest');
+            return;
+        }
+
+        if (!contestOpen) {
+            toast.error('Contest is closed');
+            return;
+        }
+
         e.preventDefault();
 
         setLoading(true);
@@ -207,15 +223,19 @@ export default function SingleQuest() {
                     ) > new Date() ? (
                         <div className="grid grid-cols-2 gap-4">
                             <SecondaryButton
-                                disabled={
-                                    isDisabled || votingItems?.length === 0
-                                }
                                 text={t('singleQuest.banner.voteText')}
                                 className="bg-primary-color text-white disabled:bg-gray-500"
-                                onClick={() => setVoteModalOpen(true)}
+                                onClick={() => {
+                                    if (errorText) {
+                                        return toast.error(errorText);
+                                    }
+                                    if (votingItems?.length === 0) {
+                                        return toast.error("No items to vote");
+                                    }
+                                    setVoteModalOpen(true);
+                                }}
                             />
                             <Button
-                                disabled={isDisabled}
                                 text={t(
                                     isJoined
                                         ? 'singleQuest.banner.addEntryText'
@@ -224,6 +244,13 @@ export default function SingleQuest() {
                                 className="px-8 py-2 disabled:!bg-gray-600 lg:text-sm"
                                 type="button"
                                 onClick={() => {
+                                    if (errorText) {
+                                        return toast.error(errorText);
+                                    }
+                                    // if (quest?.manual_override === 'Force_Open') {
+                                    //     toast.error('Contest is forced closed');
+                                    //     return;
+                                    // }
                                     if (quest?.entry_coin > user?.pixel) {
                                         setNoPixelModalOpen(true);
                                     } else {

@@ -9,13 +9,13 @@ export default function PrizeCard({ number, title, amount, containerClassName, h
             <h2 className=" text-xl !text-center font-semibold mb-4">
                 {title}
             </h2>
-            <img src={"/storage/" + image} alt="" className="size-20 mx-auto object-cover" />
+            <img src={"/storage/" + image} alt="" className="size-20 mx-auto object-contain" />
             {/* Top section: Icon + Title */}
             <div className="flex items-center justify-center gap-3">
                 {hasBadge && <MedalIcon number={number} size={40} title="Medal" />}
             </div>
 
-            <p className='text-xl !text-center font-semibold mt-4'>{type !== "Cash" || type !== "Pixel" || type !== "V-Coin" || "Quantity : "} {amount} {type === "Cash" ? "Dollars" : type}</p>
+            <p className='text-xl !text-center font-semibold mt-4'>{amount} {type === "Cash" ? "Dollars" : type}</p>
 
 
             {/* <BorderButton text={`${amount}`} className='w-fit mx-auto mt-4 py-1.5 lg:py-2 px-6 lg:px-10 text-sm lg:text-base' hasIcon={true} /> */}

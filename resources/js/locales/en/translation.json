@@ -298,7 +298,8 @@
                 "daysLeft": "days left"
             },
             "vote": {
-                "title": "Vote"
+                "title": "Vote",
+                "votes": "votes"
             }
         }
     },

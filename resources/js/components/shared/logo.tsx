@@ -22,8 +22,8 @@ export default function Logo({ hasBackground, className }: { hasBackground?: boo
     }, []);
     return (
         <Link href={route('home')}>
-            <img src={"/storage/" + logos?.dark_logo} alt="logo" className={cn('w-24 lg:w-32 ', hasBackground && 'hidden dark:block', className)} />
-            <img src={"/storage/" + logos?.light_logo} alt="logo" className={cn('w-24 lg:w-32 hidden', hasBackground && 'dark:hidden block', className)} />
+            <img src={"/storage/" + logos?.dark_logo} alt="logo" className={cn('w-24 lg:w-32 aspect-[10/4] object-cover', hasBackground && 'hidden dark:block', className)} />
+            <img src={"/storage/" + logos?.light_logo} alt="logo" className={cn('w-24 lg:w-32 aspect-[10/4] object-cover hidden', hasBackground && 'dark:hidden block', className)} />
         </Link>
     )
 }

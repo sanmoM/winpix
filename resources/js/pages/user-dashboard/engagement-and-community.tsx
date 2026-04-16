@@ -53,7 +53,6 @@ export default function WalletTransaction({
         if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
-    console.log(reportedImages);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs as any}>

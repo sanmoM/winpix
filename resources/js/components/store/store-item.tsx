@@ -32,17 +32,6 @@ const StoreItem: React.FC<StoreItemProps> = ({
         const fromData = new FormData();
         fromData.append('price', price);
         fromData.append('id', coinId)
-        // router.post(route('paypal.pay'), fromData, {
-        //     onSuccess: (response) => {
-        //         console.log(response);
-        //         // if (response.redirect_url) {
-        //         //     window.location.href = response.redirect_url;
-        //         // }
-
-        //         setIsOpen(false);
-        //     },
-
-        // });
         axios.post(route('paypal.pay'), fromData).then((response) => {
             if (response.data.paypal_redirect) {
                 window.location.href = response.data.paypal_redirect;

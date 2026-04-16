@@ -22,7 +22,7 @@ import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
 import useBackground from '@/hooks/useBackground';
 import useLocales from '@/hooks/useLocales';
 import { cn } from '@/lib/utils';
-import { logout } from '@/routes';
+import { dashboard, logout } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link, router, usePage } from '@inertiajs/react';
 import { LogOut } from 'lucide-react';
@@ -90,7 +90,9 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavUser />
+                <Link href={dashboard()}>
+                    <NavUser />
+                </Link>
                 <Link
                     className="w-full flex items-center text-sm font-semibold cursor-pointer text-white justify-center rounded-lg bg-red-500 py-2 px-4"
                     href={logout()}

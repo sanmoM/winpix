@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -32,11 +33,14 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        // dd($request->validated()['number']);
-
-        // Update only allowed fields (e.g., name)
         $user->name = $request->validated()['name'] ?? $user->name;
+        $user->email = $request['email'] ?? $user->email;
         $user->number = $request['number'] ?? $user->number;
+        $user->country_id = $request['country_id'] ?? $user->country_id;
+        $user->facebook = $request['facebook'] ?? $user->facebook;
+        $user->instagram = $request['instagram'] ?? $user->instagram;
+        $user->x = $request['x'] ?? $user->x;
+        Log::info($request->all());
 
         // Handle image upload using your File helper
         if ($request->hasFile('image')) {
@@ -49,10 +53,11 @@ class ProfileController extends Controller
             $user->image = File::uploadFile($request->file('image'), 'users');
         }
 
+
         // return dd($user['number']);
         $user->save();
 
-        return to_route('profile.edit')->with('success', 'Profile updated successfully!');
+        return route('dashboard');
     }
 
     /**

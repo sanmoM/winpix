@@ -4,8 +4,41 @@ import { cn } from "@/lib/utils";
 import { User } from "@/types";
 import { usePage } from "@inertiajs/react";
 import React from "react";
+import ImageInput from "./inputs/image-input";
 
-const Creator = ({ containerClassName, infoContainerClassName, imageClassName, followBtnClassName, children, nameClassName, imageContainerClassName, btnText, onClick, hasBtn = true, userFromParent }: { containerClassName?: string, infoContainerClassName?: string, imageClassName?: string, followBtnClassName?: string, children?: React.ReactNode, nameClassName?: string, imageContainerClassName?: string, btnText?: string, onClick?: () => void, hasBtn: boolean, userFromParent?: User }) => {
+const Creator = ({
+    containerClassName,
+    infoContainerClassName,
+    imageClassName,
+    followBtnClassName,
+    children,
+    nameClassName,
+    imageContainerClassName,
+    btnText,
+    onClick,
+    hasBtn = true,
+    userFromParent,
+    type = "image",
+    image,
+    setImage,
+    hasSocialIcons = true
+}: {
+    containerClassName?: string,
+    infoContainerClassName?: string,
+    imageClassName?: string,
+    followBtnClassName?: string,
+    children?: React.ReactNode,
+    nameClassName?: string,
+    imageContainerClassName?: string,
+    btnText?: string,
+    onClick?: () => void,
+    hasBtn: boolean,
+    userFromParent?: User
+    type?: string
+    image?: any
+    setImage?: any
+    hasSocialIcons?: boolean
+}) => {
     const { t } = useLocales()
     const user = userFromParent || usePage().props.auth.user;
     const socialIcons = [
@@ -23,21 +56,29 @@ const Creator = ({ containerClassName, infoContainerClassName, imageClassName, f
                     {user?.name}
                 </span>
                 <p className='my-2'>{user?.email}</p>
-                <div className="flex space-x-4 mt-1 md:mt-2">
-                    {socialIcons.map(({ Icon, href, ariaLabel }) => (
-                        <SocialIcon Icon={Icon} href={href} ariaLabel={ariaLabel} containerClassName="w-8 h-8" />
-                    ))}
-                </div>
+                {
+                    hasSocialIcons && <div className="flex space-x-4 mt-1 md:mt-2">
+                        {socialIcons.map(({ Icon, href, ariaLabel }) => (
+                            <SocialIcon Icon={Icon} href={href} ariaLabel={ariaLabel} containerClassName="w-8 h-8" />
+                        ))}
+                    </div>
+                }
                 {children}
             </div>
 
             {/* Profile Picture */}
             <div className={cn("relative", imageContainerClassName)}>
-                <img
-                    src={user?.image ? "/storage/" + user?.image : "/images/user-avatar.png"}
-                    alt="hasmonaut's profile"
-                    className={cn("w-20 h-20 rounded-full object-cover object-top border-2", imageClassName)}
-                />
+                {
+                    type === "image" ? <img
+                        src={user?.image ? "/storage/" + user?.image : "/images/user-avatar.png"}
+                        alt="hasmonaut's profile"
+                        className={cn("w-20 h-20 rounded-full object-cover object-top border-2", imageClassName)}
+                    /> : <ImageInput
+                        image={image}
+                        containerClassName={cn("w-20 h-20 object-cover object-top border-none", image && "rounded-full", imageClassName)}
+                        setImage={setImage}
+                    />
+                }
                 {/* Follow Button */}
                 {
                     hasBtn && <button className={cn("absolute cursor-pointer text-white bottom-0 left-1/2 -translate-x-1/2 transform translate-y-1/4 px-4 py-0.5 ease-in-out bg-gradient-to-r bg-[linear-gradient(45deg,var(--color-primary-color),var(--color-secondary-color))] rounded-full text-[10px]", followBtnClassName)}

@@ -47,20 +47,24 @@ export default function CoinAndNotification({ hasBackground, direction, t }: { h
 
     return (
         <div className="flex gap-4 items-center">
-            <div className="flex items-center gap-2">
-                <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
-                 <Link href={dashboard()}>
-                   {auth?.user?.coin}
-                </Link>
-            </div>
-            <div className="flex items-center gap-2">
-                <img src="/images/coin.png" alt="" className="w-4 h-4" />
-                <Link href={dashboard()}>{auth?.user?.pixel}</Link>
-            </div>
-            <div className="flex items-center gap-2">
-                <img src="/images/cash.png" alt="" className="w-6 h-6" />
-                <Link href={dashboard()}> {auth?.user?.cash} </Link>
-            </div>
+            <Link href={dashboard()}>
+                <div className="flex items-center gap-2">
+                    <img src="/images/golden-coin.png" alt="" className="w-4 h-4" />
+                    {auth?.user?.coin}
+                </div>
+            </Link>
+            <Link href={dashboard()}>
+                <div className="flex items-center gap-2">
+                    <img src="/images/coin.png" alt="" className="w-4 h-4" />
+                    {auth?.user?.pixel}
+                </div>
+            </Link>
+            <Link href={dashboard()}>
+                <div className="flex items-center gap-2">
+                    <img src="/images/cash.png" alt="" className="w-6 h-6" />
+                    {auth?.user?.cash}
+                </div>
+            </Link>
             <div className="">
                 <button
                     ref={buttonRef}

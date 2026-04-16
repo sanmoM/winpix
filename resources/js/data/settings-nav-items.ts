@@ -10,16 +10,16 @@ export const settingsNavItemsEN: NavItem[] = [
         title: 'Settings',
         icon: Settings,
         subItems: [
-            {
-                title: 'Edit Profile',
-                href: edit(),
-                icon: null,
-            },
-            {
-                title: 'Social Links',
-                href: "/settings/social-links",
-                icon: null,
-            },
+            // {
+            //     title: 'Edit Profile',
+            //     href: edit(),
+            //     icon: null,
+            // },
+            // {
+            //     title: 'Social Links',
+            //     href: "/settings/social-links",
+            //     icon: null,
+            // },
             {
                 title: 'Shipping Address',
                 href: "/settings/address",
@@ -52,16 +52,16 @@ export const settingsNavItemsEN: NavItem[] = [
 ];
 
 export const settingsNavItemsAR: NavItem[] = [
-    {
-        title: 'تعديل الملف الشخصي',
-        href: edit(),
-        icon: null,
-    },
-    {
-        title: 'روابط التواصل الاجتماعي',
-        href: "/settings/social-links",
-        icon: null,
-    },
+    // {
+    //     title: 'تعديل الملف الشخصي',
+    //     href: edit(),
+    //     icon: null,
+    // },
+    // {
+    //     title: 'روابط التواصل الاجتماعي',
+    //     href: "/settings/social-links",
+    //     icon: null,
+    // },
     {
         title: 'الحسابات المرتبطة',
         href: "/settings/link-social-account",

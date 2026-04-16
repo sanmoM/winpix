@@ -65,10 +65,8 @@ export default function Edit({ image, vote }: EditProps) {
                 aria-modal="true"
             >
                 <form
-                    // onClick={(e) => e.stopPropagation()}
                     onSubmit={(e) => {
                         e.preventDefault();
-                        // console.log("first")
                         handleVote(
                             image?.id,
                             image?.quest_id,

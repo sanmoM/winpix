@@ -6,6 +6,7 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "./custom-slider.css";
+import { cn } from "@/lib/utils";
 
 interface CustomSliderProps {
     children: React.ReactNode[];
@@ -17,6 +18,8 @@ interface CustomSliderProps {
     index?: number;
     handleNextFunc?: () => void;
     handlePrevFunc?: () => void;
+    onSlideChange?: (index: number) => void;
+    containerClassName?: string;
 }
 
 export default function CustomSlider({
@@ -29,6 +32,8 @@ export default function CustomSlider({
     index = 0,
     handleNextFunc,
     handlePrevFunc,
+    onSlideChange,
+    containerClassName = "",
 }: CustomSliderProps) {
     const swiperRef = useRef<SwiperType | null>(null);
 
@@ -44,8 +49,9 @@ export default function CustomSlider({
 
 
     return (
-        <div className="relative w-full">
+        <div className={cn("relative w-full", containerClassName)}>
             <Swiper
+                onSlideChange={onSlideChange}
                 initialSlide={index}
                 className="mySwiper"
                 modules={[Autoplay, Navigation]}

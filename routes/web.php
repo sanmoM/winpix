@@ -25,6 +25,7 @@ use App\Http\Controllers\PrizePoolController;
 use App\Http\Controllers\TransactionController;
 use App\Models\ContestWinner;
 use App\Models\Country;
+use App\Models\Notification;
 use App\Models\QuestImage;
 use App\Models\QuestJoin;
 use App\Models\Report;
@@ -230,18 +231,6 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
         ]);
     })->name('engagement-and-community');
 
-    // Route::get('/create-notification', function ($request) {
-    //     $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'subtitle' => 'required|string',
-    //         'user_id' => 'required|integer|exists:users,id',
-    //     ]);
-    //     return Inertia::render('user-dashboard/create-notification', [
-    //         'redirectTo' => $request->input('redirectTo', null),
-    //     ]);
-
-    // })->name('create-notification');
-
     Route::get('/notifications', function () {
         $user = auth()->user();
         $notifications = $user->notifications()->orderBy('created_at', 'desc')->get();
@@ -250,6 +239,14 @@ Route::middleware(['auth', 'verified', 'role:user,jury'])->group(function () {
             'notifications' => $notifications,
         ]);
     })->name('notifications');
+
+    Route::get('/notifications/mark-as-read-all', function () {
+        $user = auth()->user();
+        $notifications = Notification::where('user_id', $user->id)
+            ->update(['is_read' => 1]);
+
+        return redirect()->back();
+    });
 
     Route::post('/mark-as-read', function ($request) {
         $request->validate([
@@ -306,6 +303,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('/users', [UserController::class, 'allUsers'])->name('admin.allUsers');
     Route::get('/users/view/{id}', [UserController::class, 'show'])->name('admin.view-user');
     Route::get('/users/edit/{id}', [UserController::class, 'EditUsers'])->name('admin.editUsers');
+    Route::get('/users/send-gift-view/{id}', [UserController::class, 'sendGiftView'])->name('admin.sendGiftView');
+    Route::put('/users/send-gift/{id}', [UserController::class, 'sendGift'])->name('admin.sendGift');
     Route::get('/users/change-password/{id}', [UserController::class, 'ChangePasswordUsers'])->name('admin.ChangePasswordUsers');
     Route::put('/users/password/update/{id}', [UserController::class, 'PasswordUpdate'])->name('admin.PasswordUpdateUsers');
     Route::put('/users/update/{id}', [UserController::class, 'updateUsers'])->name('admin.updateUsers');

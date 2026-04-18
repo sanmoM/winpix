@@ -27,7 +27,6 @@ export default function Prizes({ t, prizes }: { t: any, prizes: any[] }) {
         return () => window.removeEventListener('resize', updateVisibleCount);
     }, []);
 
-    console.log(prizes)
 
     return (
         <div>

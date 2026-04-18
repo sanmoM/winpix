@@ -5,6 +5,7 @@ import { Link } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import { FaTrophy } from "react-icons/fa";
 import QuestItem from "./components/quest-item";
+import { IoCameraOutline } from "react-icons/io5";
 
 const ImageViewSidebar = ({ data }: any) => {
     const [imageHistory, setImageHistory] = useState(null);
@@ -33,28 +34,30 @@ const ImageViewSidebar = ({ data }: any) => {
     return (
         <aside className="w-full lg:h-full bg-bg-primary p-6">
             {/* Header */}
-            <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <img
-                        src={data?.user?.image ? "/storage/" + data?.user?.image : "/images/user-avatar.png"}
-                        alt="User Avatar"
-                        className="h-10 w-10 rounded-full"
-                    />
-                    <div>
-                        <h1 className="font-semibold">{data?.user?.name}</h1>
-                        <span className="text-sm text-gray-400">{data?.user?.level}</span>
+            <div className="bg-[var(--background)] p-4 rounded-2xl">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <img
+                            src={data?.user?.image ? "/storage/" + data?.user?.image : "/images/user-avatar.png"}
+                            alt="User Avatar"
+                            className="h-10 w-10 rounded-full"
+                        />
+                        <div>
+                            <h1 className="font-semibold">{data?.user?.name}</h1>
+                        </div>
                     </div>
+                    {/* <Button text="Follow" className="px-6 py-1.5 mx-0" /> */}
                 </div>
-                {/* <Button text="Follow" className="px-6 py-1.5 mx-0" /> */}
+                <h1 className="flex items-center font-light gap-2 mt-4 text-gray-400 ml-2"><IoCameraOutline className="text-2xl" />{data?.camera}</h1>
             </div>
 
-            <div className="space-y-4 my-8">
+            <div className="space-y-4 my-4">
                 {
                     imageHistory && (
                         <>
                             {
                                 imageHistory?.ended_quest?.length > 0 && (
-                                    <div className="mb-8 rounded-lg border p-4 mt-4 grid grid-cols-4">
+                                    <div className="mb-4 grid grid-cols-4 bg-[var(--background)] p-4 rounded-2xl">
                                         {
                                             Object.keys(positions).sort((a, b) => a - b)?.slice(0, 4).map((key: any) => (
                                                 <div className="flex flex-col justify-center items-center gap-1">
@@ -71,7 +74,7 @@ const ImageViewSidebar = ({ data }: any) => {
                             }
                             {
                                 imageHistory?.active_quest?.length > 0 && (
-                                    <div>
+                                    <div className="bg-[var(--background)] p-4 rounded-2xl">
                                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-500">
                                             {t('shared.imageView.activeQuest.title')}
                                         </h3>
@@ -93,7 +96,7 @@ const ImageViewSidebar = ({ data }: any) => {
                             }
                             {
                                 imageHistory?.ended_quest?.length > 0 && (
-                                    <div>
+                                    <div className="bg-[var(--background)] p-4 rounded-2xl">
                                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-500">
                                             Quest History
                                         </h3>

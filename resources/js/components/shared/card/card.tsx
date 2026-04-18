@@ -47,10 +47,10 @@ export default function Card({ item, isSeries = false }: any) {
             </div>
 
             {/* Bottom Content */}
-            <div className="absolute right-0 bottom-0 left-0 p-5 text-white">
+            <div className="absolute right-0 bottom-0 left-0 p-4 text-white">
                 <div className="flex items-end justify-between">
                     <div>
-                        <h2 className="mb-2 text-2xl font-bold">
+                        <h2 className="mb-2 text-2xl font-bold line-clamp-1">
                             {currentLanguage === 'en'
                                 ? item?.title_en
                                 : item?.title_ar}
@@ -72,31 +72,6 @@ export default function Card({ item, isSeries = false }: any) {
                                     }, 0) + " USD"
                                     : item?.prizes?.[0]?.coin + " " + getPrizeLabel(item?.prizes?.[0]?.prize_pool?.name)}
                             </span>
-                            {/* <span className="text-sm font-medium">
-                                {isSeries
-                                    ? item?.quests?.reduce((acc, current) => {
-                                        //   acc += current?.entry_coin;
-                                        const total = current?.prizes?.reduce((acc, current) => {
-                                            if (current?.prize_pool?.name?.toLowerCase() === 'cash') {
-                                                acc += current?.coin;
-                                            }
-                                            return acc;
-                                        }, 0)
-                                        acc += total;
-                                        return acc;
-                                    }, 0)
-                                    : item?.prizes?.reduce((acc, current) => {
-                                        // acc += current?.prize
-                                        if (
-                                            current?.prize_pool?.name?.toLowerCase() ===
-                                            'cash'
-                                        ) {
-                                            acc += current?.coin;
-                                        }
-                                        return acc;
-                                    }, 0)}{' '}
-                                USD
-                            </span> */}
                         </div>
                     </div>
                     <div className="flex flex-col items-center">
@@ -110,7 +85,7 @@ export default function Card({ item, isSeries = false }: any) {
                                 <p>X {item?.entry_coin}</p>
                             </div>
                         )}
-                        <span className="rounded-full bg-white/10 px-4 py-1 text-[11px] font-semibold tracking-wider text-white backdrop-blur-[3px]">
+                        <span className="rounded-full text-nowrap bg-white/10 px-4 py-1 text-[11px] font-semibold tracking-wider text-white backdrop-blur-[3px]">
                             {isSeries ? (
                                 <span>@{item?.user?.name}</span>
                             ) : (

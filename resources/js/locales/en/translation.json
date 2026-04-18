@@ -1377,7 +1377,10 @@
                         "title": "Send Gift",
                         "href": ""
                     }
-                ]
+                ],
+                "buttons": {
+                    "sendGift": "Send Gift"
+                }
             }
         },
         "judges": {

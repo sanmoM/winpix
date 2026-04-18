@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Country;
+use App\Models\Notification;
 use App\Models\QuestImage;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -176,6 +177,29 @@ class UserController extends Controller
 
     public function sendGiftView($id)
     {
-        return inertia::render("Admin/Users/SendGiftView", ['user' => User::find($id)]);
+        return inertia::render("Admin/Users/SendGiftView", ['userId' => $id]);
+    }
+
+    public function sendGift(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $validated = $request->validate([
+            'type' => 'required|string|in:pixel,v-coin',
+            'amount' => 'required|numeric',
+        ]);
+
+        if ($validated['type'] === 'v-coin') {
+            $user->increment('coin', $validated['amount']);
+        } else {
+            $user->increment('pixel', $validated['amount']);
+        }
+        Notification::create([
+            'user_id' => $user->id,
+            'title' => 'Winpix gift',
+            'message' => "You have received $validated[amount]" . $validated['type'] === 'v-coin' ? ' V-Coin' : ' Pixel' . "from Winpix",
+        ]);
+        return redirect()
+            ->route('admin.allUsers')
+            ->with('success', 'User updated successfully 🎉');
     }
 }

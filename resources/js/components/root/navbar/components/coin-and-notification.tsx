@@ -13,6 +13,8 @@ export default function CoinAndNotification({ hasBackground, direction, t, dashb
     const buttonRef = useRef<HTMLButtonElement>(null);
     const { auth } = usePage<any>().props
 
+    const [hasNotification, setHasNotification] = useState(false);
+
     const [notifications, setNotifications] = useState<any[]>([]);
     useEffect(() => {
         const fetchNotifications = async () => {
@@ -45,6 +47,19 @@ export default function CoinAndNotification({ hasBackground, direction, t, dashb
 
 
 
+    const handleReadNotification = async () => {
+        if (!hasNotification) return;
+        await axios.get("/notifications/mark-as-read-all");
+        setHasNotification(false)
+    };
+
+    useEffect(() => {
+        const hasUnread = notifications?.find((notification: any) => !notification.is_read)
+        if (hasUnread) {
+            setHasNotification(true)
+        }
+    }, [notifications])
+
     return (
         <div className="flex gap-4 items-center">
             <Link href={dashboardUrl}>
@@ -68,15 +83,21 @@ export default function CoinAndNotification({ hasBackground, direction, t, dashb
             <div className="">
                 <button
                     ref={buttonRef}
-                    onClick={() => setNotifyOpen(!notifyOpen)}
+                    onClick={() => {
+                        setNotifyOpen(!notifyOpen)
+                        handleReadNotification()
+                    }}
                     className={cn(
-                        "w-6 h-6 cursor-pointer flex items-center justify-center",
+                        "w-6 h-6 cursor-pointer flex items-center justify-center relative",
                         hasBackground ? "hover:text-primary-color" : "hover:opacity-70"
                     )}
                 >
+                    {
+                        hasNotification && <div className="bg-red-500 size-2 rounded-full absolute top-1 right-1" />
+                    }
                     <IoMdNotificationsOutline className="w-6 h-6" />
                 </button>
-                <div className={cn("absolute rounded-lg border top-[110%] lg:top-[200%] bg-bg-primary h-[300px] w-[calc(100vw-32px)] md:w-[350px]", notifyOpen ? "block" : "hidden", direction === "right" ? "left-0" : "right-0")} ref={menuRef}>
+                <div className={cn("absolute rounded-lg border top-[110%] lg:top-[200%] bg-bg-primary h-[300px] overflow-y-auto w-[calc(100vw-32px)] md:w-[350px]", notifyOpen ? "block" : "hidden", direction === "right" ? "left-0" : "right-0")} ref={menuRef}>
                     <div>
                         <SecondarySectionHeading className="border-b pb-4 !text-center mt-4 mb-0 md:mb-0 lg:mb-0  text-black dark:text-white" title={t('root.navbar.notifications.title')} />
                         <div className="w-full max-w-sm">

@@ -360,10 +360,14 @@ class FrontendController extends Controller
     {
         $helpCategories = Help::all();
 
-        // return dd($helpCategories);
-        return Inertia::render('help/all-help-categories', [
-            'helpCategories' => $helpCategories,
+        return Inertia::render('help/single-category-helps', [
+            'helps' => $helpCategories,
         ]);
+
+        // $helpCategories = Help::all();
+        // return Inertia::render('help/all-help-categories', [
+        //     'helpCategories' => $helpCategories,
+        // ]);
     }
 
     public function singleCategoryHelps($section)
@@ -389,8 +393,12 @@ class FrontendController extends Controller
     public function searchedHelps()
     {
         $searchTerm = request()->query('searchTerm');
-        $helps = Help::where('question', 'LIKE', '%'.$searchTerm.'%')
-            ->orWhere('answer', 'LIKE', '%'.$searchTerm.'%')
+        $lang = request()->query('lang');
+        $helps = Help::where('lang', $lang)
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('question', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('answer', 'LIKE', '%' . $searchTerm . '%');
+            })
             ->get();
 
         return Inertia::render('help/searched-helps', [
@@ -444,17 +452,17 @@ class FrontendController extends Controller
             ]
         );
 
-        if (! $isAlreadyJoin) {
+        if (!$isAlreadyJoin) {
             Notification::create([
                 'user_id' => $user->id,
                 'title' => 'Join Quest',
-                'message' => $user->name.' has joined your quest: '.$questFromDb->title,
+                'message' => $user->name . ' has joined your quest: ' . $questFromDb->title,
             ]);
         } else {
             Notification::create([
                 'user_id' => $user->id,
                 'title' => 'Image submited to Quest',
-                'message' => $user->name.' has submitted an image to quest: '.$questFromDb->title,
+                'message' => $user->name . ' has submitted an image to quest: ' . $questFromDb->title,
             ]);
         }
 
@@ -506,7 +514,7 @@ class FrontendController extends Controller
 
         if ($quest->vote_rights === 'Judges') {
             abort_unless(
-                ! ($user->role === 'jury' &&
+                !($user->role === 'jury' &&
                     JudgePanel::where('quest_id', $quest->id)
                         ->where('user_id', $user->id)
                         ->exists()),
@@ -546,7 +554,7 @@ class FrontendController extends Controller
 
         if ($quest->vote_rights === 'Judges') {
             abort_unless(
-                ! ($user->role === 'jury' &&
+                !($user->role === 'jury' &&
                     JudgePanel::where('quest_id', $quest->id)
                         ->where('user_id', $user->id)
                         ->exists()),

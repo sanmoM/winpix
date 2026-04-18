@@ -6,11 +6,11 @@ import { useState } from 'react'
 import { MdOutlineClose } from 'react-icons/md'
 
 export default function SearchInput() {
-    const { direction } = useLocales()
+    const { direction, currentLanguage } = useLocales()
     const [searchTerm, setSearchTerm] = useState('');
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        router.get('/searched-helps', { searchTerm });
+        router.get('/searched-helps', { searchTerm, lang: currentLanguage });
     };
     return (
         <form className="relative w-48 sm:w-64" onSubmit={handleSubmit}>

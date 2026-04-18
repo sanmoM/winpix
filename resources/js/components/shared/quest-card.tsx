@@ -40,7 +40,7 @@ function QuestSubmitCard({ quest, href }: QuestCardProps) {
                 </div>
 
                 {/* Category Badge */}
-                <div className="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-white/50 dark:bg-black/50 backdrop-blur-[2px] text-accent-foreground text-xs font-medium">
+                <div className="absolute overflow-hidden top-3 right-3 px-3 line-clamp-1 py-1.5 rounded-full bg-white/50 dark:bg-black/50 backdrop-blur-[2px] text-accent-foreground text-xs font-medium">
                     #{quest.category}
                 </div>
             </div>
@@ -48,7 +48,7 @@ function QuestSubmitCard({ quest, href }: QuestCardProps) {
             <div className="relative p-4 flex flex-col h-full">
                 {/* Title */}
                 <div className='flex justify-between items-start mb-4'>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-2  transition-colors">
+                    <h3 className="text-lg font-bold text-gray-900 line-clamp-1 dark:text-gray-100 mb-2  transition-colors">
                         {quest.title}
                     </h3>
                     <div className="flex gap-2 items-center">
@@ -56,7 +56,7 @@ function QuestSubmitCard({ quest, href }: QuestCardProps) {
                         <span>200</span>
                     </div>
                 </div>
-                <Button className="w-fit mx-auto px-8 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all duration-300 group-hover:shadow-lg" text={t('shared.questCard.btnText')} />
+                <Button className="w-fit mx-auto text-nowrap px-8 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-all duration-300 group-hover:shadow-lg" text={t('shared.questCard.btnText')} />
             </div>
         </Link>
     );

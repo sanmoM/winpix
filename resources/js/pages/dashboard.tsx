@@ -32,7 +32,7 @@ export default function Dashboard({ countries }: { countries: any[] }) {
     // console.log(email !== user?.email)
     // console.log(country !== user?.country?.id)
     // console.log(phone !== user?.number)
-    console.log(image, user?.image)
+    // console.log(image, user?.image)
     // console.log(facebook, user?.facebook)
     // console.log(instagram, user?.instagram)
     // console.log(twitter, user?.x)

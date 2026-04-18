@@ -7,7 +7,6 @@ import ImageActionButtons from "../../image-action-buttons/image-action-buttons"
 // --- Image Panel Component ---
 const ImagePanel = ({ setIsOpen, data, index, hasClose = true, setImageIndex }: any) => {
     const [activeIndex, setActiveIndex] = useState(index);
-    console.log(activeIndex, "activeIndex")
     return (
         <div className="relative h-full">
             <div className="absolute top-4 right-4 z-[20] flex items-center gap-2">

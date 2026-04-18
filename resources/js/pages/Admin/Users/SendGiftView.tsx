@@ -30,7 +30,6 @@ export default function SendGiftView({ userId }: { userId: number }) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("first")
         put(route('admin.sendGift', { id: userId }));
     };
     return (

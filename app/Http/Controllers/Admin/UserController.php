@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\Notification;
 use App\Models\QuestImage;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -196,7 +197,17 @@ class UserController extends Controller
         Notification::create([
             'user_id' => $user->id,
             'title' => 'Winpix gift',
-            'message' => "You have received $validated[amount]" . $validated['type'] === 'v-coin' ? ' V-Coin' : ' Pixel' . "from Winpix",
+            'message' => "You have received $validated[amount]" . ($validated['type'] === 'v-coin' ? ' V-Coin' : ' Pixel' . " from Winpix"),
+        ]);
+
+        Transaction::create([
+            'user_id' => $user->id,
+            'transaction_type' => 'gift',
+            'amount' => $validated['amount'],
+            'amount_type' => $validated['type'] === 'v-coin' ? 'v-coin' : 'pixel',
+            'currency' => "N/A",
+            'payment_method' => 'N/A',
+            'status' => 'completed',
         ]);
         return redirect()
             ->route('admin.allUsers')

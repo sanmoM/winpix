@@ -44,7 +44,6 @@ export default function ImageInput({
 
     const imgSrc = getImageSrc();
 
-    console.log(imgSrc)
 
     return (
         <div>

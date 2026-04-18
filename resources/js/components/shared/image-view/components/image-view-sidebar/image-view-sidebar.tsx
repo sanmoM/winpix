@@ -8,7 +8,6 @@ import QuestItem from "./components/quest-item";
 import { IoCameraOutline } from "react-icons/io5";
 
 const ImageViewSidebar = ({ data }: any) => {
-    console.log(data)
     const [imageHistory, setImageHistory] = useState(null);
     const { currentLanguage, t } = useLocales()
     useEffect(() => {

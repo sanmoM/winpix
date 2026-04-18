@@ -66,7 +66,7 @@ export function AppSidebar() {
 
     const dashboardHref =
         userRole === 'admin'
-            ? 'admin/dashboard'
+            ? '/admin/dashboard'
             : userRole === 'user' || userRole === 'jury'
                 ? '/dashboard'
                 : '/';

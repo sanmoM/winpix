@@ -40,7 +40,6 @@ class ProfileController extends Controller
         $user->facebook = $request['facebook'] ?? $user->facebook;
         $user->instagram = $request['instagram'] ?? $user->instagram;
         $user->x = $request['x'] ?? $user->x;
-        Log::info($request->all());
 
         // Handle image upload using your File helper
         if ($request->hasFile('image')) {

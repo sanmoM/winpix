@@ -47,7 +47,7 @@
                 },
                 "store": "Store",
                 "redeem": "Redeem",
-                "dashboard": "Dashboard",
+                "dashboard": "My Profile / Dashboard",
                 "aboutUs": "About Us",
                 "help": "Help"
             },
@@ -1360,8 +1360,24 @@
                         "Rank",
                         "Status",
                         "Actions"
-                    ]
+                    ],
+                    "buttons": {
+                        "sendGift": "Send Gift"
+                    }
                 }
+            },
+            "sendGiftView": {
+                "title": "Send Gift",
+                "breadcrumbs": [
+                    {
+                        "title": "All Users",
+                        "href": "/admin/users"
+                    },
+                    {
+                        "title": "Send Gift",
+                        "href": ""
+                    }
+                ]
             }
         },
         "judges": {

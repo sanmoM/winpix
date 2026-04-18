@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
-use Inertia\Response;
+use App\Helpers\FileHelper as File;
 
 class UserController extends Controller
 {
@@ -52,6 +52,15 @@ class UserController extends Controller
             'country_id' => 'nullable',
             'status' => 'required|string',
         ]);
+
+        if ($request->hasFile('image')) {
+            // Delete old image
+            if ($item->image) {
+                File::deleteFile($item->image);
+            }
+            // Upload new image
+            $validated['image'] = File::uploadFile($request->file('image'), 'users');
+        }
 
         $item->update($validated);
 
@@ -121,7 +130,7 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
 
@@ -163,5 +172,10 @@ class UserController extends Controller
         return redirect()
             ->route('admin.allJudge')
             ->with('success', 'User updated successfully 🎉');
+    }
+
+    public function sendGiftView($id)
+    {
+        return inertia::render("Admin/Users/SendGiftView", ['user' => User::find($id)]);
     }
 }

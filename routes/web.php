@@ -306,6 +306,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::get('/users', [UserController::class, 'allUsers'])->name('admin.allUsers');
     Route::get('/users/view/{id}', [UserController::class, 'show'])->name('admin.view-user');
     Route::get('/users/edit/{id}', [UserController::class, 'EditUsers'])->name('admin.editUsers');
+    Route::get('/users/send-gift/{id}', [UserController::class, 'sendGiftView'])->name('admin.sendGiftView');
     Route::get('/users/change-password/{id}', [UserController::class, 'ChangePasswordUsers'])->name('admin.ChangePasswordUsers');
     Route::put('/users/password/update/{id}', [UserController::class, 'PasswordUpdate'])->name('admin.PasswordUpdateUsers');
     Route::put('/users/update/{id}', [UserController::class, 'updateUsers'])->name('admin.updateUsers');

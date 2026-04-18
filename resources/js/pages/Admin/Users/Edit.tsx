@@ -1,3 +1,4 @@
+import ImageInput from '@/components/shared/inputs/image-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
@@ -42,6 +43,7 @@ export default function Edit({ user, countries }: EditProps) {
         coin: user.coin,
         cash: user.cash,
         country_id: user.country_id || '',
+        image: user.image ? "/storage/" + user.image : "",
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -57,6 +59,12 @@ export default function Edit({ user, countries }: EditProps) {
                 onSubmit={handleSubmit}
                 className="flex max-w-6xl flex-col space-y-4 p-6"
             >
+                <ImageInput
+                    image={data.image}
+                    setImage={(image) => setData('image', image)}
+                    label="Image"
+                    wrapperClassName='aspect-square w-1/2 lg:w-[20%]'
+                />
                 {/* Name */}
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="name">Name</Label>
@@ -130,8 +138,7 @@ export default function Edit({ user, countries }: EditProps) {
                     )}
                 </div>
 
-                {/* Coin */}
-                <div className="grid w-full items-center gap-3">
+                {/* <div className="grid w-full items-center gap-3">
                     <Label htmlFor="coin">Coin</Label>
                     <Input
                         id="coin"
@@ -147,7 +154,6 @@ export default function Edit({ user, countries }: EditProps) {
                     )}
                 </div>
 
-                {/* Pixel */}
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="pixel">Pixel</Label>
                     <Input
@@ -164,7 +170,6 @@ export default function Edit({ user, countries }: EditProps) {
                     )}
                 </div>
 
-                {/* Cash */}
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="cash">Cash</Label>
                     <Input
@@ -179,7 +184,7 @@ export default function Edit({ user, countries }: EditProps) {
                     {errors.cash && (
                         <p className="text-sm text-red-600">{errors.cash}</p>
                     )}
-                </div>
+                </div> */}
 
                 {/* Status Selection */}
                 <div className="grid w-full items-center gap-2">

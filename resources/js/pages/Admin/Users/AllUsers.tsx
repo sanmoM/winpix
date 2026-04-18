@@ -11,7 +11,7 @@ import TableContainer from '@/components/shared/table/table-container';
 import { Badge } from '@/components/ui/badge';
 import useLocales from '@/hooks/useLocales';
 import AppLayout from '@/layouts/app-layout';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { route } from 'ziggy-js';
@@ -98,6 +98,12 @@ export default function UsersIndex({
                                             user.id,
                                         )}
                                     />
+                                    <Link
+                                        href={route("admin.sendGiftView", user.id)}
+                                        className="bg-dark cursor-pointer rounded-md bg-amber-700 px-3 py-2 font-medium text-white"
+                                    >
+                                        {t('dashboard.users.index.table.buttons.sendGift')}
+                                    </Link>
 
                                     <ChangePasswordButton
                                         route={route(

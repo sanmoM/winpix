@@ -25,7 +25,7 @@ export default function Gallery({ title, galleryImages, hasImageView = true }: a
                             }}
                             item={{
                                 image: item?.image,
-                                user: item?.user
+                                user: item?.user,
                             }}
                             actionButtons={
                                 <ImageActionButtons data={{
@@ -42,7 +42,7 @@ export default function Gallery({ title, galleryImages, hasImageView = true }: a
             </div>
 
             {
-                isImageViewOpen && hasImageView && <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} data={galleryImages?.map((item) => ({ image: item?.image, user: item?.user, id: item?.id }))} index={imageIndex} setImageIndex={setImageIndex} />
+                isImageViewOpen && hasImageView && <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} data={galleryImages?.map((item) => ({ image: item?.image, user: item?.user, id: item?.id, camera: item?.camera }))} index={imageIndex} setImageIndex={setImageIndex} />
             }
         </div>
     );

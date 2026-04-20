@@ -22,6 +22,7 @@ export default function ScoreContest({ questImages }: { questImages: any }) {
                     {t('dashboard.jury.contest.index.title')}
                 </h1>
                 <ScoreModal questImages={questImages} />
+                
             </TableContainer>
         </AppLayout>
     )

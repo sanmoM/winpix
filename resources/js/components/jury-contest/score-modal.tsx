@@ -9,6 +9,7 @@ import TextInput from '../shared/inputs/text-input';
 import NoData from '../shared/no-data';
 import BorderButton from '../shared/buttons/border-button';
 import ScoreContent from './score-content';
+import ImageView from '../shared/image-view/image-view';
 
 interface QuestImage {
     id: number;
@@ -20,8 +21,10 @@ interface ModalProps {
 }
 
 const ScoreModal: React.FC<ModalProps> = ({ questImages }) => {
-    const [score, setScore] = useState<number | null>(1);
+    const [score, setScore] = useState<number | null>(5);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isImageViewOpen, setIsImageViewOpen] = useState(false);
+    const [imageIndex, setImageIndex] = useState(0);
 
     useEffect(() => {
         setCurrentIndex(0);
@@ -69,6 +72,8 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages }) => {
 
     const singleQuestImage = questImages[currentIndex];
 
+    console.log(singleQuestImage)
+
     return (
         <div
             className="flex h-[70vh] flex-col"
@@ -108,7 +113,7 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages }) => {
                             />
                         </div>
                     </div> */}
-                    <ScoreContent image={singleQuestImage?.image} setScore={setScore} score={score} max={10} />
+                    <ScoreContent image={singleQuestImage?.image} setScore={setScore} score={score} max={10} setIsImageViewOpen={setIsImageViewOpen} setImageIndex={setImageIndex} />
                     <div className='grid grid-cols-2 gap-4 w-fit mx-auto mb-1'>
                         <BorderButton
                             type={"button"}
@@ -124,6 +129,7 @@ const ScoreModal: React.FC<ModalProps> = ({ questImages }) => {
                             className="mt-4 px-10 py-1.5 !text-lg"
                         />
                     </div>
+                    <ImageView isOpen={isImageViewOpen} setIsOpen={setIsImageViewOpen} data={[{ image: singleQuestImage?.image, user: singleQuestImage?.user, id: singleQuestImage?.id, camera: singleQuestImage?.camera_brand }]} index={0} setImageIndex={setImageIndex} />
                 </form>
             ) : (
                 <NoData text="No more images" />

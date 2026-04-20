@@ -1,11 +1,15 @@
 import React from 'react'
 import TextInput from '../shared/inputs/text-input';
 
-export default function ScoreContent({ image, setScore, score, max }: { image: any, setScore: any, score: any, max?: number }) {
+export default function ScoreContent({ image, setScore, score, max, setIsImageViewOpen, setImageIndex }: any) {
     return (
         <div className="group relative flex h-full w-xl cursor-pointer flex-col overflow-hidden rounded-lg">
             <div className="mb-3 flex-1 overflow-hidden rounded-xl bg-bg-primary">
                 <img
+                    onClick={() => {
+                        setIsImageViewOpen(true)
+                        setImageIndex(0)
+                    }}
                     src={'/storage/' + image}
                     alt={`Photo`}
                     className="h-full w-full rounded-md object-contain duration-300 group-hover:scale-105"

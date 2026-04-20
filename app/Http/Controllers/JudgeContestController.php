@@ -130,6 +130,7 @@ class JudgeContestController extends Controller
             ->whereDoesntHave('vote', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             })
+            ->with('user')
             ->get();
 
         return Inertia::render('Jury/contest-pannel/score-contest', [
